@@ -1,10 +1,8 @@
-I stop playing FGO. 5 years withit and still no change it bad gacha. So I'm done with this game. So No More Update.
+Since Nechi stopped playing FGO around November/2021, I've taken it upon myself to continue updating this amazing Servant checklist with any new Servant releases for both NA and JP.
 
-Just another FGO Servant Checklist, but with NP Count.
-I make it possible to use with other gasha game which use multiple copy fomula.
-https://nechigawara.github.io/nechi-fgo-checklist/
+The original version of this checklist can be found here: https://nechigawara.github.io/nechi-fgo-checklist/
 
-Library Use:
+Libraries used:
 * jQuery
 * Bootstrap 4
 * Popper.js
@@ -13,12 +11,10 @@ Library Use:
 * html2canvas
 * lz-string
 
-External Sevice Use:
+External sevices used:
 * imgur
-* jsonstore.io (obsolete)
-* TinyURL (obsolete)
 * is.gd
 * FileSaver.js
 
 What to do:
-* Improve the site as I see fit?
+* Continue updating with new Servant releases
