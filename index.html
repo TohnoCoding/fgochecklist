@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Nechigawara's FGO Servant Checklist with NP Count</title>
+	<title>FGO Servant checklist with NP count (forked from Nechigawara)</title>
 	<link rel="icon" href="favicon.ico">
 	<!-- OG -->
 	<meta property="og:title"              content="Nechigawara's FGO Servant Checklist with NP Count" />
@@ -39,28 +39,22 @@
 <nav class="navbar navbar-dark bg-secondary">
   <span class="navbar-brand" href="#">
     <img src="img/DSGO.png" width="30" height="30" class="d-inline-block align-top" alt="">
-    Nechigawara's FGO Servant Checklist with NP Count 2.0
+    FGO Servant checklist with NP Count 2.1 (forked from <a href="https://nechigawara.github.io/nechi-fgo-checklist/" target="_blank">Nechigawara</a>)
   </span>
   <ul class="nav navbar-nav ml-auto">
-	<li class="nav-item">
-        <a href="https://github.com/Nechigawara/nechi-fgo-checklist/" class="fab fa-github" target="_blank"> GitHub</a>
+    <li class="nav-item">
+        <a href="https://github.com/Nechigawara/nechi-fgo-checklist/" class="fab fa-github" target="_blank">Nechigawara's original project GitHub</a>
+    </li>
+    <li class="nav-item">
+        <a href="https://github.com/TohnoCoding/fgochecklist/" class="fab fa-github" target="_blank">This project's GitHub</a>
     </li>
   </ul>
 </nav>
 <!-- Content -->
 <div class="container body-content" style="padding-top: 10px;">
-	<!--div class="alert alert-warning">
+	div class="alert alert-warning">
 		<strong>Attention! The site may take a while loading on first visit due to caching images.</strong><br />
-		Most recent changes:
-		<ul>
-			<li>Add Class Categorize & Mashu ★4 SR Option.</li>
-			<li>Share option changed to <a href="https://is.gd/" target="_blank">is.gd</a>. Thanks, <a href="https://github.com/fbordas" target="_blank">fbordas</a>.</li>
-			<li>Now you can manually import/export the list as a file. Currently not support Option import/export.</li>
-		</ul>
-	</div-->
-	<div class="alert alert-danger">
-		<strong>I stop playing FGO. 5 years with it and still no change in that bad gacha. So I'm done with this game. No More Update.</strong>
-	</div>
+	</div
 	<div class="card">
 		<div class="card-body" style="text-align:center;">
 			<p>Just another FGO Servant Checklist, but with NP Count. I'm gonna try my best to update the list ASAP.</p>
@@ -112,14 +106,6 @@
 				 <!-- Just Link -->
 				 <button type="button" class="btn btn-info" onclick="shareURL('')" data-toggle="tooltip" data-placement="bottom" title="Just Shorten URL"><i class="fas fa-link"></i></button>
 			</div>
-			<!-- small>
-				<p>Changelog</p>
-				<ul id="changelog">
-					<li>Coffee</li>
-					<li>Tea</li>
-					<li>Milk</li>
-				</ul> 
-			</small -->
 		</div>
 	</div>
 	<hr/>
@@ -222,20 +208,22 @@
 			<li><i class="fas fa-gift"></i> = Event Reward</li>
 		</ul>
 	</div>
-	<div class="alert alert-info">
+	<!-- div class="alert alert-info">
 		Sister sites forked from this one.
 		<ul>
 			<li><a href="https://an-kishi.github.io/pricon-checklist/" target="_blank">Princess Connect Re:Dive Characters Checklist</a></li>
 		</ul>
-	</div>
+	</div -->
 </div>
 <!-- Footer -->
 <footer  id="footer" class="bd-footer">
   <div class="container-fluid p-3 p-md-5">
     <p>
-		By Nechigawara Sanzenin. This aplication is licensed under <a href="https://github.com/Nechigawara/nechi-fgo-checklist/blob/master/LICENSE" target="_blank">MIT</a>.<br/>
+		Original project and code by Nechigawara Sanzenin. Forked under explicit permission by Tohno Coding.<br />
+	        This aplication is licensed under <a href="https://github.com/Nechigawara/nechi-fgo-checklist/blob/master/LICENSE" target="_blank">MIT</a>.<br/>
 		Fate/Grand Order and related materials are registered trademarks and properties of TYPE-MOON, Marvelous Inc., and Aniplex Inc.<br/>
 		Images hosted at <a href="https://imgur.com" target="_blank">imgur.com</a>.
+	        
 		<!-- Padoru Credit>
 		<span>BB Padoru by <a href="https://www.facebook.com/reichan.noshiyo" target="_blank">Rei Noshiyo</a></span-->
 	</p>
@@ -256,7 +244,7 @@
 			<div class="form-group">
 				<label for="npAdd">Current NP level</label>
 				<select class="form-control" id="npAdd"></select>
-				<small id="npAddHelp" class="form-text text-muted">How many times have you upgraded this Servant's NP?</small>
+				<small id="npAddHelp" class="form-text text-muted">What's this Servant's NP level?</small>
 			</div>
 		</form>
       </div>
@@ -282,7 +270,7 @@
 			<div class="form-group">
 				<label for="npUpdate">Current NP level</label>
 				<select class="form-control" id="npUpdate"></select>
-				<small id="npUpdateHelp" class="form-text text-muted">How many times have you upgraded this Servant's NP?</small>
+				<small id="npUpdateHelp" class="form-text text-muted">What's this Servant's NP level?</small>
 			</div>
 		</form>
 		<hr/>
