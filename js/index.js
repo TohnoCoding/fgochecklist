@@ -4,7 +4,7 @@ var icondefault = "default.png";
 var icondefault_external_source = false;
 
 var datapath = "data/servants.json";
-var datapath_alternate = datapath;
+var datapath_alternate = "data/servants.alternate.json";
 var dataclasspath = "data/servantsclass.json";
 
 var img_path = "img/servants/";
