@@ -1269,7 +1269,7 @@
             },
             {
                 "id": "4-6",
-                "name": "Atalanta",
+                "name": "Atalante",
                 "class": "archer",
                 "game_id": "14",
                 "maxcopy": 5,
@@ -1999,7 +1999,7 @@
             },
             {
                 "id": "4-0I",
-                "name": "Atalanta (Alter)",
+                "name": "Atalante (Alter)",
                 "class": "berserker",
                 "game_id": "202",
                 "maxcopy": 5,
