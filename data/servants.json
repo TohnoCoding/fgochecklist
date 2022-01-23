@@ -489,7 +489,7 @@
             },
             {
                 "id": "5-m",
-                "name": "Meltlilith",
+                "name": "Meltryllis",
                 "class": "alterego",
                 "game_id": "163",
                 "maxcopy": 5,
@@ -709,7 +709,7 @@
             },
             {
                 "id": "5-09",
-                "name": "Shi Huang Di",
+                "name": "Qin Shi Huang",
                 "class": "ruler",
                 "game_id": "229",
                 "maxcopy": 5,
