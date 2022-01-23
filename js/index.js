@@ -4,7 +4,7 @@ var icondefault = "default.png";
 var icondefault_external_source = false;
 
 var datapath = "data/servants.json";
-var datapath_alternate = "data/servants.alternate.json";
+var datapath_alternate = "data/servants.json";
 var dataclasspath = "data/servantsclass.json";
 
 var img_path = "img/servants/";
@@ -29,7 +29,7 @@ var copy_choice_allow = [
 var copy_choice_default = 1;
 var copy_choice_max = 5;
 var share_tags = "FGO,FateGrandOrder";
-var share_title = "See My Servants Here!!";
+var share_title = "See my Servants here!";
 
 // Class Config
 var class_divide_class = "ByClass";
@@ -44,10 +44,10 @@ var class_count_max = "class_max_";
 var servant_type_box_class = "member-type";
 var sevent_typelist = [
 	{ "id": 0, "show": false, "eventonly": false, "ctext": null, "class": null }, // Default
-	{ "id": 1, "show": true, "eventonly": false, "ctext": '<i class="fas fa-shield-alt"></i>', "class": "member-mashu" }, // Mashu
-	{ "id": 2, "show": true, "eventonly": false, "ctext": '<i class="fas fa-lock"></i>', "class": "member-locked" }, // Story Locked
+	{ "id": 1, "show": true, "eventonly": false, "ctext": '<i class="fas fa-shield-alt"></i>', "class": "member-mashu" }, // Mash
+	{ "id": 2, "show": true, "eventonly": false, "ctext": '<i class="fas fa-lock"></i>', "class": "member-locked" }, // Storylocked
 	{ "id": 3, "show": true, "eventonly": false, "ctext": '<i class="fas fa-star"></i>', "class": "member-limited" }, // Limited
-	{ "id": 4, "show": true, "eventonly": true, "ctext": '<i class="fas fa-gift"></i>', "class": "member-eventonly" } // Event Prizes
+	{ "id": 4, "show": true, "eventonly": true, "ctext": '<i class="fas fa-gift"></i>', "class": "member-eventonly" } // Welfare
 ];
 
 // Confirm
@@ -59,7 +59,7 @@ var share_text = "This is your current shortened URL:"
 var share_none_text = "There is nothing to share."
 
 // Select Text
-var select_all_text = "The change cannot be reverted. Continue?"
+var select_all_text = "The change CANNOT be reverted. Continue?"
 
 // Statistic
 var statistic_area = "statisticBox";
@@ -604,7 +604,7 @@ function UpdateURL() {
 		$('#' + save_file_btn).prop('disabled', true);
 	}
 	
-	// Mashu is SR
+	// Mash is SR
 	var mashuSR_str = getMashuSRURLstring(false);
 	if (mashuSR_str != "") {
 		if (!new_parameter.startsWith("?")) {
@@ -695,7 +695,7 @@ function UpdateURLOptionModeOnly() {
 		// Finish Input
 		var last_str = "";
 		
-		// Data Checked; mashu is SR
+		// Data Checked; Mash is SR
 		if (mashuSR_str != "")
 		{
 			last_str += mashuSR_str;
@@ -1187,7 +1187,7 @@ function ClearAllData() {
 function ExportCanvas() {
 	// Confirm
 	bootbox.confirm({
-        message: "WARNING: Image result will not look exactly like in the page. (Capture library issues.)<br/>I recommend sharing the link or using an external capture tool instead.<br/>Continue?",
+        message: "WARNING: Image result will not look exactly like in the page. (Capture library issues.)<br/>It is recommendeded to share the link or use an external capture tool instead.<br/>Continue?",
         buttons: {
             cancel: {
                 label: '<i class="fa fa-times"></i> Cancel'
