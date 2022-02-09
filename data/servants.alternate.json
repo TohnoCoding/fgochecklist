@@ -1196,6 +1196,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/WLAqgdO.png"
+            },
+            {
+                "id": "5-0w",
+                "name": "Manannán mac Lir (Bazett)",
+                "class": "alterego",
+                "game-id": "336",
+                "maxcopy": 5,
+                "stype:" 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/jCEDQC7.png"
             }
         ]
     },
