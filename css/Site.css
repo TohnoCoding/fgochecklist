@@ -2,8 +2,8 @@
 
 .icon-bar {
   position: fixed;
-  top: 30%;
-  right: 0;
+  top: 25%;
+  right: 10px;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
