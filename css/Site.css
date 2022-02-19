@@ -1,5 +1,14 @@
 /*.modal-backdrop {background: none;}*/
 
+.icon-bar {
+  position: fixed;
+  top: 30%;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .bg-fgo-rare {
 	background-color: #B9B9B9 !important;
 }
