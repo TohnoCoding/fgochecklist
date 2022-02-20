@@ -18,3 +18,4 @@ External sevices used:
 
 What to do:
 * Continue updating with new Servant releases
+* Minor improvements as seen fit
