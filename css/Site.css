@@ -2,11 +2,21 @@
 
 .icon-bar {
   position: fixed;
-  top: 25%;
+  top: -5%;
   right: 10px;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+}
+
+.btn-data {
+  font-size: 16px;
+  padding: 0px;
+  padding-top: -2px;
+}
+
+.btn-data > img {
+    margin-top: -6px;
 }
 
 .bg-fgo-rare {
