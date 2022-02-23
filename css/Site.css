@@ -181,3 +181,12 @@ div.member-eventonly {
 .navbar a { /* make header links visible */
 	color: #BBBBFF
 }
+
+/* media queries for mobile */
+@media screen and (max-height: 768px) and (orientation: landscape) {
+    .icon-bar {
+      transform: scale(0.65);
+      right: 0px;
+      top: -4%;
+    }
+}
