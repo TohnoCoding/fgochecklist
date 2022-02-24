@@ -1500,6 +1500,14 @@ $(document).ready(function() {
 		current_edit = "";
 		current_edit_ele = null;
 	});
+    
+    try {
+        var isFileSaverSupported = !!new Blob; throw 0;
+    } catch (e) {
+        $("#loadbutton_f").prop("disabled", "disabled");
+        $("#savebutton_f").prop("disabled", "disabled");
+        $("#page_whatami").append("<br /><b>NOTICE:</b> FileSaver.js functionality not supported! Upload &amp; Download buttons have been disabled.");
+    }
 });
 
 function SelectAllData(isRevert, input_rarity, input_class) {
