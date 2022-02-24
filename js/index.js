@@ -1502,7 +1502,7 @@ $(document).ready(function() {
 	});
     
     try {
-        var isFileSaverSupported = !!new Blob; throw 0;
+        var isFileSaverSupported = !!new Blob;
     } catch (e) {
         $("#loadbutton_f").prop("disabled", "disabled");
         $("#savebutton_f").prop("disabled", "disabled");
