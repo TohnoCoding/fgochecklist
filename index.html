@@ -18,6 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="css/select2/select2-bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/Site.css" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/Sidebar.css" crossorigin="anonymous">
 	<!--link rel="stylesheet" type="text/css" href="css/SitePadoru.css" crossorigin="anonymous"-->
 	<!-- JS -->
 	<script src="js/lib/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
@@ -50,11 +51,11 @@
 <!-- Content -->
 <div class="container body-content" style="padding-top: 10px;">
 	<div class="card">
-		<div class="card-body" style="text-align:center; padding: 0px; padding-bottom: 1em;">
+		<div class="card-body" style="text-align:center; padding: 0px;">
 			<p id="page_whatami">Yet another FGO Servant checklist with NP count.
 			Forked from <a href="https://nechigawara.github.io/nechi-fgo-checklist/" target="_blank">Nechigawara</a>.<br />
 			Please note that the site may take a while loading on first visit due to caching all the required images.</p>
-			<hr/>
+            <hr/>
 			<form>
 				<div class="form-group form-check">
 					<input type="checkbox" class="form-check-input" id="mashuSR">
@@ -80,7 +81,7 @@
 			<hr/>
 			Share the list to your friends!!-->
 			<div id="share" class="icon-bar">
-				Share!!<br />
+				Share to<br />socials:<br />
 				 <!-- Facebook -->
 				 <button type="button" class="btn facebook" onclick="shareURL('facebook')" data-toggle="tooltip" data-placement="bottom" title="Share to Facebook"><i class="fab fa-facebook-f"></i></button><br />
 				 <!-- Tumblr -->
@@ -88,10 +89,9 @@
 				 <!-- Twitter -->
 				 <button type="button" class="btn twitter" onclick="shareURL('twitter')" data-toggle="tooltip" data-placement="bottom" title="Share to Twitter"><i class="fab fa-twitter"></i></button><br />
 				 <!-- Just Link -->
-				 <button type="button" class="btn btn-info" onclick="shareURL('')" data-toggle="tooltip" data-placement="bottom" title="Just Shorten URL"><i class="fas fa-link"></i></button><br /><hr />Data:
-			<!-- </div>
-            <div id="datamanagement" class="data-buttons"> -->
-                <form>
+				 <button type="button" class="btn btn-info" onclick="shareURL('')" data-toggle="tooltip" data-placement="bottom" title="Just Shorten URL"><i class="fas fa-link"></i></button>
+                 <br /><hr />List<br />data:
+			    <form>
                     <button type="button" id="loadbutton" class="btn btn-info btn-data" onclick="loadLocalData()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Load list from current browser"><img src="img/load.png" /></button><br />
                     <button type="button" id="savebutton" class="btn btn-success btn-data" onclick="saveLocalData()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Save list to current browser"><img src="img/save.png" /></button>
                 </form>
@@ -215,7 +215,7 @@
     <p>
 		Original project and code by Nechigawara Sanzenin. Forked <a href="https://github.com/Nechigawara/nechi-fgo-checklist/issues/7" target="_blank">under explicit permission</a> by Tohno Coding.<br />
 	        This aplication is licensed under <a href="https://github.com/Nechigawara/nechi-fgo-checklist/blob/master/LICENSE" target="_blank">MIT</a>.<br/>
-		Fate/Grand Order and related materials are registered trademarks and properties of TYPE-MOON, LASENGLE, Marvelous Inc., and Aniplex Inc.<br/>
+		Fate/Grand Order and related materials are registered trademarks and properties of TYPE-MOON, Marvelous Inc., and Aniplex Inc.<br/>
 		Images hosted at <a href="https://imgur.com" target="_blank">imgur.com</a>.<br />
 	    <a href="https://www.flaticon.com/free-icons/down-arrow" target="_blank">Data icons created by Freepik - Flaticon</a>.
 		<!-- Padoru Credit>
