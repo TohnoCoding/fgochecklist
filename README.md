@@ -1,6 +1,6 @@
 Since Nechi stopped playing FGO around November/2021, I've taken it upon myself to continue updating this amazing Servant checklist with any new Servant releases for both NA and JP.
 
-The original version of this checklist can be found here: https://nechigawara.github.io/nechi-fgo-checklist/
+The original version of this checklist project can be found here: https://nechigawara.github.io/nechi-fgo-checklist/
 
 Libraries used:
 * jQuery
