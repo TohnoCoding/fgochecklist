@@ -52,31 +52,39 @@
 <div class="container body-content" style="padding-top: 10px;">
 	<div class="card">
 		<div class="card-body" style="text-align:center; padding: 0px;">
-			<p id="page_whatami">Yet another FGO Servant checklist with NP count.
+			<p id="page_whatami">Yet another FGO Servant checklist with NP count.<br />
 			Forked from <a href="https://nechigawara.github.io/nechi-fgo-checklist/" target="_blank">Nechigawara</a>.<br />
 			Please note that the site may take a while loading on first visit due to caching all the required images.</p>
             <hr/>
-			<form>
-				<div class="form-group form-check">
-					<input type="checkbox" class="form-check-input" id="mashuSR">
-					<label class="form-check-label" for="mashuSR">Mash is 4★ SR</label>
-				</div>
-				<div class="form-group form-check">
-					<input type="checkbox" class="form-check-input" id="classmode">
-					<label class="form-check-label" for="classmode">Divide List By Servant Class</label>
-				</div>
-				<div class="form-group form-check">
-					<input type="checkbox" class="form-check-input" id="fastmode">
-					<label class="form-check-label" for="fastmode">Fast Mode (Left & Right Click Only)</label>
-				</div>
-				<button type="button" class="btn btn-secondary" onclick="ToggleEventIcon()">Show/Hide Type Icons</button>
-				<!-- button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Disable for Padoru" disabled>Export as Image (Slow)</button -->
-				<button type="button" class="btn btn-info" onclick="ExportCanvas()">Export as Image (Slow)</button>
-				<button type="button" class="btn btn-danger" onclick="ClearAllData()">Clear</button>
-				<hr/>
-				<button type="button" class="btn btn-primary" onclick="SelectAllData(false)">Mark <i>all</i> Servants as owned at NP1<br />
-					(Will not affect already selected Servants)</button>
-			</form>			
+	    <form>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="mashuSR">
+                                <label class="form-check-label" for="mashuSR">Mash is 4★ SR</label>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="classmode">
+                                <label class="form-check-label" for="classmode">Divide List By Servant Class</label>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="fastmode">
+                                <label class="form-check-label" for="fastmode">Fast Mode (Left &amp; Right Click Only)</label>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary" onclick="ToggleEventIcon()">Show/Hide Type Icons</button>
+                            <!-- button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Disable for Padoru" disabled>Image export (slow)</button -->
+                            <button type="button" class="btn btn-info" onclick="ExportCanvas()">Image export (slow)</button><hr />
+                            <button type="button" class="btn btn-danger" onclick="ClearAllData()">Clear entire roster</button>
+                            <hr>
+                            <button type="button" class="btn btn-primary" onclick="SelectAllData(false)">Mark <i>all</i> Servants as owned at NP1<br>
+                                (Will not affect already selected Servants)</button>
+                        </td>
+                    </tr>
+                </table>
+	    </form>		
 			<!-- Social Share 
 			<hr/>
 			Share the list to your friends!!-->
@@ -107,7 +115,7 @@
             </div>
 		</div>
 	</div>
-	<hr/>
+	<hr/><hr />
 	<h3 align="center">Stats for nerds:</h3>
 	<div id="capturearea">
 		<div class="row" id="statisticBox" style="display:none;">
