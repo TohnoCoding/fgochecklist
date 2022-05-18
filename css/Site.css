@@ -195,3 +195,7 @@ div.member-eventonly {
 table {
 	width: 100%;
 }
+
+hr {
+	margin: 5px;
+}
