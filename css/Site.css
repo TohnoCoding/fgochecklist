@@ -188,6 +188,10 @@ div.member-eventonly {
     .icon-bar {
       transform: scale(0.65);
       right: 0px;
-      top: -4%;
+      top: 0%;
     }
+}
+
+table {
+	width: 100%;
 }
