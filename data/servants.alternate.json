@@ -1206,6 +1206,36 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/jCEDQC7.png"
+            },
+            {
+                "id": "5-0x",
+                "name": "Trung Sisters",
+                "class": "saber",
+                "game-id": "337",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/uh2yR43.png"
+            },
+            {
+                "id": "5-0y",
+                "name": "Super Bunyan",
+                "class": "alterego",
+                "game-id": "339",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/2Vqrpee.png"
+            },
+            {
+                "id": "5-0z",
+                "name": "Constantine XI",
+                "class": "rider",
+                "game-id": "342",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/UembZLC.png"
             }
         ]
     },
@@ -2576,6 +2606,26 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/SHQLj5l.png"
+            },
+            {
+                "id": "4-1C",
+                "name": "Taisui Xingjun",
+                "class": "alterego",
+                "game_id": "338",
+                "max_copy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/r529xoI.png"
+            },
+            {
+                "id": "4-1C",
+                "name": "Daikokuten",
+                "class": "caster",
+                "game_id": "340",
+                "max_copy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/IWY2LjM.png"
             }
         ]
     },
@@ -3316,6 +3366,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/aZb2D0u.png"
+            },
+            {
+                "id": "1-B",
+                "name": "Mary Anning",
+                "class": "Lancer",
+                "game_id": "341",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ii4yFGR.png"
             }
         ]
     },
