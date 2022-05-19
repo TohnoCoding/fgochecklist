@@ -2613,7 +2613,7 @@
                 "class": "caster",
                 "game_id": "340",
                 "max_copy": 5,
-                "stype": 4,
+                "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IWY2LjM.png"
             }
