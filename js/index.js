@@ -59,7 +59,7 @@ var share_text = "This is your current shortened URL:";
 var share_none_text = "There is nothing to share.";
 
 // Select Text
-var select_all_text = "This will not affect already selected Servants. However, THIS CHANGE CANNOT BE REVERTED.<br /><br />Continue?";
+var select_all_text = "This will not affect already selected Servants. However, <b><i>THIS CHANGE CANNOT BE REVERTED</i></b>.<br /><br />Are you sure you want to continue?";
 
 // Statistic
 var statistic_area = "statisticBox";
