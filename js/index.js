@@ -55,11 +55,11 @@ var member_uncheck_conf = "Are you sure you want to uncheck this Servant?";
 var member_clear_conf = "Are you sure you want to clear all checked Servants?";
 
 // Share
-var share_text = "This is your current shortened URL:"
-var share_none_text = "There is nothing to share."
+var share_text = "This is your current shortened URL:";
+var share_none_text = "There is nothing to share.";
 
 // Select Text
-var select_all_text = "The change CANNOT be reverted. Continue?"
+var select_all_text = "This will not affect already selected Servants. However, THIS CHANGE CANNOT BE REVERTED.<br /><br />Continue?";
 
 // Statistic
 var statistic_area = "statisticBox";
