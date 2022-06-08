@@ -2660,7 +2660,7 @@
             {
                 "id": "4-1F",
                 "name": "Don Quixote",
-                "class": "Lancer",
+                "class": "lancer",
                 "game-id": "347",
                 "maxcopy": 5,
                 "stype": 2,
