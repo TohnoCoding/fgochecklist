@@ -3314,7 +3314,7 @@
         "list_name": "1★",
         "list_element": "commonBox",
         "list_iconpath": "",
-        "class_available": ["saber","archer","rider","caster","assassin","berserker"],
+        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker"],
         "disable": false,
         "list": [
             {
