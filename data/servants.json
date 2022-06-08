@@ -3430,7 +3430,7 @@
             {
                 "id": "1-B",
                 "name": "Mary Anning",
-                "class": "Lancer",
+                "class": "lancer",
                 "game_id": "341",
                 "maxcopy": 5,
                 "stype": 3,
