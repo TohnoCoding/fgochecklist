@@ -1246,6 +1246,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/OUdrlFJ.png"
+            },
+            {
+                "id": "5-11",
+                "name": "James Moriarty (Ruler)",
+                "class": "ruler",
+                "game-id": "346",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/j5QTlaD.png"
             }
         ]
     },
@@ -2656,6 +2666,16 @@
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ibrygWd.png"
+            },
+            {
+                "id": "4-1F",
+                "name": "Don Quixote",
+                "class": "Lancer",
+                "game-id": "347",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/7Rs3Rpq.png"
             }
         ]
     },
@@ -3116,6 +3136,16 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pZI7ux8.png"
+            },
+            {
+                "id": "3-k",
+                "name": "Zhang Jue",
+                "class": "caster",
+                "game_id": "348",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/stTkPNe.png"
             }
         ]
     },
