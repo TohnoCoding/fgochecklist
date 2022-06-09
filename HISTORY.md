@@ -5,6 +5,12 @@ be included here, though they might be from time to time if the change is signif
 
 Most recent changes will be displayed at the top.
 
+**2022/06/09:** Relocated/rearranged the action buttons at the top.
+
+**2022/06/08:**
+- Added Don Quixote, Moriarty Ruler and Zhang Jue. 
+- Fixed some data structure issues that had gone unnoticed before relating to classes and rarities.
+
 **2022/06/02:** Added Charlemagne, Roland and Kriemhild.
 
 **2022/05/21:** Initial creation of changelog.
