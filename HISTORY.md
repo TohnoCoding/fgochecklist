@@ -5,6 +5,10 @@ be included here, though they might be from time to time if the change is signif
 
 Most recent changes will be displayed at the top.
 
+**2022/07/06:**
+- Added Kyokutei Bakin and Minamoto no Tametomo.
+- Made a small lore-related correction to Morgan's name.
+
 **2022/06/09:** Relocated/rearranged the action buttons at the top.
 
 **2022/06/08:**
