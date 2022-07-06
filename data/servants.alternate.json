@@ -1089,7 +1089,7 @@
             },
             {
                 "id": "5-0l",
-                "name": "Morgan le Fay",
+                "name": "Morgan",
                 "class": "berserker",
                 "game_id": "309",
                 "maxcopy": 5,
@@ -1256,6 +1256,26 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/j5QTlaD.png"
+            },
+            {
+                "id": "5-12",
+                "name": "Kyokutei Bakin",
+                "class": "rider",
+                "game-id": "349",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/EwcTeYn.png"
+            },
+            {
+                "id": "5-13",
+                "name": "Minamoto no Tametomo",
+                "class": "archer",
+                "game-id": "350",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/K0u9wfo.png"
             }
         ]
     },
