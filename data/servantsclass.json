@@ -104,7 +104,7 @@
 		"iconlist" : {
 			"ssr" : "alterego/icon-gold.png",
 			"sr" : "alterego/icon-gold.png",
-			"r" : "alterego/icon-silver.png"
+			"rare" : "alterego/icon-silver.png"
 		}
 	},
 	"foreigner" : {
