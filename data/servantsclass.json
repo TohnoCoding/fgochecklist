@@ -103,7 +103,8 @@
 		"name": "Alter Ego",
 		"iconlist" : {
 			"ssr" : "alterego/icon-gold.png",
-			"sr" : "alterego/icon-gold.png"
+			"sr" : "alterego/icon-gold.png",
+			"r" : "alterego/icon-silver.png"
 		}
 	},
 	"foreigner" : {
