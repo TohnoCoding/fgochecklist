@@ -1276,6 +1276,16 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/K0u9wfo.png"
+            },
+            {
+                "id": "5-14",
+                "name": "Archetype: Earth",
+                "class": "moooncancer",
+                "game-id": "351",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/jk0xQb8.png"
             }
         ]
     },
@@ -2704,7 +2714,7 @@
         "list_name": "3★",
         "list_element": "rareBox",
         "list_iconpath": "",
-        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker","avenger"],
+        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker","avenger","alterego"],
         "disable": false,
         "list": [
             {
@@ -3166,6 +3176,16 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/stTkPNe.png"
+            },
+            {
+                "id": "3-l",
+                "name": "Xu Fu",
+                "class": "alterego",
+                "game_id": "352",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/46ZDZlZ.png"
             }
         ]
     },
