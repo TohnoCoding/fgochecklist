@@ -5,6 +5,10 @@ be included here, though they might be from time to time if the change is signif
 
 Most recent changes will be displayed at the top.
 
+**2022/08/04:**
+- Added Archetype: Earth and Xu Fu.
+- Adjusted the implementation of the 3★ rarity to accomodate the (as of today, unprecedented) appearance of a silver Alter-Ego.
+
 **2022/07/06:**
 - Added Kyokutei Bakin and Minamoto no Tametomo.
 - Made a small lore-related correction to Morgan's name.
