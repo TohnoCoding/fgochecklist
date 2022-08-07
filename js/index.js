@@ -876,13 +876,13 @@ function MakeData(servants_data) {
 		// Class Mode; Prepare Element
 		if (IsClassmode())
 		{
-			var list_class_available = current_rarity.class_available;
+            var list_class_available = current_rarity.class_available;
 			var current_class_html = "";
 			for (var bb = 0, bb_s = list_class_available.length; bb < bb_s; bb++) {
 				
 				// Class Var
 				var current_class = list_class_available[bb];
-				
+                
 				// Make Max Data
 				if (typeof max_data_eachclass[current_key] === "undefined") {
 					max_data_eachclass[current_key] = {};
@@ -895,8 +895,8 @@ function MakeData(servants_data) {
 				
 				// Class Icon
 				var current_class_data = class_data_list[current_class];
-				var current_class_data_icn = getImageClassPath(current_class_data.iconlist[current_rarity.list_id]);
-				list_img.push(loadSprite(current_class_data_icn));
+                var current_class_data_icn = getImageClassPath(current_class_data.iconlist[current_rarity.list_id]);
+                list_img.push(loadSprite(current_class_data_icn));
 				
 				var current_class_data_icn_ele = '<img src="' + current_class_data_icn + '" class="' + img_class + '" title="' + current_class_data.name + '" data-toggle="tooltip-member" data-placement="bottom"/>';
 				current_class_html += current_class_data_icn_ele;
@@ -946,7 +946,7 @@ function MakeData(servants_data) {
 			
 			// Count Data: All
 			if (IsClassmode()) {
-				max_data_eachclass[current_key][current_servant.class] += 1;
+                max_data_eachclass[current_key][current_servant.class] += 1;
 			}
 			//rarity_count_data.allcount.max += 1;
 			//rarity_count_data.allcount.list[current_key].max += 1;
