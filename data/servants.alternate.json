@@ -1286,6 +1286,36 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/jk0xQb8.png"
+            },
+            {
+                "id": "5-15",
+                "name": "Lady Avalon",
+                "class": "pretender",
+                "game-id": "353",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/CeWdiiy.png"
+            },
+            {
+                "id": "5-16",
+                "name": "Ibuki Dōji (Berserker)",
+                "class": "berserker",
+                "game-id": "355",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/4SG74o2.png"
+            },
+            {
+                "id": "5-18",
+                "name": "Scáthach-Skaði (Ruler)",
+                "class": "ruler",
+                "game-id": "357",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/4DOo1ud.png"
             }
         ]
     },
@@ -2706,6 +2736,66 @@
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/7Rs3Rpq.png"
+            },
+            {
+                "id": "4-1G",
+                "name": "Gareth (Saber)",
+                "class": "saber",
+                "game-id": "354",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ub2gQ6P.png"
+            },
+            {
+                "id": "4-1H",
+                "name": "Utsumi Erice (Avenger)",
+                "class": "avenger",
+                "game-id": "356",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/0LgW1uK.png"
+            },
+            {
+                "id": "4-1I",
+                "name": "Wu Zetian (Caster)",
+                "class": "caster",
+                "game-id": "358",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ZneeQmM.png"
+            },
+            {
+                "id": "4-1J",
+                "name": "Thrúd (Assassin)",
+                "class": "assassin",
+                "game-id": "359",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/BtxWwUg.png"
+            },
+            {
+                "id": "4-1K",
+                "name": "Hildr (Assassin)",
+                "class": "assassin",
+                "game-id": "360",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/a2WhWDV.png"
+            },
+            {
+                "id": "4-1L",
+                "name": "Ortlinde (Assassin)",
+                "class": "assassin",
+                "game-id": "361",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/UyCIHL3.png"
             }
         ]
     },
