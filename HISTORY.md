@@ -6,6 +6,10 @@ be included here, though they might be from time to time if the change is signif
 Most recent changes will be displayed at the top.
 <hr>
 
+**2022/08/30:**
+- Added Lady Avalon, Ruler Skadi, Summer Ibuki-Douji, Saber Gareth, Avenger Erice, Caster Wu and the Asassin Valkyries.
+<hr>
+
 **2022/08/04:**
 - Added Archetype: Earth and Xu Fu.
 - Adjusted the implementation of the 3★ rarity to accomodate the (as of today, unprecedented) appearance of a silver Alter-Ego.
