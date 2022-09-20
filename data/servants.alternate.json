@@ -1316,6 +1316,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/4DOo1ud.png"
+            },
+            {
+                "id": "5-19",
+                "name": "Sen no Rikyū",
+                "class": "berserker",
+                "game-id": "362",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/B5I0A46.png"
             }
         ]
     },
@@ -2796,6 +2806,26 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UyCIHL3.png"
+            },
+            {
+                "id": "4-1M",
+                "name": "Yamanami Keisuke",
+                "class": "saber",
+                "game-id": "363",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/WTk3z6C.png"
+            },
+            {
+                "id": "4-1N",
+                "name": "Iyo",
+                "class": "ruler",
+                "game-id": "364",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/3Q2dHnB.png"
             }
         ]
     },
