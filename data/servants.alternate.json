@@ -1326,6 +1326,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/B5I0A46.png"
+            },
+            {
+                "id": "5-20",
+                "name": "Huyan Zhuo",
+                "class": "assassin",
+                "game-id": "365",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/JJUf5mL.png"
             }
         ]
     },
@@ -2826,6 +2836,26 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/3Q2dHnB.png"
+            },
+            {
+                "id": "4-1O",
+                "name": "Huang Feihu",
+                "class": "rider",
+                "game-id": "366",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ORCqLoo.png"
+            },
+            {
+                "id": "4-1P",
+                "name": "Nine-Tattoo Dragon Eliza",
+                "class": "pretender",
+                "game-id": "367",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/9RMYzgZ.png"
             }
         ]
     },
