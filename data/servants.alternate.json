@@ -1099,7 +1099,7 @@
             },
             {
                 "id": "5-0m",
-                "name": "Fairy Knight Lancelot",
+                "name": "Fairy Knight Lancelot (Mélusine)",
                 "class": "lancer",
                 "game_id": "312",
                 "maxcopy": 5,
@@ -2589,7 +2589,7 @@
             },
             {
                 "id": "4-0y",
-                "name": "Fairy Knight Gawain",
+                "name": "Fairy Knight Gawain (Barghest)",
                 "class": "saber",
                 "game_id": "310",
                 "maxcopy": 5,
@@ -2599,7 +2599,7 @@
             },
             {
                 "id": "4-0z",
-                "name": "Fairy Knight Tristan",
+                "name": "Fairy Knight Tristan (Baobhan Sith)",
                 "class": "archer",
                 "game_id": "311",
                 "maxcopy": 5,
