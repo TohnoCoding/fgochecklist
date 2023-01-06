@@ -1346,6 +1346,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/n6Dy5K7.png"
+            },
+            {
+                "id": "5-22",
+                "name": "Grigori Rasputin",
+                "class": "alterego",
+                "game-id": "369",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/noIMgHT.png"
             }
         ]
     },
