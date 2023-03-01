@@ -1386,6 +1386,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/5mVfOoZ.png"
+            },
+            {
+                "id": "5-26",
+                "name": "Popess Johanna",
+                "class": "ruler",
+                "game-id": "374",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/uaatRw6.png"
             }
         ]
     },
