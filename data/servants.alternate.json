@@ -1396,6 +1396,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/uaatRw6.png"
+            },
+            {
+                "id": "5-27",
+                "name": "Takasugi Shinsaku",
+                "class": "archer",
+                "game-id": "375",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/w5SfZaW.png"
             }
         ]
     },
