@@ -1406,6 +1406,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/w5SfZaW.png"
+            },
+            {
+                "id": "5-28",
+                "name": "Larva/Tiamat",
+                "class": "alterego",
+                "game-id": "376",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/5fNEzkH.png"
             }
         ]
     },
