@@ -4,7 +4,7 @@
         "list_name": "5★",
         "list_element": "ssrBox",
         "list_iconpath": "",
-        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker","ruler","avenger","mooncancer","alterego","foreigner","pretender"],
+        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker","ruler","avenger","mooncancer","alterego","foreigner","pretender","beast"],
         "disable": false,
         "list": [
             {
@@ -1416,6 +1416,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/DXuIfVk.png"
+            },
+            {
+                "id": "5-29",
+                "name": "Sodom's Beast/Draco",
+                "class": "beast",
+                "game-id": "377",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/QdUC7cB.png"
             }
         ]
     },
@@ -2946,6 +2956,26 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/shpOQ6c.png"
+            },
+            {
+                "id": "4-1R",
+                "name": "Locusta",
+                "class": "assassin",
+                "game-id": "378",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/DoZr4zO.png"
+            },
+            {
+                "id": "4-1S",
+                "name": "Sétanta",
+                "class": "saber",
+                "game-id": "379",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/gFaTFSV.png"
             }
         ]
     },
