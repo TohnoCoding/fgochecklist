@@ -120,5 +120,12 @@
 			"ssr" : "pretender/icon-gold.png",
 			"sr" : "pretender/icon-gold.png"
 		}
+	},
+	"beast" : {
+		"name": "Beast",
+		"iconlist" : {
+			"ssr" : "beast/icon-gold.png",
+			"sr" : "beast/icon-gold.png"
+		}
 	}
 }
