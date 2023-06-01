@@ -1426,6 +1426,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/QdUC7cB.png"
+            },
+            {
+                "id": "5-30",
+                "name": "Kashin Koji",
+                "class": "assassin",
+                "game-id": "380",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/OEvpVf2.png"
             }
         ]
     },
