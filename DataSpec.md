@@ -10,7 +10,7 @@ SERVANT DATA SPEC:
         
         "list_iconpath": ??? (Potentially used for specific rarity icons, though this game emphasizes class icons.)
         
-        "class_available": String array. Contains the available classes in this rarity. Currently set to ["saber","archer","lancer","rider","caster","assassin","berserker","ruler","avenger","mooncancer","alterego","foreigner","pretender"],
+        "class_available": String array. Contains the available classes in this rarity. Currently set to ["saber","archer","lancer","rider","caster","assassin","berserker","ruler","avenger","mooncancer","alterego","foreigner","pretender","beast"],
         
         "disable": Boolean.
         
