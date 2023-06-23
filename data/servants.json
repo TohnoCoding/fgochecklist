@@ -3003,7 +3003,7 @@
                 "class": "berserker",
                 "game-id": "382",
                 "maxcopy": 5,
-                "stype": 3,
+                "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CSFUzUU.png"
             }
