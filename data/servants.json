@@ -1443,7 +1443,7 @@
                 "class": "lancer",
                 "game-id": "381",
                 "maxcopy": 3,
-                "stype": 0,
+                "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/sSWI9ek.png"
             }
@@ -3003,7 +3003,7 @@
                 "class": "berserker",
                 "game-id": "382",
                 "maxcopy": 5,
-                "stype": 0,
+                "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CSFUzUU.png"
             }
