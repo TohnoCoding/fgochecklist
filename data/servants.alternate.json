@@ -1436,6 +1436,16 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/OEvpVf2.png"
+            },
+            {
+                "id": "5-31",
+                "name": "Bhima",
+                "class": "lancer",
+                "game-id": "381",
+                "maxcopy": 3,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/sSWI9ek.png"
             }
         ]
     },
@@ -2996,6 +3006,16 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/gFaTFSV.png"
+            },
+            {
+                "id": "4-20",
+                "name": "Duryodhana",
+                "class": "berserker",
+                "game-id": "382",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/CSFUzUU.png"
             }
         ]
     },
