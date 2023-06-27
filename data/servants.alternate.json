@@ -1442,10 +1442,20 @@
                 "name": "Bhima",
                 "class": "lancer",
                 "game-id": "381",
-                "maxcopy": 3,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/sSWI9ek.png"
+            },
+            {
+                "id": "5-32",
+                "name": "Durga",
+                "class": "archer",
+                "game-id": "383",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/x0xKDOK.png"
             }
         ]
     },
