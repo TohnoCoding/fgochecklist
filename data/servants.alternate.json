@@ -1466,6 +1466,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UB3VWgg.png"
+            },
+            {
+                "id": "5-34",
+                "name": "Aesc the Savior",
+                "class": "caster",
+                "game-id": "385",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/D1DaD7e.png"
             }
         ]
     },
