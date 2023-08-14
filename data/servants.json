@@ -1476,6 +1476,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/D1DaD7e.png"
+            },
+            {
+                "id": "5-35",
+                "name": "Artoria Caster (Berserker)",
+                "class": "berserker",
+                "game-id": "386",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/SjZtqMb.png"
             }
         ]
     },
@@ -3036,6 +3046,36 @@
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CSFUzUU.png"
+            },
+            {
+                "id": "4-21",
+                "name": "Suzuka Gozen (Summer Vacation)",
+                "class": "rider",
+                "game-id": "387",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/lP74dkz.png"
+            },
+            {
+                "id": "4-22",
+                "name": "Chloe von Einzbern (Avenger)",
+                "class": "avenger",
+                "game-id": "388",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/tKsosQ5.png"
+            },
+            {
+                "id": "4-23",
+                "name": "Cnoc na Riabh Yaraandoo",
+                "class": "foreigner",
+                "game-id": "389",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/IhICg6P.png"
             }
         ]
     },
