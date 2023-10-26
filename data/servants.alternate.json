@@ -1496,6 +1496,26 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/cPw7wmR.png"
+            },
+            {
+                "id": "5-37",
+                "name": "Wandjina",
+                "class": "foreigner",
+                "game-id": "393",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/W1BrJPI.png"
+            },
+            {
+                "id": "5-37",
+                "name": "Ptolemaios",
+                "class": "archer",
+                "game-id": "394",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/iegnu4j.png"
             }
         ]
     },
@@ -3596,6 +3616,16 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/46ZDZlZ.png"
+            },
+            {
+                "id": "3-m",
+                "name": "Sugitani Zenjūbō",
+                "class": "archer",
+                "game_id": "395",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/D4ADvA0.png"
             }
         ]
     },
