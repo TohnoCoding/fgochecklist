@@ -1516,6 +1516,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/iegnu4j.png"
+            },
+            {
+                "id": "5-38",
+                "name": "Takeda Shingen",
+                "class": "rider",
+                "game-id": "397",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/G7lqvy6.png"
             }
         ]
     },
@@ -3136,6 +3146,26 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/xp1Ykff.png"
+            },
+            {
+                "id": "4-26",
+                "name": "Nagakura Shinpachi",
+                "class": "berserker",
+                "game-id": "398",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/BiXkXkh.png"
+            },
+            {
+                "id": "4-27",
+                "name": "Saika Magoichi",
+                "class": "archer",
+                "game-id": "399",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/TE9T44b.png"
             }
         ]
     },
