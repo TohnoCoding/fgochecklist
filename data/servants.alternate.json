@@ -1526,6 +1526,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/G7lqvy6.png"
+            },
+            {
+                "id": "5-39",
+                "name": "Uesugi Kenshin",
+                "class": "ruler",
+                "game-id": "400",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ERGHVPO.png"
             }
         ]
     },
