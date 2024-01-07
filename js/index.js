@@ -1707,19 +1707,34 @@ function shareURL(site) {
 		bootbox.alert(share_none_text);
 		return;
 	}
-	// Make Share URL
+	// Make shareable short URL
 	var full_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + compress_input_parameter + "=" + compress_input;
 	var mashuSR_str = getMashuSRURLstring(true);
-	if (mashuSR_str != "")
-	{
-		full_url += "&" + mashuSR_str
-	}
-	// URL Compress ; TinyURL
-	//tinyurl(full_url, () => {
-	//	shareURL_Do(site, tinyurl.url);
-    //});
-	// URL Compress ; is.gd
-	$.ajax({
+	if (mashuSR_str != "") { full_url += "&" + mashuSR_str; }
+    $.ajax({
+        headers: {
+            Authorization: "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
+        },
+        url: "https://api.waa.ai/v2/links",
+        dataType: "json",
+        contentType: "application/json",
+        method: "POST",
+        data: JSON.stringify({ url: full_url }),
+	    success: function(result) {
+    		if (result.hasOwnProperty('errorcode')) {
+                alert("Error generating shortened URL! waa.ai error: " + result.errormessage);
+            }
+            else {
+                shareURL_Do(site, result.data.link);
+            }
+    	},
+	    error: function(result) {
+		    alert("Error retrieving short URL from " + api_url + " shortening service.");
+	    }
+    });
+	
+    // Old ajax code to shorten with is.gd
+    /* $.ajax({
         url: "https://is.gd/create.php",
         dataType: "json",
 		data: { format : "json", url : full_url },
@@ -1735,45 +1750,9 @@ function shareURL(site) {
             // Alert
             alert("Error connecting to is.gd shortening service. Please try again later.");
         }
-    });
+    }); */
 };
 
-
-function shareURL_old(site) {
-	var current_compress_input = get_compress_input();
-	// Check for Existing Key
-	$.getJSON(endpoint + "/checkback/" + current_compress_input, function (get_data) {
-		exisiting_data = get_data["result"];
-		if (exisiting_data != null) {
-			var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + short_input_parameter + "=" + exisiting_data;
-			shareURL_Do(site, new_url);
-		}
-		else {
-			var key = getrandom_hash();
-			$.ajax({
-				'url': endpoint + url_data_part + key,
-				'type': 'POST',
-				'data': JSON.stringify(current_compress_input),
-				'dataType': 'json',
-				'contentType': 'application/json; charset=utf-8',
-				'success': function(data){
-					$.ajax({
-						'url': endpoint + url_checkback_part + current_compress_input,
-						'type': 'POST',
-						'data': JSON.stringify(key),
-						'dataType': 'json',
-						'contentType': 'application/json; charset=utf-8',
-						'success': function(data){
-							var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + short_input_parameter + "=" + key;
-							shareURL_Do(site, new_url);
-						}
-					});
-				}
-			});
-		}
-	});
-	return false;
-};
 
 function shareURL_Do(site, short_url) {
 	// Show
