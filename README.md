@@ -12,9 +12,10 @@ Libraries used:
 * lz-string
 
 External sevices used:
-* imgur
-* is.gd
-* FileSaver.js
+* imgur (image hosting)
+* ~~is.gd~~ (not working as of 2024/01/07)
+* waa.ai (URL shortening)
+* FileSaver.js (file generation, saving and loading)
 
 What to do:
 * Continue updating with new Servant releases
