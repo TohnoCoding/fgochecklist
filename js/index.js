@@ -1700,8 +1700,12 @@ function ToggleEventIcon() {
 
 //=============================================================================================================================
 // Short URL
+// Multiple providers have been coded and tested to work; code blocks have been commented
+// out to use in case one fails. Should figure out some way to use one if another fails.
+// Nested Ajax requests in order of priority maybe? Not sure if that'd be very efficient.
 //=============================================================================================================================
 function shareURL(site) {
+    // Setting up data to send to shortener
 	if (compress_input == "")
 	{
 		bootbox.alert(share_none_text);
@@ -1711,6 +1715,13 @@ function shareURL(site) {
 	var full_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + compress_input_parameter + "=" + compress_input;
 	var mashuSR_str = getMashuSRURLstring(true);
 	if (mashuSR_str != "") { full_url += "&" + mashuSR_str; }
+
+    /*******************************/
+    /*     Shortening services     */
+    /*******************************/
+    //----------------//
+    //     waa.ai     //
+    //----------------//
     $.ajax({
         headers: {
             Authorization: "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
@@ -1729,11 +1740,13 @@ function shareURL(site) {
             }
     	},
 	    error: function(result) {
-		    alert("Error retrieving short URL from " + api_url + " shortening service.");
+		    alert("Error retrieving short URL from Akari shortening service. Please try again later.");
 	    }
     });
 	
-    // Old ajax code to shorten with is.gd
+    //---------------//
+    //     is.gd     //
+    //---------------//
     /* $.ajax({
         url: "https://is.gd/create.php",
         dataType: "json",
@@ -1747,10 +1760,33 @@ function shareURL(site) {
             }
         },
         error: function(result) {
-            // Alert
-            alert("Error connecting to is.gd shortening service. Please try again later.");
+            alert("Error retrieving short URL from is.gd shortening service. Please try again later.");
         }
     }); */
+
+    //--------------//
+    //     y.gy     //
+    //--------------//
+    /* var ajaxdata = JSON.stringify({ 'destination_url': full_url });
+    $.ajax({
+        url: "https://api.y.gy/api/v1/link",
+        contentType: "application/json",
+        method: "POST",
+        dataType: "json",
+        data: ajaxdata,
+        success: function(result) {
+            if (result.hasOwnProperty('errorcode')) {
+                alert("Error generating shortened URL! is.gd Error: " + result.errormessage);
+            }
+            else {
+                shareURL_Do(site, result.link);
+            }
+        },
+        error: function(result) {
+            alert("Error retrieving short URL from y.gy shortening service. Please try again later.");
+        }
+    }); */
+
 };
 
 
