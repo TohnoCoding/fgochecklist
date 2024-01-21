@@ -1536,6 +1536,26 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ERGHVPO.png"
+            },
+            {
+                "id": "5-40",
+                "name": "Yamato Takeru",
+                "class": "saber",
+                "game-id": "402",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/SBmJLtB.png"
+            },
+            {
+                "id": "5-41",
+                "name": "Ushi Gozen",
+                "class": "avenger",
+                "game-id": "403",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/khUhsGb.png"
             }
         ]
     },
@@ -3166,6 +3186,36 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/TE9T44b.png"
+            },
+            {
+                "id": "4-28",
+                "name": "Nemo (Santa)",
+                "class": "rider",
+                "game-id": "401",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/og9v1St.png"
+            },
+            {
+                "id": "4-29",
+                "name": "Yui Shōsetsu",
+                "class": "caster",
+                "game-id": "404",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/2PEPJft.png"
+            },
+            {
+                "id": "4-30",
+                "name": "Miyamoto Iori",
+                "class": "saber",
+                "game-id": "405",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/6Xmur3V.png"
             }
         ]
     },
