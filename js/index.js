@@ -1702,8 +1702,8 @@ function ToggleEventIcon() {
 // Short URL
 // Multiple providers have been coded and tested to work; code blocks have been staggered
 // so that if one fails, one of the others will take over. If all the currently available
-// provider fails, a message will be shown so that the user knows that shortening is out
-// of service.
+// providers fail, a message will be shown to the user explaining that URL shortening is
+// out of service.
 //=============================================================================================================================
 function shareURL(site) {
     // Setting up data to send to shortener
