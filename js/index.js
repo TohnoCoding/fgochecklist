@@ -588,10 +588,10 @@ function UpdateURL() {
 		// Compress
 		compress_input = LZString.compressToEncodedURIComponent(raw_user_input);
 		// Debug : Compressed Size Reduce //
-		var decraese_len = raw_user_input.length - compress_input.length;
+		/* var decraese_len = raw_user_input.length - compress_input.length;
 		console.log("Raw Size: " + raw_user_input.length);
 		console.log("Compressed Size: " + compress_input.length);
-		console.log("Compressed Size Reduce: " + decraese_len);
+		console.log("Compressed Size Reduce: " + decraese_len); */
 		// Put Param
 		new_parameter += compress_input_parameter + "=" + compress_input;
 		// Button
@@ -1698,13 +1698,13 @@ function ToggleEventIcon() {
 	$("." + servant_type_box_class).toggle();
 }
 
-//=============================================================================================================================
+//===========================================================================================
 // Short URL
 // Multiple providers have been coded and tested to work; code blocks have been staggered
 // so that if one fails, one of the others will take over. If all the currently available
 // providers fail, a message will be shown to the user explaining that URL shortening is
 // out of service.
-//=============================================================================================================================
+//===========================================================================================
 function shareURL(site) {
     // Setting up data to send to shortener
 	if (compress_input == "")
@@ -1790,8 +1790,8 @@ function shareURL(site) {
             waaai().done(function(result) {
                 shareURL_Do(site, result.data.link);
             }).fail(function() {
-               alert("URL shortening is not available at this time, as there were errors with the URL shortening providers. " + 
-                    "Sorry for the inconvenience."); 
+               alert("URL shortening is not available at this time, as there were errors " +
+                    "with the URL shortening providers. Sorry for the inconvenience."); 
             });
         });
     });
