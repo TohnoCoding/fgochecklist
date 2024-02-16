@@ -1713,7 +1713,8 @@ function shareURL(site) {
 		return;
 	}
 	// Make shareable short URL
-	var full_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + compress_input_parameter + "=" + compress_input;
+	var full_url = window.location.protocol + "//" + window.location.host + 
+        window.location.pathname + "?" + compress_input_parameter + "=" + compress_input;
 	var mashuSR_str = getMashuSRURLstring(true);
 	if (mashuSR_str != "") { full_url += "&" + mashuSR_str; }
 	
@@ -1722,70 +1723,78 @@ function shareURL(site) {
     /*     Shortening services     */
     /*******************************/
     var shorten_successful = false;
+    var shortenedFinal = "";
     
     //--------------//
     //     y.gy     //
     //--------------//
-    var ygyajaxdata = JSON.stringify({ 'destination_url': full_url });
-    var y_gy = {
-        url: "https://api.y.gy/api/v1/link",
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: ygyajaxdata,
-        success: function(result) {
-            shorten_successful = true;
-            shareURL_Do(site, result.link);
-        },
-        error: function(result) {
-            alert("Error retrieving short URL from y.gy shortening service.");
-        }
-    } 
+    function ygy() {
+        var ygyajaxdata = JSON.stringify({ 'destination_url': full_url });
+        var y_gy = {
+            url: "https://api.y.gy/api/v1/link",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: ygyajaxdata,
+            success: function(result) {
+                console.log(result);
+                return result.url;
+            }
+        };
+        return $.ajax(y_gy);
+    }    
     
     //----------------//
     //     waa.ai     //
     //----------------//
-    var waa_ai = {
-        headers: {
-            Authorization: "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
-        },
-        url: "https://api.waa.ai/v2/links",
-        dataType: "json",
-        contentType: "application/json",
-        method: "POST",
-        data: JSON.stringify({ url: full_url }),
-	    success: function(result) {
-    		shorten_successful = true;
-            shareURL_Do(site, result.data.link);
-        },
-	    error: function(result) {
-		    console.log("Error retrieving short URL from Akari shortening service.");
-	    }
-    };
+    function waaai() {
+        var waa_ai = {
+            headers: {
+                Authorization: "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
+            },
+            url: "https://api.waa.ai/v2/links",
+            dataType: "json",
+            contentType: "application/json",
+            method: "POST",
+            data: JSON.stringify({ url: full_url }),
+            success: function(result) {
+                console.log(result);
+                return result.data.link;
+            }
+        };
+        return $.ajax(waa_ai);
+    }
     
     //---------------//
     //     is.gd     //
     //---------------//
-    var is_gd = {
-        url: "https://is.gd/create.php",
-        dataType: "json",
-		data: { format: "json", url: full_url },
-        success: function(result) {
-			shorten_successful = true;
-            shareURL_Do(site, result.shorturl);
-        },
-        error: function(result) {
-            console.log("Error retrieving short URL from is.gd shortening service.");
-        }
-    };
-	
-    $.ajax(is_gd);
-    if(!shorten_successful) { $.ajax(waa_ai); }
-    if(!shorten_successful) { $.ajax(y_gy); }
-    if(!shorten_successful) {
-        alert("URL shortening is not available at this time, as there were errors with the URL shortening providers.\n " + 
-        "Please consult your browser console for more details. Sorry for the inconvenience.");            
+    function isgd() {
+        var is_gd = {
+            url: "https://is.gd/create.php",
+            dataType: "json",
+            data: { format: "json", url: full_url },
+            success: function(result) {
+                console.log(result);
+                return result.shorturl;
+            }
+        };
+        return $.ajax(is_gd);
     }
+    
+    isgd().done(function(result) {
+        shareURL_Do(site, result.shorturl);
+    }).fail(function() {
+        ygy().done(function(result) {
+            shareURL_Do(site, result.url);
+        }).fail(function() {
+            waaai().done(function(result) {
+                shareURL_Do(site, result.data.link);
+            }).fail(function() {
+               alert("URL shortening is not available at this time, as there were errors with the URL shortening providers. " + 
+                    "Sorry for the inconvenience."); 
+            });
+        });
+    });
 };
 
 
