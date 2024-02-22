@@ -1707,95 +1707,93 @@ function ToggleEventIcon() {
 //===========================================================================================
 function shareURL(site) {
     // Setting up data to send to shortener
-	if (compress_input == "")
-	{
-		bootbox.alert(share_none_text);
-		return;
-	}
-	// Make shareable short URL
-	var full_url = window.location.protocol + "//" + window.location.host + 
+    if (compress_input == "") {
+        bootbox.alert(share_none_text);
+        return;
+    }
+
+    // Gather the full URL for shortening
+    var full_url = window.location.protocol + "//" + window.location.host +
         window.location.pathname + "?" + compress_input_parameter + "=" + compress_input;
-	var mashuSR_str = getMashuSRURLstring(true);
-	if (mashuSR_str != "") { full_url += "&" + mashuSR_str; }
-	
+    var mashuSR_str = getMashuSRURLstring(true);
+    if (mashuSR_str !== "") { full_url += "&" + mashuSR_str; }
+
 
     /*******************************/
     /*     Shortening services     */
     /*******************************/
-    var shorten_successful = false;
-    var shortenedFinal = "";
     
     //--------------//
     //     y.gy     //
     //--------------//
     function ygy() {
-        var ygyajaxdata = JSON.stringify({ 'destination_url': full_url });
-        var y_gy = {
-            url: "https://api.y.gy/api/v1/link",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json",
-            data: ygyajaxdata,
-            success: function(result) {
-                console.log(result);
-                return result.url;
-            }
-        };
-        return $.ajax(y_gy);
-    }    
-    
+        return new Promise((resolve) => {
+            var ygyajaxdata = JSON.stringify({ 'destination_url': full_url });
+            var y_gy = {
+                url: "https://api.y.gy/api/v1/link",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: ygyajaxdata,
+                success: function (result) {
+                    resolve({ value: result.url });
+                }
+            };
+            $.ajax(y_gy);
+        });
+    }
+
     //----------------//
     //     waa.ai     //
     //----------------//
     function waaai() {
-        var waa_ai = {
-            headers: {
-                Authorization: "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
-            },
-            url: "https://api.waa.ai/v2/links",
-            dataType: "json",
-            contentType: "application/json",
-            method: "POST",
-            data: JSON.stringify({ url: full_url }),
-            success: function(result) {
-                console.log(result);
-                return result.data.link;
-            }
-        };
-        return $.ajax(waa_ai);
+        return new Promise((resolve) => {
+            var waa_ai = {
+                headers: {
+                    Authorization: "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
+                },
+                url: "https://api.waa.ai/v2/links",
+                dataType: "json",
+                contentType: "application/json",
+                method: "POST",
+                data: JSON.stringify({ url: full_url }),
+                success: function (result) {
+                    console.log(result);
+                    resolve({ value: result.data.link });
+                }
+            };
+            $.ajax(waa_ai);
+        });
     }
-    
+
     //---------------//
     //     is.gd     //
     //---------------//
     function isgd() {
-        var is_gd = {
-            url: "https://is.gd/create.php",
-            dataType: "json",
-            data: { format: "json", url: full_url },
-            success: function(result) {
-                console.log(result);
-                return result.shorturl;
-            }
-        };
-        return $.ajax(is_gd);
-    }
-    
-    isgd().done(function(result) {
-        shareURL_Do(site, result.shorturl);
-    }).fail(function() {
-        ygy().done(function(result) {
-            shareURL_Do(site, result.url);
-        }).fail(function() {
-            waaai().done(function(result) {
-                shareURL_Do(site, result.data.link);
-            }).fail(function() {
-               alert("URL shortening is not available at this time, as there were errors " +
-                    "with the URL shortening providers. Sorry for the inconvenience."); 
-            });
+        return new Promise((resolve) => {
+            var is_gd = {
+                url: "https://is.gd/create.php",
+                dataType: "json",
+                data: { format: "json", url: full_url },
+                success: function (result) {
+                    console.log(result);
+                    resolve({ value: result.shorturl });
+                }
+            };
+            $.ajax(is_gd);
         });
-    });
-};
+    }
+
+    var shortProviders = [isgd(), ygy(), waaai()];
+    Promise.any(shortProviders)
+        .then((result) => {
+            shareURL_Do(site, result);
+        })
+        .catch(() => {
+            alert("URL shortening is not available at this time, as there were errors " +
+                "with the URL shortening providers. Sorry for the inconvenience.");
+        });
+}
 
 
 function shareURL_Do(site, short_url) {
@@ -1810,13 +1808,15 @@ function shareURL_Do(site, short_url) {
 		// Share; Show Short URL
 		showShortURL(short_url);
 		// Share
-		window.open("https://www.tumblr.com/share?posttype=link&url=" + short_url + "&tags=" + share_tags + "&Title=" + share_title,"","menubar=0");
+		window.open("https://www.tumblr.com/share?posttype=link&url=" + short_url +
+		    "&tags=" + share_tags + "&Title=" + share_title,"","menubar=0");
 	}
 	else if (site == "twitter") {
 		// Share; Show Short URL
 		showShortURL(short_url);
 		// Share
-		window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" + share_title + "&hashtags=" + share_tags,"","menubar=0");
+		window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" +
+            share_title + "&hashtags=" + share_tags,"","menubar=0");
 	}
 	else {
 		// Share; Show Short URL
