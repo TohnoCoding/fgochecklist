@@ -1787,7 +1787,7 @@ function shareURL(site) {
     var shortProviders = [isgd(), ygy(), waaai()];
     Promise.any(shortProviders)
         .then((result) => {
-            shareURL_Do(site, result);
+            shareURL_Do(site, result.value);
         })
         .catch(() => {
             alert("URL shortening is not available at this time, as there were errors " +
