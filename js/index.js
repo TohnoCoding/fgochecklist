@@ -418,20 +418,6 @@ function count_update(id, val, showloading) {
 			own_data_eachclass_notevent[current_key][current_edit_class].push(id);
 		}
 	}
-	
-	if (showloading) {
-		// Show Loading Modal
-		//$('#loadingModal').modal('hide');
-		//alert(own_data[current_key].length);
-	}
-	
-	// Update Count
-	//rarity_count_data.allcount.have += val;
-	//rarity_count_data.allcount.list[current_key].have += val;
-	//if (!current_edit_eventonly) {
-	//	rarity_count_data.noteventcount.have += val;
-	//	rarity_count_data.noteventcount.list[current_key].have += val;
-	//}
 }
 
 function userDataUpdateFast(id, val, s_element) {
@@ -587,11 +573,6 @@ function UpdateURL() {
 		}
 		// Compress
 		compress_input = LZString.compressToEncodedURIComponent(raw_user_input);
-		// Debug : Compressed Size Reduce //
-		/* var decraese_len = raw_user_input.length - compress_input.length;
-		console.log("Raw Size: " + raw_user_input.length);
-		console.log("Compressed Size: " + compress_input.length);
-		console.log("Compressed Size Reduce: " + decraese_len); */
 		// Put Param
 		new_parameter += compress_input_parameter + "=" + compress_input;
 		// Button
@@ -812,14 +793,10 @@ function MakeData(servants_data) {
 	// Clear Contents
 	$( ".listbox" ).html("");
 	$( ".listbox_class" ).html("");
-	//$( "." + morecopy_class).html("");
-	//morecopy_class
 	
 	// Reset Value
 	rarity_count_data.allcount.max = 0;
 	rarity_count_data.noteventcount.max = 0;
-	//rarity_count_data.allcount.have = 0;
-	//rarity_count_data.noteventcount.have = 0;
 	own_data = {};
 	own_data_eachclass = {};
 
@@ -948,22 +925,6 @@ function MakeData(servants_data) {
 			if (IsClassmode()) {
                 max_data_eachclass[current_key][current_servant.class] += 1;
 			}
-			//rarity_count_data.allcount.max += 1;
-			//rarity_count_data.allcount.list[current_key].max += 1;
-			//if (current_user_data != null) {
-			//	rarity_count_data.allcount.have += 1;
-			//	rarity_count_data.allcount.list[current_key].have += 1;
-			//}
-			
-			// Count Data: Exclude Event Prize
-			//if (!current_servant.eventonly) {
-				//rarity_count_data.noteventcount.max += 1;
-				//rarity_count_data.noteventcount.list[current_key].max += 1;
-				//if (current_user_data != null) {
-				//	rarity_count_data.noteventcount.have += 1;
-				//	rarity_count_data.noteventcount.list[current_key].have += 1;
-				//}
-			//}
 			
 			// Update Real Count Data
 			if (current_user_data != null) {
@@ -975,20 +936,12 @@ function MakeData(servants_data) {
             // Create Servant Element
             current_servant_html += ' id="' + current_servant.id + '" title="' + current_servant.name + '"';
 			current_servant_html += ' data-toggle="tooltip-member" data-placement="bottom"';
-			//current_servant_html += ' data-list_id="' + current_list.list_id + '" data-maxcopy="' + current_servant.maxcopy + '"';
-			//current_servant_html += ' data-eventonly="' + current_servant.eventonly + '"';
             // Class
 			if (current_user_data != null) {
 				current_servant_class += ' ' + member_class_checked;
 			}
             current_servant_html += current_servant_class + '"'
-            // On Click Function
-			//var escape_input_name = (current_servant.name.replace(/'/g, "\\'"));
-            //var current_onclick = ' onclick="memBerClick(' + "'" + current_servant.id + "', '" + escape_input_name + "', this)" + '"';
-            //current_servant_html += current_onclick;
-			// On Context Function
-			//var current_oncontext = ' oncontextmenu="memBerRightClick(' + "'" + current_servant.id + "', '" + escape_input_name + "', this);return false;" + '"';
-            //current_servant_html += current_oncontext;
+            
             // Close div open tags
             current_servant_html += '>';
             // Image
@@ -1045,11 +998,6 @@ function MakeData(servants_data) {
 			}
 			
         }
-        // Update List Div
-		//if (!IsClassmode())
-		//{
-		//	$(current_element).html(current_html);
-		//}
     }
     // Refresh, Close Loading Modal
     $.when.apply(null, list_img).done(function() {
@@ -1168,9 +1116,6 @@ function ClearAllData() {
         },
         callback: function (result) {
             if (result) {
-				// Remove all checked Element
-				//$('div.' + member_class_checked +' > div.' + morecopy_class).html('');
-				//$('div.' + member_class_checked).removeClass(member_class_checked);
 				// Clear User Data
 				user_data = {};
 				// Update Raw Input & URL
@@ -1713,10 +1658,13 @@ function shareURL(site) {
     }
 
     // Gather the full URL for shortening
-    var full_url = window.location.protocol + "//" + window.location.host +
-        window.location.pathname + "?" + compress_input_parameter + "=" + compress_input;
     var mashuSR_str = getMashuSRURLstring(true);
-    if (mashuSR_str !== "") { full_url += "&" + mashuSR_str; }
+    var full_url = window.location.protocol + "//" + window.location.host +
+        window.location.pathname + "?" + compress_input_parameter + "=" + compress_input +
+        (mashuSR_str !== "" ? "&" + mashuSR_str : "");
+    if (full_url.includes("localhost") || full_url.includes("127.0.0.1")) {
+        full_url = full_url.replace("localhost", "fgotest.tld").replace("127.0.0.1", "fgotest.tld");
+    }
 
 
     /*******************************/
@@ -1758,7 +1706,6 @@ function shareURL(site) {
                 method: "POST",
                 data: JSON.stringify({ url: full_url }),
                 success: function (result) {
-                    console.log(result);
                     resolve({ value: result.data.link });
                 }
             };
@@ -1776,7 +1723,6 @@ function shareURL(site) {
                 dataType: "json",
                 data: { format: "json", url: full_url },
                 success: function (result) {
-                    console.log(result);
                     resolve({ value: result.shorturl });
                 }
             };
@@ -1787,6 +1733,7 @@ function shareURL(site) {
     var shortProviders = [isgd(), ygy(), waaai()];
     Promise.any(shortProviders)
         .then((result) => {
+            if(result.value === undefined) { throw error; }
             shareURL_Do(site, result.value);
         })
         .catch(() => {
