@@ -1730,7 +1730,28 @@ function shareURL(site) {
         });
     }
 
-    var shortProviders = [isgd(), ygy(), waaai()];
+	//----------------//
+    //     owo.vc     //
+    //----------------//
+    function owo() {
+        return new Promise((resolve) => {
+            var owodata = JSON.stringify({ link: full_url, generator: "owo", metadata: "IGNORE" });
+            var oworequest = {
+                contentType: 'application/json; charset=utf-8',
+                url: "https://owo.vc/api/v2/link",
+                method: "POST",
+                dataType: "json",
+                data: owodata,
+                success: function (result) {
+                    resolve({ value: result.id });
+                }
+            };
+            $.ajax(oworequest);
+        });
+    }
+    
+    var shortProviders = [isgd(), ygy(), waaai(), owo()];
+    //var shortProviders = [];      // used for testing new providers
     Promise.any(shortProviders)
         .then((result) => {
             if(result.value === undefined) { throw error; }
