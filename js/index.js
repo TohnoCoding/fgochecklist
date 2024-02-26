@@ -1676,18 +1676,18 @@ function shareURL(site) {
     //--------------//
     function ygy() {
         return new Promise((resolve) => {
-            var ygyajaxdata = JSON.stringify({ 'destination_url': full_url });
-            var y_gy = {
+            var ajaxdata = JSON.stringify({ 'destination_url': full_url });
+            var ajaxrequest = {
                 url: "https://api.y.gy/api/v1/link",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: ygyajaxdata,
+                data: ajaxdata,
                 success: function (result) {
-                    resolve({ value: result.url });
+                    resolve({ serviceProvider: "y.gy", value: result.url });
                 }
             };
-            $.ajax(y_gy);
+            $.ajax(ajaxrequest);
         });
     }
 
@@ -1696,7 +1696,8 @@ function shareURL(site) {
     //----------------//
     function waaai() {
         return new Promise((resolve) => {
-            var waa_ai = {
+            var ajaxdata = JSON.stringify({ url: full_url });
+            var ajaxrequest = {
                 headers: {
                     Authorization: "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
                 },
@@ -1704,12 +1705,12 @@ function shareURL(site) {
                 dataType: "json",
                 contentType: "application/json",
                 method: "POST",
-                data: JSON.stringify({ url: full_url }),
+                data: ajaxdata,
                 success: function (result) {
-                    resolve({ value: result.data.link });
+                    resolve({ serviceProvider: "Akari-chan", value: result.data.link });
                 }
             };
-            $.ajax(waa_ai);
+            $.ajax(ajaxrequest);
         });
     }
 
@@ -1718,43 +1719,70 @@ function shareURL(site) {
     //---------------//
     function isgd() {
         return new Promise((resolve) => {
-            var is_gd = {
+            //var ajaxdata = JSON.stringify({  });
+            var ajaxrequest = {
                 url: "https://is.gd/create.php",
                 dataType: "json",
                 data: { format: "json", url: full_url },
                 success: function (result) {
-                    resolve({ value: result.shorturl });
+                    resolve({ serviceProvider: "is.gd", value: result.shorturl });
                 }
             };
-            $.ajax(is_gd);
+            $.ajax(ajaxrequest);
         });
     }
-
-	//----------------//
+    
+    
+    //----------------//
     //     owo.vc     //
     //----------------//
     function owo() {
         return new Promise((resolve) => {
-            var owodata = JSON.stringify({ link: full_url, generator: "owo", metadata: "IGNORE" });
-            var oworequest = {
+            var ajaxdata = 
+                JSON.stringify({ link: full_url, generator: "owo", metadata: "IGNORE" });
+            var ajaxrequest = {
                 contentType: 'application/json; charset=utf-8',
                 url: "https://owo.vc/api/v2/link",
                 method: "POST",
                 dataType: "json",
-                data: owodata,
+                data: ajaxdata,
                 success: function (result) {
-                    resolve({ value: result.id });
+                    resolve({ serviceProvider: "owo", value: result.id });
                 }
             };
-            $.ajax(oworequest);
+            $.ajax(ajaxrequest);
         });
     }
     
+    
+    /* function ulvis() {
+        return new Promise((resolve) => {
+            console.log(encodeURIComponent(full_url));
+            var ajaxdata = JSON.stringify({ url: full_url });
+            var ajaxrequest = {
+                contentType: 'application/json; charset=utf-8',
+                url: "https://ulvis.net/api.php?url=" + full_url,
+                method: "POST",
+                dataType: "json",
+                success: function (result) {
+                    //resolve({ value: result.id });
+                    console.log(result);
+                }
+            };
+            console.log(ajaxrequest.url);
+            $.ajax(ajaxrequest);
+        });
+    } */
+    
+    
     var shortProviders = [isgd(), ygy(), waaai(), owo()];
-    //var shortProviders = [];      // used for testing new providers
+    //var shortProviders = [()];      // used for testing new providers
+    
+    // Randomize providers
+    shortProviders = shortProviders.sort(() => Math.random() - 0.5);
     Promise.any(shortProviders)
         .then((result) => {
-            if(result.value === undefined) { throw error; }
+            if(result.value == undefined) { throw error; }
             shareURL_Do(site, result.value);
         })
         .catch(() => {
@@ -1762,6 +1790,7 @@ function shareURL(site) {
                 "with the URL shortening providers. Sorry for the inconvenience.");
         });
 }
+
 
 
 function shareURL_Do(site, short_url) {
