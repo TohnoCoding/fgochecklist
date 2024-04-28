@@ -1566,6 +1566,36 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Y88ikbq.png"
+            },
+            {
+                "id": "5-43",
+                "name": "Marie Antoinette",
+                "class": "avenger",
+                "game-id": "407",
+                "maxcopy": 5,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/8GkK7CI.png"
+            },
+            {
+                "id": "5-44",
+                "name": "King of the Cavern, Monte Cristo",
+                "class": "avenger",
+                "game-id": "409",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/2hAZV2v.png"
+            },
+            {
+                "id": "5-45",
+                "name": "Aozaki Aoko",
+                "class": "foreigner",
+                "game-id": "413",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/AAQNnPt.png"
             }
         ]
     },
@@ -3236,6 +3266,36 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/6Xmur3V.png"
+            },
+            {
+                "id": "4-31",
+                "name": "Hassan of the Shining Star",
+                "class": "assassin",
+                "game-id": "408",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/LRwRse6.png"
+            },
+            {
+                "id": "4-32",
+                "name": "Alessandro di Cagliostro",
+                "class": "pretender",
+                "game-id": "410",
+                "maxcopy": 5,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/zSX7HuF.png"
+            },
+            {
+                "id": "4-33",
+                "name": "Shizuki Sōjūrō",
+                "class": "berserker",
+                "game-id": "414",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/LD0SmQf.png"
             }
         ]
     },
