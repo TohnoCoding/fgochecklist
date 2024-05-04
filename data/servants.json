@@ -1596,6 +1596,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/AAQNnPt.png"
+            },
+            {
+                "id": "5-46",
+                "name": "Kuonji Alice",
+                "class": "caster",
+                "game-id": "413",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/zpcaFjb.png"
             }
         ]
     },
