@@ -13,10 +13,11 @@ Libraries used:
 
 External sevices used:
 * imgur (image hosting)
-* ~~is.gd~~ (not working as of 2024/01/07)
+* is.gd (URL shortening)
 * waa.ai (URL shortening)
+* y.gy (URL shortening)
 * FileSaver.js (file generation, saving and loading)
 
 What to do:
 * Continue updating with new Servant releases
-* Minor improvements as seen fit
+* Improvements as required or seen fit
