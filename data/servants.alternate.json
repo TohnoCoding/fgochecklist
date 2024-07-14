@@ -1389,7 +1389,7 @@
             },
             {
                 "id": "5-26",
-                "name": "Pope Johanna",
+                "name": "Popess Johanna",
                 "class": "ruler",
                 "game-id": "374",
                 "maxcopy": 5,
@@ -1601,11 +1601,21 @@
                 "id": "5-46",
                 "name": "Kuonji Alice",
                 "class": "caster",
-                "game-id": "413",
+                "game-id": "415",
                 "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/zpcaFjb.png"
+            },
+            {
+                "id": "5-47",
+                "name": "Azumi no Isora (Hibiki & Chikagi)",
+                "class": "alterego",
+                "game-id": "416",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/vKU3Huu.png"
             }
         ]
     },
