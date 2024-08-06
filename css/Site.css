@@ -199,3 +199,7 @@ table {
 hr {
 	margin: 5px;
 }
+
+@media print {
+    #share, #card-body, #footer { display: none; }
+}
