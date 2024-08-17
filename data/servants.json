@@ -1626,6 +1626,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HwReCUG.png"
+            },
+            {
+                "id": "5-49",
+                "name": "Mysterious Executor C.I.E.L.",
+                "class": "mooncancer",
+                "game-id": "418",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/b2GWUcq.png"
             }
         ]
     },
@@ -3316,6 +3326,26 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/LD0SmQf.png"
+            },
+            {
+                "id": "4-34",
+                "name": "Dobrynya Nikitich (Summer)",
+                "class": "lancer",
+                "game-id": "419",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/pxgmaKg.png"
+            },
+            {
+                "id": "4-35",
+                "name": "Xu Fu (Summer)",
+                "class": "avenger",
+                "game-id": "420",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/hZnprZT.png"
             }
         ]
     },
