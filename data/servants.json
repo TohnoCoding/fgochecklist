@@ -1636,6 +1636,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/b2GWUcq.png"
+            },
+            {
+                "id": "5-50",
+                "name": "BB Dubai",
+                "class": "mooncancer",
+                "game-id": "421",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ERmZDAe.png"
             }
         ]
     },
@@ -3342,6 +3352,26 @@
                 "name": "Xu Fu (Summer)",
                 "class": "avenger",
                 "game-id": "420",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/hZnprZT.png"
+            },
+            {
+                "id": "4-36",
+                "name": "Tenochtitlan",
+                "class": "mooncancer",
+                "game-id": "422",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/2ch1EIj.png"
+            },
+            {
+                "id": "4-37",
+                "name": "Mysterious Heroine XX (Alter)",
+                "class": "foreigner",
+                "game-id": "423",
                 "maxcopy": 5,
                 "stype": 3,
                 "img": true,
