@@ -105,7 +105,7 @@ var save_file_btn = "savebutton_f";
 var save_file_text = "Would you like to save the current list data?";
 
 var export_header = "thisisfgochecklist_data";
-var export_header_sperater = ":";
+var export_header_separator = ":";
 var export_filename = (() => {
     const now = new Date();
     const pad = num => String(num).padStart(2, '0');
@@ -1245,9 +1245,9 @@ function loadLocalFile() {
 		
 		reader.onload = function (e) {
 			var getFile = reader.result;
-			var n_txt = getFile.startsWith(export_header + export_header_sperater);
+			var n_txt = getFile.startsWith(export_header + export_header_separator);
 			if (n_txt) {
-				var res = getFile.replace(export_header + export_header_sperater, "");
+				var res = getFile.replace(export_header + export_header_separator, "");
 				return loadDataDo(res); 
 			}
 			else {
@@ -1311,7 +1311,7 @@ function saveLocalFile() {
 }
 
 function saveLocalFileDo() {
-  var blob = new Blob([export_header + export_header_sperater + compress_input], {
+  var blob = new Blob([export_header + export_header_separator + compress_input], {
     type: "text/plain;charset=utf-8"
   });
   saveAs(blob, export_filename);
