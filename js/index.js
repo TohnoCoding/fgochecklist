@@ -106,7 +106,17 @@ var save_file_text = "Would you like to save the current list data?";
 
 var export_header = "thisisfgochecklist_data";
 var export_header_sperater = ":";
-var export_filename = "fgo_checklist.fgol";
+var export_filename = (() => {
+    const now = new Date();
+    const pad = num => String(num).padStart(2, '0');
+    const YYYY = String(now.getFullYear());
+    const MM = pad(now.getMonth() + 1);
+    const DD = pad(now.getDate());
+    const HH = pad(now.getHours());
+    const mm = pad(now.getMinutes());
+    const SS = pad(now.getSeconds());
+    return `fgo_checklist_${YYYY}${MM}${DD}${HH}${mm}${SS}.fgol`;
+})();
 
 // Global Variables
 var servants_data_list = {};
