@@ -59,7 +59,7 @@ var share_text = "This is your current shortened URL:";
 var share_none_text = "There is nothing to share.";
 
 // Select Text
-var select_all_text = "This will not affect already selected Servants. However, <b><i>THIS CHANGE CANNOT BE REVERTED</i></b>.<br /><br />Are you sure you want to continue?";
+var select_all_text = "This will not affect already selected Servants. However, <b><i>THIS CHANGE CANNOT BE REVERTED</i></b>.<br><br>Are you sure you want to continue?";
 
 // Statistic
 var statistic_area = "statisticBox";
@@ -76,11 +76,6 @@ var classmode_parameter = "classlist";
 
 var mashuSR_checkbox = "mashuSR";
 var mashuSR_parameter = "mashu";
-
-// URL Shortend
-var endpoint = "https://www.jsonstore.io/b79c0c8ea773aa05abd64a356b925c88703d6cbb40679791533b716810e77dc9";
-var url_checkback_part = "/checkback/";
-var url_data_part = "/data/";
 
 // Save & Load
 var fast_mode_local = "fgo_fastmode";
@@ -154,7 +149,7 @@ var JumpToTarget = null;
 var customAdapter = null;
 var list_new = null;
 var list_update = null;
-var exisiting_hash = null;
+var existing_hash = null;
 
 // Set Up
 $.ajaxSetup({
@@ -634,8 +629,8 @@ function UpdateURL() {
 	// Push URL
 	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + new_parameter;
     window.history.pushState({path:newurl},'',newurl);
-	// Remove exisiting hash
-	exisiting_hash = null;	
+	// Remove existing hash
+	existing_hash = null;	
 	// Return
 	return true;
 }
@@ -1681,26 +1676,6 @@ function shareURL(site) {
     /*     Shortening services     */
     /*******************************/
     
-    //--------------//
-    //     y.gy     //
-    //--------------//
-    function ygy() {
-        return new Promise((resolve) => {
-            var ajaxdata = JSON.stringify({ 'destination_url': full_url });
-            var ajaxrequest = {
-                url: "https://api.y.gy/api/v1/link",
-                method: "POST",
-                dataType: "json",
-                contentType: "application/json",
-                data: ajaxdata,
-                success: function (result) {
-                    resolve({ serviceProvider: "y.gy", value: result.url });
-                }
-            };
-            $.ajax(ajaxrequest);
-        });
-    }
-
     //----------------//
     //     waa.ai     //
     //----------------//
@@ -1762,34 +1737,11 @@ function shareURL(site) {
             };
             $.ajax(ajaxrequest);
         });
-    }
+    }    
     
-    
-    /* function ulvis() {
-        return new Promise((resolve) => {
-            console.log(encodeURIComponent(full_url));
-            var ajaxdata = JSON.stringify({ url: full_url });
-            var ajaxrequest = {
-                contentType: 'application/json; charset=utf-8',
-                url: "https://ulvis.net/api.php?url=" + full_url,
-                method: "POST",
-                dataType: "json",
-                success: function (result) {
-                    //resolve({ value: result.id });
-                    console.log(result);
-                }
-            };
-            console.log(ajaxrequest.url);
-            $.ajax(ajaxrequest);
-        });
-    } */
-    
-    
-    var shortProviders = [isgd(), ygy(), waaai(), owo()];
+    var shortProviders = [isgd(), waaai(), owo()];
     //var shortProviders = [()];      // used for testing new providers
     
-    // Randomize providers
-    shortProviders = shortProviders.sort(() => Math.random() - 0.5);
     Promise.any(shortProviders)
         .then((result) => {
             if(result.value == undefined) { throw error; }
@@ -1852,28 +1804,10 @@ function CopyToClipboard(s_element) {
 }
 
 function getrandom_hash() {
-	if (exisiting_hash != null) {
-		return exisiting_hash;
+	if (existing_hash != null) {
+		return existing_hash;
 	}
-    exisiting_hash = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
-	exisiting_hash += Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
-    return exisiting_hash;
-}
-
-function shorturl(val){
-    var key = getrandom_hash();
-    send_request(val, key);
-	return window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + short_input_parameter + "=" + key;
-}
-
-function send_request(val, key) {
-    this.val_forshort = val;
-	this.key_forshort = key;
-    $.ajax({
-        'url': endpoint + "/" + this.val_forshort,
-        'type': 'POST',
-        'data': JSON.stringify(this.url_forshort),
-        'dataType': 'json',
-        'contentType': 'application/json; charset=utf-8'
-	});
+    existing_hash = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
+	existing_hash += Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
+    return existing_hash;
 }
