@@ -1162,7 +1162,7 @@ function ExportCanvas() {
 					//remove the link when done
 					document.body.removeChild(alink);
 					// Close Loading Modal
-					$('#loadingModal').modal('hide')
+					$('#loadingModal').modal('hide');
 				});
 			}
         }
@@ -1314,6 +1314,7 @@ function saveLocalFileDo() {
 
 // Onload
 $(document).ready(function() {
+	console.log("onload");
 	// Show Loading Modal
     $('#loadingModal').modal('show');
 	
@@ -1483,7 +1484,7 @@ function SelectAllData(isRevert, input_rarity, input_class) {
 function SelectAllDataDo(isRevert, input_rarity, input_class) {	
 	
 	// Open Loading Modal
-	$('#loadingModal').modal('show')
+	$('#loadingModal').modal('show');
 	
 	// Ajax; Servant Data
 	$.ajax({
@@ -1566,7 +1567,7 @@ function SelectAllDataDo(isRevert, input_rarity, input_class) {
 			// Alert
 			alert("Error attempting to select all data!");
 			// Close Loading Modal
-			$('#loadingModal').modal('hide')
+			$('#loadingModal').modal('hide');
 		}
 	});
 }
@@ -1631,7 +1632,7 @@ function finish_loading(servant_pass_data) {
 					// Alert
 					alert("Error caching Servant Class Data on AJAX!");
 					// Close Loading Modal
-					$('#loadingModal').modal('hide')
+					$('#loadingModal').modal('hide');
 				}
 			});
         },
@@ -1639,7 +1640,7 @@ function finish_loading(servant_pass_data) {
             // Alert
             alert("Error caching Servant Class Data on AJAX!");
             // Close Loading Modal
-            $('#loadingModal').modal('hide')
+            $('#loadingModal').modal('hide');
         }
     });
 }

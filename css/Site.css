@@ -203,3 +203,16 @@ hr {
 @media print {
     #share, #card-body, #footer { display: none; }
 }
+
+#loadingModal .modal-body { background-color: black; }
+
+#fou {
+    animation: runningFou 1s steps(4) infinite;
+}
+
+@keyframes runningFou {
+    0%  { content: url('../img/fou1.png'); }
+    25% { content: url('../img/fou2.png'); }
+    50% { content: url('../img/fou3.png'); }
+    75% { content: url('../img/fou4.png'); }
+}
