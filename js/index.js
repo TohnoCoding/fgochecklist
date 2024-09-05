@@ -636,139 +636,28 @@ function UpdateURL() {
 }
 
 function UpdateURLOptionModeOnly() {
-	// Get Search
-	var url_part = window.location.search;
-	var urlParams = null;
-	
-	// Option Check
-	var mashuSR_str = getMashuSRURLstring(false);
-	var mashuSR_input = "";
-	
-	var classmode_str = getClassModeURLstring();
-	var classmode_input = "";
-	
-	var fastmode_str = getFastModeURLstring();
-	var fastmode_input = "";
-	
-	// Mode String Founded
-	if (mashuSR_str != "" || classmode_str != "" || fastmode_str != "") {
-		if (url_part != "") {
-			urlParams = new URLSearchParams(url_part);
-			mashuSR_input = urlParams.get(mashuSR_parameter);
-			classmode_input = urlParams.get(classmode_parameter);
-			fastmode_input = urlParams.get(fastmode_parameter);
-			if (mashuSR_input != null) {
-				url_part = url_part.replace("&" + mashuSR_parameter + "=" + mashuSR_input,'');
-				url_part = url_part.replace(mashuSR_parameter + "=" + mashuSR_input,'');
-			}
-			if (classmode_input != null) {
-				url_part = url_part.replace("&" + classmode_parameter + "=" + classmode_input,'');
-				url_part = url_part.replace(classmode_parameter + "=" + classmode_input,'');
-			}
-			if (fastmode_input != null) {
-				url_part = url_part.replace("&" + fastmode_parameter + "=" + fastmode_input,'');
-				url_part = url_part.replace(fastmode_parameter + "=" + fastmode_input,'');
-			}
-			// If not Blank, added &
-			if (url_part != "?") {
-				url_part += "&";
-			}
-		}
-		else {
-			url_part = "?";
-		}
-		
-		// Finish Input
-		var last_str = "";
-		
-		// Data Checked; Mash is SR
-		if (mashuSR_str != "")
-		{
-			last_str += mashuSR_str;
-			localStorage[mashuSR_local] = 1;
-		}
-		else
-		{
-			localStorage[mashuSR_local] = 0;
-		}
-		
-		// Option Checked; Class Mode
-		if (classmode_str != "")
-		{
-			if (last_str != "")
-			{
-				last_str += "&" + classmode_str;
-			}
-			else
-			{
-				last_str += classmode_str;
-			}
-			localStorage[class_mode_local] = 1;
-		}
-		else
-		{
-			localStorage[class_mode_local] = 0;
-		}
-		
-		// Option Checked; Fast Mode
-		if (fastmode_str != "")
-		{
-			if (last_str != "")
-			{
-				last_str += "&" + fastmode_str;
-			}
-			else
-			{
-				last_str += fastmode_str;
-			}
-			localStorage[fast_mode_local] = 1;
-		}
-		else
-		{
-			localStorage[fast_mode_local] = 0;
-		}
-		
-		// Finish
-		url_part += last_str;
-	}
-	else if (url_part != "") {
-		urlParams = new URLSearchParams(url_part);
-		mashuSR_input = urlParams.get(mashuSR_parameter);
-		classmode_input = urlParams.get(classmode_parameter);
-		fastmode_input = urlParams.get(fastmode_parameter);
-		if (mashuSR_input != null) {
-			url_part = url_part.replace("&" + mashuSR_parameter + "=" + mashuSR_input,'');
-			url_part = url_part.replace(mashuSR_parameter + "=" + mashuSR_input,'');
-		}
-		if (classmode_input != null) {
-			url_part = url_part.replace("&" + classmode_parameter + "=" + classmode_input,'');
-			url_part = url_part.replace(classmode_parameter + "=" + classmode_input,'');
-		}
-		if (fastmode_input != null) {
-			url_part = url_part.replace("&" + fastmode_parameter + "=" + fastmode_input,'');
-			url_part = url_part.replace(fastmode_parameter + "=" + fastmode_input,'');
-		}
-		// Local Storage Option
-		localStorage[mashuSR_local] = 0;
-		localStorage[class_mode_local] = 0;
-		localStorage[fast_mode_local] = 0;
-	}
-	else {
-		// Local Storage Option
-		localStorage[mashuSR_local] = 0;
-		localStorage[class_mode_local] = 0;
-		localStorage[fast_mode_local] = 0;
-	}
-	
-	// if ? left, clean Up
-	if (url_part == "?") {
-		url_part = "";
-	}
-	
-	// Push URL
-	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + url_part;
-    window.history.pushState({path:newurl},'',newurl);
+    const urlParams = new URLSearchParams(window.location.search);
+    const options = [
+        { key: mashuSR_parameter, value: getMashuSRURLstring(false), storageKey: mashuSR_local },
+        { key: classmode_parameter, value: getClassModeURLstring(), storageKey: class_mode_local },
+        { key: fastmode_parameter, value: getFastModeURLstring(), storageKey: fast_mode_local }
+    ];
+
+    options.forEach(({ key, value, storageKey }) => {
+        if (value) {
+            urlParams.set(key, value.slice(1));  // Remove '=' from value
+            localStorage[storageKey] = 1;
+        } else {
+            urlParams.delete(key);
+            localStorage[storageKey] = 0;
+        }
+    });
+
+    const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${urlParams.toString()}`;
+    window.history.pushState({ path: newUrl }, '', newUrl);
 }
+
+
 
 // Class Mode Change
 function UpdateClassMode() {
@@ -1314,7 +1203,6 @@ function saveLocalFileDo() {
 
 // Onload
 $(document).ready(function() {
-	console.log("onload");
 	// Show Loading Modal
     $('#loadingModal').modal('show');
 	
