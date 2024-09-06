@@ -800,11 +800,13 @@ function buildServantData(servants_data) {
             {
                 $(current_element).append(item);
                 //current_html += current_servant_html;
-                // Bind Element 
+                // Unbind then rebind Element 
+				$(current_element).off("click", "#" + current_servant.id);
                 $(current_element).on("click", "#" + current_servant.id , function() {
                     elementLeftClick(this);
                 });    
-                $(current_element).on("contextmenu", "#" + current_servant.id , function() {
+                $(current_element).off("contextmenu", "#" + current_servant.id);
+				$(current_element).on("contextmenu", "#" + current_servant.id , function() {
                     elementRightClick(this);
                     return false;
                 });    
@@ -1114,10 +1116,10 @@ function saveLocalFile() {
 }
 
 function saveLocalFileDo() {
-  var blob = new Blob([export_header + export_header_separator + compress_input], {
-    type: "text/plain;charset=utf-8"
-  });
-  saveAs(blob, export_filename);
+    var blob = new Blob([export_header + export_header_separator + compress_input], {
+      type: "text/plain;charset=utf-8"
+    });
+    saveAs(blob, export_filename);
 }
 
 // Onload
@@ -1280,8 +1282,7 @@ function markAllUnitsSelected(isRevert, input_rarity, input_class) {
     });
 }
 
-function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {    
-    
+function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {   
     // Open Loading Modal
     $('#loadingModal').modal('show');
     
