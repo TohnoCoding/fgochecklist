@@ -178,7 +178,7 @@ function jumpTo(){
     if (jump_to_target === null) {
         return;
     }
-    document.getElementById(jump_to_target).scrollIntoView();   //Even IE6 supports this
+    document.getElementById(jump_to_target).scrollIntoView();   // Even IE6 supports this
     jump_to_target = null; 
 }
 
@@ -203,6 +203,7 @@ function loadSprite(src) {
     return deferred.promise();
 }
 
+// TODO: What is this for?
 // Select2 Source for lower
 function getNewCopySource(current_max, s_list) {
     if (current_max < copy_choice_max && current_max > 0) {
@@ -255,20 +256,25 @@ function convertUserDataToRawInput(input_data)
     return new_raw_input;
 }
 
-// FastMode Check
-function isFastMode() {
-    return $('#' + fastmode_checkbox).is(':checked');
-}
+function isFastMode() { return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
 
-// ClassMode Check
-function isClassMode() {
-    return $('#' + classmode_checkbox).is(':checked');
-}
+function isClassMode() { return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
 
-// ClassMode Check
-function isMashuSR() {
-    return $('#' + mashuSR_checkbox).is(':checked');
-}
+function isMashuSR() { return $('#' + mashuSR_checkbox).is(':checked'); } // ClassMode Check
+
+function executeUserDataRemoval(id) { delete user_data[id]; }
+
+function getFastModeURLstring() { return isFastMode() ? fastmode_parameter + "=1" : ""; }
+
+function getClassModeURLstring() { return isClassMode() ? classmode_parameter + "=1" : ""; }
+
+function getCompressedInput() { return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
+
+function updateClassMode() { updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
+
+function openFileOption() { document.getElementById(file_hidden_id).click(); }
+
+
 
 // Validate old param and convert to new if existing; ensures compatibility with legacy 'mashu'
 function getMashParameter() {
@@ -284,7 +290,6 @@ function getMashParameter() {
             window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
         }
     }
-
     return mashValue;
 }
 
@@ -330,7 +335,6 @@ function elementLeftClick(s_element) {
 
 // Click Div
 function elementRightClick(s_element) {
-    //debugger;
     // Fast Mode, Change Value Directly
     if (!isFastMode()) {
         return;
@@ -342,9 +346,6 @@ function elementRightClick(s_element) {
     updateUserDataFast(id, -1, s_element);
 }
 
-function executeUserDataRemoval(id) {
-    delete user_data[id];
-}
 
 function removeUserData() {
     // Prevent Blank Key
@@ -427,7 +428,6 @@ function updateCounts(id, val, showloading) {
 
 
 function updateUserDataFast(id, val, s_element) {
-    //debugger;
     // Mark current_edit
     var current_user_data = getUserData(id);
     var current_edit_max = servants_data_list[id].maxcopy;
@@ -441,37 +441,24 @@ function updateUserDataFast(id, val, s_element) {
         var new_val = current_user_data + val;
         if (new_val <= 0 || new_val > current_edit_max) {
             // Remove Instead
-            // Update Member Element
-            $(s_element).removeClass(member_class_checked);
-            // Update Value on List
-            updateCopyValue(id, 0, s_element);
-            // Update Count
-            updateCounts(id, -1, true);
-            // Clear Number
-            executeUserDataRemoval(id);
+            $(s_element).removeClass(member_class_checked); // Update Member Element
+            updateCopyValue(id, 0, s_element); // Update Value on List
+            updateCounts(id, -1, true); // Update Count
+            executeUserDataRemoval(id); // Clear Number
         } else {
-            // Update user data
-            user_data[id] = new_val;
-            // Update Value on List
-            updateCopyValue(id, new_val, s_element);
+            user_data[id] = new_val; // Update user data
+            updateCopyValue(id, new_val, s_element); // Update Value on List
         }
     } else {
         if (val <= 0) {
-            // Add user data
-            user_data[id] = current_edit_max;
-            // Update Member Element
-            $(s_element).addClass(member_class_checked);
-            // Update Value on List
-            updateCopyValue(id, user_data[id], s_element);
-            // Update Count
-            updateCounts(id, 1, true);
+            user_data[id] = current_edit_max; // Add user data
+            $(s_element).addClass(member_class_checked); // Update Member Element
+            updateCopyValue(id, user_data[id], s_element); // Update Value on List
+            updateCounts(id, 1, true); // Update Count
         } else {
-            // Add user data
-            user_data[id] = 1;
-            // Update Count
-            updateCounts(id, 1, true);
-            // Update Member Element
-            $(s_element).addClass(member_class_checked);
+            user_data[id] = 1; // Add user data
+            updateCounts(id, 1, true); // Update Count
+            $(s_element).addClass(member_class_checked); // Update Member Element
         }
     }
     // Update Raw Input & URL
@@ -484,41 +471,29 @@ function updateUserData() {
     if (current_edit == "" || current_edit_ele == null) {
         return;
     }
-    // Get UserData
-    var current_user_data = getUserData(current_edit);
+    var current_user_data = getUserData(current_edit); // Get UserData
     // New Check or Update
     if (current_user_data != null) {
-        // Get New Value
-        var new_val = parseInt($('#npUpdate').val());
-        // Update user data
-        user_data[current_edit] = new_val;
-        // Update Value on List
-        updateCopyValue(current_edit, new_val, current_edit_ele);
-        // Hide Update Check Modal
-        $('#updateModal').modal('hide');
+        var new_val = parseInt($('#npUpdate').val()); // Get New Value
+        user_data[current_edit] = new_val; // Update user data
+        updateCopyValue(current_edit, new_val, current_edit_ele); // Update Value on List
+        $('#updateModal').modal('hide'); // Hide Update Check Modal
     } else {
-        // Get Event
-        var current_edit_eventonly = servants_data_list[current_edit].eventonly;
-        // Get New Value
-        var new_val = parseInt($('#npAdd').val());
-        // Add user data
-        user_data[current_edit] = new_val;
-        // Update Count
-        updateCounts(current_edit, 1, true);
-        // Update Member Element
-        $('#' + current_edit).addClass(member_class_checked);
-        // Update Value on List
-        updateCopyValue(current_edit, new_val, current_edit_ele);
-        // Hide New Check Modal
-        $('#addModal').modal('hide');
+        var current_edit_eventonly = servants_data_list[current_edit].eventonly; // Get Event
+        var new_val = parseInt($('#npAdd').val()); // Get New Value
+        user_data[current_edit] = new_val; // Add user data
+        updateCounts(current_edit, 1, true); // Update Count
+        $('#' + current_edit).addClass(member_class_checked); // Update Member Element
+        updateCopyValue(current_edit, new_val, current_edit_ele); // Update Value on List
+        $('#addModal').modal('hide'); // Hide New Check Modal
     }
-    // Update Raw Input & URL
+    // Update Raw Input & URL then clear current edit
     updateStatisticsHTML();
     updateURL();
-    // clear current_edit
     current_edit = "";
 }
 
+// TODO: What is this used for?
 function updateCopyValue(id, new_val, s_element) {
     if (!id) return;
     const content = new_val > 1 ? morecopy_text + new_val : "";
@@ -526,17 +501,10 @@ function updateCopyValue(id, new_val, s_element) {
 }
 
 
-
-function getFastModeURLstring() {
-    return isFastMode() ? fastmode_parameter + "=1" : "";
-}
-
-function getClassModeURLstring() {
-    return isClassMode() ? classmode_parameter + "=1" : "";
-}
-
 function getMashuSRURLstring(allowZero) {
-    return isMashuSR() ? `${mashuSR_parameter}=1` : (allowZero ? `${mashuSR_parameter}=0` : "");
+    return isMashuSR() ? 
+		`${mashuSR_parameter}=1` : 
+		(allowZero ? `${mashuSR_parameter}=0` : "");
 }
 
 
@@ -544,10 +512,7 @@ function updateURL() {
     // Sort keys and update raw input
     user_data = orderKeys(user_data);
     raw_user_input = convertUserDataToRawInput(user_data);
-
-    // Initialize new parameter
-    let new_parameter = "";
-    
+    let new_parameter = ""; // Initialize new parameter
     // Compress user data and update buttons
     if (raw_user_input) {
         compress_input = LZString.compressToEncodedURIComponent(raw_user_input);
@@ -559,20 +524,16 @@ function updateURL() {
         $('#' + save_btn).prop('disabled', true);
         $('#' + save_file_btn).prop('disabled', true);
     }
-
     // Add additional parameters
     [getMashuSRURLstring(false), getClassModeURLstring(), getFastModeURLstring()].forEach(param => {
         if (param) {
             new_parameter += (new_parameter.includes("?") ? "&" : "?") + param;
         }
     });
-
     // Update URL
     const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${new_parameter}`;
     window.history.pushState({ path: newurl }, '', newurl);
-    
-    // Clear existing hash
-    existing_hash = null;
+    existing_hash = null; // Clear existing hash
     return true;
 }
 
@@ -583,7 +544,6 @@ function updateURLOptionModeOnly() {
         { key: classmode_parameter, value: getClassModeURLstring(), storageKey: class_mode_local },
         { key: fastmode_parameter, value: getFastModeURLstring(), storageKey: fast_mode_local }
     ];
-
     options.forEach(({ key, value, storageKey }) => {
         if (value) {
             urlParams.set(key, value.slice(1));  // Remove '=' from value
@@ -593,40 +553,22 @@ function updateURLOptionModeOnly() {
             localStorage[storageKey] = 0;
         }
     });
-
     const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${urlParams.toString()}`;
     window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
 
-
-// Class Mode Change
-function updateClassMode() {
-    updateURLOptionModeOnly();
-    finishLoading();
-}
-
-// Get compress_input
-function getCompressedInput()
-{
-    return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : '');
-}
-
 // Make Data
 function buildServantData(servants_data) {
-    // Clear Tooltip
-    $('[data-toggle="tooltip-member"]').tooltip('dispose');
+    $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
+    $( ".listbox" ).html(""); // Clear contents
+    $( ".listbox_class" ).html(""); // Clear contents
     
-    // Clear Contents
-    $( ".listbox" ).html("");
-    $( ".listbox_class" ).html("");
-    
-    // Reset Value
+    // Reset Values
     rarity_count_data.allcount.max = 0;
     rarity_count_data.noteventcount.max = 0;
     own_data = {};
     own_data_eachclass = {};
-
     own_data_notevent = {};
     own_data_eachclass_notevent = {};
     
@@ -645,34 +587,28 @@ function buildServantData(servants_data) {
         var current_key = current_rarity.list_id;
         
         // Skip if Disable
-        if (current_rarity.disable) {
-            continue;
-        }
+        if (current_rarity.disable) { continue; }
         
         // Count Data Prepare
         var tem_list = current_rarity.list.filter(function(item) {
             var current_servant_type = sevent_typelist[item.stype];
             return !current_servant_type.eventonly;
-        })
-        
+        });
         rarity_count_data.allcount.list[current_key] = {
             "list_element": current_rarity.list_element,
             "max": current_rarity.list.length
         };
         rarity_count_data.allcount.max += current_rarity.list.length;
-
         rarity_count_data.noteventcount.list[current_key] = {
             "list_element": current_rarity.list_element,
             "max": tem_list.length
         };
-        
         rarity_count_data.noteventcount.max += tem_list.length;
         
         // Prepare Var for Member Loop
         var current_list = current_rarity.list;
         var current_element = "#" + current_rarity.list_element;
         var current_path = current_rarity.list_iconpath;
-        //var current_html = "";
         list_box.push(current_element);
         
         // Class Mode; Prepare Element
@@ -681,10 +617,7 @@ function buildServantData(servants_data) {
             var list_class_available = current_rarity.class_available;
             var current_class_html = "";
             for (var bb = 0, bb_s = list_class_available.length; bb < bb_s; bb++) {
-                
-                // Class Var
-                var current_class = list_class_available[bb];
-                
+                var current_class = list_class_available[bb]; // Class Var
                 // Make Max Data
                 if (typeof max_data_eachclass[current_key] === "undefined") {
                     max_data_eachclass[current_key] = {};
@@ -699,7 +632,6 @@ function buildServantData(servants_data) {
                 var current_class_data = class_data_list[current_class];
                 var current_class_data_icn = getImageClassPath(current_class_data.iconlist[current_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
-                
                 var current_class_data_icn_ele = '<img src="' + current_class_data_icn + '" class="' + img_class + '" title="' + current_class_data.name + '" data-toggle="tooltip-member" data-placement="bottom"/>';
                 current_class_html += current_class_data_icn_ele;
                 
@@ -710,24 +642,19 @@ function buildServantData(servants_data) {
                 current_class_html += "</div>";
                 
                 // All + None Button
-                //current_class_html += '<div class="btn-group btn-group-xs" role="group">'
                 current_class_html += '<button type="button" class="btn btn-outline-primary btn-xs" onclick="SelectAllData(false, ' + "'" + 
                     current_key + "', '" + current_class + "'" +')">All</button>';
                 current_class_html += '<button type="button" class="btn btn-outline-danger btn-xs" onclick="SelectAllData(true, ' +  "'" + 
                     current_key + "', '"+ current_class + "'" +')">None</button>'
-                //current_class_html += "</div>";
                 
-                //current_class_html += current_class;  //Test
                 current_class_html += "</div>";
                 current_class_html += '<div class="row ' + class_div_list_class + '" id="' + current_rarity.list_element + '_' + current_class + '">';
-                //current_class_html += current_class; //Test
                 current_class_html += "</div>";
                 current_class_html += "</div>";
                 current_class_html += "<hr />";
                 
             }
-            // Update List Div
-            $(current_element + "-" + class_divide_class).html(current_class_html);
+            $(current_element + "-" + class_divide_class).html(current_class_html); // Update List Div
         }
 
         // Loop List
@@ -747,28 +674,19 @@ function buildServantData(servants_data) {
             var current_servant_img = '';
             
             // Count Data: All
-            if (isClassMode()) {
-                max_data_eachclass[current_key][current_servant.class] += 1;
-            }
+            if (isClassMode()) { max_data_eachclass[current_key][current_servant.class] += 1; }
             
             // Update Real Count Data
-            if (current_user_data != null) {
-                //rarity_count_data.allcount.have += 1;
-                //rarity_count_data.allcount.list[current_key].have += 1;
-                updateCounts(current_servant.id, 1, false);
-            }
+            if (current_user_data != null) { updateCounts(current_servant.id, 1, false); }
             
             // Create Servant Element
             current_servant_html += ' id="' + current_servant.id + '" title="' + current_servant.name + '"';
             current_servant_html += ' data-toggle="tooltip-member" data-placement="bottom"';
             // Class
-            if (current_user_data != null) {
-                current_servant_class += ' ' + member_class_checked;
-            }
-            current_servant_html += current_servant_class + '"'
+            if (current_user_data != null) { current_servant_class += ' ' + member_class_checked; }
+            current_servant_html += current_servant_class + '"';
+            current_servant_html += '>'; // Close div open tags
             
-            // Close div open tags
-            current_servant_html += '>';
             // Image
             if (current_servant.img == false) {
                 current_servant_img = img_default;
@@ -792,20 +710,18 @@ function buildServantData(servants_data) {
                 current_servant_html += '<div class="' + servant_type_box_class + ' ' + current_type.class + '">'
                 current_servant_html += current_type.ctext + '</div>';
             }
-            // Close Element
-            current_servant_html += '</div></div>';
+            current_servant_html += '</div></div>'; // Close Element
             // Add to main list
             var item = $(current_servant_html);
             if (!isClassMode())
             {
                 $(current_element).append(item);
-                //current_html += current_servant_html;
                 // Unbind then rebind Element 
 				$(current_element).off("click", "#" + current_servant.id);
+				$(current_element).off("contextmenu", "#" + current_servant.id);
                 $(current_element).on("click", "#" + current_servant.id , function() {
                     elementLeftClick(this);
                 });    
-                $(current_element).off("contextmenu", "#" + current_servant.id);
 				$(current_element).on("contextmenu", "#" + current_servant.id , function() {
                     elementRightClick(this);
                     return false;
@@ -821,7 +737,6 @@ function buildServantData(servants_data) {
                     return false;
                 });    
             }
-            
         }
     }
     // Refresh, Close Loading Modal
@@ -840,9 +755,8 @@ function buildServantData(servants_data) {
         }
         // Count
         updateStatisticsHTML();
-        //$("#" + statistic_area + box_fake_subfix).hide();
-        $("#" + statistic_area).show();
         // ToolTip + Box
+        $("#" + statistic_area).show();
         $('[data-toggle="tooltip-member"]').tooltip();
         $('#loadingModal').modal('hide');
         jumpTo();
@@ -851,14 +765,12 @@ function buildServantData(servants_data) {
 
 // Update Count HTML
 function updateStatisticsHTML() {
-    // Prepare Temp Int
-    var all_base = 0;
+    var all_base = 0; // Prepare Temp Int
     for (var key in own_data) {
         if (own_data.hasOwnProperty(key)) {
             all_base += own_data[key].length;
         }
     }
-    
     var all_base_NotEvent = 0;
     for (var key in own_data_notevent) {
         if (own_data_notevent.hasOwnProperty(key)) {
@@ -878,15 +790,12 @@ function updateStatisticsHTML() {
     
     // Each Rarity
     for (var prop in rarity_count_data.allcount.list) {
-        // skip loop if the property is from prototype
-        if(!rarity_count_data.allcount.list.hasOwnProperty(prop)) continue;
+        if(!rarity_count_data.allcount.list.hasOwnProperty(prop)) { continue; } // skip loop if the property is from prototype
         
-        // Prepare Temp Int
-        var rarity_base = 0;
+        var rarity_base = 0; // Prepare Temp Int
         if (own_data.hasOwnProperty(prop)) {
             rarity_base = own_data[prop].length;
         }
-    
         var rarity_base_NotEvent = 0;
         if (own_data_notevent.hasOwnProperty(prop)) {
             rarity_base_NotEvent = own_data_notevent[prop].length;
@@ -911,7 +820,7 @@ function updateStatisticsHTML() {
             var curr_class_have = 0;
             if (own_data_eachclass.hasOwnProperty(curr_rare)) {
                 if (own_data_eachclass[curr_rare].hasOwnProperty(curr_class)) {
-                curr_class_have = own_data_eachclass[curr_rare][curr_class].length;
+                	curr_class_have = own_data_eachclass[curr_rare][curr_class].length;
                 }
             }
             $("#" + class_count_have + curr_rare + "_" + curr_class).html(curr_class_have);
@@ -1016,10 +925,8 @@ function loadLocalData() {
 }
 
 function saveLocalData() {
-    // Update URL First
-    updateURL();
-    // Confirm if compress_input not null
-    if (compress_input == null) return;
+    updateURL(); // Update URL First
+    if (compress_input == null) { return; } // Confirm if compress_input not null
     // Confirm 
     bootbox.confirm({
         message: save_text,
@@ -1041,10 +948,6 @@ function saveLocalData() {
     });
 }
 
-function openFileOption()
-{
-    document.getElementById(file_hidden_id).click();
-}
 
 function loadLocalFile() {
     var input = document.getElementById(file_hidden_id);
@@ -1085,17 +988,13 @@ function loadDataDo(getresult) {
             bootbox.alert(load_fail_text, null);
             return;
         }
-        // Update HTML
-        finishLoading();
-        // Alert
-        bootbox.alert(load_fin_text, null);
+        finishLoading(); // Update HTML
+        bootbox.alert(load_fin_text, null); // Alert
 }
 
 function saveLocalFile() {
-    // Update URL First
-    updateURL();
-    // Confirm if compress_input not null
-    if (compress_input == null) return;
+    updateURL(); // Update URL First
+    if (compress_input == null) { return; } // Confirm if compress_input not null
     // Confirm 
     bootbox.confirm({
         message: save_text,
@@ -1107,11 +1006,7 @@ function saveLocalFile() {
                 label: '<i class="fa fa-check"></i> Confirm'
             }
         },
-        callback: function (result) {
-            if (result) {
-                saveLocalFileDo(compress_input);
-            }
-        }
+        callback: function (result) { if (result) { saveLocalFileDo(compress_input); } }
     });
 }
 
@@ -1124,24 +1019,20 @@ function saveLocalFileDo() {
 
 // Onload
 $(document).ready(function() {
-    // Show Loading Modal
-    $('#loadingModal').modal('show');
-    
+    $('#loadingModal').modal('show'); // Show Loading Modal    
     // Load File Prepare
     $("#" + file_hidden_id).change(function(){
         loadLocalFile();
     });
-    
-    // URL Params
-    var urlParams = new URLSearchParams(window.location.search);
-    // URL Redirect; New
-    var hashh = urlParams.get(short_input_parameter);
-    if (hashh != null) {
+    var urlParams = new URLSearchParams(window.location.search); // URL Params
+    var local_hash = urlParams.get(short_input_parameter); // URL Redirect; New
+    if (local_hash != null) {
         // New End Point
-        $.getJSON(endpoint + url_data_part + hashh, function (data) {
+        $.getJSON(endpoint + url_data_part + local_hash, function (data) {
             data = data["result"];
             if (data != null) {
-                var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + compress_input_parameter + "=" + data;
+                var new_url = window.location.protocol + "//" + window.location.host + 
+				window.location.pathname + "?" + compress_input_parameter + "=" + data;
                 window.location.href = new_url; //Redirect
             } else {
                 var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname;
@@ -1233,15 +1124,9 @@ $(document).ready(function() {
         $('#' + load_btn).prop('disabled', false);
     }
     // Set Checkbox Event
-    $('#' + fastmode_checkbox).change(function () {
-        updateURLOptionModeOnly();
-    });
-    $('#' + classmode_checkbox).change(function () {
-        updateClassMode();
-    });
-    $('#' + mashuSR_checkbox).change(function () {
-        updateClassMode();
-    });
+    $('#' + fastmode_checkbox).change(function () { updateURLOptionModeOnly(); });
+    $('#' + classmode_checkbox).change(function () { updateClassMode(); });
+    $('#' + mashuSR_checkbox).change(function () { updateClassMode(); });
     
     // Set Modal Closing Event
     $("#addModal").on("hidden.bs.modal", function () {
@@ -1301,28 +1186,16 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
             var servants_data = result;
             
             if (typeof input_rarity !== "undefined" && typeof input_class !== "undefined") {
-                // Create Jump Target
-                jump_to_target = input_rarity + "_" + input_class;
-                
-                // Make List
-                var tem_list = servants_data.filter(function(item) {
-                    return item.list_id === input_rarity;
-                });
-                //console.log(tem_list);
+                jump_to_target = input_rarity + "_" + input_class; // Create Jump Target
+                var tem_list = servants_data.filter(function(item) { return item.list_id === input_rarity; }); // Make List
                 var current_list = tem_list[0].list;
-                
                 for (var i = 0, l = current_list.length; i < l; i++) {    
                     var current_servant = current_list[i];
                     if (current_servant.class === input_class) {
-                        
                         if (isRevert) {
-                            if (typeof user_data[current_servant.id] !== "undefined") {
-                                executeUserDataRemoval(current_servant.id);
-                            }
+                            if (typeof user_data[current_servant.id] !== "undefined") { executeUserDataRemoval(current_servant.id); }
                         } else {
-                            if (typeof user_data[current_servant.id] === "undefined") {
-                                user_data[current_servant.id] = 1;
-                            }
+                            if (typeof user_data[current_servant.id] === "undefined") { user_data[current_servant.id] = 1; }
                         }
                     }
                 }
@@ -1334,30 +1207,20 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                     var current_list = current_rarity.list;
                     for (var i = 0, l = current_list.length; i < l; i++) {
                         var current_servant = current_list[i];
-                    
                         if (isRevert) {
-                            if (typeof user_data[current_servant.id] !== "undefined") {
-                                executeUserDataRemoval(current_servant.id);
-                            }
+                            if (typeof user_data[current_servant.id] !== "undefined") { executeUserDataRemoval(current_servant.id); }
                         } else {
-                            if (typeof user_data[current_servant.id] === "undefined") {
-                                user_data[current_servant.id] = 1;
-                            }
+                            if (typeof user_data[current_servant.id] === "undefined") { user_data[current_servant.id] = 1; }
                         }
                     }
                 }                
             }
-            
-            // Clear Raw Input
-            raw_user_input = null;
-            // Send to Finish
-            finishLoading(result);
+            raw_user_input = null; // Clear Raw Input
+            finishLoading(result); // Send to Finish
         },
         error: function(result) {
-            // Alert
-            alert("Error attempting to select all data!");
-            // Close Loading Modal
-            $('#loadingModal').modal('hide');
+            alert("Error attempting to select all data!"); // Alert
+            $('#loadingModal').modal('hide'); // Close Loading Modal
         }
     });
 }
@@ -1379,8 +1242,7 @@ function finishLoading(servant_pass_data) {
             }
         }
     }
-    // Update URL
-    updateURL();
+    updateURL(); // Update URL
     // Ajax; Class Data
     $.ajax({
         url: dataclasspath,
@@ -1393,13 +1255,11 @@ function finishLoading(servant_pass_data) {
             }
         },
         success: function(outer_result) {
-            // Inject Class Data
-            class_data_list = outer_result;
+            class_data_list = outer_result; // Inject Class Data
             
             // If Passing
             if (typeof servant_pass_data !== "undefined") {
-                // Load Data to Variable
-                buildServantData(servant_pass_data);
+                buildServantData(servant_pass_data); // Load Data to Variable
                 return;
             }
             
@@ -1414,30 +1274,21 @@ function finishLoading(servant_pass_data) {
                         xhr.overrideMimeType("application/json");
                     }
                 },
-                success: function(result) {
-                    // Load Data to Variable
-                    buildServantData(result);
-                },
+                success: function(result) { buildServantData(result); }, // Load Data to Variable
                 error: function(result) {
-                    // Alert
-                    alert("Error caching Servant Class Data on AJAX!");
-                    // Close Loading Modal
-                    $('#loadingModal').modal('hide');
+                    alert("Error caching Servant Class Data on AJAX!"); // Alert
+                    $('#loadingModal').modal('hide'); // Close Loading Modal
                 }
             });
         },
         error: function(result) {
-            // Alert
-            alert("Error caching Servant Class Data on AJAX!");
-            // Close Loading Modal
-            $('#loadingModal').modal('hide');
+            alert("Error caching Servant Class Data on AJAX!"); // Alert
+            $('#loadingModal').modal('hide'); // Close Loading Modal
         }
     });
 }
 
-function toggleEventIcon() {
-    $("." + servant_type_box_class).toggle();
-}
+function toggleEventIcon() { $("." + servant_type_box_class).toggle(); }
 
 //===========================================================================================
 // Short URL
@@ -1545,23 +1396,17 @@ function shareURL(site) {
 }
 
 
-
 function executeShareURL(site, short_url) {
     // Show
     if (site == "facebook") {
-        // Share; Show Short URL
-        showShortURL(short_url);
-        // Share
-        window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0");
+        showShortURL(short_url); // Share; Show Short URL
+        window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0"); // Share
     } else if (site == "twitter") {
-        // Share; Show Short URL
-        showShortURL(short_url);
-        // Share
+        showShortURL(short_url); // Share; Show Short URL
         window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" +
-            share_title + "&hashtags=" + share_tags,"","menubar=0");
+            share_title + "&hashtags=" + share_tags,"","menubar=0"); // Share
     } else {
-        // Share; Show Short URL
-        showShortURL(short_url);
+        showShortURL(short_url); // Share; Show Short URL
     }
     return false;
 };
