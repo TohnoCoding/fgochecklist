@@ -183,7 +183,6 @@ function jumpTo(){
 }
 
 function orderKeys(not_sorted) {
-
   var sorted = Object.keys(not_sorted)
     .sort()
     .reduce(function (acc, key) { 
@@ -262,20 +261,17 @@ function ConvertUserDataToRawInput(input_data)
 
 // FastMode Check
 function IsFastmode() {
-	var fastmode_enable = $('#' + fastmode_checkbox).is(':checked');
-	return fastmode_enable;
+	return $('#' + fastmode_checkbox).is(':checked');
 }
 
 // ClassMode Check
 function IsClassmode() {
-	var classmode_enable = $('#' + classmode_checkbox).is(':checked');
-	return classmode_enable;
+	return $('#' + classmode_checkbox).is(':checked');
 }
 
 // ClassMode Check
 function IsMashuSR() {
-	var MashuIsSR = $('#' + mashuSR_checkbox).is(':checked');
-	return MashuIsSR;
+	return $('#' + mashuSR_checkbox).is(':checked');
 }
 
 // Click Div
