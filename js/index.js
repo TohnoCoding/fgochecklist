@@ -290,7 +290,7 @@ function getMashParameter() {
 
 
 // Click Div
-function elementClick(s_element) {
+function elementLeftClick(s_element) {
     // Variable
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
@@ -802,7 +802,7 @@ function buildServantData(servants_data) {
                 //current_html += current_servant_html;
                 // Bind Element 
                 $(current_element).on("click", "#" + current_servant.id , function() {
-                    elementClick(this);
+                    elementLeftClick(this);
                 });    
                 $(current_element).on("contextmenu", "#" + current_servant.id , function() {
                     elementRightClick(this);
@@ -812,7 +812,7 @@ function buildServantData(servants_data) {
                 $(current_element + '_' + current_servant["class"]).append(item);
                 // Bind Element 
                 $(current_element + '_' + current_servant.class).on("click", "#" + current_servant.id , function() {
-                    elementClick(this);
+                    elementLeftClick(this);
                 });    
                 $(current_element + '_' + current_servant.class).on("contextmenu", "#" + current_servant.id , function() {
                     elementRightClick(this);
@@ -1141,8 +1141,7 @@ $(document).ready(function() {
             if (data != null) {
                 var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname + "?" + compress_input_parameter + "=" + data;
                 window.location.href = new_url; //Redirect
-            }
-            else {
+            } else {
                 var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname;
                 window.location.href = new_url; //Redirect
             }
@@ -1172,8 +1171,7 @@ $(document).ready(function() {
     if (MashuSR_input != null) {
         var Mashu_IS_SR = (parseInt(MashuSR_input) > 0);
         $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
-    }
-    else {
+    } else {
         // Mashu is SR
         if (localStorage[mashuSR_local]) {
             var Mashu_IS_SR = (parseInt(localStorage[mashuSR_local]) > 0);
@@ -1185,8 +1183,7 @@ $(document).ready(function() {
     if (classmode_input != null) {
         var classmode_enable = (parseInt(classmode_input) > 0);
         $('#' + classmode_checkbox).prop('checked', classmode_enable);
-    }
-    else {
+    } else {
         // ClassMode
         if (localStorage[class_mode_local]) {
             var classmode_enable = (parseInt(localStorage[class_mode_local]) > 0);
@@ -1198,8 +1195,7 @@ $(document).ready(function() {
     if (fastmode_input != null) {
         var fastmode_enable = (parseInt(fastmode_input) > 0);
         $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
-    }
-    else {
+    } else {
         // FastMode
         if (localStorage[fast_mode_local]) {
             var fastmode_enable = (parseInt(localStorage[fast_mode_local]) > 0);
@@ -1213,20 +1209,16 @@ $(document).ready(function() {
         raw_user_input = LZString.decompressFromEncodedURIComponent(compress_input);
         // Finish Loading
         finishLoading();
-    }
-    else {
+    } else {
         raw_user_input = urlParams.get(raw_input_parameter);
         if (raw_user_input != null) {
             // Finish Loading
             finishLoading();
-        }
-        else 
-        {
+        } else {
             // List Reader
             if (localStorage[list_local]) {
                 loadLocalData();
-            }
-            else {
+            } else {
                 // Blank Raw
                 raw_user_input = "";
                 // Finish Loading
@@ -1328,18 +1320,14 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                             if (typeof user_data[current_servant.id] !== "undefined") {
                                 executeUserDataRemoval(current_servant.id);
                             }
-                        }
-                        else 
-                        {
+                        } else {
                             if (typeof user_data[current_servant.id] === "undefined") {
                                 user_data[current_servant.id] = 1;
                             }
                         }
                     }
                 }
-            }
-            else {
-                
+            } else {
                 // Update User Input 
                 for (var aa = 0, ll = servants_data.length; aa < ll; aa++) {
                     // list get
@@ -1353,9 +1341,7 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                             if (typeof user_data[current_servant.id] !== "undefined") {
                                 executeUserDataRemoval(current_servant.id);
                             }
-                        }
-                        else 
-                        {
+                        } else {
                             if (typeof user_data[current_servant.id] === "undefined") {
                                 user_data[current_servant.id] = 1;
                             }
@@ -1570,22 +1556,13 @@ function executeShareURL(site, short_url) {
         showShortURL(short_url);
         // Share
         window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0");
-    }
-    else if (site == "tumblr") {
-        // Share; Show Short URL
-        showShortURL(short_url);
-        // Share
-        window.open("https://www.tumblr.com/share?posttype=link&url=" + short_url +
-            "&tags=" + share_tags + "&Title=" + share_title,"","menubar=0");
-    }
-    else if (site == "twitter") {
+    } else if (site == "twitter") {
         // Share; Show Short URL
         showShortURL(short_url);
         // Share
         window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" +
             share_title + "&hashtags=" + share_tags,"","menubar=0");
-    }
-    else {
+    } else {
         // Share; Show Short URL
         showShortURL(short_url);
     }
