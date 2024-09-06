@@ -76,11 +76,11 @@
                             </div>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-secondary" onclick="ToggleEventIcon()">Show/Hide Type Icons</button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleEventIcon()">Show/Hide Type Icons</button>
                             <!-- button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Disable for Padoru" disabled>Image export (slow)</button -->
-                            <button type="button" class="btn btn-info" onclick="ExportCanvas()">Image export (slow)</button><br><br>
-                            <button type="button" class="btn btn-danger" onclick="ClearAllData()">Clear entire roster</button>
-                            <button type="button" class="btn btn-primary" onclick="SelectAllData(false)">Mark <i>ALL</i> as owned at NP1</button>
+                            <button type="button" class="btn btn-info" onclick="exportCanvasToImage()">Image export (slow)</button><br><br>
+                            <button type="button" class="btn btn-danger" onclick="clearAllData()">Clear entire roster</button>
+                            <button type="button" class="btn btn-primary" onclick="markAllUnitsSelected(false)">Mark <i>ALL</i> as owned at NP1</button>
                         </td>
                     </tr>
                 </table>
@@ -253,7 +253,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="userDataUpdate()">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="updateUserData()">Save changes</button>
       </div>
     </div>
   </div>
@@ -278,12 +278,12 @@
 		</form>
 		<hr/>
 		<div style="text-align:center;">
-			<button type="button" class="btn btn-danger" onclick="userDataRemove()">Uncheck this servant</button>
+			<button type="button" class="btn btn-danger" onclick="removeUserData()">Uncheck this servant</button>
 		</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="userDataUpdate()">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="updateUserData()">Save changes</button>
       </div>
     </div>
   </div>

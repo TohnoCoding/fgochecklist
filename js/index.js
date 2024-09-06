@@ -75,7 +75,7 @@ var classmode_checkbox = "classmode";
 var classmode_parameter = "classlist";
 
 var mashuSR_checkbox = "mashuSR";
-var mashuSR_parameter = "mashu";
+var mashuSR_parameter = getMashParameter() || "mash";
 
 // Save & Load
 var fast_mode_local = "fgo_fastmode";
@@ -143,10 +143,10 @@ var own_data_eachclass_notevent = {};
 
 var max_data_eachclass = {};
 
-var JumpToTarget = null;
+var jump_to_target = null;
 
 // Global Objects
-var customAdapter = null;
+var custom_adapter = null;
 var list_new = null;
 var list_update = null;
 var existing_hash = null;
@@ -175,11 +175,11 @@ $.fn.select2.amd.define('select2/data/customAdapter', ['select2/data/array', 'se
 );
 
 function jumpTo(){
-	if (JumpToTarget === null) {
+	if (jump_to_target === null) {
 		return;
 	}
-    document.getElementById(JumpToTarget).scrollIntoView();   //Even IE6 supports this
-	JumpToTarget = null; 
+    document.getElementById(jump_to_target).scrollIntoView();   //Even IE6 supports this
+	jump_to_target = null; 
 }
 
 function orderKeys(not_sorted) {
@@ -246,7 +246,7 @@ function getUserData(id) {
 }
 
 // Convert Data
-function ConvertUserDataToRawInput(input_data)
+function convertUserDataToRawInput(input_data)
 {
 	var new_raw_input = "";
 	for (var key in input_data) {
@@ -260,29 +260,48 @@ function ConvertUserDataToRawInput(input_data)
 }
 
 // FastMode Check
-function IsFastmode() {
+function isFastMode() {
 	return $('#' + fastmode_checkbox).is(':checked');
 }
 
 // ClassMode Check
-function IsClassmode() {
+function isClassMode() {
 	return $('#' + classmode_checkbox).is(':checked');
 }
 
 // ClassMode Check
-function IsMashuSR() {
+function isMashuSR() {
 	return $('#' + mashuSR_checkbox).is(':checked');
 }
 
+// Validate old param and convert to new if existing; ensures compatibility with legacy 'mashu'
+function getMashParameter() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var mashValue = urlParams.get("mash") || urlParams.get("mashu");
+
+    if (mashValue !== null) {
+        // Update the parameter to the new standard 'mash' if it's 'mashu'
+        if (urlParams.has("mashu")) {
+            urlParams.delete("mashu");
+            urlParams.set("mash", mashValue);
+            // Update the URL without reloading the page
+            window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+        }
+    }
+
+    return mashValue;
+}
+
+
 // Click Div
-function memBerClick(s_element) {
+function elementClick(s_element) {
 	// Variable
 	var id = $(s_element).attr("id");
 	var name = $(s_element).data("original-title");
 	// Fast Mode, Change Value Directly
-	if (IsFastmode()) {
+	if (isFastMode()) {
 		// Change Value
-		userDataUpdateFast(id, 1, s_element);
+		updateUserDataFast(id, 1, s_element);
 		// Stop
 		return;
 	}
@@ -315,23 +334,24 @@ function memBerClick(s_element) {
 }
 
 // Click Div
-function memBerRightClick(s_element) {
+function elementRightClick(s_element) {
+	//debugger;
 	// Fast Mode, Change Value Directly
-	if (!IsFastmode()) {
+	if (!isFastMode()) {
 		return;
 	}
 	// Variable
 	var id = $(s_element).attr("id");
 	var name = $(s_element).data("original-title");
 	// Mark current_edit
-	userDataUpdateFast(id, -1, s_element);
+	updateUserDataFast(id, -1, s_element);
 }
 
-function userDataRemoveDo(id) {
+function executeUserDataRemoval(id) {
 	delete user_data[id];
 }
 
-function userDataRemove() {
+function removeUserData() {
 	// Prevent Blank Key
 	if (current_edit == "" || current_edit_ele == null) {
 		return;
@@ -353,20 +373,20 @@ function userDataRemove() {
 				var current_user_data = getUserData(current_edit);
 				// Delete User Data
 				if (current_user_data != null) {
-					userDataRemoveDo(current_edit);
+					executeUserDataRemoval(current_edit);
 				}
 				// Update Count
-				count_update(current_edit, -1, true);
+				updateCounts(current_edit, -1, true);
 				// Update Member Element
 				$('#' + current_edit).removeClass(member_class_checked);
 				// Update Value on List
-				UpdateCopyVal(current_edit, 0, current_edit_ele);
+				updateCopyValue(current_edit, 0, current_edit_ele);
 				// Update Count
 				// Hide Update Check Modal
 				$('#updateModal').modal('hide');
 				// Update Raw Input & URL
-				updateCountHTML();
-				UpdateURL();
+				updateStatisticsHTML();
+				updateURL();
 				// clear current_edit
 				current_edit = "";
 			}
@@ -374,54 +394,45 @@ function userDataRemove() {
     });
 }
 
-function count_update(id, val, showloading) {
-	
-	var current_edit_eventonly = servants_data_list[id].eventonly;
-	var current_edit_class = servants_data_list[id].class;
-	var current_key = servants_data_list[id].key;
-	
+function updateCounts(id, val, showloading) {
+	const servant = servants_data_list[id];
+    const { eventonly, class: servantClass, key } = servant;
 
-	// Check if Key Exist
-	if (!(current_key in own_data) ) {
-		own_data[current_key] = [];
-		own_data_eachclass[current_key] = {};
-		own_data_notevent[current_key] = [];
-		own_data_eachclass_notevent[current_key] = {};
-	}
-	// Check if Class Exist
-	if (!(current_edit_class in own_data_eachclass[current_key]) ) {
-		own_data_eachclass[current_key][current_edit_class] = [];
-		own_data_eachclass_notevent[current_key][current_edit_class] = [];
-	}
-	
-	// Update Count
-	if (val === -1) {
-		own_data[current_key] = own_data[current_key].filter(function(item) {
-			return item !== id
-		})
-		own_data_eachclass[current_key][current_edit_class] = own_data_eachclass[current_key][current_edit_class].filter(function(item) {
-			return item !== id
-		})
-		if (!current_edit_eventonly) {
-			own_data_notevent[current_key] = own_data_notevent[current_key].filter(function(item) {
-				return item !== id
-			})
-			own_data_eachclass_notevent[current_key][current_edit_class] = own_data_eachclass_notevent[current_key][current_edit_class].filter(function(item) {
-				return item !== id
-			})
-		}
-	}
-	else {
-		own_data[current_key].push(id);
-		own_data_eachclass[current_key][current_edit_class].push(id);
-		if (!current_edit_eventonly) {
-			own_data_notevent[current_key].push(id);
-			own_data_eachclass_notevent[current_key][current_edit_class].push(id);
-		}
-	}
+    // Initialize data structures if not present
+    if (!(key in own_data)) {
+        own_data[key] = [];
+        own_data_eachclass[key] = {};
+        own_data_notevent[key] = [];
+        own_data_eachclass_notevent[key] = {};
+    }
+    if (!(servantClass in own_data_eachclass[key])) {
+        own_data_eachclass[key][servantClass] = [];
+        own_data_eachclass_notevent[key][servantClass] = [];
+    }
+
+    const updateList = (list, id, add) => {
+        if (add) {
+            list.push(id);
+        } else {
+            list = list.filter(item => item !== id);
+        }
+        return list;
+    };
+
+    // Update count
+    const add = val !== -1;
+    own_data[key] = updateList(own_data[key], id, add);
+    own_data_eachclass[key][servantClass] = updateList(own_data_eachclass[key][servantClass], id, add);
+
+    if (!eventonly) {
+        own_data_notevent[key] = updateList(own_data_notevent[key], id, add);
+        own_data_eachclass_notevent[key][servantClass] = updateList(own_data_eachclass_notevent[key][servantClass], id, add);
+    }
 }
 
-function userDataUpdateFast(id, val, s_element) {
+
+function updateUserDataFast(id, val, s_element) {
+	//debugger;
 	// Mark current_edit
     var current_user_data = getUserData(id);
 	var current_edit_max = servants_data_list[id].maxcopy;
@@ -438,18 +449,18 @@ function userDataUpdateFast(id, val, s_element) {
 			// Update Member Element
 			$(s_element).removeClass(member_class_checked);
 			// Update Value on List
-			UpdateCopyVal(id, 0, s_element);
+			updateCopyValue(id, 0, s_element);
 			// Update Count
-			count_update(id, -1, true);
+			updateCounts(id, -1, true);
 			// Clear Number
-			userDataRemoveDo(id);
+			executeUserDataRemoval(id);
 			
 		}
 		else {
 			// Update user data
 			user_data[id] = new_val;
 			// Update Value on List
-			UpdateCopyVal(id, new_val, s_element);
+			updateCopyValue(id, new_val, s_element);
 		}
 	}
 	else {
@@ -459,25 +470,25 @@ function userDataUpdateFast(id, val, s_element) {
 			// Update Member Element
 			$(s_element).addClass(member_class_checked);
 			// Update Value on List
-			UpdateCopyVal(id, user_data[id], s_element);
+			updateCopyValue(id, user_data[id], s_element);
 			// Update Count
-			count_update(id, 1, true);
+			updateCounts(id, 1, true);
 		}
 		else {
 			// Add user data
 			user_data[id] = 1;
 			// Update Count
-			count_update(id, 1, true);
+			updateCounts(id, 1, true);
 			// Update Member Element
 			$(s_element).addClass(member_class_checked);
 		}
 	}
 	// Update Raw Input & URL
-	updateCountHTML();
-	UpdateURL();
+	updateStatisticsHTML();
+	updateURL();
 }
 
-function userDataUpdate() {
+function updateUserData() {
 	// Prevent Blank Key
 	if (current_edit == "" || current_edit_ele == null) {
 		return;
@@ -491,7 +502,7 @@ function userDataUpdate() {
 		// Update user data
 		user_data[current_edit] = new_val;
 		// Update Value on List
-		UpdateCopyVal(current_edit, new_val, current_edit_ele);
+		updateCopyValue(current_edit, new_val, current_edit_ele);
 		// Hide Update Check Modal
 		$('#updateModal').modal('hide');
 	}
@@ -503,135 +514,79 @@ function userDataUpdate() {
 		// Add user data
 		user_data[current_edit] = new_val;
 		// Update Count
-		count_update(current_edit, 1, true);
+		updateCounts(current_edit, 1, true);
 		// Update Member Element
 		$('#' + current_edit).addClass(member_class_checked);
 		// Update Value on List
-		UpdateCopyVal(current_edit, new_val, current_edit_ele);
+		updateCopyValue(current_edit, new_val, current_edit_ele);
 		// Hide New Check Modal
 		$('#addModal').modal('hide');
 	}
 	// Update Raw Input & URL
-	updateCountHTML();
-	UpdateURL();
+	updateStatisticsHTML();
+	updateURL();
 	// clear current_edit
 	current_edit = "";
 }
 
-function UpdateCopyVal(id, new_val, s_element) {
-	// Prevent Blank Key
-	if (id == "") {
-		return;
-	}
-	// Update Value on List
-	if (new_val > 1) {
-		$(s_element).find('#' + morecopy_prefix + id).html(morecopy_text + new_val.toString());
-	}
-	else {
-		$(s_element).find('#' + morecopy_prefix + id).html("");
-	}
+function updateCopyValue(id, new_val, s_element) {
+    if (!id) return;
+    const content = new_val > 1 ? morecopy_text + new_val : "";
+    $(s_element).find(`#${morecopy_prefix}${id}`).html(content);
 }
 
+
+
 function getFastModeURLstring() {
-	if (IsFastmode()) {
-		return fastmode_parameter + "=1";
-	}
-	return "";
+	return isFastMode() ? fastmode_parameter + "=1" : "";
 }
 
 function getClassModeURLstring() {
-	if (IsClassmode()) {
-		return classmode_parameter + "=1";
-	}
-	return "";
+	return isClassMode() ? classmode_parameter + "=1" : "";
 }
 
 function getMashuSRURLstring(allowZero) {
-	if (IsMashuSR()) {
-		return mashuSR_parameter + "=1";
-	}
-	else if (allowZero)
-	{
-		return mashuSR_parameter + "=0";
-	}
-	return "";
+    return isMashuSR() ? `${mashuSR_parameter}=1` : (allowZero ? `${mashuSR_parameter}=0` : "");
 }
 
 
-function UpdateURL() {
-	// Sort Key First
-	user_data = orderKeys(user_data);
-	// Update Raw Input & URL
-	raw_user_input = ConvertUserDataToRawInput(user_data);
-	var new_parameter = "";
-	// User Data
-	if (raw_user_input != "") {
-		if (!new_parameter.startsWith("?")) {
-			new_parameter = "?";
-		}
-		else {
-			new_parameter += "&";
-		}
-		// Compress
-		compress_input = LZString.compressToEncodedURIComponent(raw_user_input);
-		// Put Param
-		new_parameter += compress_input_parameter + "=" + compress_input;
-		// Button
-		$('#' + save_btn).prop('disabled', false);
-		$('#' + save_file_btn).prop('disabled', false);
-	}
-	else {
-		compress_input = null;
-		$('#' + save_btn).prop('disabled', true);
-		$('#' + save_file_btn).prop('disabled', true);
-	}
-	
-	// Mash is SR
-	var mashuSR_str = getMashuSRURLstring(false);
-	if (mashuSR_str != "") {
-		if (!new_parameter.startsWith("?")) {
-			new_parameter = "?";
-		}
-		else {
-			new_parameter += "&";
-		}
-		new_parameter += mashuSR_str;
-	}
-	
-	// Class Mode
-	var classmode_str = getClassModeURLstring();
-	if (classmode_str != "") {
-		if (!new_parameter.startsWith("?")) {
-			new_parameter = "?";
-		}
-		else {
-			new_parameter += "&";
-		}
-		new_parameter += classmode_str;
-	}
-	
-	// Fast Mode
-	var fastmode_str = getFastModeURLstring();
-	if (fastmode_str != "") {
-		if (!new_parameter.startsWith("?")) {
-			new_parameter = "?";
-		}
-		else {
-			new_parameter += "&";
-		}
-		new_parameter += fastmode_str;
-	}
-	
-	// Push URL
-	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + new_parameter;
-    window.history.pushState({path:newurl},'',newurl);
-	// Remove existing hash
-	existing_hash = null;	
-	// Return
-	return true;
+function updateURL() {
+    // Sort keys and update raw input
+    user_data = orderKeys(user_data);
+    raw_user_input = convertUserDataToRawInput(user_data);
+
+    // Initialize new parameter
+    let new_parameter = "";
+    
+    // Compress user data and update buttons
+    if (raw_user_input) {
+        compress_input = LZString.compressToEncodedURIComponent(raw_user_input);
+        new_parameter = `?${compress_input_parameter}=${compress_input}`;
+        $('#' + save_btn).prop('disabled', false);
+        $('#' + save_file_btn).prop('disabled', false);
+    } else {
+        compress_input = null;
+        $('#' + save_btn).prop('disabled', true);
+        $('#' + save_file_btn).prop('disabled', true);
+    }
+
+    // Add additional parameters
+    [getMashuSRURLstring(false), getClassModeURLstring(), getFastModeURLstring()].forEach(param => {
+        if (param) {
+            new_parameter += (new_parameter.includes("?") ? "&" : "?") + param;
+        }
+    });
+
+    // Update URL
+    const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${new_parameter}`;
+    window.history.pushState({ path: newurl }, '', newurl);
+    
+    // Clear existing hash
+    existing_hash = null;
+    return true;
 }
 
-function UpdateURLOptionModeOnly() {
+function updateURLOptionModeOnly() {
     const urlParams = new URLSearchParams(window.location.search);
     const options = [
         { key: mashuSR_parameter, value: getMashuSRURLstring(false), storageKey: mashuSR_local },
@@ -656,27 +611,19 @@ function UpdateURLOptionModeOnly() {
 
 
 // Class Mode Change
-function UpdateClassMode() {
-	UpdateURLOptionModeOnly();
-	finish_loading();
+function updateClassMode() {
+	updateURLOptionModeOnly();
+	finishLoading();
 }
 
 // Get compress_input
-function get_compress_input()
+function getCompressedInput()
 {
-	var MashuIsSR = getMashuSRURLstring(false);
-	if (MashuIsSR)
-	{
-		return compress_input + "&" + MashuIsSR;
-	}
-	else
-	{
-		return compress_input;
-	}
+	return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : '');
 }
 
 // Make Data
-function MakeData(servants_data) {
+function buildServantData(servants_data) {
 	// Clear Tooltip
 	$('[data-toggle="tooltip-member"]').tooltip('dispose');
 	
@@ -720,15 +667,13 @@ function MakeData(servants_data) {
 		
 		rarity_count_data.allcount.list[current_key] = {
 			"list_element": current_rarity.list_element,
-			"max": current_rarity.list.length,
-			//"have": 0
+			"max": current_rarity.list.length
 		};
 		rarity_count_data.allcount.max += current_rarity.list.length;
 
 		rarity_count_data.noteventcount.list[current_key] = {
 			"list_element": current_rarity.list_element,
-			"max": tem_list.length,
-			//"have": 0
+			"max": tem_list.length
 		};
 		
 		rarity_count_data.noteventcount.max += tem_list.length;
@@ -741,7 +686,7 @@ function MakeData(servants_data) {
         list_box.push(current_element);
 		
 		// Class Mode; Prepare Element
-		if (IsClassmode())
+		if (isClassMode())
 		{
             var list_class_available = current_rarity.class_available;
 			var current_class_html = "";
@@ -812,7 +757,7 @@ function MakeData(servants_data) {
             var current_servant_img = '';
 			
 			// Count Data: All
-			if (IsClassmode()) {
+			if (isClassMode()) {
                 max_data_eachclass[current_key][current_servant.class] += 1;
 			}
 			
@@ -820,7 +765,7 @@ function MakeData(servants_data) {
 			if (current_user_data != null) {
 				//rarity_count_data.allcount.have += 1;
 				//rarity_count_data.allcount.list[current_key].have += 1;
-				count_update(current_servant.id, 1, false);
+				updateCounts(current_servant.id, 1, false);
 			}
 			
             // Create Servant Element
@@ -861,16 +806,16 @@ function MakeData(servants_data) {
             current_servant_html += '</div></div>';
             // Add to main list
 			var item = $(current_servant_html);
-			if (!IsClassmode())
+			if (!isClassMode())
 			{
 				$(current_element).append(item);
 				//current_html += current_servant_html;
 				// Bind Element 
 				$(current_element).on("click", "#" + current_servant.id , function() {
-					memBerClick(this);
+					elementClick(this);
 				});	
 				$(current_element).on("contextmenu", "#" + current_servant.id , function() {
-					memBerRightClick(this);
+					elementRightClick(this);
 					return false;
 				});	
 			}
@@ -879,10 +824,10 @@ function MakeData(servants_data) {
 				$(current_element + '_' + current_servant["class"]).append(item);
 				// Bind Element 
 				$(current_element + '_' + current_servant.class).on("click", "#" + current_servant.id , function() {
-					memBerClick(this);
+					elementClick(this);
 				});	
 				$(current_element + '_' + current_servant.class).on("contextmenu", "#" + current_servant.id , function() {
-					memBerRightClick(this);
+					elementRightClick(this);
 					return false;
 				});	
 			}
@@ -894,7 +839,7 @@ function MakeData(servants_data) {
         for (var aa = 0, ll = list_box.length; aa < ll; aa++) {
             var current_box = list_box[aa];
             $(current_box + box_fake_subfix).hide();
-			if (!IsClassmode())
+			if (!isClassMode())
 			{
 				$(current_box).show();
 				$(current_box + "-" + class_divide_class).hide();
@@ -906,7 +851,7 @@ function MakeData(servants_data) {
 			}
         }
 		// Count
-		updateCountHTML();
+		updateStatisticsHTML();
 		//$("#" + statistic_area + box_fake_subfix).hide();
 		$("#" + statistic_area).show();
 		// ToolTip + Box
@@ -917,8 +862,7 @@ function MakeData(servants_data) {
 }
 
 // Update Count HTML
-function updateCountHTML() {
-	
+function updateStatisticsHTML() {
 	// Prepare Temp Int
 	var all_base = 0;
 	for (var key in own_data) {
@@ -992,7 +936,7 @@ function updateCountHTML() {
 }
 
 // Clear
-function ClearAllData() {
+function clearAllData() {
 	// Confirm
 	bootbox.confirm({
         message: member_clear_conf,
@@ -1012,14 +956,14 @@ function ClearAllData() {
 				//UpdateURL();
 				compress_input = "";
 				raw_user_input = "";
-				finish_loading();
+				finishLoading();
 			}
         }
     });
 }
 
 // Export Canvas
-function ExportCanvas() {
+function exportCanvasToImage() {
 	// Confirm
 	bootbox.confirm({
         message: "WARNING: Image result will not look exactly like in the page. (Capture library issues.)<br/>It is recommendeded to share the link or use an external capture tool instead.<br/>Continue?",
@@ -1080,7 +1024,7 @@ function loadLocalData() {
 					// Blank Raw
 					raw_user_input = "";
 					// Finish Loading
-					finish_loading();
+					finishLoading();
 				}
 			}
         }
@@ -1089,7 +1033,7 @@ function loadLocalData() {
 
 function saveLocalData() {
 	// Update URL First
-	UpdateURL();
+	updateURL();
 	// Confirm if compress_input not null
 	if (compress_input == null) return;
 	// Confirm 
@@ -1161,14 +1105,14 @@ function loadDataDo(getresult) {
 			return;
 		}
 		// Update HTML
-		finish_loading();
+		finishLoading();
 		// Alert
 		bootbox.alert(load_fin_text, null);
 }
 
 function saveLocalFile() {
 	// Update URL First
-	UpdateURL();
+	updateURL();
 	// Confirm if compress_input not null
 	if (compress_input == null) return;
 	// Confirm 
@@ -1227,17 +1171,17 @@ $(document).ready(function() {
 		return;
 	}
 	// Prepare
-	customAdapter = $.fn.select2.amd.require('select2/data/customAdapter');
+	custom_adapter = $.fn.select2.amd.require('select2/data/customAdapter');
 	$('[data-toggle="tooltip"]').tooltip();
 	// Select2
 	list_new = $( "#npAdd" ).select2({
 		theme: "bootstrap",
-		dataAdapter: customAdapter,
+		dataAdapter: custom_adapter,
 		data: copy_choice_allow
 	});
 	list_update = $( "#npUpdate" ).select2({
 		theme: "bootstrap",
-		dataAdapter: customAdapter,
+		dataAdapter: custom_adapter,
 		data: copy_choice_allow
 	});
 	var MashuSR_input = urlParams.get(mashuSR_parameter);
@@ -1289,13 +1233,13 @@ $(document).ready(function() {
 		// List Reader
 		raw_user_input = LZString.decompressFromEncodedURIComponent(compress_input);
 		// Finish Loading
-		finish_loading();
+		finishLoading();
 	}
 	else {
 		raw_user_input = urlParams.get(raw_input_parameter);
 		if (raw_user_input != null) {
 			// Finish Loading
-			finish_loading();
+			finishLoading();
 		}
 		else 
 		{
@@ -1307,7 +1251,7 @@ $(document).ready(function() {
 				// Blank Raw
 				raw_user_input = "";
 				// Finish Loading
-				finish_loading();
+				finishLoading();
 			}
 		}
 	}
@@ -1317,13 +1261,13 @@ $(document).ready(function() {
 	}
 	// Set Checkbox Event
 	$('#' + fastmode_checkbox).change(function () {
-		UpdateURLOptionModeOnly();
+		updateURLOptionModeOnly();
 	});
 	$('#' + classmode_checkbox).change(function () {
-		UpdateClassMode();
+		updateClassMode();
 	});
 	$('#' + mashuSR_checkbox).change(function () {
-		UpdateClassMode();
+		updateClassMode();
 	});
 	
 	// Set Modal Closing Event
@@ -1345,7 +1289,7 @@ $(document).ready(function() {
     }
 });
 
-function SelectAllData(isRevert, input_rarity, input_class) {
+function markAllUnitsSelected(isRevert, input_rarity, input_class) {
 	// Confirm 
 	bootbox.confirm({
         message: select_all_text,
@@ -1359,20 +1303,20 @@ function SelectAllData(isRevert, input_rarity, input_class) {
         },
         callback: function (result) {
             if (result) {
-				SelectAllDataDo(isRevert, input_rarity, input_class);
+				executeMarkAllUnitsSelected(isRevert, input_rarity, input_class);
 			}
         }
     });
 }
 
-function SelectAllDataDo(isRevert, input_rarity, input_class) {	
+function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {	
 	
 	// Open Loading Modal
 	$('#loadingModal').modal('show');
 	
 	// Ajax; Servant Data
 	$.ajax({
-		url: IsMashuSR()? datapath_alternate : datapath,
+		url: isMashuSR()? datapath_alternate : datapath,
 		contentType: "application/json",
 		dataType: "json",
 		cache: false,
@@ -1387,7 +1331,7 @@ function SelectAllDataDo(isRevert, input_rarity, input_class) {
 			if (typeof input_rarity !== "undefined" && typeof input_class !== "undefined") {
 				
 				// Create Jump Target
-				JumpToTarget = input_rarity + "_" + input_class;
+				jump_to_target = input_rarity + "_" + input_class;
 				
 				// Make List
 				var tem_list = servants_data.filter(function(item) {
@@ -1403,7 +1347,7 @@ function SelectAllDataDo(isRevert, input_rarity, input_class) {
 						
 						if (isRevert) {
 							if (typeof user_data[current_servant.id] !== "undefined") {
-								userDataRemoveDo(current_servant.id);
+								executeUserDataRemoval(current_servant.id);
 							}
 						}
 						else 
@@ -1428,7 +1372,7 @@ function SelectAllDataDo(isRevert, input_rarity, input_class) {
 					
 						if (isRevert) {
 							if (typeof user_data[current_servant.id] !== "undefined") {
-								userDataRemoveDo(current_servant.id);
+								executeUserDataRemoval(current_servant.id);
 							}
 						}
 						else 
@@ -1445,7 +1389,7 @@ function SelectAllDataDo(isRevert, input_rarity, input_class) {
 			// Clear Raw Input
 			raw_user_input = null;
 			// Send to Finish
-			finish_loading(result);
+			finishLoading(result);
 		},
 		error: function(result) {
 			// Alert
@@ -1456,7 +1400,7 @@ function SelectAllDataDo(isRevert, input_rarity, input_class) {
 	});
 }
 
-function finish_loading(servant_pass_data) {
+function finishLoading(servant_pass_data) {
 	// Clear Contents
 	$( ".listbox" ).hide();
 	$( ".listbox_class" ).hide();
@@ -1474,7 +1418,7 @@ function finish_loading(servant_pass_data) {
 		}
 	}
 	// Update URL
-	UpdateURL();
+	updateURL();
     // Ajax; Class Data
 	$.ajax({
         url: dataclasspath,
@@ -1493,13 +1437,13 @@ function finish_loading(servant_pass_data) {
 			// If Passing
 			if (typeof servant_pass_data !== "undefined") {
 				// Load Data to Variable
-				MakeData(servant_pass_data);
+				buildServantData(servant_pass_data);
 				return;
 			}
 			
 			// Ajax; Servant Data
             $.ajax({
-				url: IsMashuSR()? datapath_alternate : datapath,
+				url: isMashuSR()? datapath_alternate : datapath,
 				contentType: "application/json",
 				dataType: "json",
 				cache: false,
@@ -1510,7 +1454,7 @@ function finish_loading(servant_pass_data) {
 				},
 				success: function(result) {
 					// Load Data to Variable
-					MakeData(result);
+					buildServantData(result);
 				},
 				error: function(result) {
 					// Alert
@@ -1529,7 +1473,7 @@ function finish_loading(servant_pass_data) {
     });
 }
 
-function ToggleEventIcon() {
+function toggleEventIcon() {
 	$("." + servant_type_box_class).toggle();
 }
 
@@ -1630,7 +1574,7 @@ function shareURL(site) {
     Promise.any(shortProviders)
         .then((result) => {
             if(result.value == undefined) { throw error; }
-            shareURL_Do(site, result.value);
+            executeShareURL(site, result.value);
         })
         .catch(() => {
             alert("URL shortening is not available at this time, as there were errors " +
@@ -1640,7 +1584,7 @@ function shareURL(site) {
 
 
 
-function shareURL_Do(site, short_url) {
+function executeShareURL(site, short_url) {
 	// Show
 	if (site == "facebook") {
 		// Share; Show Short URL
@@ -1682,13 +1626,13 @@ function showShortURL(url) {
 	url_dialog.init(function(){});
 }
 
-function CopyToClipboard(s_element) {
+function copyToClipboard(s_element) {
 	var copyText = document.querySelector("#" + s_element);
 	copyText.select();
 	document.execCommand("copy");
 }
 
-function getrandom_hash() {
+function getRandomHash() {
 	if (existing_hash != null) {
 		return existing_hash;
 	}
