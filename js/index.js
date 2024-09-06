@@ -1287,7 +1287,7 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
     
     // Ajax; Servant Data
     $.ajax({
-        url: isMashuSR()? datapath_alternate : datapath,
+        url: isMashuSR() ? datapath_alternate : datapath,
         contentType: "application/json",
         dataType: "json",
         cache: false,
@@ -1300,20 +1300,18 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
             var servants_data = result;
             
             if (typeof input_rarity !== "undefined" && typeof input_class !== "undefined") {
-                
                 // Create Jump Target
                 jump_to_target = input_rarity + "_" + input_class;
                 
                 // Make List
                 var tem_list = servants_data.filter(function(item) {
                     return item.list_id === input_rarity;
-                })
+                });
                 //console.log(tem_list);
                 var current_list = tem_list[0].list;
                 
                 for (var i = 0, l = current_list.length; i < l; i++) {    
                     var current_servant = current_list[i];
-                    
                     if (current_servant.class === input_class) {
                         
                         if (isRevert) {
@@ -1333,7 +1331,6 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                     // list get
                     var current_rarity = servants_data[aa];
                     var current_list = current_rarity.list;
-        
                     for (var i = 0, l = current_list.length; i < l; i++) {
                         var current_servant = current_list[i];
                     
@@ -1346,7 +1343,6 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                                 user_data[current_servant.id] = 1;
                             }
                         }
-
                     }
                 }                
             }
