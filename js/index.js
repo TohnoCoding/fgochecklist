@@ -1400,14 +1400,12 @@ function executeShareURL(site, short_url) {
     // Show
     if (site == "facebook") {
         showShortURL(short_url); // Share; Show Short URL
-        window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0"); // Share
+        window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0"); // Share to FB
     } else if (site == "twitter") {
         showShortURL(short_url); // Share; Show Short URL
         window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" +
-            share_title + "&hashtags=" + share_tags,"","menubar=0"); // Share
-    } else {
-        showShortURL(short_url); // Share; Show Short URL
-    }
+            share_title + "&hashtags=" + share_tags,"","menubar=0"); // Share to Xwitter
+    } else { showShortURL(short_url); } 
     return false;
 };
 
@@ -1418,9 +1416,7 @@ function showShortURL(url) {
     msg += '<div class="input-group-append">'
     msg += '<button class="btn btn-outline-secondary" type="button" onclick="CopyToClipboard(' + "'link-copy'" +  ')">Copy</button>';
     msg += '</div></div></div></form>';
-    var url_dialog = bootbox.dialog({
-        message: msg
-    });
+    var url_dialog = bootbox.dialog({ message: msg });
     url_dialog.init(function(){});
 }
 
@@ -1431,9 +1427,7 @@ function copyToClipboard(s_element) {
 }
 
 function getRandomHash() {
-    if (existing_hash != null) {
-        return existing_hash;
-    }
+    if (existing_hash != null) { return existing_hash; }
     existing_hash = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
     existing_hash += Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
     return existing_hash;
