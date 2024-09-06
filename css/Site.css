@@ -171,6 +171,10 @@ div.member-eventonly {
  	background: #3b5998;
 }
 
+.fa-facebook-f:before {
+    margin-right: -10px !important;
+}
+
 .twitter {
   	background: #55acee;
 }
@@ -184,7 +188,7 @@ div.member-eventonly {
     .icon-bar {
       transform: scale(0.65);
       right: 0px;
-      top: 0%;
+      top: 2%;
     }
 }
 
