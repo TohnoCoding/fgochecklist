@@ -459,8 +459,8 @@ function updateCopyValue(id, new_val, s_element) {
 
 function getMashuSRURLstring(allowZero) {
     return isMashuSR() ? 
-		`${mashuSR_parameter}=1` : 
-		(allowZero ? `${mashuSR_parameter}=0` : "");
+        `${mashuSR_parameter}=1` : 
+        (allowZero ? `${mashuSR_parameter}=0` : "");
 }
 
 
@@ -656,12 +656,12 @@ function buildServantData(servants_data) {
             {
                 $(current_element).append(item);
                 // Unbind then rebind Element 
-				$(current_element).off("click", "#" + current_servant.id);
-				$(current_element).off("contextmenu", "#" + current_servant.id);
+                $(current_element).off("click", "#" + current_servant.id);
+                $(current_element).off("contextmenu", "#" + current_servant.id);
                 $(current_element).on("click", "#" + current_servant.id , function() {
                     elementLeftClick(this);
                 });    
-				$(current_element).on("contextmenu", "#" + current_servant.id , function() {
+                $(current_element).on("contextmenu", "#" + current_servant.id , function() {
                     elementRightClick(this);
                     return false;
                 });    
@@ -746,7 +746,7 @@ function updateStatisticsHTML() {
             var curr_class_have = 0;
             if (own_data_eachclass.hasOwnProperty(curr_rare)) {
                 if (own_data_eachclass[curr_rare].hasOwnProperty(curr_class)) {
-                	curr_class_have = own_data_eachclass[curr_rare][curr_class].length;
+                    curr_class_have = own_data_eachclass[curr_rare][curr_class].length;
                 }
             }
             $("#" + class_count_have + curr_rare + "_" + curr_class).html(curr_class_have);
@@ -944,7 +944,7 @@ $(document).ready(function() {
             data = data["result"];
             if (data != null) {
                 var new_url = window.location.protocol + "//" + window.location.host + 
-				window.location.pathname + "?" + compress_input_parameter + "=" + data;
+                window.location.pathname + "?" + compress_input_parameter + "=" + data;
                 window.location.href = new_url; //Redirect
             } else {
                 var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname;
@@ -1332,7 +1332,7 @@ function showShortURL(url) {
 }
 
 function copyToClipboard(s_element) {
-	var copyText = document.querySelector("#" + s_element);
+    var copyText = document.querySelector("#" + s_element);
     navigator.clipboard.writeText(copyText.value || copyText.defaultValue).then(() => {});
 }
 
