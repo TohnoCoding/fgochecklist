@@ -1333,7 +1333,8 @@ function showShortURL(url) {
 
 function copyToClipboard(s_element) {
     var copyText = document.querySelector("#" + s_element);
-    navigator.clipboard.writeText(copyText.value || copyText.defaultValue).then(() => {});
+    copyText.select();
+    navigator.clipboard.writeText(copyText.value || copyText.defaultValue);
 }
 
 function getRandomHash() {
