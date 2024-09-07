@@ -103,7 +103,7 @@ var export_header = "thisisfgochecklist_data";
 var export_header_separator = ":";
 var export_filename = (() => {
     const now = new Date();
-    const pad = num => String(num).padStart(2, '0');
+    const pad = (num) => String(num).padStart(2, '0');
     const YYYY = String(now.getFullYear());
     const MM = pad(now.getMonth() + 1);
     const DD = pad(now.getDate());
