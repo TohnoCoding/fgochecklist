@@ -216,3 +216,12 @@ hr {
     50% { content: url('../img/fou3.png'); }
     75% { content: url('../img/fou4.png'); }
 }
+
+.statsColumn {
+    max-width: 30%;
+    display: inline-block;
+}
+
+.statsBox {
+    justify-content: center;
+}

@@ -76,11 +76,11 @@
                             </div>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-secondary" onclick="toggleEventIcon()">Show/Hide Type Icons</button>
+                            <button type="button" class="btn btn-secondary" onclick="toggleUnitTypeIcon()">Show/Hide Type Icons</button>
                             <!-- button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Disable for Padoru" disabled>Image export (slow)</button -->
                             <button type="button" class="btn btn-info" onclick="exportCanvasToImage()">Image export (slow)</button><br><br>
                             <button type="button" class="btn btn-danger" onclick="clearAllData()">Clear entire roster</button>
-                            <button type="button" class="btn btn-primary" onclick="markAllUnitsSelected(false)">Mark <i>ALL</i> as owned at NP1</button>
+                            <button type="button" class="btn btn-primary" onclick="promptMarkAllUnitsSelected(false)">Mark <i>ALL</i> as owned at NP1</button>
                         </td>
                     </tr>
                 </table>
@@ -115,8 +115,8 @@
 	</div>
 	<h3 align="center">Stats for nerds:</h3>
 	<div id="capturearea">
-		<div class="row" id="statisticBox" style="display:none;">
-			<div class="col padoru_text">
+		<div class="row statsBox" id="statisticBox" style="display:none;" align="center">
+			<div class="col statsColumn padoru_text">
 				<h3>All Servants</h3>
 				<h4><small>Overall:</small> <em id="statisticBoxAllPercent"></em>% <small>(<span id="statisticBoxAllHave"></span>/<span id="statisticBoxAllMax"></span>)</small></h4>
 				<ul>
@@ -128,8 +128,8 @@
 					<li>0✩: <span id="noneBoxAllPercent"></span>% (<span id="noneBoxAllHave"></span>/<span id="noneBoxAllMax"></span>)</li>
 				</ul>
 			</div>
-			<div class="col">
-				<h3>Excluding "welfares" (event prizes)</h3>
+			<div class="col statsColumn">
+				<h3>Excluding Welfares</h3>
 				<h4><small>Overall:</small> <em id="statisticBoxNotEventPercent"></em>% <small>(<span id="statisticBoxNotEventHave"></span>/<span id="statisticBoxNotEventMax"></span>)</small></h4>
 				<ul>
 					<li>5★: <span id="ssrBoxNotEventPercent"></span>% (<span id="ssrBoxNotEventHave"></span>/<span id="ssrBoxNotEventMax"></span>)</li>

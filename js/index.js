@@ -149,9 +149,7 @@ var jump_to_target = null;
 var custom_adapter = null;
 var list_new = null;
 var list_update = null;
-var existing_hash = null;
 
-// Set Up
 /**
  * Setting up AJAX to always override the content/MIME type with json.
  */
@@ -207,7 +205,7 @@ function orderKeys(not_sorted) {
 
 /**
  * Preloads images asynchronously.
- * @param {*} src The address/URL of the image to load.
+ * @param {string} src The address/URL of the image to load.
  * @returns A promise that resolves when the image finishes loading.
  */
 function loadSprite(src) {
@@ -220,11 +218,10 @@ function loadSprite(src) {
     return deferred.promise();
 }
 
-// TODO: What is this for?
 /**
- * 
- * @param {*} current_max 
- * @param {*} s_list 
+ * Builds a new Select2 box for the desired unit for the detailed popup.
+ * @param {*} current_max The currently selected element.
+ * @param {*} s_list The list of elements to display in the box.
  */
 function getNewCopySource(current_max, s_list) {
     if (current_max < copy_choice_max && current_max > 0) {
@@ -241,15 +238,14 @@ function getNewCopySource(current_max, s_list) {
 }
 
 /**
- * 
- * @param {*} path 
- * @param {*} external_source 
- * @returns 
+ * Gets the path to an image in the current codebase project. Used for loading an unknown image
+ * if the unit json definition doesn't include one.
+ * @param {string} path The path to the image local to the codebase. 
+ * @param {boolean} external_source Whether the image is from an external source.
+ * @returns The full path to the desired image.
  */
 function getImagePath(path, external_source) {
-    if (external_source) {
-        return path;
-    } else {
+    if (external_source) { return path; } else {
         var urlBase = location.href.substring(0, location.href.lastIndexOf("/") + 1);
         return urlBase + img_path + path;
     }
@@ -257,8 +253,8 @@ function getImagePath(path, external_source) {
 
 /**
  * Gets the path to the class images.
- * @param {*} path 
- * @returns 
+ * @param {string} path The class to get the image for. 
+ * @returns The full path to the desired class image.
  */
 function getImageClassPath(path) {
     var urlBase = location.href.substring(0, location.href.lastIndexOf("/") + 1);
@@ -266,11 +262,11 @@ function getImageClassPath(path) {
 }
 
 /**
- * Fetches any data stored about the currently selected Servant. If none, returns undefined.
- * @param {*} id The ID of the currently selected Servant.
- * @returns Undefined if there's no stored data; the saved data of the selected Servant if there is.
+ * Fetches any data stored about the currently selected unit. If none, returns undefined.
+ * @param {*} id The ID of the currently selected unit.
+ * @returns Undefined if there's no stored data; the saved data of the selected unit if there is.
  */
-function getStoredServantData(id) {
+function getStoredUnitData(id) {
     if (typeof user_data[id] === "undefined") {
         return null;
     }
@@ -313,8 +309,8 @@ function isClassMode() { return $('#' + classmode_checkbox).is(':checked'); } //
 function isMashuSR() { return $('#' + mashuSR_checkbox).is(':checked'); } // ClassMode Check
 
 /**
- * Removes the specified Servant from local storage.
- * @param {*} id The ID of the Servant to remove.
+ * Removes the specified unit from local storage.
+ * @param {*} id The ID of the unit to remove.
  */
 function executeUserDataRemoval(id) { delete user_data[id]; }
 
@@ -331,10 +327,10 @@ function getFastModeURLstring() { return isFastMode() ? fastmode_parameter + "=1
 function getClassModeURLstring() { return isClassMode() ? classmode_parameter + "=1" : ""; }
 
 /**
- * Returns the serialized form of the currently saved Servant data.
- * @returns A string representation of the currently saved Servant data.
+ * Returns the serialized form of the currently saved unit data.
+ * @returns A string representation of the currently saved unit data.
  */
-function getSerializedServantData() { return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
+function getSerializedUnitData() { return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
 
 /**
  * Updates the UI whenever Class Mode is toggled.
@@ -368,8 +364,8 @@ function getMashParameter() {
 }
 
 /**
- * Left click on a Servant portrait.
- * @param {*} s_element The ID of the Servant clicked on.
+ * Left click on a given unit's portrait.
+ * @param {*} s_element The ID of the unit clicked on.
  */
 function elementLeftClick(s_element) {
     // Variable
@@ -377,13 +373,13 @@ function elementLeftClick(s_element) {
     var name = $(s_element).data("original-title");
     // Fast Mode, Change Value Directly
     if (isFastMode()) {
-        updateServantDataInFastMode(id, 1, s_element); // Change Value
+        updateUnitDataInFastMode(id, 1, s_element); // Change Value
         return; // Stop
     }
     // Mark current_edit
     current_edit = id;
     current_edit_ele = s_element;
-    var current_user_data = getStoredServantData(id);
+    var current_user_data = getStoredUnitData(id);
     var current_edit_max = servants_data_list[id].maxcopy;
     // New Check or Update
     if (current_user_data != null) {
@@ -400,19 +396,19 @@ function elementLeftClick(s_element) {
 }
 
 /**
- * Right click on a Servant portrait.
- * @param {*} s_element The ID of the Servant clicked on.
+ * Right click on a given unit's portrait.
+ * @param {*} s_element The ID of the unit clicked on.
  */
 function elementRightClick(s_element) {
     if (!isFastMode()) { return; } // Fast Mode, Change Value Directly
     // Variable
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
-    updateServantDataInFastMode(id, -1, s_element); // Mark current_edit
+    updateUnitDataInFastMode(id, -1, s_element); // Mark current_edit
 }
 
 /**
- * Confirms the removal of the currently selected Servant.
+ * Confirms the removal of the currently selected unit.
  */
 function removeUserData() {
     if (current_edit == "" || current_edit_ele == null) { return; } // Prevent Blank Key
@@ -428,11 +424,11 @@ function removeUserData() {
         },
         callback: function (result) {
             if (result) {
-                var current_user_data = getStoredServantData(current_edit); // Get UserData
+                var current_user_data = getStoredUnitData(current_edit); // Get UserData
                 if (current_user_data != null) { executeUserDataRemoval(current_edit); } // Delete User Data
                 updateCounts(current_edit, -1, true); // Update Count
                 $('#' + current_edit).removeClass(member_class_checked); // Update Member Element
-                updateCopyValue(current_edit, 0, current_edit_ele); // Update Value on List
+                updateAmountOfCopiesOwned(current_edit, 0, current_edit_ele); // Update Value on List
                 $('#updateModal').modal('hide'); // Hide Update Check Modal
                 updateStatisticsHTML();
                 updateURL();
@@ -443,10 +439,10 @@ function removeUserData() {
 }
 
 /**
- * 
- * @param {*} id 
- * @param {*} val 
- * @param {*} showloading 
+ * Updates list data locally.
+ * @param {string} id The ID of the unit to update.
+ * @param {number} val The new amount of copies owned.
+ * @param {boolean} showloading Whether to show a loading screen or not.
  */
 function updateCounts(id, val, showloading) {
     const servant = servants_data_list[id];
@@ -477,14 +473,14 @@ function updateCounts(id, val, showloading) {
 }
 
 /**
- * Handles quick update of Servants when Fast Mode is activated.
- * @param {*} id The ID of the selected Servant.
+ * Handles quick update of unitss when Fast Mode is activated.
+ * @param {*} id The ID of the selected unit.
  * @param {*} val The direction in which to increase the current value (up or down).
- * @param {*} s_element The HTML element of the Selected Servant.
+ * @param {*} s_element The HTML element of the Selected unit.
  */
-function updateServantDataInFastMode(id, val, s_element) {
+function updateUnitDataInFastMode(id, val, s_element) {
     // Mark current_edit
-    var current_user_data = getStoredServantData(id);
+    var current_user_data = getStoredUnitData(id);
     var current_edit_max = servants_data_list[id].maxcopy;
     if (current_edit_max > copy_choice_max) { current_edit_max = copy_choice_max; } // Prevent Over Data
 
@@ -494,18 +490,18 @@ function updateServantDataInFastMode(id, val, s_element) {
         if (new_val <= 0 || new_val > current_edit_max) {
             // Remove Instead
             $(s_element).removeClass(member_class_checked); // Update Member Element
-            updateCopyValue(id, 0, s_element); // Update Value on List
+            updateAmountOfCopiesOwned(id, 0, s_element); // Update Value on List
             updateCounts(id, -1, true); // Update Count
             executeUserDataRemoval(id); // Clear Number
         } else {
             user_data[id] = new_val; // Update user data
-            updateCopyValue(id, new_val, s_element); // Update Value on List
+            updateAmountOfCopiesOwned(id, new_val, s_element); // Update Value on List
         }
     } else {
         if (val <= 0) {
             user_data[id] = current_edit_max; // Add user data
             $(s_element).addClass(member_class_checked); // Update Member Element
-            updateCopyValue(id, user_data[id], s_element); // Update Value on List
+            updateAmountOfCopiesOwned(id, user_data[id], s_element); // Update Value on List
             updateCounts(id, 1, true); // Update Count
         } else {
             user_data[id] = 1; // Add user data
@@ -518,16 +514,16 @@ function updateServantDataInFastMode(id, val, s_element) {
 }
 
 /**
- * Updates the selected Servant's ownership status/level.
+ * Updates the selected unit's ownership status/level.
  */
-function updateServantData() {
+function updateUnitData() {
     if (current_edit == "" || current_edit_ele == null) { return; } // Prevent Blank Key
-    var current_user_data = getStoredServantData(current_edit); // Get UserData
+    var current_user_data = getStoredUnitData(current_edit); // Get UserData
     // New Check or Update
     if (current_user_data != null) {
         var new_val = parseInt($('#npUpdate').val()); // Get New Value
         user_data[current_edit] = new_val; // Update user data
-        updateCopyValue(current_edit, new_val, current_edit_ele); // Update Value on List
+        updateAmountOfCopiesOwned(current_edit, new_val, current_edit_ele); // Update Value on List
         $('#updateModal').modal('hide'); // Hide Update Check Modal
     } else {
         var current_edit_eventonly = servants_data_list[current_edit].eventonly; // Get Event
@@ -535,7 +531,7 @@ function updateServantData() {
         user_data[current_edit] = new_val; // Add user data
         updateCounts(current_edit, 1, true); // Update Count
         $('#' + current_edit).addClass(member_class_checked); // Update Member Element
-        updateCopyValue(current_edit, new_val, current_edit_ele); // Update Value on List
+        updateAmountOfCopiesOwned(current_edit, new_val, current_edit_ele); // Update Value on List
         $('#addModal').modal('hide'); // Hide New Check Modal
     }
     updateStatisticsHTML();
@@ -543,24 +539,24 @@ function updateServantData() {
     current_edit = ""; // Clear current edit
 }
 
-// TODO: What is this used for?
 /**
- * 
- * @param {*} id 
- * @param {*} new_val 
- * @param {*} s_element 
- * @returns 
+ * Updates the amount of copies owned by the specified value.
+ * @param {*} id The ID of the unit to update.
+ * @param {*} new_val The new amount of copies owned.
+ * @param {*} s_element The target DOM element.
  */
-function updateCopyValue(id, new_val, s_element) {
+function updateAmountOfCopiesOwned(id, new_val, s_element) {
     if (!id) { return; }
     const content = new_val > 1 ? morecopy_text + new_val : "";
     $(s_element).find(`#${morecopy_prefix}${id}`).html(content);
 }
 
 /**
- * 
- * @param {*} allowZero 
- * @returns 
+ * Returns an URL component that determines if Mash should be treated as of SR rarity.
+ * @param {boolean} allowZero If false, returns "mash=1" if Mash is SR, and an empty string if she's not;
+ * true returns "mash=0" for URL shortening if she's not marked as SR. 
+ * @returns Empty string for general use if Mash isn't marked as SR, or "mash=0" for URL shortening; "mash=1"
+ * if she's marked as SR.
  */ 
 function getMashuSRURLstring(allowZero) {
     return isMashuSR() ? 
@@ -569,7 +565,7 @@ function getMashuSRURLstring(allowZero) {
 }
 
 /**
- * Updates the URL each time a Servant's data is changed to reflect the new collection status.
+ * Updates the URL each time a unit's data is changed to reflect the new collection status.
  * @returns True when the URL is successfully updated.
  */
 function updateURL() {
@@ -595,12 +591,12 @@ function updateURL() {
     // Update URL
     const newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}${new_parameter}`;
     window.history.pushState({ path: newurl }, '', newurl);
-    existing_hash = null; // Clear existing hash
+    //existing_hash = null; // Clear existing hash
     return true;
 }
 
 /**
- * 
+ * Updates the URL to include the various URL options (Mash being SR, Class/Fast Modes being toggled).
  */
 function updateURLOptionModeOnly() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -622,12 +618,11 @@ function updateURLOptionModeOnly() {
     window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
-// Make Data
 /**
- * 
- * @param {*} servants_data 
+ * Builds the completed UI with amount copies for all characters.
+ * @param {*} units_data The currently saved list data.
  */
-function buildServantData(servants_data) {
+function buildUnitDataInUI(units_data) {
     $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
     $( ".listbox" ).html(""); // Clear contents
     $( ".listbox_class" ).html(""); // Clear contents
@@ -649,9 +644,9 @@ function buildServantData(servants_data) {
     list_img.push(loadSprite(img_default));
     
     // Loop
-    for (var aa = 0, ll = servants_data.length; aa < ll; aa++) {
+    for (var aa = 0, ll = units_data.length; aa < ll; aa++) {
         // list get
-        var current_rarity = servants_data[aa];
+        var current_rarity = units_data[aa];
         var current_key = current_rarity.list_id;
         // Skip if Disable
         if (current_rarity.disable) { continue; }
@@ -719,7 +714,7 @@ function buildServantData(servants_data) {
             servants_data_list[current_servant.id].class = current_servant.class;
             servants_data_list[current_servant.id].eventonly = current_type.eventonly; 
             // Prepare
-            var current_user_data = getStoredServantData(current_servant.id);
+            var current_user_data = getStoredUnitData(current_servant.id);
             var current_servant_html = '<div class="' + member_class_grid + '"><div';
             var current_servant_class = ' class="' + member_class;
             var current_servant_img = '';
@@ -804,9 +799,8 @@ function buildServantData(servants_data) {
     });
 }
 
-// Update Count HTML
 /**
- * 
+ * Updates the statistics section of the displayed page based on selected data.
  */
 function updateStatisticsHTML() {
     var all_base = 0; // Prepare Temp Int
@@ -864,9 +858,8 @@ function updateStatisticsHTML() {
     }
 }
 
-// Clear
 /**
- * 
+ * Clears all selected data.
  */
 function clearAllData() {
     bootbox.confirm({ // Confirm
@@ -890,20 +883,15 @@ function clearAllData() {
     });
 }
 
-// Export Canvas
 /**
- * 
+ * Exports the current data to a downloadable image.
  */
 function exportCanvasToImage() {
     bootbox.confirm({ // Confirm
         message: "WARNING: Image result will not look exactly like in the page. (Capture library issues.)<br/>It is recommendeded to share the link or use an external capture tool instead.<br/>Continue?",
         buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
         callback: function (result) {
             if (result) {
@@ -914,7 +902,7 @@ function exportCanvasToImage() {
                     var alink = document.createElement('a');
                     // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
                     alink.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-                    alink.download = 'fgo-checklist.jpg';
+                    alink.download = export_filename.replace('_', '-').replace("fgol", "jpg");
                     //Firefox requires the link to be in the body
                     document.body.appendChild(alink);
                     alink.click();
@@ -926,25 +914,20 @@ function exportCanvasToImage() {
     });
 }
 
-// Load
 /**
- * 
+ * If data exists in the browser localstorage, confirms with the user whether it should be loaded.
  */
 function loadLocalData() {
     bootbox.confirm({ // Confirm
         message: load_text,
         buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
         callback: function (result) {
             if (result) {
                 $('#loadingModal').modal('show'); // Show Loading Modal
-                executeLoadLocalData(localStorage[list_local]); // Load List
+                loadLocallySavedData(localStorage[list_local]); // Load List
             } else {
                 if (encoded_user_input == null)
                 {
@@ -957,8 +940,7 @@ function loadLocalData() {
 }
 
 /**
- * 
- * @returns 
+ * Saves the currently selected data to localstorage.
  */
 function saveLocalData() {
     updateURL(); // Update URL First
@@ -966,12 +948,8 @@ function saveLocalData() {
     bootbox.confirm({ // Confirm 
         message: save_text,
         buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
         callback: function (result) {
             if (result) {
@@ -984,9 +962,9 @@ function saveLocalData() {
 }
 
 /**
- * 
+ * Reads the uploaded file data and overwrites the currently displayed data.
  */
-function promptLoadLocalFile() {
+function loadUploadedFileData() {
     var input = document.getElementById(file_hidden_id);
      if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -995,22 +973,18 @@ function promptLoadLocalFile() {
             var n_txt = getFile.startsWith(export_header + export_header_separator);
             if (n_txt) {
                 var res = getFile.replace(export_header + export_header_separator, "");
-                return executeLoadLocalData(res); 
-            } else {
-                // Alert
-                return bootbox.alert(load_fail_text, null);
-            }
+                return loadLocallySavedData(res); 
+            } else { return bootbox.alert(load_fail_text, null); } // Alert
         }
         reader.readAsText(input.files[0]);
     }
 }
 
 /**
- * 
- * @param {*} getresult 
- * @returns 
+ * Loads the data stored in localstorage and expands its contents to display in the UI.
+ * @param {*} getresult The locally saved data.
  */
-function executeLoadLocalData(getresult) {
+function loadLocallySavedData(getresult) {
         // Clear User Data
         user_data = {};
         compress_input = "";
@@ -1036,44 +1010,37 @@ function executeLoadLocalData(getresult) {
 
 
 /**
- * 
- * @returns 
+ * Prompts the user to save the current data, and to overwrite existing data if needed.
  */
-function promptSaveLocalFile() {
+function promptSaveDataExport() {
     updateURL(); // Update URL First
     if (compress_input == null) { return; } // Confirm if compress_input not null
     bootbox.confirm({ // Confirm 
         message: save_text,
         buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
-        callback: function (result) { if (result) { executeSaveLocalFile(compress_input); } }
+        callback: function (result) { if (result) { exportCurrentDataToFile(compress_input); } }
     });
 }
 
 /**
- * 
+ * Exports the current data to a downloadable file.
  */
-function executeSaveLocalFile() {
-    var blob = new Blob([export_header + export_header_separator + compress_input], {
-      type: "text/plain;charset=utf-8"
-    });
+function exportCurrentDataToFile() {
+    var blob = new Blob([export_header + export_header_separator + compress_input],
+        { type: "text/plain;charset=utf-8" });
     saveAs(blob, export_filename);
 }
 
-// Onload
 /**
- * 
+ * General setup for when the page is initially loaded and the DOM is ready.
  */
 $(document).ready(function() {
     $('#loadingModal').modal('show'); // Show Loading Modal    
     // Load File Prepare
-    $("#" + file_hidden_id).change(function(){ promptLoadLocalFile(); });
+    $("#" + file_hidden_id).change(function(){ loadUploadedFileData(); });
     var urlParams = new URLSearchParams(window.location.search); // URL Params
     var local_hash = urlParams.get(short_input_parameter); // URL Redirect; New
     if (local_hash != null) {
@@ -1179,12 +1146,12 @@ $(document).ready(function() {
 });
 
 /**
- * 
- * @param {*} isRevert 
- * @param {*} input_rarity 
- * @param {*} input_class 
+ * Prompts the user to mark all units as owned at first level of copies.
+ * @param {boolean} isRevert Used if needed to unmark a given group of units.
+ * @param {string} input_rarity The desired rarity in which to mark all units as owned.
+ * @param {string} input_class The desired class in the desired rarity in which to mark all units as owned.
  */
-function markAllUnitsSelected(isRevert, input_rarity, input_class) {
+function promptMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
     bootbox.confirm({ // Confirm 
         message: select_all_text,
         buttons: {
@@ -1196,14 +1163,15 @@ function markAllUnitsSelected(isRevert, input_rarity, input_class) {
 }
 
 /**
- * 
- * @param {*} isRevert 
- * @param {*} input_rarity 
- * @param {*} input_class 
+ * Marks all units in a given rarity and class as owned at first level of copies; if no rarity and/or class
+ * are specified, marks all units as owned.
+ * @param {boolean} isRevert Used if needed to unmark/remove a given group of units.
+ * @param {string} input_rarity The desired rarity in which to mark all units as owned.
+ * @param {string} input_class The desired class in the desired rarity in which to mark all units as owned.
  */
 function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {   
     $('#loadingModal').modal('show'); // Open Loading Modal
-    // Ajax; Servant Data
+    // Ajax; Unit Data
     $.ajax({
         url: isMashuSR() ? datapath_alternate : datapath,
         contentType: "application/json",
@@ -1211,6 +1179,7 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
         cache: false,
         beforeSend: function(xhr) { if (xhr.overrideMimeType) { xhr.overrideMimeType("application/json"); } },
         success: function(result) {
+            debugger;
             var servants_data = result;
             if (typeof input_rarity !== "undefined" && typeof input_class !== "undefined") {
                 jump_to_target = input_rarity + "_" + input_class; // Create Jump Target
@@ -1220,9 +1189,11 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                     var current_servant = current_list[i];
                     if (current_servant.class === input_class) {
                         if (isRevert) {
-                            if (typeof user_data[current_servant.id] !== "undefined") { executeUserDataRemoval(current_servant.id); }
+                            if (typeof user_data[current_servant.id] !== "undefined")
+                                { executeUserDataRemoval(current_servant.id); }
                         } else {
-                            if (typeof user_data[current_servant.id] === "undefined") { user_data[current_servant.id] = 1; }
+                            if (typeof user_data[current_servant.id] === "undefined")
+                                { user_data[current_servant.id] = 1; }
                         }
                     }
                 }
@@ -1235,9 +1206,11 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                     for (var i = 0, l = current_list.length; i < l; i++) {
                         var current_servant = current_list[i];
                         if (isRevert) {
-                            if (typeof user_data[current_servant.id] !== "undefined") { executeUserDataRemoval(current_servant.id); }
+                            if (typeof user_data[current_servant.id] !== "undefined")
+                                { executeUserDataRemoval(current_servant.id); }
                         } else {
-                            if (typeof user_data[current_servant.id] === "undefined") { user_data[current_servant.id] = 1; }
+                            if (typeof user_data[current_servant.id] === "undefined")
+                                 { user_data[current_servant.id] = 1; }
                         }
                     }
                 }                
@@ -1253,8 +1226,8 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
 }
 
 /**
- * 
- * @param {*} servant_pass_data 
+ * Finishes the UI setup process once all data has been handled.
+ * @param {object} servant_pass_data The data to display.
  */
 function finishLoading(servant_pass_data) {
     // Clear Contents
@@ -1278,73 +1251,65 @@ function finishLoading(servant_pass_data) {
         contentType: "application/json",
         dataType: "json",
         cache: false,
-        beforeSend: function(xhr) {
-            if (xhr.overrideMimeType) {
-                xhr.overrideMimeType("application/json");
-            }
-        },
+        beforeSend: function(xhr) { if (xhr.overrideMimeType) { xhr.overrideMimeType("application/json"); } },
         success: function(outer_result) {
             class_data_list = outer_result; // Inject Class Data
             // If Passing
             if (typeof servant_pass_data !== "undefined") {
-                buildServantData(servant_pass_data); // Load Data to Variable
+                buildUnitDataInUI(servant_pass_data); // Load Data to Variable
                 return;
             }
-            // Ajax; Servant Data
+            // Ajax; Unit Data
             $.ajax({
-                url: isMashuSR()? datapath_alternate : datapath,
+                url: isMashuSR() ? datapath_alternate : datapath,
                 contentType: "application/json",
                 dataType: "json",
                 cache: false,
-                beforeSend: function(xhr) {
-                    if (xhr.overrideMimeType) {
-                        xhr.overrideMimeType("application/json");
-                    }
+                beforeSend: function(xhr) { 
+                    if (xhr.overrideMimeType) { xhr.overrideMimeType("application/json"); }
                 },
-                success: function(result) { buildServantData(result); }, // Load Data to Variable
+                success: function(result) { buildUnitDataInUI(result); }, // Load Data to Variable
                 error: function(result) {
-                    alert("Error caching Servant Class Data on AJAX!"); // Alert
+                    alert("Error caching Unit Class Data on AJAX!"); // Alert
                     $('#loadingModal').modal('hide'); // Close Loading Modal
                 }
             });
         },
         error: function(result) {
-            alert("Error caching Servant Class Data on AJAX!"); // Alert
+            alert("Error caching Unit Class Data on AJAX!"); // Alert
             $('#loadingModal').modal('hide'); // Close Loading Modal
         }
     });
 }
 
 /**
- * 
+ * Toggles the display of the unique icon identifiers for each category of units.
  */
-function toggleEventIcon() { $("." + servant_type_box_class).toggle(); }
+function toggleUnitTypeIcon() { $("." + servant_type_box_class).toggle(); }
 
 //===========================================================================================
-// Short URL
-// Multiple providers have been coded and tested to work; code blocks have been staggered
-// so that if one fails, one of the others will take over. If all the currently available
-// providers fail, a message will be shown to the user explaining that URL shortening is
-// out of service.
+// URL Shortening:
+// Multiple providers have been coded and tested to work; code blocks have wrapped into
+// promises so that whichever responds first is served to the user, and if none respond,
+// a message will be shown to the user stating that URL shortening is out of commission.
 //===========================================================================================
 /**
- * 
- * @param {*} site 
+ * Shares the current data URL.
+ * @param {string} site Optional, can be "Facebook" or "Twitter"; determines whether the 
+ * resulting shortened URL will be directly shared to either site. If empty, just shows the
+ * shortened URL.
  * @returns 
  */
 function shareURL(site) {
-    // Setting up data to send to shortener
-    if (compress_input == "") {
-        bootbox.alert(share_none_text);
-        return;
-    }
+    if (compress_input == "") { bootbox.alert(share_none_text); } // If no data, warn user
     // Gather the full URL for shortening
     var mashuSR_str = getMashuSRURLstring(true);
     var full_url = window.location.protocol + "//" + window.location.host +
         window.location.pathname + "?" + compress_input_parameter + "=" + compress_input +
         (mashuSR_str !== "" ? "&" + mashuSR_str : "");
     if (full_url.includes("localhost") || full_url.includes("127.0.0.1")) {
-        full_url = full_url.replace("localhost", "fgotest.tld").replace("127.0.0.1", "fgotest.tld");
+        full_url = full_url.replace("localhost", "fgotest.tld")
+        .replace("127.0.0.1", "fgotest.tld");
     }
     /*******************************/
     /*     Shortening services     */
@@ -1353,8 +1318,8 @@ function shareURL(site) {
     //     waa.ai     //
     //----------------//
     /**
-     * 
-     * @returns 
+     * Shortens the current data URL with waa.ai/Akari-chan shortener.
+     * @returns A promise that resolves upon successfully shortening the current URL.
      */
     function waaai() {
         return new Promise((resolve) => {
@@ -1379,8 +1344,8 @@ function shareURL(site) {
     //     is.gd     //
     //---------------//
     /**
-     * 
-     * @returns 
+     * Shortens the current data URL with is.gd shortener.
+     * @returns A promise that resolves upon successfully shortening the current URL.
      */
     function isgd() {
         return new Promise((resolve) => {
@@ -1400,8 +1365,8 @@ function shareURL(site) {
     //     owo.vc     //
     //----------------//
     /**
-     * 
-     * @returns 
+     * Shortens the current data URL with owo.vc shortener.
+     * @returns A promise that resolves upon successfully shortening the current URL.
      */
     function owo() {
         return new Promise((resolve) => {
@@ -1434,13 +1399,13 @@ function shareURL(site) {
 }
 
 /**
- * 
- * @param {*} site 
- * @param {*} short_url 
- * @returns 
+ * Takes the current data URL and shortens it, additionally opening share windows for Twitter and
+ * Facebook if desired.
+ * @param {string} site "Facebook", "Twitter" (opens new windows for direct sharing), or empty string
+ * to just get the shortened URL. 
+ * @param {string} short_url The shortened URL corresponding to the current data.
  */
 function executeShareURL(site, short_url) {
-    // Show
     if (site == "facebook") {
         showShortURL(short_url); // Share; Show Short URL
         window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0"); // Share to FB
@@ -1448,14 +1413,13 @@ function executeShareURL(site, short_url) {
         showShortURL(short_url); // Share; Show Short URL
         window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" +
             share_title + "&hashtags=" + share_tags,"","menubar=0"); // Share to Xwitter
-    } else { showShortURL(short_url); } 
-    return false;
+    } else { showShortURL(short_url); }
 };
 
 // Share; Show Short URL
 /**
- * 
- * @param {*} url 
+ * Creates and opens a popup with the shortened URL of the currently active data.
+ * @param {string} url The shortened URL. 
  */
 function showShortURL(url) {
     var msg = share_text + '<hr/><form><div class="form-group"><div class="input-group mb-3">';
@@ -1468,22 +1432,11 @@ function showShortURL(url) {
 }
 
 /**
- * 
- * @param {*} s_element 
+ * Copies the resulting shortened URL to the clipboard.
+ * @param {string} s_element The textbox container with the shortened URL.
  */
 function copyToClipboard(s_element) {
     var copyText = document.querySelector("#" + s_element);
     copyText.select();
     navigator.clipboard.writeText(copyText.value || copyText.defaultValue);
-}
-
-/**
- * 
- * @returns 
- */
-function getRandomHash() {
-    if (existing_hash != null) { return existing_hash; }
-    existing_hash = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
-    existing_hash += Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
-    return existing_hash;
 }
