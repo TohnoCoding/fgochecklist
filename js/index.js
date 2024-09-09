@@ -190,13 +190,12 @@ function jumpTo(){
 
 /**
  * Takes a key-value pair and sorts the keys alphabetically, then returns the sorted collection.
- * @param {*} not_sorted Unsorted collection of key-value pairs.
+ * @param {object} not_sorted Unsorted collection of key-value pairs.
  * @returns A new collection of key-value pairs sorted alphabetically by the keys.
  */
 function orderKeys(not_sorted) {
   var sorted = Object.keys(not_sorted)
-    .sort()
-    .reduce(function (acc, key) { 
+    .sort().reduce(function (acc, key) { 
         acc[key] = not_sorted[key];
         return acc;
     }, {});
@@ -211,17 +210,15 @@ function orderKeys(not_sorted) {
 function loadSprite(src) {
     var deferred = $.Deferred();
     var sprite = new Image();
-    sprite.onload = function() {
-        deferred.resolve();
-    };
+    sprite.onload = function() { deferred.resolve(); };
     sprite.src = src;
     return deferred.promise();
 }
 
 /**
  * Builds a new Select2 box for the desired unit for the detailed popup.
- * @param {*} current_max The currently selected element.
- * @param {*} s_list The list of elements to display in the box.
+ * @param {number} current_max The currently selected element.
+ * @param {object} s_list The list of elements to display in the box.
  */
 function getNewCopySource(current_max, s_list) {
     if (current_max < copy_choice_max && current_max > 0) {
@@ -232,9 +229,7 @@ function getNewCopySource(current_max, s_list) {
             } else { break; }
         }
         s_list.data('select2').dataAdapter.updateOptions(new_choice_allow);
-    } else {
-        s_list.data('select2').dataAdapter.updateOptions(copy_choice_allow);
-    }
+    } else { s_list.data('select2').dataAdapter.updateOptions(copy_choice_allow); }
 }
 
 /**
@@ -263,19 +258,17 @@ function getImageClassPath(path) {
 
 /**
  * Fetches any data stored about the currently selected unit. If none, returns undefined.
- * @param {*} id The ID of the currently selected unit.
+ * @param {string} id The ID of the currently selected unit.
  * @returns Undefined if there's no stored data; the saved data of the selected unit if there is.
  */
 function getStoredUnitData(id) {
-    if (typeof user_data[id] === "undefined") {
-        return null;
-    }
+    if (typeof user_data[id] === "undefined") { return null; }
     return user_data[id];
 }
 
 /**
  * Serializes the current data into an easily compressable string.
- * @param {*} input_data The data to be serialized.
+ * @param {object} input_data The data to be serialized.
  * @returns A string representation of the current data.
  */
 function serializeCurrentDataForURLOutput(input_data) {
@@ -310,7 +303,7 @@ function isMashuSR() { return $('#' + mashuSR_checkbox).is(':checked'); } // Cla
 
 /**
  * Removes the specified unit from local storage.
- * @param {*} id The ID of the unit to remove.
+ * @param {string} id The ID of the unit to remove.
  */
 function executeUserDataRemoval(id) { delete user_data[id]; }
 
@@ -365,7 +358,7 @@ function getMashParameter() {
 
 /**
  * Left click on a given unit's portrait.
- * @param {*} s_element The ID of the unit clicked on.
+ * @param {string} s_element The ID of the unit clicked on.
  */
 function elementLeftClick(s_element) {
     // Variable
@@ -397,11 +390,10 @@ function elementLeftClick(s_element) {
 
 /**
  * Right click on a given unit's portrait.
- * @param {*} s_element The ID of the unit clicked on.
+ * @param {string} s_element The ID of the unit clicked on.
  */
 function elementRightClick(s_element) {
     if (!isFastMode()) { return; } // Fast Mode, Change Value Directly
-    // Variable
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
     updateUnitDataInFastMode(id, -1, s_element); // Mark current_edit
@@ -415,12 +407,8 @@ function removeUserData() {
     bootbox.confirm({ // Confirm
         message: member_uncheck_conf,
         buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
         callback: function (result) {
             if (result) {
@@ -474,16 +462,15 @@ function updateCounts(id, val, showloading) {
 
 /**
  * Handles quick update of unitss when Fast Mode is activated.
- * @param {*} id The ID of the selected unit.
- * @param {*} val The direction in which to increase the current value (up or down).
- * @param {*} s_element The HTML element of the Selected unit.
+ * @param {string} id The ID of the selected unit.
+ * @param {number} val The direction in which to increase the current value (up or down).
+ * @param {string} s_element The HTML element of the Selected unit.
  */
 function updateUnitDataInFastMode(id, val, s_element) {
     // Mark current_edit
     var current_user_data = getStoredUnitData(id);
     var current_edit_max = servants_data_list[id].maxcopy;
     if (current_edit_max > copy_choice_max) { current_edit_max = copy_choice_max; } // Prevent Over Data
-
     // New Check or Update
     if (current_user_data != null) {
         var new_val = current_user_data + val; // Get New Value
@@ -541,9 +528,9 @@ function updateUnitData() {
 
 /**
  * Updates the amount of copies owned by the specified value.
- * @param {*} id The ID of the unit to update.
- * @param {*} new_val The new amount of copies owned.
- * @param {*} s_element The target DOM element.
+ * @param {string} id The ID of the unit to update.
+ * @param {number} new_val The new amount of copies owned.
+ * @param {string} s_element The target DOM element.
  */
 function updateAmountOfCopiesOwned(id, new_val, s_element) {
     if (!id) { return; }
@@ -620,13 +607,12 @@ function updateURLOptionModeOnly() {
 
 /**
  * Builds the completed UI with amount copies for all characters.
- * @param {*} units_data The currently saved list data.
+ * @param {object} units_data The currently saved list data.
  */
 function buildUnitDataInUI(units_data) {
     $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
     $( ".listbox" ).html(""); // Clear contents
     $( ".listbox_class" ).html(""); // Clear contents
-    
     // Reset Values
     rarity_count_data.allcount.max = 0;
     rarity_count_data.noteventcount.max = 0;
@@ -634,15 +620,12 @@ function buildUnitDataInUI(units_data) {
     own_data_eachclass = {};
     own_data_notevent = {};
     own_data_eachclass_notevent = {};
-    
     // Draw Button & Create User Data
     var list_box = [];
     var list_img = [];
-    
     // Add Default Photo
     var img_default = getImagePath(icondefault, icondefault_external_source);
     list_img.push(loadSprite(img_default));
-    
     // Loop
     for (var aa = 0, ll = units_data.length; aa < ll; aa++) {
         // list get
@@ -805,9 +788,7 @@ function buildUnitDataInUI(units_data) {
 function updateStatisticsHTML() {
     var all_base = 0; // Prepare Temp Int
     for (var key in own_data) {
-        if (own_data.hasOwnProperty(key)) {
-            all_base += own_data[key].length;
-        }
+        if (own_data.hasOwnProperty(key)) { all_base += own_data[key].length; }
     }
     var all_base_NotEvent = 0;
     for (var key in own_data_notevent) {
@@ -865,12 +846,8 @@ function clearAllData() {
     bootbox.confirm({ // Confirm
         message: member_clear_conf,
         buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
         callback: function (result) {
             if (result) {
@@ -929,8 +906,7 @@ function loadLocalData() {
                 $('#loadingModal').modal('show'); // Show Loading Modal
                 loadLocallySavedData(localStorage[list_local]); // Load List
             } else {
-                if (encoded_user_input == null)
-                {
+                if (encoded_user_input == null) {
                     encoded_user_input = ""; // Blank out raw input
                     finishLoading();
                 }
@@ -982,7 +958,7 @@ function loadUploadedFileData() {
 
 /**
  * Loads the data stored in localstorage and expands its contents to display in the UI.
- * @param {*} getresult The locally saved data.
+ * @param {string} getresult The locally saved data.
  */
 function loadLocallySavedData(getresult) {
         // Clear User Data
