@@ -606,7 +606,7 @@ function updateURLOptionModeOnly() {
 }
 
 /**
- * Builds the completed UI with amount copies for all characters.
+ * Builds the completed UI with amount of copies for all characters.
  * @param {object} units_data The currently saved list data.
  */
 function buildUnitDataInUI(units_data) {
