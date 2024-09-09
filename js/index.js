@@ -241,8 +241,7 @@ function getNewCopySource(current_max, s_list) {
  */
 function getImagePath(path, external_source) {
     if (external_source) { return path; } else {
-        var urlBase = location.href.substring(0, location.href.lastIndexOf("/") + 1);
-        return urlBase + img_path + path;
+        return location.href.substring(0, location.href.lastIndexOf("/") + 1) + img_path + path;
     }
 }
 
@@ -252,12 +251,11 @@ function getImagePath(path, external_source) {
  * @returns The full path to the desired class image.
  */
 function getImageClassPath(path) {
-    var urlBase = location.href.substring(0, location.href.lastIndexOf("/") + 1);
-    return urlBase + class_img_path + path;
+    return location.href.substring(0, location.href.lastIndexOf("/") + 1) + class_img_path + path;
 }
 
 /**
- * Fetches any data stored about the currently selected unit. If none, returns undefined.
+ * Fetches data stored about the currently selected unit. If none, returns undefined.
  * @param {string} id The ID of the currently selected unit.
  * @returns Undefined if there's no stored data; the saved data of the selected unit if there is.
  */
@@ -279,7 +277,7 @@ function serializeCurrentDataForURLOutput(input_data) {
             serialized_input += key + ">" + current_user_data + ",";
         }
     }
-    serialized_input = serialized_input.slice(0, -1); // removes the last comma
+    serialized_input = serialized_input.slice(0, -1); // Removes the last comma
     return serialized_input;
 }
 
@@ -323,7 +321,8 @@ function getClassModeURLstring() { return isClassMode() ? classmode_parameter + 
  * Returns the serialized form of the currently saved unit data.
  * @returns A string representation of the currently saved unit data.
  */
-function getSerializedUnitData() { return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
+function getSerializedUnitData()
+{ return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
 
 /**
  * Updates the UI whenever Class Mode is toggled.
@@ -521,8 +520,7 @@ function updateUnitData() {
         updateAmountOfCopiesOwned(current_edit, new_val, current_edit_ele); // Update Value on List
         $('#addModal').modal('hide'); // Hide New Check Modal
     }
-    updateStatisticsHTML();
-    updateURL();
+    updateStatisticsHTML(); updateURL();
     current_edit = ""; // Clear current edit
 }
 
