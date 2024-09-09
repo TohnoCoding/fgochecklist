@@ -129,7 +129,7 @@ var rarity_count_data = {
         "list": {}
     }
 };
-var raw_user_input = "";
+var encoded_user_input = "";
 var compress_input = "";
 
 var current_edit = "";
@@ -152,6 +152,9 @@ var list_update = null;
 var existing_hash = null;
 
 // Set Up
+/**
+ * Setting up AJAX to always override the content/MIME type with json.
+ */
 $.ajaxSetup({
     beforeSend: function(xhr) {
         if (xhr.overrideMimeType) {
@@ -160,6 +163,9 @@ $.ajaxSetup({
     }
 });
 
+/**
+ * Setting up custom data adapter for on-the-fly customizable jQuery Select2 boxes.
+ */
 $.fn.select2.amd.define('select2/data/customAdapter', ['select2/data/array', 'select2/utils'],
     function (ArrayAdapter, Utils) {
         function CustomDataAdapter ($element, options) {
@@ -174,14 +180,21 @@ $.fn.select2.amd.define('select2/data/customAdapter', ['select2/data/array', 'se
     }
 );
 
+  /**
+   * Jumps to a specific point in the viewport.
+   * @returns Void.
+   */
 function jumpTo(){
-    if (jump_to_target === null) {
-        return;
-    }
+    if (jump_to_target === null) { return; }
     document.getElementById(jump_to_target).scrollIntoView();   // Even IE6 supports this
     jump_to_target = null; 
 }
 
+/**
+ * Takes a key-value pair and sorts the keys alphabetically, then returns the sorted collection.
+ * @param {*} not_sorted Unsorted collection of key-value pairs.
+ * @returns A new collection of key-value pairs sorted alphabetically by the keys.
+ */
 function orderKeys(not_sorted) {
   var sorted = Object.keys(not_sorted)
     .sort()
@@ -192,7 +205,11 @@ function orderKeys(not_sorted) {
     return sorted;
 }
 
-// For Image Load
+/**
+ * Preloads images asynchronously.
+ * @param {*} src The address/URL of the image to load.
+ * @returns A promise that resolves when the image finishes loading.
+ */
 function loadSprite(src) {
     var deferred = $.Deferred();
     var sprite = new Image();
@@ -204,7 +221,11 @@ function loadSprite(src) {
 }
 
 // TODO: What is this for?
-// Select2 Source for lower
+/**
+ * 
+ * @param {*} current_max 
+ * @param {*} s_list 
+ */
 function getNewCopySource(current_max, s_list) {
     if (current_max < copy_choice_max && current_max > 0) {
         var new_choice_allow = [];
@@ -219,7 +240,12 @@ function getNewCopySource(current_max, s_list) {
     }
 }
 
-// For Image Part
+/**
+ * 
+ * @param {*} path 
+ * @param {*} external_source 
+ * @returns 
+ */
 function getImagePath(path, external_source) {
     if (external_source) {
         return path;
@@ -229,58 +255,106 @@ function getImagePath(path, external_source) {
     }
 }
 
+/**
+ * Gets the path to the class images.
+ * @param {*} path 
+ * @returns 
+ */
 function getImageClassPath(path) {
     var urlBase = location.href.substring(0, location.href.lastIndexOf("/") + 1);
     return urlBase + class_img_path + path;
 }
 
-// User Data Check
-function getUserData(id) {
+/**
+ * Fetches any data stored about the currently selected Servant. If none, returns undefined.
+ * @param {*} id The ID of the currently selected Servant.
+ * @returns Undefined if there's no stored data; the saved data of the selected Servant if there is.
+ */
+function getStoredServantData(id) {
     if (typeof user_data[id] === "undefined") {
         return null;
     }
     return user_data[id];
 }
 
-// Convert Data
-function convertUserDataToRawInput(input_data)
-{
-    var new_raw_input = "";
+/**
+ * Serializes the current data into an easily compressable string.
+ * @param {*} input_data The data to be serialized.
+ * @returns A string representation of the current data.
+ */
+function serializeCurrentDataForURLOutput(input_data) {
+    var serialized_input = "";
     for (var key in input_data) {
         if (input_data.hasOwnProperty(key)) {
             var current_user_data = input_data[key];
-            new_raw_input += key + ">" + current_user_data + ",";
+            serialized_input += key + ">" + current_user_data + ",";
         }
     }
-    new_raw_input = new_raw_input.slice(0, -1);
-    return new_raw_input;
+    serialized_input = serialized_input.slice(0, -1); // removes the last comma
+    return serialized_input;
 }
 
+/**
+ * Returns whether Fast Mode is activated.
+ * @returns True if Fast Mode is on, False otherwise.
+ */
 function isFastMode() { return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
 
+/**
+ * Returns whether Class Mode is activated.
+ * @returns True if Class Mode is on, False otherwise.
+ */
 function isClassMode() { return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
 
+/**
+ * Returns whether Mash is marked as SR.
+ * @returns True if Mash is marked as SR, False otherwise.
+ */
 function isMashuSR() { return $('#' + mashuSR_checkbox).is(':checked'); } // ClassMode Check
 
+/**
+ * Removes the specified Servant from local storage.
+ * @param {*} id The ID of the Servant to remove.
+ */
 function executeUserDataRemoval(id) { delete user_data[id]; }
 
+/**
+ * Returns a string indicating the state of Fast Mode for URL injection.
+ * @returns An empty string if Fast Mode is off; `{$fastmode_parameter}=1` if it's on.
+ */
 function getFastModeURLstring() { return isFastMode() ? fastmode_parameter + "=1" : ""; }
 
+/**
+ * Returns a string indicating the state of Class Mode for URL injection.
+ * @returns An empty string if Class Mode is off, `{$classmode_parameter}=1` if it's on.
+ */
 function getClassModeURLstring() { return isClassMode() ? classmode_parameter + "=1" : ""; }
 
-function getCompressedInput() { return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
+/**
+ * Returns the serialized form of the currently saved Servant data.
+ * @returns A string representation of the currently saved Servant data.
+ */
+function getSerializedServantData() { return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
 
+/**
+ * Updates the UI whenever Class Mode is toggled.
+ */
 function updateClassMode() { updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
 
+/**
+ * Triggers the File Open dialog box.
+ */
 function openFileOption() { document.getElementById(file_hidden_id).click(); }
 
-
-
 // Validate old param and convert to new if existing; ensures compatibility with legacy 'mashu'
+/**
+ * Validates if the current URL contains the old parameter name "mashu" and converts/updates it
+ * to the current parameter name "mash" when Mash is marked as SR.
+ * @returns "mash"
+ */
 function getMashParameter() {
     var urlParams = new URLSearchParams(window.location.search);
     var mashValue = urlParams.get("mash") || urlParams.get("mashu");
-
     if (mashValue !== null) {
         // Update the parameter to the new standard 'mash' if it's 'mashu'
         if (urlParams.has("mashu")) {
@@ -293,21 +367,23 @@ function getMashParameter() {
     return mashValue;
 }
 
-
-// Click Div
+/**
+ * Left click on a Servant portrait.
+ * @param {*} s_element The ID of the Servant clicked on.
+ */
 function elementLeftClick(s_element) {
     // Variable
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
     // Fast Mode, Change Value Directly
     if (isFastMode()) {
-        updateUserDataFast(id, 1, s_element); // Change Value
+        updateServantDataInFastMode(id, 1, s_element); // Change Value
         return; // Stop
     }
     // Mark current_edit
     current_edit = id;
     current_edit_ele = s_element;
-    var current_user_data = getUserData(id);
+    var current_user_data = getStoredServantData(id);
     var current_edit_max = servants_data_list[id].maxcopy;
     // New Check or Update
     if (current_user_data != null) {
@@ -323,16 +399,21 @@ function elementLeftClick(s_element) {
     }
 }
 
-// Click Div
+/**
+ * Right click on a Servant portrait.
+ * @param {*} s_element The ID of the Servant clicked on.
+ */
 function elementRightClick(s_element) {
     if (!isFastMode()) { return; } // Fast Mode, Change Value Directly
     // Variable
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
-    updateUserDataFast(id, -1, s_element); // Mark current_edit
+    updateServantDataInFastMode(id, -1, s_element); // Mark current_edit
 }
 
-
+/**
+ * Confirms the removal of the currently selected Servant.
+ */
 function removeUserData() {
     if (current_edit == "" || current_edit_ele == null) { return; } // Prevent Blank Key
     bootbox.confirm({ // Confirm
@@ -347,7 +428,7 @@ function removeUserData() {
         },
         callback: function (result) {
             if (result) {
-                var current_user_data = getUserData(current_edit); // Get UserData
+                var current_user_data = getStoredServantData(current_edit); // Get UserData
                 if (current_user_data != null) { executeUserDataRemoval(current_edit); } // Delete User Data
                 updateCounts(current_edit, -1, true); // Update Count
                 $('#' + current_edit).removeClass(member_class_checked); // Update Member Element
@@ -361,10 +442,15 @@ function removeUserData() {
     });
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} val 
+ * @param {*} showloading 
+ */
 function updateCounts(id, val, showloading) {
     const servant = servants_data_list[id];
     const { eventonly, class: servantClass, key } = servant;
-
     // Initialize data structures if not present
     if (!(key in own_data)) {
         own_data[key] = [];
@@ -390,10 +476,15 @@ function updateCounts(id, val, showloading) {
     }
 }
 
-
-function updateUserDataFast(id, val, s_element) {
+/**
+ * Handles quick update of Servants when Fast Mode is activated.
+ * @param {*} id The ID of the selected Servant.
+ * @param {*} val The direction in which to increase the current value (up or down).
+ * @param {*} s_element The HTML element of the Selected Servant.
+ */
+function updateServantDataInFastMode(id, val, s_element) {
     // Mark current_edit
-    var current_user_data = getUserData(id);
+    var current_user_data = getStoredServantData(id);
     var current_edit_max = servants_data_list[id].maxcopy;
     if (current_edit_max > copy_choice_max) { current_edit_max = copy_choice_max; } // Prevent Over Data
 
@@ -426,9 +517,12 @@ function updateUserDataFast(id, val, s_element) {
     updateURL();
 }
 
-function updateUserData() {
+/**
+ * Updates the selected Servant's ownership status/level.
+ */
+function updateServantData() {
     if (current_edit == "" || current_edit_ele == null) { return; } // Prevent Blank Key
-    var current_user_data = getUserData(current_edit); // Get UserData
+    var current_user_data = getStoredServantData(current_edit); // Get UserData
     // New Check or Update
     if (current_user_data != null) {
         var new_val = parseInt($('#npUpdate').val()); // Get New Value
@@ -450,28 +544,42 @@ function updateUserData() {
 }
 
 // TODO: What is this used for?
+/**
+ * 
+ * @param {*} id 
+ * @param {*} new_val 
+ * @param {*} s_element 
+ * @returns 
+ */
 function updateCopyValue(id, new_val, s_element) {
     if (!id) { return; }
     const content = new_val > 1 ? morecopy_text + new_val : "";
     $(s_element).find(`#${morecopy_prefix}${id}`).html(content);
 }
 
-
+/**
+ * 
+ * @param {*} allowZero 
+ * @returns 
+ */ 
 function getMashuSRURLstring(allowZero) {
     return isMashuSR() ? 
         `${mashuSR_parameter}=1` : 
         (allowZero ? `${mashuSR_parameter}=0` : "");
 }
 
-
+/**
+ * Updates the URL each time a Servant's data is changed to reflect the new collection status.
+ * @returns True when the URL is successfully updated.
+ */
 function updateURL() {
     // Sort keys and update raw input
     user_data = orderKeys(user_data);
-    raw_user_input = convertUserDataToRawInput(user_data);
+    encoded_user_input = serializeCurrentDataForURLOutput(user_data);
     let new_parameter = ""; // Initialize new parameter
     // Compress user data and update buttons
-    if (raw_user_input) {
-        compress_input = LZString.compressToEncodedURIComponent(raw_user_input);
+    if (encoded_user_input) {
+        compress_input = LZString.compressToEncodedURIComponent(encoded_user_input);
         new_parameter = `?${compress_input_parameter}=${compress_input}`;
         $('#' + save_btn).prop('disabled', false);
         $('#' + save_file_btn).prop('disabled', false);
@@ -491,6 +599,9 @@ function updateURL() {
     return true;
 }
 
+/**
+ * 
+ */
 function updateURLOptionModeOnly() {
     const urlParams = new URLSearchParams(window.location.search);
     const options = [
@@ -511,8 +622,11 @@ function updateURLOptionModeOnly() {
     window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
-
 // Make Data
+/**
+ * 
+ * @param {*} servants_data 
+ */
 function buildServantData(servants_data) {
     $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
     $( ".listbox" ).html(""); // Clear contents
@@ -568,40 +682,33 @@ function buildServantData(servants_data) {
                 var current_class = list_class_available[bb]; // Class Var
                 if (typeof max_data_eachclass[current_key] === "undefined") { max_data_eachclass[current_key] = {}; } // Make Max Data
                 max_data_eachclass[current_key][current_class] = 0;
-                
                 // Prepare Div
                 current_class_html += '<div class="row" id="' + current_key + "_" + current_class + '">';
                 current_class_html += '<div class="' + class_div_icon_class + '" style="text-align: center">';
-                
                 // Class Icon
                 var current_class_data = class_data_list[current_class];
                 var current_class_data_icn = getImageClassPath(current_class_data.iconlist[current_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
                 var current_class_data_icn_ele = '<img src="' + current_class_data_icn + '" class="' + img_class + '" title="' + current_class_data.name + '" data-toggle="tooltip-member" data-placement="bottom"/>';
                 current_class_html += current_class_data_icn_ele;
-                
                 // Class  Basic Count
                 current_class_html += "<div>";
                 current_class_html += '<span id="' + class_count_have + current_key + "_" + current_class + '">0</span>/'
                 current_class_html += '<span id="' + class_count_max + current_key + "_" + current_class + '">0</span>'
                 current_class_html += "</div>";
-                
                 // All + None Button
                 current_class_html += '<button type="button" class="btn btn-outline-primary btn-xs" onclick="SelectAllData(false, ' + "'" + 
                     current_key + "', '" + current_class + "'" +')">All</button>';
                 current_class_html += '<button type="button" class="btn btn-outline-danger btn-xs" onclick="SelectAllData(true, ' +  "'" + 
                     current_key + "', '"+ current_class + "'" +')">None</button>'
-                
                 current_class_html += "</div>";
                 current_class_html += '<div class="row ' + class_div_list_class + '" id="' + current_rarity.list_element + '_' + current_class + '">';
                 current_class_html += "</div>";
                 current_class_html += "</div>";
                 current_class_html += "<hr />";
-                
             }
             $(current_element + "-" + class_divide_class).html(current_class_html); // Update List Div
         }
-
         // Loop List
         for (var i = 0, l = current_list.length; i < l; i++) {
             // Get Data
@@ -612,13 +719,12 @@ function buildServantData(servants_data) {
             servants_data_list[current_servant.id].class = current_servant.class;
             servants_data_list[current_servant.id].eventonly = current_type.eventonly; 
             // Prepare
-            var current_user_data = getUserData(current_servant.id);
+            var current_user_data = getStoredServantData(current_servant.id);
             var current_servant_html = '<div class="' + member_class_grid + '"><div';
             var current_servant_class = ' class="' + member_class;
             var current_servant_img = '';
             if (isClassMode()) { max_data_eachclass[current_key][current_servant.class] += 1; } // Count Data: All
             if (current_user_data != null) { updateCounts(current_servant.id, 1, false); } // Update Real Count Data
-            
             // Create Servant Element
             current_servant_html += ' id="' + current_servant.id + '" title="' + current_servant.name + '"';
             current_servant_html += ' data-toggle="tooltip-member" data-placement="bottom"';
@@ -699,6 +805,9 @@ function buildServantData(servants_data) {
 }
 
 // Update Count HTML
+/**
+ * 
+ */
 function updateStatisticsHTML() {
     var all_base = 0; // Prepare Temp Int
     for (var key in own_data) {
@@ -756,6 +865,9 @@ function updateStatisticsHTML() {
 }
 
 // Clear
+/**
+ * 
+ */
 function clearAllData() {
     bootbox.confirm({ // Confirm
         message: member_clear_conf,
@@ -771,7 +883,7 @@ function clearAllData() {
             if (result) {
                 user_data = {}; // Clear User Data
                 compress_input = ""; // Update Raw Input
-                raw_user_input = "";
+                encoded_user_input = "";
                 finishLoading();
             }
         }
@@ -779,6 +891,9 @@ function clearAllData() {
 }
 
 // Export Canvas
+/**
+ * 
+ */
 function exportCanvasToImage() {
     bootbox.confirm({ // Confirm
         message: "WARNING: Image result will not look exactly like in the page. (Capture library issues.)<br/>It is recommendeded to share the link or use an external capture tool instead.<br/>Continue?",
@@ -812,6 +927,9 @@ function exportCanvasToImage() {
 }
 
 // Load
+/**
+ * 
+ */
 function loadLocalData() {
     bootbox.confirm({ // Confirm
         message: load_text,
@@ -826,11 +944,11 @@ function loadLocalData() {
         callback: function (result) {
             if (result) {
                 $('#loadingModal').modal('show'); // Show Loading Modal
-                loadDataDo(localStorage[list_local]); // Load List
+                executeLoadLocalData(localStorage[list_local]); // Load List
             } else {
-                if (raw_user_input == null)
+                if (encoded_user_input == null)
                 {
-                    raw_user_input = ""; // Blank out raw input
+                    encoded_user_input = ""; // Blank out raw input
                     finishLoading();
                 }
             }
@@ -838,6 +956,10 @@ function loadLocalData() {
     });
 }
 
+/**
+ * 
+ * @returns 
+ */
 function saveLocalData() {
     updateURL(); // Update URL First
     if (compress_input == null) { return; } // Confirm if compress_input not null
@@ -861,8 +983,10 @@ function saveLocalData() {
     });
 }
 
-
-function loadLocalFile() {
+/**
+ * 
+ */
+function promptLoadLocalFile() {
     var input = document.getElementById(file_hidden_id);
      if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -871,7 +995,7 @@ function loadLocalFile() {
             var n_txt = getFile.startsWith(export_header + export_header_separator);
             if (n_txt) {
                 var res = getFile.replace(export_header + export_header_separator, "");
-                return loadDataDo(res); 
+                return executeLoadLocalData(res); 
             } else {
                 // Alert
                 return bootbox.alert(load_fail_text, null);
@@ -881,11 +1005,16 @@ function loadLocalFile() {
     }
 }
 
-function loadDataDo(getresult) {
+/**
+ * 
+ * @param {*} getresult 
+ * @returns 
+ */
+function executeLoadLocalData(getresult) {
         // Clear User Data
         user_data = {};
         compress_input = "";
-        raw_user_input = "";
+        encoded_user_input = "";
         // Get Value
         compress_input = getresult;
         if (compress_input == null || compress_input == undefined) {
@@ -894,10 +1023,10 @@ function loadDataDo(getresult) {
             return;
         }
         // Get Raw
-        raw_user_input = LZString.decompressFromEncodedURIComponent(compress_input);
+        encoded_user_input = LZString.decompressFromEncodedURIComponent(compress_input);
         // Error; Stop
-        if (raw_user_input == null || raw_user_input == undefined) {
-            raw_user_input = null;
+        if (encoded_user_input == null || encoded_user_input == undefined) {
+            encoded_user_input = null;
             bootbox.alert(load_fail_text, null);
             return;
         }
@@ -905,7 +1034,12 @@ function loadDataDo(getresult) {
         bootbox.alert(load_fin_text, null); // Alert
 }
 
-function saveLocalFile() {
+
+/**
+ * 
+ * @returns 
+ */
+function promptSaveLocalFile() {
     updateURL(); // Update URL First
     if (compress_input == null) { return; } // Confirm if compress_input not null
     bootbox.confirm({ // Confirm 
@@ -918,11 +1052,14 @@ function saveLocalFile() {
                 label: '<i class="fa fa-check"></i> Confirm'
             }
         },
-        callback: function (result) { if (result) { saveLocalFileDo(compress_input); } }
+        callback: function (result) { if (result) { executeSaveLocalFile(compress_input); } }
     });
 }
 
-function saveLocalFileDo() {
+/**
+ * 
+ */
+function executeSaveLocalFile() {
     var blob = new Blob([export_header + export_header_separator + compress_input], {
       type: "text/plain;charset=utf-8"
     });
@@ -930,12 +1067,13 @@ function saveLocalFileDo() {
 }
 
 // Onload
+/**
+ * 
+ */
 $(document).ready(function() {
     $('#loadingModal').modal('show'); // Show Loading Modal    
     // Load File Prepare
-    $("#" + file_hidden_id).change(function(){
-        loadLocalFile();
-    });
+    $("#" + file_hidden_id).change(function(){ promptLoadLocalFile(); });
     var urlParams = new URLSearchParams(window.location.search); // URL Params
     var local_hash = urlParams.get(short_input_parameter); // URL Redirect; New
     if (local_hash != null) {
@@ -953,8 +1091,7 @@ $(document).ready(function() {
         });
         return;
     }
-    // Prepare
-    custom_adapter = $.fn.select2.amd.require('select2/data/customAdapter');
+    custom_adapter = $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
     $('[data-toggle="tooltip"]').tooltip();
     // Select2
     list_new = $( "#npAdd" ).select2({
@@ -971,7 +1108,6 @@ $(document).ready(function() {
     var fastmode_input = urlParams.get(fastmode_parameter);
     var classmode_input = urlParams.get(classmode_parameter);
     compress_input = urlParams.get(compress_input_parameter);
-    
     // Mashu is SR
     if (MashuSR_input != null) {
         var Mashu_IS_SR = (parseInt(MashuSR_input) > 0);
@@ -983,7 +1119,6 @@ $(document).ready(function() {
             $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
         }
     }
-    
     // ClassMode
     if (classmode_input != null) {
         var classmode_enable = (parseInt(classmode_input) > 0);
@@ -995,7 +1130,6 @@ $(document).ready(function() {
             $('#' + classmode_checkbox).prop('checked', classmode_enable);
         }
     }
-    
     // FastMode
     if (fastmode_input != null) {
         var fastmode_enable = (parseInt(fastmode_input) > 0);
@@ -1007,39 +1141,26 @@ $(document).ready(function() {
             $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
         }
     }
-    
     // Load From URL
     if (compress_input != null) {
-        // List Reader
-        raw_user_input = LZString.decompressFromEncodedURIComponent(compress_input);
-        // Finish Loading
-        finishLoading();
+        encoded_user_input = LZString.decompressFromEncodedURIComponent(compress_input); // List Reader
+        finishLoading(); // Finish Loading
     } else {
-        raw_user_input = urlParams.get(raw_input_parameter);
-        if (raw_user_input != null) {
-            // Finish Loading
-            finishLoading();
-        } else {
-            // List Reader
-            if (localStorage[list_local]) {
-                loadLocalData();
-            } else {
-                // Blank Raw
-                raw_user_input = "";
-                // Finish Loading
-                finishLoading();
+        encoded_user_input = urlParams.get(raw_input_parameter);
+        if (encoded_user_input != null) { finishLoading(); } // Finish Loading
+        else {
+            if (localStorage[list_local]) { loadLocalData(); } // List Reader
+            else {
+                encoded_user_input = ""; // Blank Raw
+                finishLoading(); // Finish Loading
             }
         }
     }
-    // Set Load Button Status
-    if (localStorage[list_local]) {
-        $('#' + load_btn).prop('disabled', false);
-    }
+    if (localStorage[list_local]) { $('#' + load_btn).prop('disabled', false); } // Set Load Button Status
     // Set Checkbox Event
     $('#' + fastmode_checkbox).change(function () { updateURLOptionModeOnly(); });
     $('#' + classmode_checkbox).change(function () { updateClassMode(); });
     $('#' + mashuSR_checkbox).change(function () { updateClassMode(); });
-    
     // Set Modal Closing Event
     $("#addModal").on("hidden.bs.modal", function () {
         current_edit = "";
@@ -1049,53 +1170,48 @@ $(document).ready(function() {
         current_edit = "";
         current_edit_ele = null;
     });
-    
-    try {
-        var isFileSaverSupported = !!new Blob;
-    } catch (e) {
+    try { var isFileSaverSupported = !!new Blob; } // Check for FileSaver.js compatibility
+    catch (e) {
         $("#loadbutton_f").prop("disabled", "disabled");
         $("#savebutton_f").prop("disabled", "disabled");
         $("#page_whatami").append("<br /><b>NOTICE:</b> FileSaver.js functionality not supported! Upload &amp; Download buttons have been disabled.");
     }
 });
 
+/**
+ * 
+ * @param {*} isRevert 
+ * @param {*} input_rarity 
+ * @param {*} input_class 
+ */
 function markAllUnitsSelected(isRevert, input_rarity, input_class) {
     bootbox.confirm({ // Confirm 
         message: select_all_text,
         buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
-        callback: function (result) {
-            if (result) {
-                executeMarkAllUnitsSelected(isRevert, input_rarity, input_class);
-            }
-        }
+        callback: function (result) { if (result) { executeMarkAllUnitsSelected(isRevert, input_rarity, input_class); } }
     });
 }
 
+/**
+ * 
+ * @param {*} isRevert 
+ * @param {*} input_rarity 
+ * @param {*} input_class 
+ */
 function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {   
-    // Open Loading Modal
-    $('#loadingModal').modal('show');
-    
+    $('#loadingModal').modal('show'); // Open Loading Modal
     // Ajax; Servant Data
     $.ajax({
         url: isMashuSR() ? datapath_alternate : datapath,
         contentType: "application/json",
         dataType: "json",
         cache: false,
-        beforeSend: function(xhr) {
-            if (xhr.overrideMimeType) {
-                xhr.overrideMimeType("application/json");
-            }
-        },
+        beforeSend: function(xhr) { if (xhr.overrideMimeType) { xhr.overrideMimeType("application/json"); } },
         success: function(result) {
             var servants_data = result;
-            
             if (typeof input_rarity !== "undefined" && typeof input_class !== "undefined") {
                 jump_to_target = input_rarity + "_" + input_class; // Create Jump Target
                 var tem_list = servants_data.filter(function(item) { return item.list_id === input_rarity; }); // Make List
@@ -1126,7 +1242,7 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                     }
                 }                
             }
-            raw_user_input = null; // Clear Raw Input
+            encoded_user_input = null; // Clear Raw Input
             finishLoading(result); // Send to Finish
         },
         error: function(result) {
@@ -1136,16 +1252,18 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
     });
 }
 
+/**
+ * 
+ * @param {*} servant_pass_data 
+ */
 function finishLoading(servant_pass_data) {
     // Clear Contents
     $( ".listbox" ).hide();
     $( ".listbox_class" ).hide();
     $( ".listbox_fake" ).show();
-        
     // Convert User Data from Input
-    if (raw_user_input !== null)
-    {
-        var array_input = raw_user_input.split(",");
+    if (encoded_user_input !== null) {
+        var array_input = encoded_user_input.split(",");
         for (var ii = 0, li = array_input.length; ii < li; ii++) {
             var current_split = array_input[ii].split(">");
             if (current_split[0] != "" && current_split[1] != "") {
@@ -1167,13 +1285,11 @@ function finishLoading(servant_pass_data) {
         },
         success: function(outer_result) {
             class_data_list = outer_result; // Inject Class Data
-            
             // If Passing
             if (typeof servant_pass_data !== "undefined") {
                 buildServantData(servant_pass_data); // Load Data to Variable
                 return;
             }
-            
             // Ajax; Servant Data
             $.ajax({
                 url: isMashuSR()? datapath_alternate : datapath,
@@ -1199,6 +1315,9 @@ function finishLoading(servant_pass_data) {
     });
 }
 
+/**
+ * 
+ */
 function toggleEventIcon() { $("." + servant_type_box_class).toggle(); }
 
 //===========================================================================================
@@ -1208,13 +1327,17 @@ function toggleEventIcon() { $("." + servant_type_box_class).toggle(); }
 // providers fail, a message will be shown to the user explaining that URL shortening is
 // out of service.
 //===========================================================================================
+/**
+ * 
+ * @param {*} site 
+ * @returns 
+ */
 function shareURL(site) {
     // Setting up data to send to shortener
     if (compress_input == "") {
         bootbox.alert(share_none_text);
         return;
     }
-
     // Gather the full URL for shortening
     var mashuSR_str = getMashuSRURLstring(true);
     var full_url = window.location.protocol + "//" + window.location.host +
@@ -1223,15 +1346,16 @@ function shareURL(site) {
     if (full_url.includes("localhost") || full_url.includes("127.0.0.1")) {
         full_url = full_url.replace("localhost", "fgotest.tld").replace("127.0.0.1", "fgotest.tld");
     }
-
-
     /*******************************/
     /*     Shortening services     */
     /*******************************/
-    
     //----------------//
     //     waa.ai     //
     //----------------//
+    /**
+     * 
+     * @returns 
+     */
     function waaai() {
         return new Promise((resolve) => {
             var ajaxdata = JSON.stringify({ url: full_url });
@@ -1251,10 +1375,13 @@ function shareURL(site) {
             $.ajax(ajaxrequest);
         });
     }
-
     //---------------//
     //     is.gd     //
     //---------------//
+    /**
+     * 
+     * @returns 
+     */
     function isgd() {
         return new Promise((resolve) => {
             //var ajaxdata = JSON.stringify({  });
@@ -1269,11 +1396,13 @@ function shareURL(site) {
             $.ajax(ajaxrequest);
         });
     }
-    
-    
     //----------------//
     //     owo.vc     //
     //----------------//
+    /**
+     * 
+     * @returns 
+     */
     function owo() {
         return new Promise((resolve) => {
             var ajaxdata = 
@@ -1291,10 +1420,8 @@ function shareURL(site) {
             $.ajax(ajaxrequest);
         });
     }    
-    
     var shortProviders = [isgd(), waaai(), owo()];
     //var shortProviders = [()];      // used for testing new providers
-    
     Promise.any(shortProviders)
         .then((result) => {
             if(result.value == undefined) { throw error; }
@@ -1306,7 +1433,12 @@ function shareURL(site) {
         });
 }
 
-
+/**
+ * 
+ * @param {*} site 
+ * @param {*} short_url 
+ * @returns 
+ */
 function executeShareURL(site, short_url) {
     // Show
     if (site == "facebook") {
@@ -1321,6 +1453,10 @@ function executeShareURL(site, short_url) {
 };
 
 // Share; Show Short URL
+/**
+ * 
+ * @param {*} url 
+ */
 function showShortURL(url) {
     var msg = share_text + '<hr/><form><div class="form-group"><div class="input-group mb-3">';
     msg += '<input type="text" id="link-copy" class="form-control" value="' + url + '" readonly/>';
@@ -1331,12 +1467,20 @@ function showShortURL(url) {
     url_dialog.init(function(){});
 }
 
+/**
+ * 
+ * @param {*} s_element 
+ */
 function copyToClipboard(s_element) {
     var copyText = document.querySelector("#" + s_element);
     copyText.select();
     navigator.clipboard.writeText(copyText.value || copyText.defaultValue);
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getRandomHash() {
     if (existing_hash != null) { return existing_hash; }
     existing_hash = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
