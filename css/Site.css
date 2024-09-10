@@ -237,10 +237,10 @@ hr {
     margin-bottom: 0px !important;
 }
 
-.btn {
-    margin-bottom: 5px;
-    width: 45%;
-    padding: 5px 1px;
+.btn-options  {
+    margin-bottom: 5px !important;
+    width: 45% !important;
+    padding: 5px 1px !important;
 }
 
 #headerCard {
@@ -261,4 +261,14 @@ hr {
 
 .form-check-input {
     margin-left: 1em;
+}
+
+.JPdisabled {
+    pointer-events: none;
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.JPonly {
+    display: none;
 }
