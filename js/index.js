@@ -870,8 +870,7 @@ function exportCanvasToImage() {
         },
         callback: function (result) {
             if (result) {
-                // Show Loading Modal
-                $('#loadingModal').modal('show');
+                $('#loadingModal').modal('show'); // Show Loading Modal
                 html2canvas($('#' + capture_area)[0], { useCORS: true }).then(function(canvas) {
                     // canvas is the final rendered <canvas> element
                     var alink = document.createElement('a');
@@ -881,7 +880,7 @@ function exportCanvasToImage() {
                     //Firefox requires the link to be in the body
                     document.body.appendChild(alink);
                     alink.click();
-                    document.body.removeChild(alink); //remove the link when done
+                    document.body.removeChild(alink); // remove the link when done
                     $('#loadingModal').modal('hide'); // Close Loading Modal
                 });
             }
