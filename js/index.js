@@ -1365,8 +1365,7 @@ function shareURL(site) {
         .then((result) => {
             if(result.value == undefined) { throw error; }
             executeShareURL(site, result.value);
-        })
-        .catch(() => {
+        }).catch(() => {
             alert("URL shortening is not available at this time, as there were errors " +
                 "with the URL shortening providers. Sorry for the inconvenience.");
         });
