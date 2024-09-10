@@ -33,6 +33,7 @@
   font-size: .775rem;
   line-height: .4;
   border-radius: .1.5rem;
+  margin-bottom: 5px;
 }
 
 .class_icon_box {
@@ -192,6 +193,12 @@ div.member-eventonly {
     }
 }
 
+@media screen and (orientation: portrait){
+    #optionsAndButtons {
+        margin-left: -5em!important;
+    }
+}
+
 table {
 	width: 100%;
 }
@@ -224,4 +231,34 @@ hr {
 
 .statsBox {
     justify-content: center;
+}
+
+.form-group {
+    margin-bottom: 0px !important;
+}
+
+.btn {
+    margin-bottom: 5px;
+    width: 45%;
+    padding: 5px 1px;
+}
+
+#headerCard {
+    border: none;
+}
+
+.form-check-options {
+    text-align: right;
+}
+
+#optionsAndButtons {
+    margin-left: -10em;
+}
+
+#checkboxArea {
+    padding-right: 5em;
+}
+
+.form-check-input {
+    margin-left: 1em;
 }
