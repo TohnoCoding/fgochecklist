@@ -43,8 +43,8 @@
   </span>
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item" style="color: white;">
-        <a href="https://github.com/TohnoCoding/fgochecklist/" class="fab fa-github" target="_blank"> Project GitHub</a> | 
-        <a href="https://github.com/Nechigawara/nechi-fgo-checklist/" class="fab fa-github" target="_blank"> Nechigawara's repo</a>
+        <a href="https://github.com/TohnoCoding/fgochecklist/" class="fab fa-github" target="_blank"> Project Github</a> | 
+        <a href="https://github.com/Nechigawara/nechi-fgo-checklist/" class="fab fa-github" target="_blank"> Nechi's repo</a>
     </li>
   </ul>
 </nav>
@@ -61,7 +61,7 @@
             of your screen; most mobile devices have this capability built-in; if you're on Windows or Mac, you can use
             Loom, and if you're on Linux, Kooha is a good option).<br /><br />
             ~Tohno Shiki<br />
-            <h6 style="text-align:center"><a onClick="javascript:removeElement('noticeBoard')">[
+            <h6 style="text-align:center; cursor: grab;"><a onClick="javascript:removeElement('noticeBoard')">[
                 Click/tap here to remove this message. ]</a></h6>
         </span>
     </div>
@@ -70,10 +70,10 @@
             <p id="page_whatami">Yet another FGO Servant checklist with NP count.
             Forked from <a href="https://nechigawara.github.io/nechi-fgo-checklist/" target="_blank">Nechigawara</a>.<br />
             Please note that the site may take a while loading on first visit from caching all images.</p>
-        <form>
+            <form>
                 <table id="optionsAndButtons">
                     <tr>
-                        <td id="checkboxArea">
+                        <td class="tableCell" id="checkboxArea">
                             <div class="form-group form-check form-check-options">
                                 <label class="form-check-label" for="mashuSR">Mash is 4★ (SR)</label>
                                 <input type="checkbox" class="form-check-input" id="mashuSR">
@@ -83,25 +83,27 @@
                                 <input type="checkbox" class="form-check-input" id="classmode">
                             </div>
                             <div class="form-group form-check form-check-options">
-                                <label class="form-check-label" for="fastmode">Fast Mode (Left &amp; Right Click Only)</label>
+                                <label class="form-check-label" for="fastmode">Fast Mode (Left/Right Click)</label>
                                 <input type="checkbox" class="form-check-input" id="fastmode">
                             </div>
-							<div class="form-group form-check form-check-options">
+                            <div class="form-group form-check form-check-options">
                                 <span class="newFeature"></span>
                                 <label class="form-check-label" for="NAonly">Hide JP-only Servants</label>
                                 <input type="checkbox" class="form-check-input" id="NAonly">
                             </div>
                         </td>
-                        <td>
-                            <button type="button" class="btn btn-options btn-secondary" onclick="toggleUnitTypeIcon()">Toggle Icons</button>
+                        <td class="tableCell">
+                            <span id="buttonsArea">
+                            <button type="button" id="toggleUnitTypesButton" class="btn btn-options btn-secondary menu-btn" onclick="toggleUnitTypeIcon()">Toggle Icons</button>
                             <!-- button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Disable for Padoru" disabled>Image export (slow)</button -->
-                            <button type="button" class="btn btn-options btn-info" onclick="exportCanvasToImage()">Image export</button><br>
-                            <button type="button" class="btn btn-options btn-danger" onclick="clearAllData()">Clear All</button>
-                            <button type="button" class="btn btn-options btn-primary" onclick="promptMarkAllUnitsSelected(false)">Mark All Owned</button>
+                            <button type="button" id="exportCanvasButton" class="btn btn-options btn-info" onclick="exportCanvasToImage()">Image export</button><br>
+                            <button type="button" id="clearAllButton" class="btn btn-options btn-danger" onclick="clearAllData()">Clear All</button>
+                            <button type="button" id="markAllButton" class="btn btn-options btn-primary" onclick="promptMarkAllUnitsSelected(false)">Mark All Owned</button>
+                            </span>
                         </td>
                     </tr>
                 </table>
-        </form>        
+            </form>        
             <!-- Social Share 
             <hr/>
             Share the list to your friends!!-->
@@ -131,33 +133,33 @@
         </div>
     </div>
     <h3 align="center" id="statsTitle">Stats for nerds (values include JP-only Servants even if you hide them):</h3>
-    <div id="capturearea">
-        <div class="row statsBox" id="statisticBox" style="display:none;">
-            <div class="col statsColumn padoru_text">
-                <h3>All Servants</h3>
-                <h4><small>Overall:</small> <em id="statisticBoxAllPercent"></em>% <small>(<span id="statisticBoxAllHave"></span>/<span id="statisticBoxAllMax"></span>)</small></h4>
-                <ul>
-                    <li>5★: <span id="ssrBoxAllPercent"></span>% (<span id="ssrBoxAllHave"></span>/<span id="ssrBoxAllMax"></span>)</li>
-                    <li>4★: <span id="srBoxAllPercent"></span>% (<span id="srBoxAllHave"></span>/<span id="srBoxAllMax"></span>)</li>
-                    <li>3★: <span id="rareBoxAllPercent"></span>% (<span id="rareBoxAllHave"></span>/<span id="rareBoxAllMax"></span>)</li>
-                    <li>2★: <span id="uncommonBoxAllPercent"></span>% (<span id="uncommonBoxAllHave"></span>/<span id="uncommonBoxAllMax"></span>)</li>
-                    <li>1★: <span id="commonBoxAllPercent"></span>% (<span id="commonBoxAllHave"></span>/<span id="commonBoxAllMax"></span>)</li>
-                    <li>0✩: <span id="noneBoxAllPercent"></span>% (<span id="noneBoxAllHave"></span>/<span id="noneBoxAllMax"></span>)</li>
-                </ul>
-            </div>
-            <div class="col statsColumn">
-                <h3>Excluding Welfares</h3>
-                <h4><small>Overall:</small> <em id="statisticBoxNotEventPercent"></em>% <small>(<span id="statisticBoxNotEventHave"></span>/<span id="statisticBoxNotEventMax"></span>)</small></h4>
-                <ul>
-                    <li>5★: <span id="ssrBoxNotEventPercent"></span>% (<span id="ssrBoxNotEventHave"></span>/<span id="ssrBoxNotEventMax"></span>)</li>
-                    <li>4★: <span id="srBoxNotEventPercent"></span>% (<span id="srBoxNotEventHave"></span>/<span id="srBoxNotEventMax"></span>)</li>
-                    <li>3★: <span id="rareBoxNotEventPercent"></span>% (<span id="rareBoxNotEventHave"></span>/<span id="rareBoxNotEventMax"></span>)</li>
-                    <li>2★: <span id="uncommonBoxNotEventPercent"></span>% (<span id="uncommonBoxNotEventHave"></span>/<span id="uncommonBoxNotEventMax"></span>)</li>
-                    <li>1★: <span id="commonBoxNotEventPercent"></span>% (<span id="commonBoxNotEventHave"></span>/<span id="commonBoxNotEventMax"></span>)</li>
-                    <li>0✩: <span id="noneBoxNotEventPercent"></span>% (<span id="noneBoxNotEventHave"></span>/<span id="noneBoxNotEventMax"></span>)</li>
-                </ul>
-            </div>
+    <div class="row statsBox" id="statisticBox" style="display:none;">
+        <div class="col statsColumn padoru_text">
+            <h3>All Servants</h3>
+            <h4><small>Overall:</small> <em id="statisticBoxAllPercent"></em>% <small>(<span id="statisticBoxAllHave"></span>/<span id="statisticBoxAllMax"></span>)</small></h4>
+            <ul>
+                <li>5★: <span id="ssrBoxAllPercent"></span>% (<span id="ssrBoxAllHave"></span>/<span id="ssrBoxAllMax"></span>)</li>
+                <li>4★: <span id="srBoxAllPercent"></span>% (<span id="srBoxAllHave"></span>/<span id="srBoxAllMax"></span>)</li>
+                <li>3★: <span id="rareBoxAllPercent"></span>% (<span id="rareBoxAllHave"></span>/<span id="rareBoxAllMax"></span>)</li>
+                <li>2★: <span id="uncommonBoxAllPercent"></span>% (<span id="uncommonBoxAllHave"></span>/<span id="uncommonBoxAllMax"></span>)</li>
+                <li>1★: <span id="commonBoxAllPercent"></span>% (<span id="commonBoxAllHave"></span>/<span id="commonBoxAllMax"></span>)</li>
+                <li>0✩: <span id="noneBoxAllPercent"></span>% (<span id="noneBoxAllHave"></span>/<span id="noneBoxAllMax"></span>)</li>
+            </ul>
         </div>
+        <div class="col statsColumn">
+            <h3>Excluding Welfares</h3>
+            <h4><small>Overall:</small> <em id="statisticBoxNotEventPercent"></em>% <small>(<span id="statisticBoxNotEventHave"></span>/<span id="statisticBoxNotEventMax"></span>)</small></h4>
+            <ul>
+                <li>5★: <span id="ssrBoxNotEventPercent"></span>% (<span id="ssrBoxNotEventHave"></span>/<span id="ssrBoxNotEventMax"></span>)</li>
+                <li>4★: <span id="srBoxNotEventPercent"></span>% (<span id="srBoxNotEventHave"></span>/<span id="srBoxNotEventMax"></span>)</li>
+                <li>3★: <span id="rareBoxNotEventPercent"></span>% (<span id="rareBoxNotEventHave"></span>/<span id="rareBoxNotEventMax"></span>)</li>
+                <li>2★: <span id="uncommonBoxNotEventPercent"></span>% (<span id="uncommonBoxNotEventHave"></span>/<span id="uncommonBoxNotEventMax"></span>)</li>
+                <li>1★: <span id="commonBoxNotEventPercent"></span>% (<span id="commonBoxNotEventHave"></span>/<span id="commonBoxNotEventMax"></span>)</li>
+                <li>0✩: <span id="noneBoxNotEventPercent"></span>% (<span id="noneBoxNotEventHave"></span>/<span id="noneBoxNotEventMax"></span>)</li>
+            </ul>
+        </div>
+    </div>
+    <div id="capturearea">
         <div class="card" style="margin-top: 10px;">
             <div class="card-header bg-warning header-shadow">5★ SSR</div>
             <div class="card-body">

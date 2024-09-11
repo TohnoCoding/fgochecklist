@@ -164,22 +164,19 @@ div.member-eventonly {
 
 /* media queries for mobile */
 @media screen and (max-height: 768px) and (orientation: landscape) {
-    .icon-bar {
-      transform: scale(0.65);
-      right: 0px;
-      top: 2%;
-    }
+    .icon-bar { transform: scale(0.65); right: 0px; top: 2%; }
 }
 
-@media screen and (orientation: portrait){
-    #optionsAndButtons {
-        margin-left: -5em!important;
-    }
+@media screen and (orientation: portrait) and (min-width: 768px) {
+    #buttonsArea { width: 40% !important; }
+    #checkboxArea { padding-right: 4em !important; }
 }
 
-table { width: 100%; }
-
-hr { margin: 5px; }
+.statsColumn {
+    max-width: 45%;
+    display: inline-block;
+    padding-left: 3em;
+}
 
 @media print { #share, #card-body, #footer { display: none; } }
 
@@ -194,18 +191,13 @@ hr { margin: 5px; }
     75% { content: url('../img/fou4.png'); }
 }
 
-.statsColumn {
-    max-width: 30%;
-    display: inline-block;
-}
-
 .statsBox { justify-content: center; }
 
 .form-group { margin-bottom: 0px !important; }
 
 .btn-options  {
     margin-bottom: 5px !important;
-    width: 45% !important;
+    width: 49%;
     padding: 5px 1px !important;
 }
 
@@ -213,9 +205,13 @@ hr { margin: 5px; }
 
 .form-check-options { text-align: right; }
 
-#optionsAndButtons { margin-left: -10em; }
+#optionsAndButtons { margin: 0 auto !important; }
 
-#checkboxArea { padding-right: 5em; }
+#checkboxArea { padding-right: 5em; width: 45%; }
+
+/*#buttonsArea { margin-left:  }*/
+
+.tableCell { width: 50%; }
 
 .form-check-input { margin-left: 1em; }
 
@@ -242,15 +238,15 @@ hr { margin: 5px; }
 }
 
 .newFeature {
-    content: "   NEW!  ";
     background-color: red;
     color: white;
     padding: 0.6% 1%;
     animation: blink 0.5s step-start infinite;
     font-variant-caps: all-small-caps;
     padding-top: 0;
+    padding-bottom: 3px;
 }
 
-.newFeature::before { content: '< NEW! >'; }
+.newFeature::before { content: '<NEW!>'; }
 
 @keyframes blink { 50% { color: transparent; } } 
