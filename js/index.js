@@ -989,60 +989,44 @@ function buildUnitDataInUI(units_data) {
 }
 
 /**
- * Updates the statistics section of the displayed page based on selected data.
+ * Updates the statistics section of the displayed page based on displayed selected data.
  */
 function updateStatisticsHTML() {
-    var all_base = 0; // Prepare Temp Int
-    for (var key in own_data) {
-        if (own_data.hasOwnProperty(key)) { all_base += own_data[key].length; }
-    }
-    var all_base_NotEvent = 0;
-    for (var key in own_data_notevent) {
-        if (own_data_notevent.hasOwnProperty(key)) {
-            all_base_NotEvent += own_data_notevent[key].length;
-        }
-    }
-    // All Rarity
-    var AllPercent = Number(all_base / rarity_count_data.allcount.max * 100);
-    $("#" + statistic_area + "AllMax").html(rarity_count_data.allcount.max);
-    $("#" + statistic_area + "AllHave").html(all_base);
-    $("#" + statistic_area + "AllPercent").html(parseFloat(Math.round(AllPercent * 100) / 100).toFixed(2));
-    var NotEventPercent = Number(all_base_NotEvent / rarity_count_data.noteventcount.max * 100);
-    $("#" + statistic_area + "NotEventMax").html(rarity_count_data.noteventcount.max);
-    $("#" + statistic_area + "NotEventHave").html(all_base_NotEvent);
-    $("#" + statistic_area + "NotEventPercent").html(parseFloat(Math.round(NotEventPercent * 100) / 100).toFixed(2));
-    // Each Rarity
-    for (var prop in rarity_count_data.allcount.list) {
-        if(!rarity_count_data.allcount.list.hasOwnProperty(prop)) { continue; } // skip loop if the property is from prototype
-        var rarity_base = 0; // Prepare Temp Int
-        if (own_data.hasOwnProperty(prop)) { rarity_base = own_data[prop].length; }
-        var rarity_base_NotEvent = 0;
-        if (own_data_notevent.hasOwnProperty(prop)) { rarity_base_NotEvent = own_data_notevent[prop].length; }
-        // all & notevent
-        var r_allcount = rarity_count_data.allcount.list[prop];
-        var r_AllPercent = Number(rarity_base / r_allcount.max * 100);
-        $("#" + r_allcount.list_element + "AllMax").html(r_allcount.max);
-        $("#" + r_allcount.list_element + "AllHave").html(rarity_base);
-        $("#" + r_allcount.list_element + "AllPercent").html(parseFloat(Math.round(r_AllPercent * 100) / 100).toFixed(2));
-        var r_noteventcount = rarity_count_data.noteventcount.list[prop];
-        var r_NotEventPercent = Number(rarity_base_NotEvent / r_noteventcount.max * 100);
-        $("#" + r_noteventcount.list_element + "NotEventMax").html(r_noteventcount.max);
-        $("#" + r_noteventcount.list_element + "NotEventHave").html(rarity_base_NotEvent);
-        $("#" + r_noteventcount.list_element + "NotEventPercent").html(parseFloat(Math.round(r_NotEventPercent * 100) / 100).toFixed(2));
-    }
-    // Class
-    for (var curr_rare in max_data_eachclass) {
-        for (var curr_class in max_data_eachclass[curr_rare]) {
-            var curr_class_have = 0;
-            if (own_data_eachclass.hasOwnProperty(curr_rare)) {
-                if (own_data_eachclass[curr_rare].hasOwnProperty(curr_class)) {
-                    curr_class_have = own_data_eachclass[curr_rare][curr_class].length;
-                }
-            }
-            $("#" + class_count_have + curr_rare + "_" + curr_class).html(curr_class_have);
-            $("#" + class_count_max + curr_rare + "_" + curr_class).html(max_data_eachclass[curr_rare][curr_class]);
-        }
-    }
+    const classMap = new Map([
+        ["ssrBox", "5★"], ["srBox", "4★"], ["rareBox", "3★"], ["uncommonBox", "2★"], ["commonBox", "1★"], ["noneBox", "0✩"]
+    ]);
+    var overallTotal = 0;
+    var overallOwned = 0;
+    [...$('.row.listbox')].forEach(box => {
+        var $container = $(box);
+        var boxType = $container.attr('id');
+        var totalUnits = $container.find('.member-container').length;
+        overallTotal += totalUnits;
+        var ownedUnits = $container.find('.member-container.member-checked').length;
+        overallOwned += ownedUnits;
+        var percentageOwned = (ownedUnits / totalUnits) * 100;
+        var totalAll = classMap.get(boxType) + ": " + percentageOwned.toFixed(2) + "% (" + ownedUnits + "/" + totalUnits + ")";
+        $("#" + boxType + "AllStats").text(totalAll);
+    });
+    var overallNotEventTotal = 0;
+    var overallNotEventOwned = 0;
+    [...$('.row.listbox')].forEach(box => {
+        var $container = $(box);
+        var boxType = $container.attr('id');
+        var totalNonEventUnits = $container.find('.member-container').filter(function() {
+            return $(this).find('.member-eventonly').length === 0;
+        }).length;
+        overallNotEventTotal += totalNonEventUnits;
+        var ownedNonEventUnits = $container.find('.member-container.member-checked').filter(function() {
+            return $(this).find('.member-eventonly').length === 0;
+        }).length;
+        overallNotEventOwned += ownedNonEventUnits;
+        var percentageNonEventOwned = (ownedNonEventUnits / totalNonEventUnits) * 100;
+        var totalNotEvent =
+            classMap.get(boxType) + ": " + percentageNonEventOwned.toFixed(2) + "% (" + ownedNonEventUnits +
+            "/" + totalNonEventUnits + ")";
+        $("#" + boxType + "NotEventStats").text(totalNotEvent);
+    });
 }
 
 /**
