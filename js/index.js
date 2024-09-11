@@ -1237,22 +1237,6 @@ $(document).ready(function() {
     // Load File Prepare
     $("#" + file_hidden_id).change(function(){ loadUploadedFileData(); });
     var urlParams = new URLSearchParams(window.location.search); // URL Params
-    var local_hash = urlParams.get(short_input_parameter); // URL Redirect; New
-    if (local_hash != null) {
-        // New End Point
-        $.getJSON(endpoint + url_data_part + local_hash, function (data) {
-            data = data["result"];
-            if (data != null) {
-                var new_url = window.location.protocol + "//" + window.location.host + 
-                window.location.pathname + "?" + compress_input_parameter + "=" + data;
-                window.location.href = new_url; //Redirect
-            } else {
-                var new_url = window.location.protocol + "//" + window.location.host + window.location.pathname;
-                window.location.href = new_url; //Redirect
-            }
-        });
-        return;
-    }
     custom_adapter = $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
     $('[data-toggle="tooltip"]').tooltip();
     // Select2
