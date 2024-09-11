@@ -395,18 +395,6 @@ function jumpTo(){
 }
 
 /**
- * Hides units unreleased in NA.
- */
-function toggleUnreleasedUnitsInNA() {
-    if(isNAonly()) {
-        $('[data-gameid]').filter(function () {
-            return $(this).data('gameid') > globalThreshold;
-        }).toggleClass('JPonly');
-    }
-    updateURL();
-}
-
-/**
  * Takes a key-value pair and sorts the keys alphabetically, then returns the sorted collection.
  * @param {object} not_sorted Unsorted collection of key-value pairs.
  * @returns A new collection of key-value pairs sorted alphabetically by the keys.
@@ -908,6 +896,7 @@ function buildUnitDataInUI(units_data) {
         for (var i = 0, l = current_list.length; i < l; i++) {
             // Get Data
             var current_servant = current_list[i];
+            if(isNAonly() && current_servant.game_id > globalThreshold ) { continue; }
             var current_type = sevent_typelist[current_servant.stype];
             servants_data_list[current_servant.id] = current_list[i];
             servants_data_list[current_servant.id].key = current_key;
@@ -917,7 +906,6 @@ function buildUnitDataInUI(units_data) {
             var current_user_data = getStoredUnitData(current_servant.id);
             var current_servant_html = '<div class="' + member_class_grid + '"><div';
             var current_servant_class = ' class="' + member_class;
-            if(isNAonly() && current_servant.game_id > globalThreshold ) { current_servant_class += ' JPonly'; }
             var current_servant_img = '';
             if (isClassMode()) { max_data_eachclass[current_key][current_servant.class] += 1; } // Count Data: All
             if (current_user_data != null) { updateCounts(current_servant.id, 1, false); } // Update Real Count Data
