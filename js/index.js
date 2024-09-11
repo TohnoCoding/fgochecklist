@@ -67,7 +67,6 @@ var statistic_area = "statisticBox";
 // Parameters
 var raw_input_parameter = "raw";
 var compress_input_parameter = "pak";
-var short_input_parameter = "skey";
 var fastmode_checkbox = "fastmode";
 var fastmode_parameter = "fast";
 
@@ -81,6 +80,7 @@ var mashuSR_parameter = getMashParameter() || "mash";
 var fast_mode_local = "fgo_fastmode";
 var class_mode_local = "fgo_classmode";
 var mashuSR_local = "fgo_mashu";
+var NAonly_local = "fgo_naonly";
 
 var list_local = "fgo_list";
 
@@ -150,6 +150,13 @@ var custom_adapter = null;
 var list_new = null;
 var list_update = null;
 
+var threshold_error = "Unable to get the NA threshold; JP-only Servants will not be able to be hidden.";
+var NAonly_parameter = "NA";
+var NAonly_checkbox = "NAonly";
+var initial_load = true;
+
+var globalThreshold = 99999;
+
 /**
  * Setting up AJAX to always override the content/MIME type with json.
  */
@@ -178,14 +185,225 @@ $.fn.select2.amd.define('select2/data/customAdapter', ['select2/data/array', 'se
     }
 );
 
-  /**
-   * Jumps to a specific point in the viewport.
-   * @returns Void.
-   */
+/**
+ * General setup for when the page is initially loaded and the DOM is ready.
+ */
+$(document).ready(async function() {
+    let gt = await fetchGlobalThreshold();
+    $('#loadingModal').modal('show'); // Show Loading Modal    
+    // Load File Prepare
+    $("#" + file_hidden_id).change(function(){ loadUploadedFileData(); });
+    var urlParams = new URLSearchParams(window.location.search); // URL Params
+    custom_adapter = $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
+    $('[data-toggle="tooltip"]').tooltip();
+    // Select2
+    list_new = $( "#npAdd" ).select2({
+        theme: "bootstrap",
+        dataAdapter: custom_adapter,
+        data: copy_choice_allow
+    });
+    list_update = $( "#npUpdate" ).select2({
+        theme: "bootstrap",
+        dataAdapter: custom_adapter,
+        data: copy_choice_allow
+    });
+    var MashuSR_input = urlParams.get(mashuSR_parameter);
+    var fastmode_input = urlParams.get(fastmode_parameter);
+    var classmode_input = urlParams.get(classmode_parameter);
+    var NAonly_input = urlParams.get(NAonly_parameter);
+    compress_input = urlParams.get(compress_input_parameter);
+    // Mashu is SR
+    if (MashuSR_input != null) {
+        var Mashu_IS_SR = (parseInt(MashuSR_input) > 0);
+        $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
+    } else {
+        // Mashu is SR
+        if (localStorage[mashuSR_local]) {
+            var Mashu_IS_SR = (parseInt(localStorage[mashuSR_local]) > 0);
+            $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
+        }
+    }
+    // ClassMode
+    if (classmode_input != null) {
+        var classmode_enable = (parseInt(classmode_input) > 0);
+        $('#' + classmode_checkbox).prop('checked', classmode_enable);
+    } else {
+        // ClassMode
+        if (localStorage[class_mode_local]) {
+            var classmode_enable = (parseInt(localStorage[class_mode_local]) > 0);
+            $('#' + classmode_checkbox).prop('checked', classmode_enable);
+        }
+    }
+    // FastMode
+    if (fastmode_input != null) {
+        var fastmode_enable = (parseInt(fastmode_input) > 0);
+        $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
+    } else {
+        // FastMode
+        if (localStorage[fast_mode_local]) {
+            var fastmode_enable = (parseInt(localStorage[fast_mode_local]) > 0);
+            $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
+        }
+    }
+    // NA only
+    if(NAonly_input != null) {
+        var NAonly_enable = (parseInt(NAonly_input) > 0);
+        $("#" + NAonly_checkbox).prop('checked', NAonly_enable);
+    } else {
+        if(localStorage[NAonly_local]) {
+            var NAonly_enable = (parseInt(localStorage[NAonly_local]) > 0);
+            $("#" + NAonly_checkbox).prop('checked', NAonly_enable);
+        }
+    }
+    // Load From URL
+    if (compress_input != null) {
+        encoded_user_input = LZString.decompressFromEncodedURIComponent(compress_input); // List Reader
+        finishLoading(); // Finish Loading
+    } else {
+        encoded_user_input = urlParams.get(raw_input_parameter);
+        if (encoded_user_input != null) { finishLoading(); } // Finish Loading
+        else {
+            if (localStorage[list_local]) { loadLocalData(); } // List Reader
+            else {
+                encoded_user_input = ""; // Blank Raw
+                finishLoading(); // Finish Loading
+            }
+        }
+    }
+    if (localStorage[list_local]) { $('#' + load_btn).prop('disabled', false); } // Set Load Button Status
+    // Set Checkbox Event
+    $('#' + fastmode_checkbox).change(function () { updateURLOptionModeOnly(); });
+    $('#' + classmode_checkbox).change(function () { updateClassMode(); });
+    $('#' + mashuSR_checkbox).change(function () { updateClassMode(); });
+    $('#' + NAonly_checkbox).change(function () { updateURLOptionModeOnly(); });
+    // Set Modal Closing Event
+    $("#addModal").on("hidden.bs.modal", function () {
+        current_edit = "";
+        current_edit_ele = null;
+    });
+    $("#updateModal").on("hidden.bs.modal", function () {
+        current_edit = "";
+        current_edit_ele = null;
+    });
+    try { var isFileSaverSupported = !!new Blob; } // Check for FileSaver.js compatibility
+    catch (e) {
+        $("#loadbutton_f").prop("disabled", "disabled");
+        $("#savebutton_f").prop("disabled", "disabled");
+        $("#page_whatami").append("<br /><b>NOTICE:</b> FileSaver.js functionality not supported! Upload &amp; Download buttons have been disabled.");
+    }
+});
+
+/**
+ * Uses the Atlas Academy API to get the internal game ID of the latest Servant
+ * released, in the global/EN server, in order to know when to construct NA/EN
+ * links to the the Atlas Academy Database Servant pages.
+ * @returns {Promise<void>} A promise that resolves when the fetch is complete.
+ */
+async function fetchGlobalThreshold() {
+    try {
+        const threshold = 
+            (await fetch("https://api.atlasacademy.io/export/NA/basic_servant.json")
+            .then(r => r.json())).map(s => s.collectionNo).at(-1);   // get last valid index
+        globalThreshold = threshold;
+    } catch (error) {
+        $(".newFeature").addClass("JPdisabled");
+        $("label[for='NAonly']").addClass("JPdisabled");
+        $("#NAonly").prop("disabled", true);
+        bootbox.alert(threshold_error, null);
+    }
+}
+
+/**
+ * Returns whether Fast Mode is activated.
+ * @returns True if Fast Mode is on, False otherwise.
+ */
+function isFastMode() { return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
+
+/**
+ * Returns whether Class Mode is activated.
+ * @returns True if Class Mode is on, False otherwise.
+ */
+function isClassMode() { return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
+
+/**
+ * Returns whether JP-only Servants should be hidden.
+ * @returns True if the hiding checkbox is checked, False otherwise.
+ */
+function isNAonly() { return $('#' + NAonly_checkbox).is(':checked'); } // Hide JP Check
+
+/**
+ * Returns whether Mash is marked as SR.
+ * @returns True if Mash is marked as SR, False otherwise.
+ */
+function isMashuSR() { return $('#' + mashuSR_checkbox).is(':checked'); } // ClassMode Check
+
+/**
+ * Removes the specified unit from local storage.
+ * @param {string} id The ID of the unit to remove.
+ */
+function executeUserDataRemoval(id) { delete user_data[id]; }
+
+/**
+ * Returns a string indicating the state of Fast Mode for URL injection.
+ * @returns An empty string if Fast Mode is off; `{$fastmode_parameter}=1` if it's on.
+ */
+function getFastModeURLstring() { return isFastMode() ? fastmode_parameter + "=1" : ""; }
+
+/**
+ * Returns a string indicating the state of Class Mode for URL injection.
+ * @returns An empty string if Class Mode is off, `{$classmode_parameter}=1` if it's on.
+ */
+function getClassModeURLstring() { return isClassMode() ? classmode_parameter + "=1" : ""; }
+
+/**
+ * Returns a string indicating whether JP-only units should be hidden.
+ * @returns An empty string if "hide JP units" is off; `{$NAonly_parameter}=1` if it's on.
+ */
+function getNAonlyString() { return isNAonly() ? NAonly_parameter + "=1" : ""; }
+
+/**
+ * Returns the serialized form of the currently saved unit data.
+ * @returns A string representation of the currently saved unit data.
+ */
+function getSerializedUnitData()
+{ return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
+
+/**
+ * Updates the UI whenever Class Mode is toggled.
+ */
+function updateClassMode() { updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
+
+/**
+ * Triggers the File Open dialog box.
+ */
+function openFileOption() { document.getElementById(file_hidden_id).click(); }
+
+/**
+ * Permanently hides an element from the UI (by removing it). Useful for the noticeboard at the top.
+ * @param {string} element The element to hide.
+ */
+function removeElement(element) { document.getElementById(element).remove(); }
+
+/**
+ * Jumps to a specific point in the viewport.
+ * @returns Void.
+ */
 function jumpTo(){
     if (jump_to_target === null) { return; }
     document.getElementById(jump_to_target).scrollIntoView();   // Even IE6 supports this
     jump_to_target = null; 
+}
+
+/**
+ * Hides units unreleased in NA.
+ */
+function toggleUnreleasedUnitsInNA() {
+    if(isNAonly()) {
+        $('[data-gameid]').filter(function () {
+            return $(this).data('gameid') > globalThreshold;
+        }).toggleClass('JPonly');
+    }
+    updateURL();
 }
 
 /**
@@ -570,7 +788,7 @@ function updateURL() {
         $('#' + save_file_btn).prop('disabled', true);
     }
     // Add additional parameters
-    [getMashuSRURLstring(false), getClassModeURLstring(), getFastModeURLstring()].forEach(param => {
+    [getMashuSRURLstring(false), getClassModeURLstring(), getFastModeURLstring(), getNAonlyString()].forEach(param => {
         if (param) { new_parameter += (new_parameter.includes("?") ? "&" : "?") + param; }
     });
     // Update URL
@@ -588,11 +806,12 @@ function updateURLOptionModeOnly() {
     const options = [
         { key: mashuSR_parameter, value: getMashuSRURLstring(false), storageKey: mashuSR_local },
         { key: classmode_parameter, value: getClassModeURLstring(), storageKey: class_mode_local },
-        { key: fastmode_parameter, value: getFastModeURLstring(), storageKey: fast_mode_local }
+        { key: fastmode_parameter, value: getFastModeURLstring(), storageKey: fast_mode_local },
+        { key: NAonly_parameter, value: getNAonlyString(), storageKey: NAonly_local }
     ];
     options.forEach(({ key, value, storageKey }) => {
         if (value) {
-            urlParams.set(key, value.slice(1));  // Remove '=' from value
+            urlParams.set(key, value.slice(-1));  // Remove '=' from value
             localStorage[storageKey] = 1;
         } else {
             urlParams.delete(key);
@@ -698,6 +917,7 @@ function buildUnitDataInUI(units_data) {
             var current_user_data = getStoredUnitData(current_servant.id);
             var current_servant_html = '<div class="' + member_class_grid + '"><div';
             var current_servant_class = ' class="' + member_class;
+            if(isNAonly() && current_servant.game_id > globalThreshold ) { current_servant_class += ' JPonly'; }
             var current_servant_img = '';
             if (isClassMode()) { max_data_eachclass[current_key][current_servant.class] += 1; } // Count Data: All
             if (current_user_data != null) { updateCounts(current_servant.id, 1, false); } // Update Real Count Data
@@ -892,6 +1112,8 @@ function exportCanvasToImage() {
  * If data exists in the browser localstorage, confirms with the user whether it should be loaded.
  */
 function loadLocalData() {
+    if(!initial_load) { return; }
+    initial_load = false;
     bootbox.confirm({ // Confirm
         message: load_text,
         buttons: {
@@ -1047,6 +1269,7 @@ $(document).ready(function() {
     var MashuSR_input = urlParams.get(mashuSR_parameter);
     var fastmode_input = urlParams.get(fastmode_parameter);
     var classmode_input = urlParams.get(classmode_parameter);
+    var NAonly_input = urlParams.get(NAonly_parameter);
     compress_input = urlParams.get(compress_input_parameter);
     // Mashu is SR
     if (MashuSR_input != null) {
@@ -1081,6 +1304,17 @@ $(document).ready(function() {
             $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
         }
     }
+    // Hide JP
+    if (NAonly_input != null) {
+        var NAonly_enable = (parseInt(NAonly_input) > 0);
+        $('#' + NAonly_checkbox).prop('checked', NAonly_enable);
+    } else {
+        // Hide JP
+        if (localStorage[NAonly_local]) {
+            var NAonly_enable = (parseInt(localStorage[NAonly_local]) > 0);
+            $('#' + NAonly_checkbox).prop('checked', NAonly_enable);
+        }
+    }
     // Load From URL
     if (compress_input != null) {
         encoded_user_input = LZString.decompressFromEncodedURIComponent(compress_input); // List Reader
@@ -1101,6 +1335,7 @@ $(document).ready(function() {
     $('#' + fastmode_checkbox).change(function () { updateURLOptionModeOnly(); });
     $('#' + classmode_checkbox).change(function () { updateClassMode(); });
     $('#' + mashuSR_checkbox).change(function () { updateClassMode(); });
+    $('#' + NAonly_checkbox).change(function () { updateClassMode(); });
     // Set Modal Closing Event
     $("#addModal").on("hidden.bs.modal", function () {
         current_edit = "";
@@ -1152,7 +1387,6 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
         cache: false,
         beforeSend: function(xhr) { if (xhr.overrideMimeType) { xhr.overrideMimeType("application/json"); } },
         success: function(result) {
-            debugger;
             var servants_data = result;
             if (typeof input_rarity !== "undefined" && typeof input_class !== "undefined") {
                 jump_to_target = input_rarity + "_" + input_class; // Create Jump Target

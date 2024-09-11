@@ -39,7 +39,7 @@
 <nav class="navbar navbar-dark bg-secondary">
   <span class="navbar-brand">
     <img src="img/DSGO.png" width="30" height="30" class="d-inline-block align-top" alt="">
-    FGO Servant checklist with NP Count v2.5
+    FGO Servant checklist with NP Count v3.0
   </span>
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item" style="color: white;">
@@ -50,11 +50,26 @@
 </nav>
 <!-- Content -->
 <div class="container body-content" style="padding-top: 10px;">
+    <div id="noticeBoard">
+        <h3 style="text-align: center;">Notice of new feature!</h3>
+        <span>
+            I've recently added the ability to hide (and save, both in your local data as well as in in your shortened URL!)
+            any JP-only Servants. I've made sure to test as much as I possibly could to ensure the feature was working 100%
+            correctly; however, I'm human and can make mistakes. If you find anything weird with this, please, I implore you
+            <a target="_blank" href="https://github.com/TohnoCoding/fgochecklist/issues/new">open a new issue</a> on the
+            project repository and write down your findings with as much detail as possible (ideally, with a video recording
+            of your screen; most mobile devices have this capability built-in; if you're on Windows or Mac, you can use
+            Loom, and if you're on Linux, Kooha is a good option).<br /><br />
+            ~Tohno Shiki<br />
+            <h6 style="text-align:center"><a onClick="javascript:removeElement('noticeBoard')">[
+                Click/tap here to remove this message. ]</a></h6>
+        </span>
+    </div>
     <div class="card" id="headerCard">
         <div id="card-body" class="card-body" style="text-align:center; padding: 0px;">
             <p id="page_whatami">Yet another FGO Servant checklist with NP count.
             Forked from <a href="https://nechigawara.github.io/nechi-fgo-checklist/" target="_blank">Nechigawara</a>.<br />
-            Please note that the site may take a while loading on first visit due to caching all the required images.</p>
+            Please note that the site may take a while loading on first visit from caching all images.</p>
         <form>
                 <table id="optionsAndButtons">
                     <tr>
@@ -71,13 +86,18 @@
                                 <label class="form-check-label" for="fastmode">Fast Mode (Left &amp; Right Click Only)</label>
                                 <input type="checkbox" class="form-check-input" id="fastmode">
                             </div>
+							<div class="form-group form-check form-check-options">
+                                <span class="newFeature"></span>
+                                <label class="form-check-label" for="NAonly">Hide JP-only Servants</label>
+                                <input type="checkbox" class="form-check-input" id="NAonly">
+                            </div>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-secondary" onclick="toggleUnitTypeIcon()">Toggle Icons</button>
+                            <button type="button" class="btn btn-options btn-secondary" onclick="toggleUnitTypeIcon()">Toggle Icons</button>
                             <!-- button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Disable for Padoru" disabled>Image export (slow)</button -->
-                            <button type="button" class="btn btn-info" onclick="exportCanvasToImage()">Image export</button><br>
-                            <button type="button" class="btn btn-danger" onclick="clearAllData()">Clear All</button>
-                            <button type="button" class="btn btn-primary" onclick="promptMarkAllUnitsSelected(false)">Mark All Owned</button>
+                            <button type="button" class="btn btn-options btn-info" onclick="exportCanvasToImage()">Image export</button><br>
+                            <button type="button" class="btn btn-options btn-danger" onclick="clearAllData()">Clear All</button>
+                            <button type="button" class="btn btn-options btn-primary" onclick="promptMarkAllUnitsSelected(false)">Mark All Owned</button>
                         </td>
                     </tr>
                 </table>
@@ -110,7 +130,7 @@
             </div>
         </div>
     </div>
-    <h3 align="center">Stats for nerds:</h3>
+    <h3 align="center" id="statsTitle">Stats for nerds (values include JP-only Servants even if you hide them):</h3>
     <div id="capturearea">
         <div class="row statsBox" id="statisticBox" style="display:none;">
             <div class="col statsColumn padoru_text">
@@ -143,7 +163,7 @@
             <div class="card-body">
                 <div class="row listbox" id="ssrBox" style="display:none;"></div>
                 <div class="listbox_class" id="ssrBox-ByClass" style="display:none;"></div>
-                <div class="row" id="ssrBoxFake">
+                <div class="row listbox_fake" id="ssrBoxFake">
                     <div class="col">Loading...</div>
                 </div>
             </div>
@@ -203,7 +223,7 @@
         Icon legend:
         <ul>
             <li><i class="fas fa-shield-alt"></i> = Starter Servant (Shielder)</li>
-            <li><i class="fas fa-lock"></i> = Servants unlocked to be available <i>exclusively</i> in the Story banner through clearing story chapters</li> (exception: Habetrot)
+            <li><i class="fas fa-lock"></i> = Servants unlocked <i>exclusively</i> in the Story banner (exception: Habetrot)</li>
             <li><i class="fas fa-star"></i> = Limited Servants</li>
             <li><i class="fas fa-gift"></i> = Event Reward Servants ("welfares")</li>
         </ul>
