@@ -272,3 +272,37 @@ hr {
 .JPonly {
     display: none;
 }
+
+#statsTitle {
+    margin-top: 2%;
+}
+
+#noticeBoard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+    border: 2px solid;
+    border-radius: 10%;
+    padding: 2%;
+    margin: 0 auto;
+    margin-bottom: 2%;
+    padding-bottom: 10px;
+}
+
+.newFeature {
+    content: "   NEW!  ";
+    background-color: red;
+    color: white;
+    padding: 0.6% 1%;
+    animation: blink 0.5s step-start infinite;
+    font-variant-caps: all-small-caps;
+    padding-top: 0;
+}
+
+.newFeature::before {
+    content: '< NEW! >';
+}
+
+@keyframes blink { 50% { color: transparent; } } 
