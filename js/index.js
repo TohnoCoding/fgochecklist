@@ -1017,8 +1017,8 @@ function updateStatisticsHTML() {
         $("#" + boxType + "AllStats").text(`${classMap.get(boxType)}: ${percentageOwned}% (${ownedUnits}/${totalUnits})`);
         $("#" + boxType + "NotEventStats").text(`${classMap.get(boxType)}: ${percentageNonEventOwned}% (${ownedNonEventUnits}/${totalNonEventUnits})`);
     });
-    var overallPercent = (overallOwned / overallTotal * 100).toFixed(2);
-    var overallNotEventPercent = (overallNotEventOwned / overallNotEventTotal * 100).toFixed(2);
+    var overallPercent = ((overallOwned / overallTotal) * 100).toFixed(2);
+    var overallNotEventPercent = ((overallNotEventOwned / overallNotEventTotal) * 100).toFixed(2);
     $("#statisticBoxAllPercent").text(overallPercent);
     $("#statisticBoxAllHave").text(overallOwned);
     $("#statisticBoxAllMax").text(overallTotal);
