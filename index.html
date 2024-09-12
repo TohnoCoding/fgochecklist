@@ -137,29 +137,31 @@
     <h3 align="center" id="statsTitle">Stats for nerds:</h3>
     <div id="capturearea">
         <div class="row statsBox" id="statisticBox" style="display:none;">
-            <div class="col statsColumn padoru_text">
-                <h3>All Servants</h3>
-                <h4><small>Overall:</small> <em id="statisticBoxAllPercent"></em>% <small>(<span id="statisticBoxAllHave"></span>/<span id="statisticBoxAllMax"></span>)</small></h4>
-                <ul>
-                    <li id="ssrBoxAllStats"></li>
-                    <li id="srBoxAllStats"></li>
-                    <li id="rareBoxAllStats"></span></li>
-                    <li id="uncommonBoxAllStats"></li>
-                    <li id="commonBoxAllStats"></li>
-                    <li id="noneBoxAllStats"></li>
-                </ul>
-            </div>
-            <div class="col statsColumn">
-                <h3>Excluding Welfares</h3>
-                <h4><small>Overall:</small> <em id="statisticBoxNotEventPercent"></em>% <small>(<span id="statisticBoxNotEventHave"></span>/<span id="statisticBoxNotEventMax"></span>)</small></h4>
-                <ul>
-                    <li id="ssrBoxNotEventStats"></li>
-                    <li id="srBoxNotEventStats"></li>
-                    <li id="rareBoxNotEventStats"></li>
-                    <li id="uncommonBoxNotEventStats"></li>
-                    <li id="commonBoxNotEventStats"></li>
-                    <li id="noneBoxNotEventStats"></li>
-                </ul>
+            <div id="statsContainer">
+                <div class="col statsColumn padoru_text">
+                    <h3>All Servants</h3>
+                    <h4><small>Overall:</small> <em id="statisticBoxAllPercent"></em>% <small>(<span id="statisticBoxAllHave"></span>/<span id="statisticBoxAllMax"></span>)</small></h4>
+                    <ul>
+                        <li id="ssrBoxAllStats"></li>
+                        <li id="srBoxAllStats"></li>
+                        <li id="rareBoxAllStats"></span></li>
+                        <li id="uncommonBoxAllStats"></li>
+                        <li id="commonBoxAllStats"></li>
+                        <li id="noneBoxAllStats"></li>
+                    </ul>
+                </div>
+                <div class="col statsColumn">
+                    <h3>Excluding Welfares</h3>
+                    <h4><small>Overall:</small> <em id="statisticBoxNotEventPercent"></em>% <small>(<span id="statisticBoxNotEventHave"></span>/<span id="statisticBoxNotEventMax"></span>)</small></h4>
+                    <ul>
+                        <li id="ssrBoxNotEventStats"></li>
+                        <li id="srBoxNotEventStats"></li>
+                        <li id="rareBoxNotEventStats"></li>
+                        <li id="uncommonBoxNotEventStats"></li>
+                        <li id="commonBoxNotEventStats"></li>
+                        <li id="noneBoxNotEventStats"></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="card" style="margin-top: 10px;">
@@ -213,7 +215,7 @@
             </div>
         </div>
         <div class="card" style="margin-top: 10px;">
-            <div class="card-header bg-dark header-shadow">0✩ Non-Rarity</div>
+            <div class="card-header bg-dark header-shadow">0✩ <span style="font-style: italic;">VOID</span></div>
             <div class="card-body">
                 <div class="row listbox" id="noneBox" style="display:none;"></div>
                 <div class="listbox_class" id="noneBox-ByClass" style="display:none;"></div>
