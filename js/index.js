@@ -990,43 +990,35 @@ function buildUnitDataInUI(units_data) {
 
 /**
  * Updates the statistics section of the displayed page based on displayed selected data.
+ * No longer works based on locally saved data in order to be able to recalculate whenever
+ * units unreleased in NA are hidden.
  */
 function updateStatisticsHTML() {
     const classMap = new Map([
         ["ssrBox", "5★"], ["srBox", "4★"], ["rareBox", "3★"], ["uncommonBox", "2★"], ["commonBox", "1★"], ["noneBox", "0✩"]
     ]);
-    var overallTotal = 0, overallOwned = 0, overallPercent = 0;
-    [...$('.row.listbox')].forEach(box => {
-        var $container = $(box);
+    var overallTotal = 0, overallOwned = 0, overallNotEventTotal = 0, overallNotEventOwned = 0;
+    $('.row.listbox').each(function() {
+        var $container = $(this);
         var boxType = $container.attr('id');
         var totalUnits = $container.find('.member-container').length;
-        overallTotal += totalUnits;
         var ownedUnits = $container.find('.member-container.member-checked').length;
+        var nonEventUnits = $container.find('.member-container').filter(function() {
+            return !$(this).find('.member-eventonly').length;
+        });
+        var totalNonEventUnits = nonEventUnits.length;
+        var ownedNonEventUnits = nonEventUnits.filter('.member-checked').length;
+        overallTotal += totalUnits;
         overallOwned += ownedUnits;
-        var percentageOwned = (ownedUnits / totalUnits) * 100;
-        var totalAll = classMap.get(boxType) + ": " + percentageOwned.toFixed(2) + "% (" + ownedUnits + "/" + totalUnits + ")";
-        $("#" + boxType + "AllStats").text(totalAll);
-    });
-    var overallNotEventTotal = 0, overallNotEventOwned = 0, overallNotEventPercent = 0;
-    [...$('.row.listbox')].forEach(box => {
-        var $container = $(box);
-        var boxType = $container.attr('id');
-        var totalNonEventUnits = $container.find('.member-container').filter(function() {
-            return $(this).find('.member-eventonly').length === 0;
-        }).length;
         overallNotEventTotal += totalNonEventUnits;
-        var ownedNonEventUnits = $container.find('.member-container.member-checked').filter(function() {
-            return $(this).find('.member-eventonly').length === 0;
-        }).length;
         overallNotEventOwned += ownedNonEventUnits;
-        var percentageNonEventOwned = (ownedNonEventUnits / totalNonEventUnits) * 100;
-        var totalNotEvent =
-            classMap.get(boxType) + ": " + percentageNonEventOwned.toFixed(2) + "% (" + ownedNonEventUnits +
-            "/" + totalNonEventUnits + ")";
-        $("#" + boxType + "NotEventStats").text(totalNotEvent);
+        var percentageOwned = ((ownedUnits / totalUnits) * 100).toFixed(2);
+        var percentageNonEventOwned = ((ownedNonEventUnits / totalNonEventUnits) * 100).toFixed(2);
+        $("#" + boxType + "AllStats").text(`${classMap.get(boxType)}: ${percentageOwned}% (${ownedUnits}/${totalUnits})`);
+        $("#" + boxType + "NotEventStats").text(`${classMap.get(boxType)}: ${percentageNonEventOwned}% (${ownedNonEventUnits}/${totalNonEventUnits})`);
     });
-    overallPercent = ((overallOwned / overallTotal) * 100).toFixed(2);
-    overallNotEventPercent = ((overallNotEventOwned / overallNotEventTotal) * 100).toFixed(2);
+    var overallPercent = (overallOwned / overallTotal * 100).toFixed(2);
+    var overallNotEventPercent = (overallNotEventOwned / overallNotEventTotal * 100).toFixed(2);
     $("#statisticBoxAllPercent").text(overallPercent);
     $("#statisticBoxAllHave").text(overallOwned);
     $("#statisticBoxAllMax").text(overallTotal);
