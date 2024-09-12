@@ -995,8 +995,7 @@ function updateStatisticsHTML() {
     const classMap = new Map([
         ["ssrBox", "5★"], ["srBox", "4★"], ["rareBox", "3★"], ["uncommonBox", "2★"], ["commonBox", "1★"], ["noneBox", "0✩"]
     ]);
-    var overallTotal = 0;
-    var overallOwned = 0;
+    var overallTotal = 0, overallOwned = 0, overallPercent = 0;
     [...$('.row.listbox')].forEach(box => {
         var $container = $(box);
         var boxType = $container.attr('id');
@@ -1008,8 +1007,7 @@ function updateStatisticsHTML() {
         var totalAll = classMap.get(boxType) + ": " + percentageOwned.toFixed(2) + "% (" + ownedUnits + "/" + totalUnits + ")";
         $("#" + boxType + "AllStats").text(totalAll);
     });
-    var overallNotEventTotal = 0;
-    var overallNotEventOwned = 0;
+    var overallNotEventTotal = 0, overallNotEventOwned = 0, overallNotEventPercent = 0;
     [...$('.row.listbox')].forEach(box => {
         var $container = $(box);
         var boxType = $container.attr('id');
@@ -1027,6 +1025,14 @@ function updateStatisticsHTML() {
             "/" + totalNonEventUnits + ")";
         $("#" + boxType + "NotEventStats").text(totalNotEvent);
     });
+    overallPercent = ((overallOwned / overallTotal) * 100).toFixed(2);
+    overallNotEventPercent = ((overallNotEventOwned / overallNotEventTotal) * 100).toFixed(2);
+    $("#statisticBoxAllPercent").text(overallPercent);
+    $("#statisticBoxAllHave").text(overallOwned);
+    $("#statisticBoxAllMax").text(overallTotal);
+    $("#statisticBoxNotEventPercent").text(overallNotEventPercent);
+    $("#statisticBoxNotEventHave").text(overallNotEventOwned);
+    $("#statisticBoxNotEventMax").text(overallNotEventTotal);
 }
 
 /**
