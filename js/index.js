@@ -875,10 +875,10 @@ function buildUnitDataInUI(units_data) {
                 var current_class_data_icn_ele = '<img src="' + current_class_data_icn + '" class="' + img_class + '" title="' + current_class_data.name + '" data-toggle="tooltip-member" data-placement="bottom"/>';
                 current_class_html += current_class_data_icn_ele;
                 // Class  Basic Count
-                //current_class_html += "<div>";
-                //current_class_html += '<span id="' + class_count_have + current_key + "_" + current_class + '">0</span>/'
-                //current_class_html += '<span id="' + class_count_max + current_key + "_" + current_class + '">0</span>'
-                //current_class_html += "</div>";
+                current_class_html += "<div>";
+                current_class_html += '<span id="' + class_count_have + current_key + "_" + current_class + '">0</span>/'
+                current_class_html += '<span id="' + class_count_max + current_key + "_" + current_class + '">0</span>'
+                current_class_html += "</div>";
                 // All + None Button
                 current_class_html += '<button type="button" class="btn btn-outline-primary btn-xs" onclick="promptMarkAllUnitsSelected(false, ' + "'" + 
                     current_key + "', '" + current_class + "'" +')">All</button>';
@@ -1029,10 +1029,10 @@ function updateStatisticsHTML() {
     $("#statisticBoxNotEventMax").text(overallNotEventTotal);
     if(isClassMode()) { 
         $('#statsTitle').css('visibility', 'hidden')
-        $('#statsContainer').css('display', 'none');
+        $(`#${statistic_area}`).css('display', 'none');
     } else {
         $('#statsTitle').css('visibility', 'visible')
-        $('#statsContainer').css('display', 'block');
+        $(`#${statistic_area}`).css('display', 'block');
     }
 }
 

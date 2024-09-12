@@ -173,12 +173,14 @@ div.member-eventonly {
 }
 
 .statsColumn {
-    max-width: 45%;
+    max-width: 49.9%;
     display: inline-block;
-    padding-left: 3em;
+    padding-left: 4em;
 }
 
-#statsContainer { max-width: 90%; margin: 0; padding: 0; }
+#statsContainer { margin: 0 auto; padding: 0; max-width: 90%; min-width: 60%; }
+
+.centerText { text-align: center; }
 
 @media print { #share, #card-body, #footer { display: none; } }
 
