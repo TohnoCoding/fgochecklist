@@ -275,7 +275,7 @@ $(document).ready(async function() {
     $('#' + fastmode_checkbox).change(function () { updateURLOptionModeOnly(); });
     $('#' + classmode_checkbox).change(function () { updateClassMode(); });
     $('#' + mashuSR_checkbox).change(function () { updateClassMode(); });
-    $('#' + NAonly_checkbox).change(function () { updateURLOptionModeOnly(); });
+    $('#' + NAonly_checkbox).change(function () { updateClassMode(); });
     // Set Modal Closing Event
     $("#addModal").on("hidden.bs.modal", function () {
         current_edit = "";
@@ -1082,8 +1082,6 @@ function exportCanvasToImage() {
  * If data exists in the browser localstorage, confirms with the user whether it should be loaded.
  */
 function loadLocalData() {
-    if(!initial_load) { return; }
-    initial_load = false;
     bootbox.confirm({ // Confirm
         message: load_text,
         buttons: {
@@ -1198,114 +1196,6 @@ function exportCurrentDataToFile() {
         { type: "text/plain;charset=utf-8" });
     saveAs(blob, export_filename);
 }
-
-/**
- * General setup for when the page is initially loaded and the DOM is ready.
- */
-$(document).ready(function() {
-    $('#loadingModal').modal('show'); // Show Loading Modal    
-    // Load File Prepare
-    $("#" + file_hidden_id).change(function(){ loadUploadedFileData(); });
-    var urlParams = new URLSearchParams(window.location.search); // URL Params
-    custom_adapter = $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
-    $('[data-toggle="tooltip"]').tooltip();
-    // Select2
-    list_new = $( "#npAdd" ).select2({
-        theme: "bootstrap",
-        dataAdapter: custom_adapter,
-        data: copy_choice_allow
-    });
-    list_update = $( "#npUpdate" ).select2({
-        theme: "bootstrap",
-        dataAdapter: custom_adapter,
-        data: copy_choice_allow
-    });
-    var MashuSR_input = urlParams.get(mashuSR_parameter);
-    var fastmode_input = urlParams.get(fastmode_parameter);
-    var classmode_input = urlParams.get(classmode_parameter);
-    var NAonly_input = urlParams.get(NAonly_parameter);
-    compress_input = urlParams.get(compress_input_parameter);
-    // Mashu is SR
-    if (MashuSR_input != null) {
-        var Mashu_IS_SR = (parseInt(MashuSR_input) > 0);
-        $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
-    } else {
-        // Mashu is SR
-        if (localStorage[mashuSR_local]) {
-            var Mashu_IS_SR = (parseInt(localStorage[mashuSR_local]) > 0);
-            $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
-        }
-    }
-    // ClassMode
-    if (classmode_input != null) {
-        var classmode_enable = (parseInt(classmode_input) > 0);
-        $('#' + classmode_checkbox).prop('checked', classmode_enable);
-    } else {
-        // ClassMode
-        if (localStorage[class_mode_local]) {
-            var classmode_enable = (parseInt(localStorage[class_mode_local]) > 0);
-            $('#' + classmode_checkbox).prop('checked', classmode_enable);
-        }
-    }
-    // FastMode
-    if (fastmode_input != null) {
-        var fastmode_enable = (parseInt(fastmode_input) > 0);
-        $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
-    } else {
-        // FastMode
-        if (localStorage[fast_mode_local]) {
-            var fastmode_enable = (parseInt(localStorage[fast_mode_local]) > 0);
-            $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
-        }
-    }
-    // Hide JP
-    if (NAonly_input != null) {
-        var NAonly_enable = (parseInt(NAonly_input) > 0);
-        $('#' + NAonly_checkbox).prop('checked', NAonly_enable);
-    } else {
-        // Hide JP
-        if (localStorage[NAonly_local]) {
-            var NAonly_enable = (parseInt(localStorage[NAonly_local]) > 0);
-            $('#' + NAonly_checkbox).prop('checked', NAonly_enable);
-        }
-    }
-    // Load From URL
-    if (compress_input != null) {
-        encoded_user_input = LZString.decompressFromEncodedURIComponent(compress_input); // List Reader
-        finishLoading(); // Finish Loading
-    } else {
-        encoded_user_input = urlParams.get(raw_input_parameter);
-        if (encoded_user_input != null) { finishLoading(); } // Finish Loading
-        else {
-            if (localStorage[list_local]) { loadLocalData(); } // List Reader
-            else {
-                encoded_user_input = ""; // Blank Raw
-                finishLoading(); // Finish Loading
-            }
-        }
-    }
-    if (localStorage[list_local]) { $('#' + load_btn).prop('disabled', false); } // Set Load Button Status
-    // Set Checkbox Event
-    $('#' + fastmode_checkbox).change(function () { updateURLOptionModeOnly(); });
-    $('#' + classmode_checkbox).change(function () { updateClassMode(); });
-    $('#' + mashuSR_checkbox).change(function () { updateClassMode(); });
-    $('#' + NAonly_checkbox).change(function () { updateClassMode(); });
-    // Set Modal Closing Event
-    $("#addModal").on("hidden.bs.modal", function () {
-        current_edit = "";
-        current_edit_ele = null;
-    });
-    $("#updateModal").on("hidden.bs.modal", function () {
-        current_edit = "";
-        current_edit_ele = null;
-    });
-    try { var isFileSaverSupported = !!new Blob; } // Check for FileSaver.js compatibility
-    catch (e) {
-        $("#loadbutton_f").prop("disabled", "disabled");
-        $("#savebutton_f").prop("disabled", "disabled");
-        $("#page_whatami").append("<br /><b>NOTICE:</b> FileSaver.js functionality not supported! Upload &amp; Download buttons have been disabled.");
-    }
-});
 
 /**
  * Prompts the user to mark all units as owned at first level of copies.
