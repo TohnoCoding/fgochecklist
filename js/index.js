@@ -866,7 +866,7 @@ function buildUnitDataInUI(units_data) {
                 if (typeof max_data_eachclass[current_key] === "undefined") { max_data_eachclass[current_key] = {}; } // Make Max Data
                 max_data_eachclass[current_key][current_class] = 0;
                 // Prepare Div
-                current_class_html += '<div class="row" id="' + current_key + "_" + current_class + '">';
+                current_class_html += '<div class="row classBox" id="' + current_key + "_" + current_class + '">';
                 current_class_html += '<div class="' + class_div_icon_class + '" style="text-align: center">';
                 // Class Icon
                 var current_class_data = class_data_list[current_class];
@@ -880,9 +880,9 @@ function buildUnitDataInUI(units_data) {
                 current_class_html += '<span id="' + class_count_max + current_key + "_" + current_class + '">0</span>'
                 current_class_html += "</div>";
                 // All + None Button
-                current_class_html += '<button type="button" class="btn btn-outline-primary btn-xs" onclick="SelectAllData(false, ' + "'" + 
+                current_class_html += '<button type="button" class="btn btn-outline-primary btn-xs" onclick="promptMarkAllUnitsSelected(false, ' + "'" + 
                     current_key + "', '" + current_class + "'" +')">All</button>';
-                current_class_html += '<button type="button" class="btn btn-outline-danger btn-xs" onclick="SelectAllData(true, ' +  "'" + 
+                current_class_html += '<button type="button" class="btn btn-outline-danger btn-xs" onclick="promptMarkAllUnitsSelected(true, ' +  "'" + 
                     current_key + "', '"+ current_class + "'" +')">None</button>'
                 current_class_html += "</div>";
                 current_class_html += '<div class="row ' + class_div_list_class + '" id="' + current_rarity.list_element + '_' + current_class + '">';
@@ -958,6 +958,8 @@ function buildUnitDataInUI(units_data) {
             } else {
                 // Bind Element 
                 $(current_element + '_' + current_servant["class"]).append(item);
+                $(current_element + '_' + current_servant.class).off("click", "#" + current_servant.id);
+                $(current_element + '_' + current_servant.class).off("contextmenu", "#" + current_servant.id);
                 $(current_element + '_' + current_servant.class)
                     .on("click", "#" + current_servant.id , function() { elementLeftClick(this); });    
                 $(current_element + '_' + current_servant.class)
@@ -998,29 +1000,25 @@ function updateStatisticsHTML() {
         ["ssrBox", "5★"], ["srBox", "4★"], ["rareBox", "3★"], ["uncommonBox", "2★"], ["commonBox", "1★"], ["noneBox", "0✩"]
     ]);
     var overallTotal = 0, overallOwned = 0, overallNotEventTotal = 0, overallNotEventOwned = 0;
-    if(!isClassMode()) {
-        $('.row.listbox').each(function() {
-            var $container = $(this);
-            var boxType = $container.attr('id');
-            var totalUnits = $container.find('.member-container').length;
-            var ownedUnits = $container.find('.member-container.member-checked').length;
-            var nonEventUnits = $container.find('.member-container').filter(function() {
-                return !$(this).find('.member-eventonly').length;
-            });
-            var totalNonEventUnits = nonEventUnits.length;
-            var ownedNonEventUnits = nonEventUnits.filter('.member-checked').length;
-            overallTotal += totalUnits;
-            overallOwned += ownedUnits;
-            overallNotEventTotal += totalNonEventUnits;
-            overallNotEventOwned += ownedNonEventUnits;
-            var percentageOwned = ((ownedUnits / totalUnits) * 100).toFixed(2);
-            var percentageNonEventOwned = ((ownedNonEventUnits / totalNonEventUnits) * 100).toFixed(2);
-            $("#" + boxType + "AllStats").text(`${classMap.get(boxType)}: ${percentageOwned}% (${ownedUnits}/${totalUnits})`);
-            $("#" + boxType + "NotEventStats").text(`${classMap.get(boxType)}: ${percentageNonEventOwned}% (${ownedNonEventUnits}/${totalNonEventUnits})`);
+    $('.row.listbox').each(function() {
+        var $container = $(this);
+        var boxType = $container.attr('id');
+        var totalUnits = $container.find(`.${member_class}`).length;
+        var ownedUnits = $container.find(`.${member_class}.${member_class_checked}`).length;
+        var nonEventUnits = $container.find(`.${member_class}`).filter(function() {
+            return !$(this).find('.member-eventonly').length;
         });
-    } else {
-        
-    }
+        var totalNonEventUnits = nonEventUnits.length;
+        var ownedNonEventUnits = nonEventUnits.filter(`.${member_class_checked}`).length;
+        overallTotal += totalUnits;
+        overallOwned += ownedUnits;
+        overallNotEventTotal += totalNonEventUnits;
+        overallNotEventOwned += ownedNonEventUnits;
+        var percentageOwned = ((ownedUnits / totalUnits) * 100).toFixed(2);
+        var percentageNonEventOwned = ((ownedNonEventUnits / totalNonEventUnits) * 100).toFixed(2);
+        $("#" + boxType + "AllStats").text(`${classMap.get(boxType)}: ${percentageOwned}% (${ownedUnits}/${totalUnits})`);
+        $("#" + boxType + "NotEventStats").text(`${classMap.get(boxType)}: ${percentageNonEventOwned}% (${ownedNonEventUnits}/${totalNonEventUnits})`);
+    });
     var overallPercent = ((overallOwned / overallTotal) * 100).toFixed(2);
     var overallNotEventPercent = ((overallNotEventOwned / overallNotEventTotal) * 100).toFixed(2);
     $("#statisticBoxAllPercent").text(overallPercent);
@@ -1029,6 +1027,13 @@ function updateStatisticsHTML() {
     $("#statisticBoxNotEventPercent").text(overallNotEventPercent);
     $("#statisticBoxNotEventHave").text(overallNotEventOwned);
     $("#statisticBoxNotEventMax").text(overallNotEventTotal);
+    if(isClassMode()) { 
+        $('#statsTitle').css('visibility', 'hidden')
+        $('#statsContainer').css('display', 'none');
+    } else {
+        $('#statsTitle').css('visibility', 'visible')
+        $('#statsContainer').css('display', 'block');
+    }
 }
 
 /**
