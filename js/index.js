@@ -1032,8 +1032,7 @@ function updateStatisticsHTML() {
         var percentageNonEventOwned = (ownedNonEventUnits / totalNonEventUnits * 100).toFixed(2);
         $("#" + boxType + "AllStats").text(`${classMap.get(boxType)}: ${percentageOwned}% (${ownedUnits}/${totalUnits})`);
         $("#" + boxType + "NotEventStats").text(`${classMap.get(boxType)}: ${percentageNonEventOwned}% (${ownedNonEventUnits}/${totalNonEventUnits})`);
-        // Update class-specific statistics if in class mode
-        if (isClassMode()) {
+        if (isClassMode()) { // Update class-specific statistics if in class mode
             $(".classBox .classRow").each(function() {
                 var classTotal = $(this).find($(`.${member_class}`)).length;
                 var classOwned = $(this).find($(`.${member_class_checked}`)).length;
@@ -1066,8 +1065,8 @@ function clearAllData() {
         callback: function (result) {
             if (result) {
                 user_data = {}; // Clear User Data
-                compress_input = ""; // Update Raw Input
-                encoded_user_input = "";
+                compress_input = ""; // Clear Raw Input
+                encoded_user_input = ""; // Clear Raw Input
                 finishLoading();
             }
         }
@@ -1360,13 +1359,13 @@ function finishLoading(servant_pass_data) {
 }
 
 /**
- * Shares the current data URL.
+ * Shortens the current data URL and returns the shortened URL.
  * @param {string} site Optional, can be "Facebook" or "Twitter"; determines whether the 
  * resulting shortened URL will be directly shared to either site. If empty, just shows the
  * shortened URL. Multiple providers are configured to be polled, and the returned URL
  * will be from the provider that responds the fastest.
  */
-function shareURL(site) {
+function shortenURL(site) {
     if (compress_input == "") { bootbox.alert(share_none_text); } // If no data, warn user
     // Gather the full URL for shortening
     var mashuSR_str = getMashuSRURLstring(true);
@@ -1447,7 +1446,7 @@ function shareURL(site) {
     Promise.any(shortProviders)
         .then((result) => {
             if(result.value == undefined) { throw error; }
-            executeShareURL(site, result.value);
+            shareURL(site, result.value);
         }).catch(() => {
             alert("URL shortening is not available at this time, as there were errors " +
                 "with the URL shortening providers. Sorry for the inconvenience.");
@@ -1461,7 +1460,7 @@ function shareURL(site) {
  * to just get the shortened URL. 
  * @param {string} short_url The shortened URL corresponding to the current data.
  */
-function executeShareURL(site, short_url) {
+function shareURL(site, short_url) {
     if (site == "facebook") {
         showShortURLModal(short_url); // Share; Show Short URL
         window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0"); // Share to FB
@@ -1472,7 +1471,6 @@ function executeShareURL(site, short_url) {
     } else { showShortURLModal(short_url); }
 };
 
-// Share; Show Short URL
 /**
  * Creates and opens a popup with the shortened URL of the currently active data.
  * @param {string} url The shortened URL. 
