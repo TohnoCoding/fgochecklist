@@ -39,6 +39,11 @@ body {
 	background-color: #342045;
 }
 
+#headerCard {
+	border: 5px solid;
+	padding: 1em;
+}
+
 div.snowfall {
 	background-image : url('../img/padoru/snow.png'), url('../img/padoru/snow3.png'), url('../img/padoru/snow2.png'), url('../img/padoru/snow4.png');
 	-webkit-animation: snow 20s linear infinite;
