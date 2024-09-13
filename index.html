@@ -28,6 +28,13 @@
     <script src="js/lib/lz-string.min.js" crossorigin="anonymous"></script>
     <script src="js/lib/html2canvas.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/5ed507ef8aa53d8ecfea96d96bc7214cd2476fd2/FileSaver.min.js"></script>
+    <script type="text/javascript">
+        function removeNoticeboard() {
+            $('#noticeBoard').slideUp(function() {
+                $(this).remove(); // Removes the element after the animation completes
+            });
+        }
+    </script>
 </head>
 <body>
     <div style="display: none;">
@@ -64,7 +71,7 @@
             any classes with no Servants in them (like a certain spoilery JP-only class) will not even render if
             JP-exclusive units are hidden. Enjoy!<br><br>
             ~Tohno Shiki<br>
-            <h6 style="text-align:center; cursor: grab;"><a onClick="javascript:removeElement('noticeBoard')">[
+            <h6 id="rmvNotice" style="text-align:center; cursor: grab;"><a onClick="javascript:removeNoticeboard();">[
                 Click/tap here to remove this message. ]</a></h6>
         </span>
     </div>
