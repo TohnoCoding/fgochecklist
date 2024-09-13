@@ -186,6 +186,26 @@ $.fn.select2.amd.define('select2/data/customAdapter', ['select2/data/array', 'se
 );
 
 /**
+ * Uses the Atlas Academy API to get the internal game ID of the latest Servant
+ * released, in the global/EN server, in order to know when to construct NA/EN
+ * links to the the Atlas Academy Database Servant pages.
+ * @returns {Promise<void>} A promise that resolves when the fetch is complete.
+ */
+async function fetchGlobalThreshold() {
+    try {
+        const threshold = 
+            (await fetch("https://api.atlasacademy.io/export/NA/basic_servant.json")
+            .then(r => r.json())).map(s => s.collectionNo).at(-1);   // get last valid index
+        globalThreshold = threshold;
+    } catch (error) {
+        $(".newFeature").addClass("JPdisabled");
+        $("label[for='NAonly']").addClass("JPdisabled");
+        $("#NAonly").prop("disabled", true);
+        bootbox.alert(threshold_error, null);
+    }
+}
+
+/**
  * General setup for when the page is initially loaded and the DOM is ready.
  */
 $(document).ready(async function() {
@@ -294,24 +314,9 @@ $(document).ready(async function() {
 });
 
 /**
- * Uses the Atlas Academy API to get the internal game ID of the latest Servant
- * released, in the global/EN server, in order to know when to construct NA/EN
- * links to the the Atlas Academy Database Servant pages.
- * @returns {Promise<void>} A promise that resolves when the fetch is complete.
+ * Toggles the display of the unique icon identifiers for each category of units.
  */
-async function fetchGlobalThreshold() {
-    try {
-        const threshold = 
-            (await fetch("https://api.atlasacademy.io/export/NA/basic_servant.json")
-            .then(r => r.json())).map(s => s.collectionNo).at(-1);   // get last valid index
-        globalThreshold = threshold;
-    } catch (error) {
-        $(".newFeature").addClass("JPdisabled");
-        $("label[for='NAonly']").addClass("JPdisabled");
-        $("#NAonly").prop("disabled", true);
-        bootbox.alert(threshold_error, null);
-    }
-}
+function toggleUnitTypeIcon() { $("." + servant_type_box_class).toggle(); }
 
 /**
  * Returns whether Fast Mode is activated.
@@ -383,6 +388,59 @@ function openFileOption() { document.getElementById(file_hidden_id).click(); }
  * @param {string} element The element to hide.
  */
 function removeElement(element) { document.getElementById(element).remove(); }
+
+/**
+ * Returns whether Fast Mode is activated.
+ * @returns True if Fast Mode is on, False otherwise.
+ */
+function isFastMode() { return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
+
+/**
+ * Returns whether Class Mode is activated.
+ * @returns True if Class Mode is on, False otherwise.
+ */
+function isClassMode() { return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
+
+/**
+ * Returns whether Mash is marked as SR.
+ * @returns True if Mash is marked as SR, False otherwise.
+ */
+function isMashuSR() { return $('#' + mashuSR_checkbox).is(':checked'); } // ClassMode Check
+
+/**
+ * Removes the specified unit from local storage.
+ * @param {string} id The ID of the unit to remove.
+ */
+function executeUserDataRemoval(id) { delete user_data[id]; }
+
+/**
+ * Returns a string indicating the state of Fast Mode for URL injection.
+ * @returns An empty string if Fast Mode is off; `{$fastmode_parameter}=1` if it's on.
+ */
+function getFastModeURLstring() { return isFastMode() ? fastmode_parameter + "=1" : ""; }
+
+/**
+ * Returns a string indicating the state of Class Mode for URL injection.
+ * @returns An empty string if Class Mode is off, `{$classmode_parameter}=1` if it's on.
+ */
+function getClassModeURLstring() { return isClassMode() ? classmode_parameter + "=1" : ""; }
+
+/**
+ * Returns the serialized form of the currently saved unit data.
+ * @returns A string representation of the currently saved unit data.
+ */
+function getSerializedUnitData()
+{ return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
+
+/**
+ * Updates the UI whenever Class Mode is toggled.
+ */
+function updateClassMode() { updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
+
+/**
+ * Triggers the File Open dialog box.
+ */
+function openFileOption() { document.getElementById(file_hidden_id).click(); }
 
 /**
  * Jumps to a specific point in the viewport.
@@ -486,59 +544,6 @@ function serializeCurrentDataForURLOutput(input_data) {
     serialized_input = serialized_input.slice(0, -1); // Removes the last comma
     return serialized_input;
 }
-
-/**
- * Returns whether Fast Mode is activated.
- * @returns True if Fast Mode is on, False otherwise.
- */
-function isFastMode() { return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
-
-/**
- * Returns whether Class Mode is activated.
- * @returns True if Class Mode is on, False otherwise.
- */
-function isClassMode() { return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
-
-/**
- * Returns whether Mash is marked as SR.
- * @returns True if Mash is marked as SR, False otherwise.
- */
-function isMashuSR() { return $('#' + mashuSR_checkbox).is(':checked'); } // ClassMode Check
-
-/**
- * Removes the specified unit from local storage.
- * @param {string} id The ID of the unit to remove.
- */
-function executeUserDataRemoval(id) { delete user_data[id]; }
-
-/**
- * Returns a string indicating the state of Fast Mode for URL injection.
- * @returns An empty string if Fast Mode is off; `{$fastmode_parameter}=1` if it's on.
- */
-function getFastModeURLstring() { return isFastMode() ? fastmode_parameter + "=1" : ""; }
-
-/**
- * Returns a string indicating the state of Class Mode for URL injection.
- * @returns An empty string if Class Mode is off, `{$classmode_parameter}=1` if it's on.
- */
-function getClassModeURLstring() { return isClassMode() ? classmode_parameter + "=1" : ""; }
-
-/**
- * Returns the serialized form of the currently saved unit data.
- * @returns A string representation of the currently saved unit data.
- */
-function getSerializedUnitData()
-{ return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
-
-/**
- * Updates the UI whenever Class Mode is toggled.
- */
-function updateClassMode() { updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
-
-/**
- * Triggers the File Open dialog box.
- */
-function openFileOption() { document.getElementById(file_hidden_id).click(); }
 
 // Validate old param and convert to new if existing; ensures compatibility with legacy 'mashu'
 /**
@@ -885,7 +890,7 @@ function buildUnitDataInUI(units_data) {
                 current_class_html += '<button type="button" class="btn btn-outline-danger btn-xs" onclick="promptMarkAllUnitsSelected(true, ' +  "'" + 
                     current_key + "', '"+ current_class + "'" +')">None</button>'
                 current_class_html += "</div>";
-                current_class_html += '<div class="row ' + class_div_list_class + '" id="' + current_rarity.list_element + '_' + current_class + '">';
+                current_class_html += '<div class="row ' + class_div_list_class + ' classRow" id="' + current_rarity.list_element + '_' + current_class + '">';
                 current_class_html += "</div>";
                 current_class_html += "</div>";
                 current_class_html += "<hr />";
@@ -967,6 +972,13 @@ function buildUnitDataInUI(units_data) {
             }
         }
     }
+    // Removes any empty classes; hides classes unreleased in NA
+    $(".classRow").each(function() {
+        if($(this).children().length == 0) {
+            $(this).next().remove();
+            $(this).parent().remove();
+        }
+    });
     // Refresh, Close Loading Modal
     $.when.apply(null, list_img).done(function() {
         for (var aa = 0, ll = list_box.length; aa < ll; aa++) {
@@ -1000,9 +1012,70 @@ function updateStatisticsHTML() {
         ["ssrBox", "5★"], ["srBox", "4★"], ["rareBox", "3★"], ["uncommonBox", "2★"], ["commonBox", "1★"], ["noneBox", "0✩"]
     ]);
     var overallTotal = 0, overallOwned = 0, overallNotEventTotal = 0, overallNotEventOwned = 0;
-    $('.row.listbox').each(function() {
+    var elementToSearch = isClassMode() ? ".listbox_class" : ".row.listbox";
+    $(elementToSearch).each(function() {
+        var $container = $(this);
+        var boxType = $container.attr('id').replace("-ByClass", "");
+        var $members = $container.find(`.${member_class}`);
+        var totalUnits = $members.length;
+        var ownedUnits = $members.filter(`.${member_class_checked}`).length;
+        var $nonEventUnits = $members.filter(function() {
+            return !$(this).find('.member-eventonly').length;
+        });
+        var totalNonEventUnits = $nonEventUnits.length;
+        var ownedNonEventUnits = $nonEventUnits.filter(`.${member_class_checked}`).length;
+        overallTotal += totalUnits;
+        overallOwned += ownedUnits;
+        overallNotEventTotal += totalNonEventUnits;
+        overallNotEventOwned += ownedNonEventUnits;
+        var percentageOwned = (ownedUnits / totalUnits * 100).toFixed(2);
+        var percentageNonEventOwned = (ownedNonEventUnits / totalNonEventUnits * 100).toFixed(2);
+        $("#" + boxType + "AllStats").text(`${classMap.get(boxType)}: ${percentageOwned}% (${ownedUnits}/${totalUnits})`);
+        $("#" + boxType + "NotEventStats").text(`${classMap.get(boxType)}: ${percentageNonEventOwned}% (${ownedNonEventUnits}/${totalNonEventUnits})`);
+        // Update class-specific statistics if in class mode
+        if (isClassMode()) {
+            $(".classBox .classRow").each(function() {
+                var classTotal = $(this).find($(`.${member_class}`)).length;
+                var classOwned = $(this).find($(`.${member_class_checked}`)).length;
+                var partialCounterDivID = $(this).parent().prop("id").replace("Box", "");
+                $("#class_have_" + partialCounterDivID).text(classOwned);
+                $("#class_max_" + partialCounterDivID).text(classTotal);
+            });
+        }
+    });
+    var overallPercent = ((overallOwned / overallTotal) * 100).toFixed(2);
+    var overallNotEventPercent = ((overallNotEventOwned / overallNotEventTotal) * 100).toFixed(2);
+    $("#statisticBoxAllPercent").text(overallPercent);
+    $("#statisticBoxAllHave").text(overallOwned);
+    $("#statisticBoxAllMax").text(overallTotal);
+    $("#statisticBoxNotEventPercent").text(overallNotEventPercent);
+    $("#statisticBoxNotEventHave").text(overallNotEventOwned);
+    $("#statisticBoxNotEventMax").text(overallNotEventTotal);
+}
+
+
+function ___updateStatisticsHTML() {
+    const classMap = new Map([
+        ["ssrBox", "5★"], ["srBox", "4★"], ["rareBox", "3★"], ["uncommonBox", "2★"], ["commonBox", "1★"], ["noneBox", "0✩"]
+    ]);
+    var overallTotal = 0, overallOwned = 0, overallNotEventTotal = 0, overallNotEventOwned = 0;
+    var elementToSearch = ".row.listbox";
+    if(isClassMode()) {
+        elementToSearch = ".listbox_class";
+        $(elementToSearch).each(function() { // get each rarity container
+            $(".classBox .classRow").each(function() { // get each class container inside rarity
+                var classTotal = $(this).find($(`.${member_class}`)).length;
+                var classOwned = $(this).find($(`.${member_class_checked}`)).length;
+                var partialCounterDivID = $(this).parent().prop("id").replace("Box", "");
+                $("#class_have_" + partialCounterDivID).text(classOwned);
+                $("#class_max_" + partialCounterDivID).text(classTotal);
+            });
+        });
+    }
+    $(elementToSearch).each(function() {
         var $container = $(this);
         var boxType = $container.attr('id');
+        if(isClassMode()) { boxType = boxType.replace("-ByClass", ""); }
         var totalUnits = $container.find(`.${member_class}`).length;
         var ownedUnits = $container.find(`.${member_class}.${member_class_checked}`).length;
         var nonEventUnits = $container.find(`.${member_class}`).filter(function() {
@@ -1027,13 +1100,6 @@ function updateStatisticsHTML() {
     $("#statisticBoxNotEventPercent").text(overallNotEventPercent);
     $("#statisticBoxNotEventHave").text(overallNotEventOwned);
     $("#statisticBoxNotEventMax").text(overallNotEventTotal);
-    if(isClassMode()) { 
-        $('#statsTitle').css('visibility', 'hidden')
-        $(`#${statistic_area}`).css('display', 'none');
-    } else {
-        $('#statsTitle').css('visibility', 'visible')
-        $(`#${statistic_area}`).css('display', 'block');
-    }
 }
 
 /**
@@ -1193,7 +1259,7 @@ function promptSaveDataExport() {
             cancel: { label: '<i class="fa fa-times"></i> Cancel' },
             confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
-        callback: function (result) { if (result) { exportCurrentDataToFile(compress_input); } }
+        callback: function(result) { if (result) { exportCurrentDataToFile(compress_input); } }
     });
 }
 
@@ -1219,7 +1285,7 @@ function promptMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
             cancel: { label: '<i class="fa fa-times"></i> Cancel' },
             confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
-        callback: function (result) { if (result) { executeMarkAllUnitsSelected(isRevert, input_rarity, input_class); } }
+        callback: function(result) { if (result) { executeMarkAllUnitsSelected(isRevert, input_rarity, input_class); } }
     });
 }
 
@@ -1343,22 +1409,11 @@ function finishLoading(servant_pass_data) {
 }
 
 /**
- * Toggles the display of the unique icon identifiers for each category of units.
- */
-function toggleUnitTypeIcon() { $("." + servant_type_box_class).toggle(); }
-
-//===========================================================================================
-// URL Shortening:
-// Multiple providers have been coded and tested to work; code blocks have wrapped into
-// promises so that whichever responds first is served to the user, and if none respond,
-// a message will be shown to the user stating that URL shortening is out of commission.
-//===========================================================================================
-/**
  * Shares the current data URL.
  * @param {string} site Optional, can be "Facebook" or "Twitter"; determines whether the 
  * resulting shortened URL will be directly shared to either site. If empty, just shows the
- * shortened URL.
- * @returns 
+ * shortened URL. Multiple providers are configured to be polled, and the returned URL
+ * will be from the provider that responds the fastest.
  */
 function shareURL(site) {
     if (compress_input == "") { bootbox.alert(share_none_text); } // If no data, warn user
@@ -1374,9 +1429,6 @@ function shareURL(site) {
     /*******************************/
     /*     Shortening services     */
     /*******************************/
-    //----------------//
-    //     waa.ai     //
-    //----------------//
     /**
      * Shortens the current data URL with waa.ai/Akari-chan shortener.
      * @returns A promise that resolves upon successfully shortening the current URL.
@@ -1400,9 +1452,6 @@ function shareURL(site) {
             $.ajax(ajaxrequest);
         });
     }
-    //---------------//
-    //     is.gd     //
-    //---------------//
     /**
      * Shortens the current data URL with is.gd shortener.
      * @returns A promise that resolves upon successfully shortening the current URL.
@@ -1421,9 +1470,6 @@ function shareURL(site) {
             $.ajax(ajaxrequest);
         });
     }
-    //----------------//
-    //     owo.vc     //
-    //----------------//
     /**
      * Shortens the current data URL with owo.vc shortener.
      * @returns A promise that resolves upon successfully shortening the current URL.
@@ -1466,13 +1512,13 @@ function shareURL(site) {
  */
 function executeShareURL(site, short_url) {
     if (site == "facebook") {
-        showShortURL(short_url); // Share; Show Short URL
+        showShortURLModal(short_url); // Share; Show Short URL
         window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0"); // Share to FB
     } else if (site == "twitter") {
-        showShortURL(short_url); // Share; Show Short URL
+        showShortURLModal(short_url); // Share; Show Short URL
         window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" +
             share_title + "&hashtags=" + share_tags,"","menubar=0"); // Share to Xwitter
-    } else { showShortURL(short_url); }
+    } else { showShortURLModal(short_url); }
 };
 
 // Share; Show Short URL
@@ -1480,7 +1526,7 @@ function executeShareURL(site, short_url) {
  * Creates and opens a popup with the shortened URL of the currently active data.
  * @param {string} url The shortened URL. 
  */
-function showShortURL(url) {
+function showShortURLModal(url) {
     var msg = share_text + '<hr/><form><div class="form-group"><div class="input-group mb-3">';
     msg += '<input type="text" id="link-copy" class="form-control" value="' + url + '" readonly/>';
     msg += '<div class="input-group-append">'
