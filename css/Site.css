@@ -211,9 +211,9 @@ div.member-eventonly {
 
 #optionsAndButtons { margin: 0 auto !important; }
 
-#checkboxArea { padding-right: 5em; width: 45%; }
+#checkboxArea { padding-right: 5em; width: 40%; }
 
-/*#buttonsArea { margin-left:  }*/
+#buttonsArea { padding-right: 2.75em; }
 
 .tableCell { width: 50%; }
 
