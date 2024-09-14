@@ -1164,30 +1164,31 @@ function exportCurrentDataToFile() {
 }
 
 /**
- * Prompts the user to mark all units as owned at first level of copies.
- * @param {boolean} isRevert Used if needed to unmark a given group of units.
- * @param {string} input_rarity The desired rarity in which to mark all units as owned.
- * @param {string} input_class The desired class in the desired rarity in which to mark all units as owned.
+ * Prompts the user to operate on all units. If deleting, deletes all units of a given group. If adding,
+ * marks all units of a given group at first level of copies.
+ * @param {boolean} markAsDeleted Determines whether the operation needs to delete or add all units.
+ * @param {string} input_rarity The desired rarity in which to operate on all units.
+ * @param {string} input_class The desired class in the desired rarity in which to operate on all units.
  */
-function promptMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
+function promptOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
     bootbox.confirm({ // Confirm 
         message: select_all_text,
         buttons: {
             cancel: { label: '<i class="fa fa-times"></i> Cancel' },
             confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
-        callback: function(result) { if (result) { executeMarkAllUnitsSelected(isRevert, input_rarity, input_class); } }
+        callback: function(result) { if (result) { executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class); } }
     });
 }
 
 /**
- * Marks all units in a given rarity and class as owned at first level of copies; if no rarity and/or class
- * are specified, marks all units as owned.
- * @param {boolean} isRevert Used if needed to unmark/remove a given group of units.
- * @param {string} input_rarity The desired rarity in which to mark all units as owned.
- * @param {string} input_class The desired class in the desired rarity in which to mark all units as owned.
+ * Operates on all units of a given group/subgroup. If markAsDeleted is true, deletes all the units from
+ * the specified group. If it's false, marks all units as owned at first level of copies.
+ * @param {boolean} markAsDeleted Determines whether the operation needs to delete or add all units.
+ * @param {string} input_rarity The desired rarity in which to operate on all units.
+ * @param {string} input_class The desired class in the desired rarity in which to operate on all units.
  */
-function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {   
+function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {   
     $('#loadingModal').modal('show'); // Open Loading Modal
     // Ajax; Unit Data
     $.ajax({
@@ -1205,7 +1206,7 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                 for (var i = 0, l = current_list.length; i < l; i++) {    
                     var current_servant = current_list[i];
                     if (current_servant.class === input_class) {
-                        if (isRevert) {
+                        if (markAsDeleted) {
                             if (typeof user_data[current_servant.id] !== "undefined")
                                 { executeUserDataRemoval(current_servant.id); }
                         } else {
@@ -1222,7 +1223,7 @@ function executeMarkAllUnitsSelected(isRevert, input_rarity, input_class) {
                     var current_list = current_rarity.list;
                     for (var i = 0, l = current_list.length; i < l; i++) {
                         var current_servant = current_list[i];
-                        if (isRevert) {
+                        if (markAsDeleted) {
                             if (typeof user_data[current_servant.id] !== "undefined")
                                 { executeUserDataRemoval(current_servant.id); }
                         } else {
