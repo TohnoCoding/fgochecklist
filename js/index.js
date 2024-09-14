@@ -1301,7 +1301,7 @@ function finishLoading(servant_pass_data) {
 
 /**
  * Shortens the current data URL and returns the shortened URL. Multiple providers are
- * configured to be polled, and the returned URL  will be from the provider that responds
+ * configured to be polled, and the returned URL will be from the provider that responds
  * the fastest.
  */
 async function shortenURL() {
@@ -1393,8 +1393,8 @@ async function shortenURL() {
  * Requests the shortening of the current URL and shows it to the user. Can additionally open
  * share windows for Xwitter and Facebook if desired. If the URL can't be shortened, shows
  * an error modal notifying the user.
- * @param {string} site "Facebook", "Twitter" (opens new windows for direct sharing), or empty string
- * to just get the shortened URL.
+ * @param {string} site "Facebook", "Twitter" (opens new windows for direct sharing), or any
+ * other string (including an empty string) to just get the shortened URL.
  */
 function shareURL(site) {
     shortenURL().then(short_url => {
