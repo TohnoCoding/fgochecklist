@@ -1440,7 +1440,7 @@ function shortenURL(site) {
             };
             $.ajax(ajaxrequest);
         });
-    }    
+    }
     var shortProviders = [isgd(), waaai(), owo()];
     //var shortProviders = [()];      // used for testing new providers
     Promise.any(shortProviders)
