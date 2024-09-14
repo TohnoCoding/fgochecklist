@@ -28,7 +28,7 @@ var copy_choice_allow = [
 ];
 var copy_choice_default = 1;
 var copy_choice_max = 5;
-var share_tags = "FGO,FateGrandOrder";
+var share_tags = "FGO,FateGrandOrder,My_FGO_Checklist";
 var share_title = "See my Servants here!";
 
 // Class Config
@@ -1359,13 +1359,11 @@ function finishLoading(servant_pass_data) {
 }
 
 /**
- * Shortens the current data URL and returns the shortened URL.
- * @param {string} site Optional, can be "Facebook" or "Twitter"; determines whether the 
- * resulting shortened URL will be directly shared to either site. If empty, just shows the
- * shortened URL. Multiple providers are configured to be polled, and the returned URL
- * will be from the provider that responds the fastest.
+ * Shortens the current data URL and returns the shortened URL. Multiple providers are
+ * configured to be polled, and the returned URL  will be from the provider that responds
+ * the fastest.
  */
-function shortenURL(site) {
+async function shortenURL() {
     if (compress_input == "") { bootbox.alert(share_none_text); } // If no data, warn user
     // Gather the full URL for shortening
     var mashuSR_str = getMashuSRURLstring(true);
@@ -1441,34 +1439,34 @@ function shortenURL(site) {
             $.ajax(ajaxrequest);
         });
     }
-    var shortProviders = [isgd(), waaai(), owo()];
-    //var shortProviders = [()];      // used for testing new providers
-    Promise.any(shortProviders)
-        .then((result) => {
-            if(result.value == undefined) { throw error; }
-            shareURL(site, result.value);
-        }).catch(() => {
-            alert("URL shortening is not available at this time, as there were errors " +
-                "with the URL shortening providers. Sorry for the inconvenience.");
-        });
+    const shortProviders = [isgd(), waaai(), owo()];
+    //const shortProviders = [()];      // used for testing new providers
+    try {
+        const result = await Promise.any(shortProviders);
+        if (!result.value) { throw new Error("All promises returned undefined."); }
+        return result.value;
+    } catch (err) { console.error(err); return undefined; }
 }
 
 /**
- * Takes the current data URL and shortens it, additionally opening share windows for Twitter and
- * Facebook if desired.
+ * Requests the shortening of the current URL and shows it to the user. Can additionally open
+ * share windows for Xwitter and Facebook if desired. If the URL can't be shortened, shows
+ * an error modal notifying the user.
  * @param {string} site "Facebook", "Twitter" (opens new windows for direct sharing), or empty string
- * to just get the shortened URL. 
- * @param {string} short_url The shortened URL corresponding to the current data.
+ * to just get the shortened URL.
  */
-function shareURL(site, short_url) {
-    if (site == "facebook") {
-        showShortURLModal(short_url); // Share; Show Short URL
-        window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0"); // Share to FB
-    } else if (site == "twitter") {
-        showShortURLModal(short_url); // Share; Show Short URL
-        window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" +
-            share_title + "&hashtags=" + share_tags,"","menubar=0"); // Share to Xwitter
-    } else { showShortURLModal(short_url); }
+function shareURL(site) {
+    shortenURL().then(short_url => {
+        if(short_url == undefined) { showURLShorteningError(); return; }
+        if (site == "facebook") {
+            showShortURLModal(short_url); // Share; Show Short URL
+            window.open("https://www.facebook.com/sharer.php?&u=" + short_url,"","menubar=0"); // Share to FB
+        } else if (site == "twitter") {
+            showShortURLModal(short_url); // Share; Show Short URL
+            window.open("https://twitter.com/intent/tweet?url=" + short_url + "&text=" +
+                share_title + "&hashtags=" + share_tags,"","menubar=0"); // Share to Xwitter
+        } else { showShortURLModal(short_url); }
+    });
 };
 
 /**
@@ -1482,7 +1480,13 @@ function showShortURLModal(url) {
     msg += '<button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard(' + "'link-copy'" +  ')">Copy</button>';
     msg += '</div></div></div></form>';
     var url_dialog = bootbox.dialog({ message: msg });
-    url_dialog.init(function(){});
+    url_dialog.init(function() { });
+}
+
+function showURLShorteningError() {
+    var msg = 'There has been an error with the URL shortening functionality.<br><br>More details can be found in your browser console.';
+    var error_dialog = bootbox.dialog({ message: msg });
+    error_dialog.init(function() { });
 }
 
 /**
