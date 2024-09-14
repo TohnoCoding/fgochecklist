@@ -29,7 +29,7 @@ var copy_choice_allow = [
 var copy_choice_default = 1;
 var copy_choice_max = 5;
 var share_tags = "FGO,FateGrandOrder,My_FGO_Checklist";
-var share_title = "See my Servants here!";
+var share_title = "See my Servant collection here!";
 
 // Class Config
 var class_divide_class = "ByClass";
@@ -42,7 +42,7 @@ var class_count_max = "class_max_";
 
 // Servant Type
 var servant_type_box_class = "member-type";
-var sevent_typelist = [
+var servant_typelist = [
     { "id": 0, "show": false, "eventonly": false, "ctext": null, "class": null }, // Default
     { "id": 1, "show": true, "eventonly": false, "ctext": '<i class="fas fa-shield-alt"></i>', "class": "member-mashu" }, // Mash
     { "id": 2, "show": true, "eventonly": false, "ctext": '<i class="fas fa-lock"></i>', "class": "member-locked" }, // Storylocked
@@ -209,7 +209,7 @@ async function fetchGlobalThreshold() {
  * General setup for when the page is initially loaded and the DOM is ready.
  */
 $(document).ready(async function() {
-    let gt = await fetchGlobalThreshold();
+    await fetchGlobalThreshold();
     $('#loadingModal').modal('show'); // Show Loading Modal    
     // Load File Prepare
     $("#" + file_hidden_id).change(function(){ loadUploadedFileData(); });
@@ -845,7 +845,7 @@ function buildUnitDataInUI(units_data) {
         if (current_rarity.disable) { continue; }
         // Count Data Prepare
         var tem_list = current_rarity.list.filter(function(item) {
-            var current_servant_type = sevent_typelist[item.stype];
+            var current_servant_type = servant_typelist[item.stype];
             return !current_servant_type.eventonly;
         });
         rarity_count_data.allcount.list[current_key] = {
@@ -902,7 +902,7 @@ function buildUnitDataInUI(units_data) {
             // Get Data
             var current_servant = current_list[i];
             if(isNAonly() && current_servant.game_id > globalThreshold ) { continue; }
-            var current_type = sevent_typelist[current_servant.stype];
+            var current_type = servant_typelist[current_servant.stype];
             servants_data_list[current_servant.id] = current_list[i];
             servants_data_list[current_servant.id].key = current_key;
             servants_data_list[current_servant.id].class = current_servant.class;
