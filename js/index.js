@@ -232,12 +232,12 @@ $(document).ready(async function() {
     var classmode_input = urlParams.get(classmode_parameter);
     var NAonly_input = urlParams.get(NAonly_parameter);
     compress_input = urlParams.get(compress_input_parameter);
-    // Mashu is SR
+    // Mash is SR
     if (MashuSR_input != null) {
         var Mashu_IS_SR = (parseInt(MashuSR_input) > 0);
         $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
     } else {
-        // Mashu is SR
+        // Mash is SR
         if (localStorage[mashuSR_local]) {
             var Mashu_IS_SR = (parseInt(localStorage[mashuSR_local]) > 0);
             $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
@@ -364,7 +364,7 @@ function getClassModeURLstring() { return isClassMode() ? classmode_parameter + 
  * Returns a string indicating whether JP-only units should be hidden.
  * @returns An empty string if "hide JP units" is off; `{$NAonly_parameter}=1` if it's on.
  */
-function getNAonlyString() { return isNAonly() ? NAonly_parameter + "=1" : ""; }
+function getNAonlyURLstring() { return isNAonly() ? NAonly_parameter + "=1" : ""; }
 
 /**
  * Returns the serialized form of the currently saved unit data.
@@ -374,73 +374,14 @@ function getSerializedUnitData()
 { return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
 
 /**
- * Updates the UI whenever Class Mode is toggled.
- */
-function updateClassMode() { updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
-
-/**
  * Triggers the File Open dialog box.
  */
 function openFileOption() { document.getElementById(file_hidden_id).click(); }
 
 /**
- * Permanently hides an element from the UI (by removing it). Useful for the noticeboard at the top.
- * @param {string} element The element to hide.
- */
-function removeElement(element) { document.getElementById(element).remove(); }
-
-/**
- * Returns whether Fast Mode is activated.
- * @returns True if Fast Mode is on, False otherwise.
- */
-function isFastMode() { return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
-
-/**
- * Returns whether Class Mode is activated.
- * @returns True if Class Mode is on, False otherwise.
- */
-function isClassMode() { return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
-
-/**
- * Returns whether Mash is marked as SR.
- * @returns True if Mash is marked as SR, False otherwise.
- */
-function isMashuSR() { return $('#' + mashuSR_checkbox).is(':checked'); } // ClassMode Check
-
-/**
- * Removes the specified unit from local storage.
- * @param {string} id The ID of the unit to remove.
- */
-function executeUserDataRemoval(id) { delete user_data[id]; }
-
-/**
- * Returns a string indicating the state of Fast Mode for URL injection.
- * @returns An empty string if Fast Mode is off; `{$fastmode_parameter}=1` if it's on.
- */
-function getFastModeURLstring() { return isFastMode() ? fastmode_parameter + "=1" : ""; }
-
-/**
- * Returns a string indicating the state of Class Mode for URL injection.
- * @returns An empty string if Class Mode is off, `{$classmode_parameter}=1` if it's on.
- */
-function getClassModeURLstring() { return isClassMode() ? classmode_parameter + "=1" : ""; }
-
-/**
- * Returns the serialized form of the currently saved unit data.
- * @returns A string representation of the currently saved unit data.
- */
-function getSerializedUnitData()
-{ return compress_input + (getMashuSRURLstring(false) ? "&" + MashuIsSR : ''); } // Get compress_input
-
-/**
  * Updates the UI whenever Class Mode is toggled.
  */
 function updateClassMode() { updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
-
-/**
- * Triggers the File Open dialog box.
- */
-function openFileOption() { document.getElementById(file_hidden_id).click(); }
 
 /**
  * Jumps to a specific point in the viewport.
@@ -781,7 +722,7 @@ function updateURL() {
         $('#' + save_file_btn).prop('disabled', true);
     }
     // Add additional parameters
-    [getMashuSRURLstring(false), getClassModeURLstring(), getFastModeURLstring(), getNAonlyString()].forEach(param => {
+    [getMashuSRURLstring(false), getClassModeURLstring(), getFastModeURLstring(), getNAonlyURLstring()].forEach(param => {
         if (param) { new_parameter += (new_parameter.includes("?") ? "&" : "?") + param; }
     });
     // Update URL
@@ -800,7 +741,7 @@ function updateURLOptionModeOnly() {
         { key: mashuSR_parameter, value: getMashuSRURLstring(false), storageKey: mashuSR_local },
         { key: classmode_parameter, value: getClassModeURLstring(), storageKey: class_mode_local },
         { key: fastmode_parameter, value: getFastModeURLstring(), storageKey: fast_mode_local },
-        { key: NAonly_parameter, value: getNAonlyString(), storageKey: NAonly_local }
+        { key: NAonly_parameter, value: getNAonlyURLstring(), storageKey: NAonly_local }
     ];
     options.forEach(({ key, value, storageKey }) => {
         if (value) {
