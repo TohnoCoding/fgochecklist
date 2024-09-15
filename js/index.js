@@ -205,18 +205,20 @@ $.fn.select2.amd.define('select2/data/customAdapter',
 /**
  * Uses the Atlas Academy API to get the internal game ID of the latest Servant
  * released, in the global/EN server, in order to know when to construct NA/EN
- * links to the the Atlas Academy Database Servant pages.
+ * links to the the Atlas Academy Database Servant pages. Slightly rewritten to
+ * not use `$collection.at()` anymore since certain older versions of browsers
+ * don't seem to support it.
  * @returns {Promise<void>} A promise that resolves when the fetch is complete.
  */
 async function fetchGlobalThreshold() {
     try {
-        const threshold =
-            (await fetch
+        const NAreleases =
+            (await fetch    // get *all* NA release IDs
                 ("https://api.atlasacademy.io/export/NA/basic_servant.json")
-                .then((r) => r.json()))
-                .map((s) => s.collectionNo).at(-1);   // get last valid index
-        globalThreshold = threshold;
+                .then((r) => r.json())).map((s) => s.collectionNo);
+        globalThreshold = NAreleases[NAreleases.length - 1];  // get last ID
     } catch (error) {
+        console.error(error);
         $(".newFeature").addClass("JPdisabled");
         $("label[for='NAonly']").addClass("JPdisabled");
         $("#NAonly").prop("disabled", true);
@@ -1602,7 +1604,6 @@ function showShortURLModal(url) {
     msg += '<button class="btn btn-outline-secondary" type="button" ' +
         'onclick="copyToClipboard(' + "'link-copy'" + ')">Copy</button>';
     msg += '</div></div></div></form>';
-    debugger;
     var url_dialog = bootbox.dialog({ message: msg });
     url_dialog.init(function() { });
 }
