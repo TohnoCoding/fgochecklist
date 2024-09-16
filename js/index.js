@@ -170,6 +170,7 @@ var NAonly_checkbox = "NAonly";
 var initial_load = true;
 
 var globalThreshold = 99999;
+var cookieName = "20240910_notice";
 
 /**
  * Setting up AJAX to always override the content/MIME type with json.
@@ -229,11 +230,15 @@ async function fetchGlobalThreshold() {
 /**
  * General setup for when the page is initially loaded and the DOM is ready.
  */
-$(document).ready(async function() {
+$(async function() {
     await fetchGlobalThreshold();
     $('#loadingModal').modal('show'); // Show Loading Modal
+    var cookie = (getCookie(cookieName) === "true");
+    if(cookie) { removeNoticeboard(); }
+    else { $("#noticeBoard").css("display", "block"); }
     // Load File Prepare
-    $("#" + file_hidden_id).change(function(){ loadUploadedFileData(); });
+    $("#" + file_hidden_id).on("change", (function()
+        { loadUploadedFileData(); }));
     var urlParams =
         new URLSearchParams(window.location.search); // URL Params
     custom_adapter =
@@ -320,11 +325,16 @@ $(document).ready(async function() {
     if (localStorage[list_local])
         { $('#' + load_btn).prop('disabled', false); } // Load Button Status
     // Set Checkbox Event
-    $('#' + fastmode_checkbox).change(function ()
+    $('#' + fastmode_checkbox).on("change", function ()
         { updateURLOptionModeOnly(); });
-    $('#' + classmode_checkbox).change(function () { updateClassMode(); });
-    $('#' + mashuSR_checkbox).change(function () { updateClassMode(); });
-    $('#' + NAonly_checkbox).change(function () { updateClassMode(); });
+    $('#' + classmode_checkbox).on("change", function ()
+        { updateClassMode(); });
+    $('#' + mashuSR_checkbox).on("change", function () { updateClassMode(); });
+    $('#' + NAonly_checkbox).on("change", function () { updateClassMode(); });
+    $('#rmvNotice').on("click", function() {
+        setCookie(cookieName, true);
+        removeNoticeboard();
+    });
     // Set Modal Closing Event
     $("#addModal").on("hidden.bs.modal", function () {
         current_edit = "";
@@ -1632,4 +1642,44 @@ function copyToClipboard() {
     var copyText = document.querySelector("#link-copy");
     copyText.select();
     navigator.clipboard.writeText(copyText.value || copyText.defaultValue);
+}
+
+/**
+ * Gets the value of a cookie with the specified name.
+ * @param {string} name The name of the cookie to get.
+ * @returns The value of the cookie if it exists; null if it doesn't.
+ */
+function getCookie(name) {
+    var equals = name + "=", i = 0;
+    var cookies = document.cookie.split(';');
+    for (i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ')
+            { cookie = cookie.substring(1, cookie.length); }
+        if(cookie.indexOf(equals) == 0)
+            { return cookie.substring(equals.length, cookie.length); }
+    }
+    return null;
+}
+
+/**
+ * Sets a cookie.
+ * @param {string} name The name of the cookie.
+ * @param {any} value The desired value of the cookie.
+ */
+function setCookie(name, value) {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() + 100);
+    var cookie = name + "=" + (value || "") + "; expires=" +
+        date.toUTCString() + "; path=/";
+    document.cookie = cookie;
+}
+
+/**
+ * Removes the noticeboard at the top.
+ */
+function removeNoticeboard() {
+    $('#noticeBoard').slideUp(function() {
+        $(this).remove(); // Removes the element after the animation completes
+    });
 }

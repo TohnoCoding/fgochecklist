@@ -28,13 +28,6 @@
     <script src="js/lib/lz-string.min.js" crossorigin="anonymous"></script>
     <script src="js/lib/html2canvas.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/5ed507ef8aa53d8ecfea96d96bc7214cd2476fd2/FileSaver.min.js"></script>
-    <script type="text/javascript">
-        function removeNoticeboard() {
-            $('#noticeBoard').slideUp(function() {
-                $(this).remove(); // Removes the element after the animation completes
-            });
-        }
-    </script>
 </head>
 <body>
     <div style="display: none;">
@@ -57,7 +50,7 @@
 </nav>
 <!-- Content -->
 <div class="container body-content" style="padding-top: 10px;">
-    <div id="noticeBoard">
+    <div id="noticeBoard" style="display: none;">
         <h3 style="text-align: center;">2024/09/10: Notice of new feature!</h3>
         <span>
             I've recently added the ability to hide (and save, both in your local data as well as in in your shortened URL!)
@@ -72,7 +65,7 @@
             JP-exclusive units are hidden. Enjoy!<br><br>
             ~Tohno Shiki<br>
             <h6 id="rmvNotice" style="text-align:center; cursor: grab; font-weight: bold;">
-                <a onClick="javascript:removeNoticeboard();">[ Click/tap here to remove this message. ]</a>
+                [ Click/tap here to remove this message. ]
             </h6>
         </span>
     </div>
