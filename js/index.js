@@ -216,7 +216,7 @@ async function fetchGlobalThreshold() {
             (await fetch    // get *all* NA release IDs
                 ("https://api.atlasacademy.io/export/NA/basic_servant.json")
                 .then((r) => r.json())).map((s) => s.collectionNo);
-        globalThreshold = NAreleases[NAreleases.length - 1];  // get last ID
+        globalThreshold = NAreleases[NAreleases.length - 1];  // get last NA ID
     } catch (error) {
         console.error(error);
         $(".newFeature").addClass("JPdisabled");
@@ -1613,9 +1613,9 @@ function showShortURLModal(url) {
  * shortening functionality, and that the current URL couldn't be shortened.
  */
 function showURLShorteningError() {
-    var msg = 'There has been an error with the URL shortening functionality' +
-        '. Your current data URL couldn\'n be shortened.<br><br>More details' +
-        ' can be found in your browser console.';
+    var msg = "There has been an error with the URL shortening functionality" +
+        ". Your current data URL couldn'n be shortened.<br><br>More details" +
+        " can be found in your browser console.";
     var error_dialog = bootbox.dialog({
         message: msg,
         buttons: {
