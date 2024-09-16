@@ -1097,13 +1097,13 @@ function updateStatisticsHTML() {
         overallNotEventTotal += totalNonEventUnits;
         overallNotEventOwned += ownedNonEventUnits;
         var percentageOwned = (ownedUnits / totalUnits * 100).toFixed(2);
-        var percentageNonEventOwned =
+        var percentageNotEventOwned =
             (ownedNonEventUnits / totalNonEventUnits * 100).toFixed(2);
         $("#" + boxType + "AllStats")
             .text(`${classMap.get(boxType)}: ${percentageOwned}% ` +
             `(${ownedUnits}/${totalUnits})`);
         $("#" + boxType + "NotEventStats").text(`${classMap.get(boxType)}: ` +
-            `${percentageNonEventOwned}% ` +
+            `${percentageNotEventOwned}% ` +
             `(${ownedNonEventUnits}/${totalNonEventUnits})`);
         if (isClassMode()) { // Update class-specific stats if in class mode
             $(".classBox .classRow").each(function() {
