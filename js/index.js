@@ -324,11 +324,11 @@ $(async function() {
     }
     if (localStorage[list_local])
         { $('#' + load_btn).prop('disabled', false); } // Load Button Status
-    // Set Checkbox Event
-    $('#' + fastmode_checkbox).on("change", function ()
-        { updateURLOptionModeOnly(); });
-    $('#' + classmode_checkbox).on("change", function ()
-        { updateClassMode(); });
+    // Set Checkbox Events
+    $('#' + fastmode_checkbox).on("change",
+        function () { updateURLOptionModeOnly(); });
+    $('#' + classmode_checkbox).on("change",
+        function () { updateClassMode(); });
     $('#' + mashuSR_checkbox).on("change", function () { updateClassMode(); });
     $('#' + NAonly_checkbox).on("change", function () { updateClassMode(); });
     $('#rmvNotice').on("click", function() {
@@ -444,7 +444,8 @@ function updateClassMode()
  */
 function jumpTo(){
     if (jump_to_target === null) { return; }
-    document.getElementById(jump_to_target).scrollIntoView(); // IE6 support
+    document.getElementById
+        (jump_to_target).scrollIntoView(); // Even IE6 supports this
     jump_to_target = null;
 }
 
@@ -564,8 +565,8 @@ function getMashParameter() {
             urlParams.delete("mashu");
             urlParams.set("mash", mashValue);
             // Update the URL without reloading the page
-            window.history.replaceState
-                ({}, '', `${window.location.pathname}?${urlParams}`);
+            window.history.replaceState({}, '',
+                `${window.location.pathname}?${urlParams}`);
         }
     }
     return mashValue;
@@ -576,7 +577,6 @@ function getMashParameter() {
  * @param {string} s_element The ID of the unit clicked on.
  */
 function elementLeftClick(s_element) {
-    // Variable
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
     // Fast Mode, Change Value Directly
@@ -864,8 +864,7 @@ function buildUnitDataInUI(units_data) {
     own_data_notevent = {};
     own_data_byclass_notevent = {};
     // Draw Button & Create User Data
-    var list_box = [];
-    var list_img = [];
+    var list_box = [], list_img = [];
     // Add Default Photo
     var img_default = getImagePath(icondefault, icondefault_external_source);
     list_img.push(loadSprite(img_default));
