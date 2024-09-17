@@ -1095,25 +1095,25 @@ function updateStatisticsHTML() {
         var $members = $container.find(`.${member_class}`);
         var totalUnits = $members.length;
         var ownedUnits = $members.filter(`.${member_class_checked}`).length;
-        var $nonEventUnits = $members.filter(function() {
+        var $notEventUnits = $members.filter(function() {
             return !$(this).find('.member-eventonly').length;
         });
-        var totalNonEventUnits = $nonEventUnits.length;
-        var ownedNonEventUnits =
-            $nonEventUnits.filter(`.${member_class_checked}`).length;
+        var totalNotEventUnits = $notEventUnits.length;
+        var ownedNotEventUnits =
+            $notEventUnits.filter(`.${member_class_checked}`).length;
         overallTotal += totalUnits;
         overallOwned += ownedUnits;
-        overallNotEventTotal += totalNonEventUnits;
-        overallNotEventOwned += ownedNonEventUnits;
+        overallNotEventTotal += totalNotEventUnits;
+        overallNotEventOwned += ownedNotEventUnits;
         var percentageOwned = (ownedUnits / totalUnits * 100).toFixed(2);
         var percentageNotEventOwned =
-            (ownedNonEventUnits / totalNonEventUnits * 100).toFixed(2);
+            (ownedNotEventUnits / totalNotEventUnits * 100).toFixed(2);
         $("#" + boxType + "AllStats")
             .text(`${classMap.get(boxType)}: ${percentageOwned}% ` +
             `(${ownedUnits}/${totalUnits})`);
         $("#" + boxType + "NotEventStats").text(`${classMap.get(boxType)}: ` +
             `${percentageNotEventOwned}% ` +
-            `(${ownedNonEventUnits}/${totalNonEventUnits})`);
+            `(${ownedNotEventUnits}/${totalNotEventUnits})`);
         if (isClassMode()) { // Update class-specific stats if in class mode
             $(".classBox .classRow").each(function() {
                 var classTotal = $(this).find($(`.${member_class}`)).length;
