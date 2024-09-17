@@ -869,11 +869,12 @@ function buildUnitDataInUI(units_data) {
                 .html(current_class_html); // Update List Div
         }
         // Loop List
-        for (var i = 0, l = current_list.length; i < l; i++) {
+        var i = 0;
+        for (i = 0; i < current_list.length; i++) {
             // Get Data
             var current_servant = current_list[i];
             if(isNAonly() && current_servant.game_id > globalThreshold )
-                { continue; }
+                { break; }
             var current_type = servant_typelist[current_servant.stype];
             servants_data_list[current_servant.id] = current_list[i];
             servants_data_list[current_servant.id].key = current_key;
