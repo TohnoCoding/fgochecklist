@@ -130,29 +130,12 @@ var export_filename = (function() {
 var servants_data_list = {};
 var class_data_list = {};
 var user_data = {};
-var rarity_count_data = {
-    "allcount": {
-        "max": 0,
-        "have": 0,
-        "list": {}
-    },
-    "noteventcount": {
-        "max": 0,
-        "have": 0,
-        "list": {}
-    }
-};
+
 var encoded_user_input = "";
 var compress_input = "";
 
 var current_edit = "";
 var current_edit_ele = null;
-
-var own_data = {};
-var own_data_eachclass = {};
-
-var own_data_notevent = {};
-var own_data_byclass_notevent = {};
 
 var max_data_eachclass = {};
 
@@ -440,7 +423,6 @@ function updateClassMode()
 
 /**
  * Jumps to a specific point in the viewport.
- * @returns Void.
  */
 function jumpTo(){
     if (jump_to_target === null) { return; }
@@ -634,7 +616,6 @@ function removeUserData() {
                     getStoredUnitData(current_edit); // Get User Data
                 if (current_user_data != null)
                     { executeUserDataRemoval(current_edit); } // Delete Data
-                updateCounts(current_edit, -1, true); // Update Count
                 $('#' + current_edit)
                     .removeClass(member_class_checked); // Update element
                 updateAmountOfCopiesOwned
@@ -646,44 +627,6 @@ function removeUserData() {
             }
         }
     });
-}
-
-/**
- * Updates list data locally.
- * @param {string} id The ID of the unit to update.
- * @param {number} val The new amount of copies owned.
- * @param {boolean} showloading Whether to show a loading screen or not.
- */
-function updateCounts(id, val, showloading) {
-    const servant = servants_data_list[id];
-    const { eventonly, class: servantClass, key } = servant;
-    // Initialize data structures if not present
-    if (!(key in own_data)) {
-        own_data[key] = [];
-        own_data_eachclass[key] = {};
-        own_data_notevent[key] = [];
-        own_data_byclass_notevent[key] = {};
-    }
-    if (!(servantClass in own_data_eachclass[key])) {
-        own_data_eachclass[key][servantClass] = [];
-        own_data_byclass_notevent[key][servantClass] = [];
-    }
-    const updateList = (list, id, add) => {
-        if (add) { list.push(id); }
-        else { list = list.filter((item) => item !== id); }
-        return list;
-    };
-    // Update count
-    const add = val !== -1;
-    own_data[key] = updateList(own_data[key], id, add);
-    own_data_eachclass[key][servantClass] =
-        updateList(own_data_eachclass[key][servantClass], id, add);
-    if (!eventonly) {
-        own_data_notevent[key] =
-            updateList(own_data_notevent[key], id, add);
-        own_data_byclass_notevent[key][servantClass] =
-            updateList(own_data_byclass_notevent[key][servantClass], id, add);
-    }
 }
 
 /**
@@ -706,7 +649,6 @@ function updateUnitDataInFastMode(id, val, s_element) {
             // Remove Instead
             $(s_element).removeClass(member_class_checked);
             updateAmountOfCopiesOwned(id, 0, s_element);
-            updateCounts(id, -1, true); // Update Count
             executeUserDataRemoval(id); // Clear Number
         } else {
             user_data[id] = new_val; // Update user data
@@ -717,10 +659,8 @@ function updateUnitDataInFastMode(id, val, s_element) {
             user_data[id] = current_edit_max; // Add user data
             $(s_element).addClass(member_class_checked);
             updateAmountOfCopiesOwned(id, user_data[id], s_element);
-            updateCounts(id, 1, true); // Update Count
         } else {
             user_data[id] = 1; // Add user data
-            updateCounts(id, 1, true); // Update Count
             $(s_element).addClass(member_class_checked);
         }
     }
@@ -745,7 +685,6 @@ function updateUnitData() {
     } else {
         var new_val = parseInt($('#npAdd').val()); // Get New Value
         user_data[current_edit] = new_val; // Add user data
-        updateCounts(current_edit, 1, true); // Update Count
         $('#' + current_edit)
             .addClass(member_class_checked);
         updateAmountOfCopiesOwned
@@ -856,13 +795,6 @@ function buildUnitDataInUI(units_data) {
     $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
     $( ".listbox" ).html(""); // Clear contents
     $( ".listbox_class" ).html(""); // Clear contents
-    // Reset Values
-    rarity_count_data.allcount.max = 0;
-    rarity_count_data.noteventcount.max = 0;
-    own_data = {};
-    own_data_eachclass = {};
-    own_data_notevent = {};
-    own_data_byclass_notevent = {};
     // Draw Button & Create User Data
     var list_box = [], list_img = [];
     // Add Default Photo
@@ -881,16 +813,6 @@ function buildUnitDataInUI(units_data) {
             var current_servant_type = servant_typelist[item.stype];
             return !current_servant_type.eventonly;
         });
-        rarity_count_data.allcount.list[current_key] = {
-            "list_element": current_rarity.list_element,
-            "max": current_rarity.list.length
-        };
-        rarity_count_data.allcount.max += current_rarity.list.length;
-        rarity_count_data.noteventcount.list[current_key] = {
-            "list_element": current_rarity.list_element,
-            "max": tem_list.length
-        };
-        rarity_count_data.noteventcount.max += tem_list.length;
         // Prepare Var for Member Loop
         var current_list = current_rarity.list;
         var curr_element = "#" + current_rarity.list_element;
@@ -929,12 +851,12 @@ function buildUnitDataInUI(units_data) {
                 // All + None Button
                 current_class_html += '<button type="button" class="btn ' +
                     'btn-outline-primary btn-xs" ' +
-                    'onclick="promptMarkAllUnitsSelected(false, ' + "'" +
+                    'onclick="promptOperationOnAllUnits(false, ' + "'" +
                     current_key + "', '" + current_class + "'" +
                     ')">All</button>';
                 current_class_html += '<button type="button" class="btn ' +
                     'btn-outline-danger btn-xs" ' +
-                    'onclick="promptMarkAllUnitsSelected(true, ' +  "'" +
+                    'onclick="promptOperationOnAllUnits(true, ' +  "'" +
                     current_key + "', '"+ current_class + "'" +
                     ')">None</button>'
                 current_class_html += "</div>";
@@ -971,8 +893,6 @@ function buildUnitDataInUI(units_data) {
                 max_data_eachclass[current_key]
                     [current_servant.class] += 1; // Count Data: All
             }
-            if (current_user_data != null) // Update Real Count Data
-                { updateCounts(current_servant.id, 1, false); }
             // Create Servant Element
             current_servant_html += ' id="' + current_servant.id + '" title="'
                 + current_servant.name + '"';
@@ -1290,7 +1210,6 @@ function loadLocallySavedData(getresult) {
         finishLoading(); // Update HTML
         bootbox.alert(load_fin_text, null); // Alert
 }
-
 
 /**
  * Prompts the user to save the current data, and to overwrite existing data if
