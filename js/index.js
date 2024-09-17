@@ -1057,13 +1057,12 @@ function buildUnitDataInUI(units_data) {
         for (var aa = 0, ll = list_box.length; aa < ll; aa++) {
             var current_box = list_box[aa];
             $(current_box + box_fake_subfix).hide();
-            if (!isClassMode())
-            {
-                $(current_box).show();
-                $(current_box + "-" + class_divide_class).hide();
-            } else {
-                $(current_box + "-" + class_divide_class).show();
+            if (isClassMode()) {
                 $(current_box).hide();
+                $(current_box + "-" + class_divide_class).show();
+            } else {
+                $(current_box + "-" + class_divide_class).hide();
+                $(current_box).show();
             }
         }
         updateStatisticsHTML();
