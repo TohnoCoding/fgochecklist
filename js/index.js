@@ -9,12 +9,11 @@ var dataclasspath = "data/servantsclass.json";
 
 var img_path = "img/servants/";
 var img_class = "img-fluid";
-var image_host = "https://i.imgur.com/";
 var member_class_grid = "col-1 member-outer";
 var member_class = "member-container";
 var member_class_checked = "member-checked";
 var capture_area = "capturearea";
-var box_fake_subfix = "Fake";
+var box_fake_suffix = "Fake";
 
 var morecopy_text = "NP";
 var morecopy_class = "member-np";
@@ -100,10 +99,11 @@ var load_text = "List data found on your current browser. Would you like to " +
 var save_text = "Would you like to save current list data? This will " +
     "overwrite old data if it exists.";
 
-var load_fin_text = "List loaded";
-var save_fin_text = "List saved";
+var load_fin_text = "List loaded successfully.";
+var save_fin_text = "List saved successfully.";
 
-var load_fail_text = "Error loading data";
+var load_fail_text = "Error loading data or unsupported file. Please check " +
+    "your selected file and try again.";
 
 var load_btn = "loadbutton";
 var save_btn = "savebutton";
@@ -278,7 +278,7 @@ $(async function() {
             $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
         }
     }
-    // NA only
+    // NA only mode
     if(NAonly_input != null) {
         var NAonly_enable = (parseInt(NAonly_input) > 0);
         $("#" + NAonly_checkbox).prop('checked', NAonly_enable);
@@ -293,15 +293,15 @@ $(async function() {
         encoded_user_input =
             LZString.decompressFromEncodedURIComponent
             (compress_input); // List Reader
-        finishLoading(); // Finish Loading
+        finishLoading();
     } else {
         encoded_user_input = urlParams.get(raw_input_parameter);
-        if (encoded_user_input != null) { finishLoading(); } // Finish Loading
+        if (encoded_user_input != null) { finishLoading(); }
         else {
             if (localStorage[list_local]) { loadLocalData(); } // List Reader
             else {
                 encoded_user_input = ""; // Blank Raw
-                finishLoading(); // Finish Loading
+                finishLoading();
             }
         }
     }
@@ -369,7 +369,7 @@ function isNAonly()
  * @returns True if Mash is marked as SR, False otherwise.
  */
 function isMashuSR()
-{ return $('#' + mashuSR_checkbox).is(':checked'); } // ClassMode Check
+{ return $('#' + mashuSR_checkbox).is(':checked'); } // SR Mash Check
 
 /**
  * Removes the specified unit from local storage.
@@ -413,7 +413,8 @@ function getSerializedUnitData() {
 /**
  * Triggers the File Open dialog box.
  */
-function openFileOption() { document.getElementById(file_hidden_id).click(); }
+function openFileUploadPrompt()
+{ document.getElementById(file_hidden_id).click(); }
 
 /**
  * Updates the UI whenever Class Mode is toggled.
@@ -800,20 +801,14 @@ function buildUnitDataInUI(units_data) {
     // Add Default Photo
     var img_default = getImagePath(icondefault, icondefault_external_source);
     list_img.push(loadSprite(img_default));
-    // Loop
-    var aa = 0;
+    var aa = 0, bb = 0; // Create loop iterators
     for (aa = 0; aa < units_data.length; aa++) {
-        // list get
+        // List get
         var current_rarity = units_data[aa];
         var current_key = current_rarity.list_id;
         // Skip if Disable
         if (current_rarity.disable) { continue; }
-        // Count Data Prepare
-        var tem_list = current_rarity.list.filter(function(item) {
-            var current_servant_type = servant_typelist[item.stype];
-            return !current_servant_type.eventonly;
-        });
-        // Prepare Var for Member Loop
+        // Prepare Stuff for Member Loop
         var current_list = current_rarity.list;
         var curr_element = "#" + current_rarity.list_element;
         var current_path = current_rarity.list_iconpath;
@@ -821,7 +816,7 @@ function buildUnitDataInUI(units_data) {
         if (isClassMode()) { // Class Mode; Prepare Element
             var list_class_available = current_rarity.class_available;
             var current_class_html = "";
-            for (var bb = 0; bb < list_class_available.length; bb++) {
+            for (bb = 0; bb < list_class_available.length; bb++) {
                 var current_class = list_class_available[bb]; // Class Var
                 if (typeof max_data_eachclass[current_key] === "undefined")
                     { max_data_eachclass[current_key] = {}; } // Make Max Data
@@ -841,7 +836,7 @@ function buildUnitDataInUI(units_data) {
                     '" title="' + current_class_data.name +
                     '" data-toggle="tooltip-member" data-placement="bottom"/>';
                 current_class_html += current_class_data_icn_ele;
-                // Class  Basic Count
+                // Class Basic Count
                 current_class_html += "<div>";
                 current_class_html += '<span id="' + class_count_have +
                     current_key + "_" + current_class + '">0</span>/'
@@ -977,7 +972,7 @@ function buildUnitDataInUI(units_data) {
     $.when.apply(null, list_img).done(function() {
         for (var aa = 0, ll = list_box.length; aa < ll; aa++) {
             var current_box = list_box[aa];
-            $(current_box + box_fake_subfix).hide();
+            $(current_box + box_fake_suffix).hide();
             if (isClassMode()) {
                 $(current_box).hide();
                 $(current_box + "-" + class_divide_class).show();
@@ -1115,8 +1110,8 @@ function exportCanvasToImage() {
 }
 
 /**
- * If data exists in the browser localstorage, confirms with the user whether
- * it should be loaded.
+ * If data exists in the browser localStorage, confirms with the user whether
+ * it should be loaded or ignored.
  */
 function loadLocalData() {
     bootbox.confirm({ // Confirm

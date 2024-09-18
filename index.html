@@ -127,13 +127,13 @@
                     <div style="display:none">
                         <input type="file" id="theFile" style="display:none" accept=".fgol"/>
                     </div>
-                    <button type="button" id="loadbutton_f" class="btn btn-info btn-data" onclick="openFileOption()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Load list from local file"><img src="img/upload.png" /></button><br />
+                    <button type="button" id="loadbutton_f" class="btn btn-info btn-data" onclick="openFileUploadPrompt()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Load list from local file"><img src="img/upload.png" /></button><br />
                     <button type="button" id="savebutton_f" class="btn btn-success btn-data" onclick="exportCurrentDataToFile()" disabled data-toggle="tooltip" data-placement="bottom" title data-original-title="Save list to local file"><img src="img/download.png" /></button>
                 </form>
             </div>
         </div>
     </div>
-    <h3 align="center" id="statsTitle">Stats for nerds:</h3>
+    <h3 align="center" id="statsTitle">Statistics for nerds (only counts unique entries, not copies):</h3>
     <div id="capturearea">
         <div class="row statsBox" id="statisticBox" style="display:none;">
             <table id="statsContainer">
