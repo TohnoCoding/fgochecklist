@@ -345,14 +345,14 @@ function toggleUnitTypeIcon() { $("." + servant_type_box_class).toggle(); }
 
 /**
  * Returns whether Fast Mode is activated.
- * @returns True if Fast Mode is on, False otherwise.
+ * @returns {boolean} True if Fast Mode is on, False otherwise.
  */
 function isFastMode()
 { return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
 
 /**
  * Returns whether Class Mode is activated.
- * @returns True if Class Mode is on, False otherwise.
+ * @returns {boolean} True if Class Mode is on, False otherwise.
  */
 function isClassMode()
 { return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
@@ -366,7 +366,7 @@ function isNAonly()
 
 /**
  * Returns whether Mash is marked as SR.
- * @returns True if Mash is marked as SR, False otherwise.
+ * @returns {boolean} True if Mash is marked as SR, False otherwise.
  */
 function isMashuSR()
 { return $('#' + mashuSR_checkbox).is(':checked'); } // SR Mash Check
@@ -379,7 +379,7 @@ function executeUserDataRemoval(id) { delete user_data[id]; }
 
 /**
  * Returns a string indicating the state of Fast Mode for URL injection.
- * @returns An empty string if Fast Mode is off;
+ * @returns {string} An empty string if Fast Mode is off;
  * `{$fastmode_parameter}=1` if it's on.
  */
 function getFastModeURLstring()
@@ -387,7 +387,7 @@ function getFastModeURLstring()
 
 /**
  * Returns a string indicating the state of Class Mode for URL injection.
- * @returns An empty string if Class Mode is off,
+ * @returns {string} An empty string if Class Mode is off,
  * `{$classmode_parameter}=1` if it's on.
  */
 function getClassModeURLstring()
@@ -395,7 +395,7 @@ function getClassModeURLstring()
 
 /**
  * Returns a string indicating whether JP-only units should be hidden.
- * @returns An empty string if "hide JP units" is off;
+ * @returns {string} An empty string if "hide JP units" is off;
  * `{$NAonly_parameter}=1` if it's on.
  */
 function getNAonlyURLstring()
@@ -403,7 +403,7 @@ function getNAonlyURLstring()
 
 /**
  * Returns the serialized form of the currently saved unit data.
- * @returns A string representation of the currently saved unit data.
+ * @returns {string} A string representation of the currently saved unit data.
  */
 function getSerializedUnitData() {
     return compress_input + (getMashuSRURLstring(false) ?
@@ -436,7 +436,7 @@ function jumpTo(){
  * Takes a key-value pair and sorts the keys alphabetically, then returns the
  * sorted collection.
  * @param {object} not_sorted Unsorted collection of key-value pairs.
- * @returns A new collection of key-value pairs sorted alphabetically by the
+ * @returns {object} A new collection of key-value pairs sorted alphabetically by the
  * keys.
  */
 function orderKeys(not_sorted) {
@@ -451,7 +451,7 @@ function orderKeys(not_sorted) {
 /**
  * Preloads images asynchronously.
  * @param {string} src The address/URL of the image to load.
- * @returns A promise that resolves when the image finishes loading.
+ * @returns {Promise<void>} A promise that resolves when the image finishes loading.
  */
 function loadSprite(src) {
     var deferred = $.Deferred();
@@ -485,7 +485,7 @@ function getNewCopySource(current_max, s_list) {
  * @param {string} path The path to the image local to the codebase.
  * @param {boolean} external_source Whether the image is from an external
  * source.
- * @returns The full path to the desired image.
+ * @returns {string} The full path to the desired image.
  */
 function getImagePath(path, external_source) {
     if (external_source) { return path; } else {
@@ -497,7 +497,7 @@ function getImagePath(path, external_source) {
 /**
  * Gets the path to the class images.
  * @param {string} path The class to get the image for.
- * @returns The full path to the desired class image.
+ * @returns {string} The full path to the desired class image.
  */
 function getImageClassPath(path) {
     return location.href.substring
@@ -508,7 +508,7 @@ function getImageClassPath(path) {
  * Fetches data stored about the currently selected unit. If none, returns
  * undefined.
  * @param {string} id The ID of the currently selected unit.
- * @returns Undefined if there's no stored data; the saved data of the
+ * @returns {object} Undefined if there's no stored data; the saved data of the
  * selected unit if there is.
  */
 function getStoredUnitData(id) {
@@ -519,7 +519,7 @@ function getStoredUnitData(id) {
 /**
  * Serializes the current data into an easily compressable string.
  * @param {object} input_data The data to be serialized.
- * @returns A string representation of the current data.
+ * @returns {string} A string representation of the current data.
  */
 function serializeCurrentDataForURLOutput(input_data) {
     var serialized_input = "", key;
@@ -537,7 +537,7 @@ function serializeCurrentDataForURLOutput(input_data) {
  * Validates if the current URL contains the old parameter name "mashu" and
  * converts/updates it to the current parameter name "mash" when Mash is marked
  * as SR.
- * @returns Forces returning "mash".
+ * @returns {string} Forces returning "mash".
  */
 function getMashParameter() {
     var urlParams = new URLSearchParams(window.location.search);
@@ -714,8 +714,8 @@ function updateAmountOfCopiesOwned(id, new_val, s_element) {
  * @param {boolean} allowZero If false, returns "mash=1" if Mash is SR, and an
  * empty string if she's not; true returns "mash=0" for URL shortening if she's
  * not marked as SR.
- * @returns Empty string for general use if Mash isn't marked as SR, or
- * "mash=0" for URL shortening; "mash=1" if she's marked as SR.
+ * @returns {string} Empty string for general use if Mash isn't marked as SR,
+ * or "mash=0" for URL shortening; "mash=1" if she's marked as SR.
  */
 function getMashuSRURLstring(allowZero) {
     return isMashuSR() ?
@@ -726,7 +726,7 @@ function getMashuSRURLstring(allowZero) {
 /**
  * Updates the URL each time a unit's data is changed to reflect the new
  * collection status.
- * @returns True when the URL is successfully updated.
+ * @returns {boolean} True when the URL is successfully updated.
  */
 function updateURL() {
     // Sort keys and update raw input
@@ -794,8 +794,8 @@ function updateURLOptionModeOnly() {
  */
 function buildUnitDataInUI(units_data) {
     $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
-    $( ".listbox" ).html(""); // Clear contents
-    $( ".listbox_class" ).html(""); // Clear contents
+    $(".listbox").html(""); // Clear contents
+    $(".listbox_class").html(""); // Clear contents
     // Draw Button & Create User Data
     var list_box = [], list_img = [];
     // Add Default Photo
@@ -1338,8 +1338,8 @@ function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
  */
 function finishLoading(servant_pass_data) {
     // Clear Contents
-    $( ".listbox" ).hide();
-    $( ".listbox_class" ).hide();
+    $(".listbox").hide();
+    $(".listbox_class").hide();
     $( ".listbox_fake" ).show();
     // Convert User Data from Input
     if (encoded_user_input !== null) {
@@ -1412,8 +1412,8 @@ async function shortenURL() {
     /*******************************/
     /**
      * Shortens the current data URL with waa.ai/Akari-chan shortener.
-     * @returns A promise that resolves upon successfully shortening the
-     * current URL.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     * shortening the current URL.
      */
     function waaai() {
         return new Promise((resolve) => {
@@ -1438,8 +1438,8 @@ async function shortenURL() {
     }
     /**
      * Shortens the current data URL with is.gd shortener.
-     * @returns A promise that resolves upon successfully shortening the
-     * current URL.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     * shortening the current URL.
      */
     function isgd() {
         return new Promise((resolve) => {
@@ -1458,8 +1458,8 @@ async function shortenURL() {
     }
     /**
      * Shortens the current data URL with owo.vc shortener.
-     * @returns A promise that resolves upon successfully shortening the
-     * current URL.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     * shortening the current URL.
      */
     function owo() {
         return new Promise((resolve) => {
@@ -1560,7 +1560,7 @@ function copyToClipboard() {
 /**
  * Gets the value of a cookie with the specified name.
  * @param {string} name The name of the cookie to get.
- * @returns The value of the cookie if it exists; null if it doesn't.
+ * @returns {string} The value of the cookie if it exists; null if it doesn't.
  */
 function getCookie(name) {
     var equals = name + "=", i = 0;
