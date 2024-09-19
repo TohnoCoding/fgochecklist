@@ -964,7 +964,207 @@ function buildUnitDataInUI(units_data) {
     // Removes any empty classes; hides classes unreleased in NA
     $(".classRow").each(function() {
         if($(this).children().length == 0) {
-            $(this).next().remove();
+            $(this).parent().remove();
+        }
+    });
+    // Refresh, Close Loading Modal
+    $.when.apply(null, list_img).done(function() {
+        for (var aa = 0, ll = list_box.length; aa < ll; aa++) {
+            var current_box = list_box[aa];
+            $(current_box + box_fake_suffix).hide();
+            if (isClassMode()) {
+                $(current_box).hide();
+                $(current_box + "-" + class_divide_class).show();
+            } else {
+                $(current_box + "-" + class_divide_class).hide();
+                $(current_box).show();
+            }
+        }
+        updateStatisticsHTML();
+        // ToolTip + Box
+        $("#" + statistic_area).show();
+        $('[data-toggle="tooltip-member"]').tooltip();
+        $('#loadingModal').modal('hide');
+        jumpTo();
+    });
+}
+
+function alternateBuildUnitInUI(units_data) {
+    $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
+    $(".listbox").html(""); // Clear contents
+    $(".listbox_class").html(""); // Clear contents
+    // Draw Button & Create User Data
+    var list_box = [], list_img = [];
+// Add Default Photo
+var img_default = getImagePath(icondefault, icondefault_external_source);
+list_img.push(loadSprite(img_default));
+var aa = 0, bb = 0; // Create loop iterators
+for (aa = 0; aa < units_data.length; aa++) {
+    // List get
+    var current_rarity = units_data[aa];
+    var current_key = current_rarity.list_id;
+    // Skip if Disable
+    if (current_rarity.disable) { continue; }
+    // Prepare Stuff for Member Loop
+    var current_list = current_rarity.list;
+    var curr_element = "#" + current_rarity.list_element;
+    var current_path = current_rarity.list_iconpath;
+    list_box.push(curr_element);
+    if (isClassMode()) { // Class Mode; Prepare Element
+        var list_class_available = current_rarity.class_available;
+        var current_class_html = "";
+        for (bb = 0; bb < list_class_available.length; bb++) {
+            var current_class = list_class_available[bb]; // Class Var
+            if (typeof max_data_eachclass[current_key] === "undefined")
+                { max_data_eachclass[current_key] = {}; } // Make Max Data
+            max_data_eachclass[current_key][current_class] = 0;
+            // Prepare Div
+            const $current_class_html = $("<div>").addClass("row classBox");  // current_class_html += '<div class="row classBox" id="' +
+            $current_class_html.prop("id", current_key + "_" + current_class);  //     current_key + "_" + current_class + '">';
+            const $current_class_icon_div = $("<div>").addClass(class_div_icon_class).css("text-align", "center");
+            $current_class_html.append($current_class_icon_div); // current_class_html += '<div class="' + class_div_icon_class +
+            //     '" style="text-align: center">';
+            // Class Icon
+            var current_class_data = class_data_list[current_class];
+            var current_class_data_icn = getImageClassPath
+                (current_class_data.iconlist[current_rarity.list_id]);
+            list_img.push(loadSprite(current_class_data_icn));
+            const $current_class_data_icon_element = $("<img>").attr("src", current_class_data_icn)
+                .addClass(img_class).attr("title", current_class_data.name)
+                .attr("data-toggle", "tooltip-member").attr("data-placement", "bottom");
+            // var current_class_data_icn_ele = '<img src="' +
+            //     current_class_data_icn + '" class="' + img_class +
+            //     '" title="' + current_class_data.name +
+            //     '" data-toggle="tooltip-member" data-placement="bottom"/>';
+            // current_class_html += current_class_data_icn_ele;
+            // // Class Basic Count
+            // current_class_html += "<div>";
+            // current_class_html += '<span id="' + class_count_have +
+            //     current_key + "_" + current_class + '">0</span>/'
+            // current_class_html += '<span id="' + class_count_max +
+            //     current_key + "_" + current_class + '">0</span>'
+            // current_class_html += "</div>";
+            // // All + None Button
+            // current_class_html += '<button type="button" class="btn ' +
+            //     'btn-outline-primary btn-xs" ' +
+            //     'onclick="promptOperationOnAllUnits(false, ' + "'" +
+            //     current_key + "', '" + current_class + "'" +
+            //     ')">All</button>';
+            // current_class_html += '<button type="button" class="btn ' +
+            //     'btn-outline-danger btn-xs" ' +
+            //     'onclick="promptOperationOnAllUnits(true, ' +  "'" +
+            //     current_key + "', '"+ current_class + "'" +
+            //     ')">None</button>'
+            // current_class_html += "</div>";
+            // current_class_html += '<div class="row ' + class_div_list_class
+            //     + ' classRow" id="' + current_rarity.list_element + '_' +
+            //     current_class + '">';
+            // current_class_html += "</div></div><hr />";
+        }
+        $(curr_element + "-" + class_divide_class)
+            .html(current_class_html); // Update List Div
+    }
+    // Loop List
+    var i = 0;
+    for (i = 0; i < current_list.length; i++) {
+        // Get Data
+        var current_servant = current_list[i];
+        if(isNAonly() && current_servant.game_id > globalThreshold )
+            { break; }
+        var current_type = servant_typelist[current_servant.stype];
+        servants_data_list[current_servant.id] = current_list[i];
+        servants_data_list[current_servant.id].key = current_key;
+        servants_data_list[current_servant.id].class =
+            current_servant.class;
+        servants_data_list[current_servant.id].eventonly =
+            current_type.eventonly;
+        // Prepare
+        var current_user_data =
+            getStoredUnitData(current_servant.id);
+        // var current_servant_html = '<div class="' +
+        //     member_class_grid + '"><div';
+        // var current_servant_class = ' class="' +
+        //     member_class;
+        // var current_servant_img = '';
+        if (isClassMode()) {
+            max_data_eachclass[current_key]
+                [current_servant.class] += 1; // Count Data: All
+        }
+        // Create Servant Element
+        // current_servant_html += ' id="' + current_servant.id + '" title="'
+        //     + current_servant.name + '"';
+        // current_servant_html += ' data-toggle="tooltip-member" ' +
+        //     'data-placement="bottom"';
+        // Class
+        if (current_user_data != null)
+            { current_servant_class += ' ' + member_class_checked; }
+        // current_servant_html += current_servant_class + '"';
+        // current_servant_html += '>'; // Close div open tags
+        // Image
+        if (current_servant.img == false) {
+            current_servant_img = img_default;
+        } else if (current_servant.imgpath == null) {
+            current_servant_img = getImagePath(current_path + '/' +
+                current_servant.id + icontype, false);
+            list_img.push(loadSprite(current_servant_img));
+        } else {
+            current_servant_img = getImagePath
+                (current_servant.imgpath, true);
+            list_img.push(loadSprite(current_servant_img));
+        }
+        // current_servant_html += '<img src="' + current_servant_img +
+        //     '" class="' + img_class + '"/>';
+        // Multiple Copy + Event Only Tag
+        // current_servant_html += '<div id="' + morecopy_prefix +
+        //     current_servant.id + '" class="' + morecopy_class + '">';
+        if (current_user_data != null) {
+            if (current_user_data > 1) {
+                // current_servant_html += morecopy_text +
+                //     current_user_data.toString();
+            }
+        }
+        // current_servant_html += '</div>';
+        if (current_type.show) {
+            // current_servant_html += '<div class="' +
+            //     servant_type_box_class + ' ' + current_type.class + '">'
+            // current_servant_html += current_type.ctext + '</div>';
+        }
+        // current_servant_html += '</div></div>'; // Close Element
+        // Add to main list
+        var item = $(current_servant_html);
+        if (!isClassMode()) {
+            $(curr_element).append(item);
+            // Unbind then rebind Element
+            $(curr_element).off("click", "#" + current_servant.id);
+            $(curr_element).off("contextmenu", "#" + current_servant.id);
+            $(curr_element)
+                .on("click", "#" + current_servant.id , function() {
+                    elementLeftClick(this);
+            });
+            $(curr_element)
+                .on("contextmenu", "#" + current_servant.id , function() {
+                    elementRightClick(this);
+                    return false;
+            });
+        } else {
+            // Bind Element
+            $(curr_element + '_' + current_servant["class"]).append(item);
+            $(curr_element + '_' + current_servant.class)
+                .off("click", "#" + current_servant.id);
+            $(curr_element + '_' + current_servant.class)
+                .off("contextmenu", "#" + current_servant.id);
+            $(curr_element + '_' + current_servant.class)
+                .on("click", "#" + current_servant.id, function()
+                    { elementLeftClick(this); });
+            $(curr_element + '_' + current_servant.class)
+                .on("contextmenu", "#" + current_servant.id,
+                    function() { elementRightClick(this); return false; });
+        }
+    }
+}
+    // Removes any empty classes; hides classes unreleased in NA
+    $(".classRow").each(function() {
+        if($(this).children().length == 0) {
             $(this).parent().remove();
         }
     });
