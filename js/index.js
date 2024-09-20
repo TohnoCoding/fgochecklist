@@ -999,7 +999,7 @@ function alternateBuildUnitInUI(units_data) {
     $(".listbox, .listbox_class").empty(); // Clear contents
     var list_box = [], list_img = [];
 
-    var current_list = current_rarity.list;
+    //var current_list = current_rarity.list;
     
     // Add Default Photo
     var img_default = getImagePath(icondefault, icondefault_external_source);
@@ -1083,8 +1083,8 @@ function alternateBuildUnitInUI(units_data) {
         current_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > globalThreshold) return;
             var current_type = servant_typelist[current_servant.stype];
-            servants_data_list[current_servant.id] = current_list[i];
-            servants_data_list[current_servant.id].key = current_key;
+            //servants_data_list[current_servant.id] = current_list[i];
+            //servants_data_list[current_servant.id].key = current_key;
             servants_data_list[current_servant.id].class =
                 current_servant.class;
             servants_data_list[current_servant.id].eventonly =
