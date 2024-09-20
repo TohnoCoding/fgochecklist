@@ -998,6 +998,8 @@ function alternateBuildUnitInUI(units_data) {
     $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
     $(".listbox, .listbox_class").empty(); // Clear contents
     var list_box = [], list_img = [];
+
+    var current_list = current_rarity.list;
     
     // Add Default Photo
     var img_default = getImagePath(icondefault, icondefault_external_source);
@@ -1080,26 +1082,34 @@ function alternateBuildUnitInUI(units_data) {
         // Loop through the servants
         current_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > globalThreshold) return;
+            var current_type = servant_typelist[current_servant.stype];
+            servants_data_list[current_servant.id] = current_list[i];
+            servants_data_list[current_servant.id].key = current_key;
+            servants_data_list[current_servant.id].class =
+                current_servant.class;
+            servants_data_list[current_servant.id].eventonly =
+                current_type.eventonly;
 
             var current_user_data = getStoredUnitData(current_servant.id);
             var servantDiv = $('<div>', { 'class': member_class_grid }).append(
                 $('<div>', {
                     'id': current_servant.id,
                     'title': current_servant.name,
-                    'class': member_class + (current_user_data != null ? ' ' + member_class_checked : ''),
+                    'class': member_class +(current_user_data != null ? ' ' + member_class_checked : ''),
                     'data-toggle': 'tooltip-member',
                     'data-placement': 'bottom'
                 })
             );
 
             // Handle servant image
-            var current_servant_img = current_servant.img ? 
-                getImagePath(current_servant.imgpath || `${current_rarity.list_iconpath}/${current_servant.id}${icontype}`, !!current_servant.imgpath) : img_default;
+            var current_servant_img;
+            if (current_servant.img) {
+                var path = current_servant.imgpath ||
+                    `${current_rarity.list_iconpath}/${current_servant.id}${icontype}`;
+                current_servant_img = getImagePath(path,
+                    Boolean(current_servant.imgpath));
+            } else { current_servant_img = img_default; }
             list_img.push(loadSprite(current_servant_img));
-
-            servantDiv.find('div').append(
-                $('<img>', { 'src': current_servant_img, 'class': img_class })
-            );
 
             // Multiple copy and event-only tag
             var moreCopyDiv = $('<div>', {
@@ -1108,22 +1118,38 @@ function alternateBuildUnitInUI(units_data) {
                 'text': current_user_data > 1 ? morecopy_text + current_user_data : ''
             });
 
-            servantDiv.append(moreCopyDiv);
+            servantDiv.find('div').append(
+                $('<img>', { 'src': current_servant_img, 'class': img_class }),
+                moreCopyDiv
+            );
 
             // Servant type box
             var current_type = servant_typelist[current_servant.stype];
             if (current_type.show) {
                 servantDiv.append($('<div>', {
                     'class': `${servant_type_box_class} ${current_type.class}`,
-                    'text': current_type.ctext
+                    'html': current_type.ctext
                 }));
             }
 
             // Append the servantDiv to the current element
             if (isClassMode()) {
-                $(`${curr_element}_${current_servant.class}`).append(servantDiv);
+                $(`${curr_element}_${current_servant.class}`)
+                    .append(servantDiv);
+                servantDiv.off("click", "#" + current_servant.id);
+                servantDiv.off("contextmenu", "#" + current_servant.id);
+                servantDiv.on("click", "#" + current_servant.id,
+                    function() { elementLeftClick(this); });
+                servantDiv.on("contextmenu", "#" + current_servant.id,
+                    function() { elementRightClick(this); return false; });
             } else {
                 $(curr_element).append(servantDiv);
+                servantDiv.off("click", "#" + current_servant.id);
+                servantDiv.off("contextmenu", "#" + current_servant.id);
+                servantDiv.on("click", "#" + current_servant.id, function()
+                        { elementLeftClick(this); });
+                servantDiv.on("contextmenu", "#" + current_servant.id,
+                        function() { elementRightClick(this); return false; });
             }
         });
     });
