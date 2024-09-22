@@ -205,6 +205,11 @@ div.member-eventonly {
     padding: 5px 1px !important;
 }
 
+i.fas {
+    margin-left: 8px;
+    padding-bottom: 7px;
+}
+
 #headerCard { border: none; }
 
 .form-check-options { text-align: right; }
