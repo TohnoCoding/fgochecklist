@@ -3386,6 +3386,26 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pvW15Om.png"
+            },
+            {
+                "id": "4-38",
+                "name": "Hakuno Kishinami (male)",
+                "class": "mooncancer",
+                "game_id": "424",
+                "maxcopy": 5,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/mumg0Fd.png"
+            },
+            {
+                "id": "4-39",
+                "name": "Hakuno Kishinami (female)",
+                "class": "mooncancer",
+                "game_id": "425",
+                "maxcopy": 5,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/5tsKT8l.png"
             }
         ]
     },
