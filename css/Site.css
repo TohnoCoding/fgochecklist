@@ -244,6 +244,8 @@ div.member-eventonly {
     text-justify: inter-word;
 }
 
+#rmvNotice { text-align:center; cursor: grab; font-weight: bold; }
+
 .newFeature {
     background-color: red;
     color: white;

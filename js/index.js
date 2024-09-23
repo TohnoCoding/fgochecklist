@@ -802,7 +802,7 @@ function buildUnitDataInUI(units_data) {
         var curr_element = `#${current_rarity.list_element}`;
         list_box.push(curr_element);
         if (isClassMode()) {
-            var classHtml = $("<div>");
+            var class_html_wrapper = $("<div>");
             current_rarity.class_available.forEach(function(current_class) {
                 // Initialize global for current key/class if not already done
                 if (!max_data_eachclass[current_rarity.list_id]) {
@@ -810,7 +810,7 @@ function buildUnitDataInUI(units_data) {
                 }
                 max_data_eachclass[current_rarity.list_id][current_class] = 0;
                 // Create the class container
-                var classContainer = $('<div>', { 
+                var class_container = $('<div>', { 
                     'class': 'row classBox', 
                     'id': `${current_rarity.list_id}_${current_class}` 
                 });
@@ -819,7 +819,7 @@ function buildUnitDataInUI(units_data) {
                 var current_class_data_icn = getImageClassPath
                     (current_class_data.iconlist[current_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
-                var iconDiv = $('<div>', {
+                var class_icon_div = $('<div>', {
                     'class': class_div_icon_class,
                     'style': 'text-align: center'
                 }).append(
@@ -831,13 +831,13 @@ function buildUnitDataInUI(units_data) {
                         'data-placement': 'bottom'
                     })
                 );
-                iconDiv.append($("<div>").append(   // Count display
+                class_icon_div.append($("<div>").append(   // Count display
                     `<span id="${class_count_have}` +
                     `${current_rarity.list_id}_${current_class}">0</span>/` +
                     `<span id="${class_count_max}${current_rarity.list_id}` +
                     `_${current_class}">0</span>`
                 ));
-                iconDiv.append(     // All + None Buttons
+                class_icon_div.append(   // All + None Buttons
                     $('<button>', {
                         'type': 'button',
                         'class': 'btn btn-outline-primary btn-xs',
@@ -853,14 +853,15 @@ function buildUnitDataInUI(units_data) {
                             `'${current_rarity.list_id}', '${current_class}')`
                     })
                 );
-                classContainer.append(iconDiv);
-                classContainer.append($('<div>', {   // Add row for the class
+                class_container.append(class_icon_div);
+                class_container.append($('<div>', {   // Add row for the class
                     'class': `row ${class_div_list_class} classRow`,
                     'id': `${current_rarity.list_element}_${current_class}`
                 }));
-                classHtml.append(classContainer).append('<hr />');
+                class_html_wrapper.append(class_container).append('<hr />');
             });
-            $(`${curr_element}-${class_divide_class}`).html(classHtml);
+            $(`${curr_element}-${class_divide_class}`)
+                .html(class_html_wrapper);
         }
         current_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > globalThreshold)
@@ -909,7 +910,7 @@ function buildUnitDataInUI(units_data) {
                     'html': current_type.ctext
                 }));
             }
-            // Append the unit_div to the correct class or main element
+            // Append the unit_div to the correct class container
             if (isClassMode()) {
                 $(`${curr_element}_${current_servant.class}`)
                     .append(unit_container);
@@ -917,13 +918,15 @@ function buildUnitDataInUI(units_data) {
                     [current_servant.class] += 1; // Increment class count
             } else { $(curr_element).append(unit_container); }
             // Unbind + rebind event listeners
-            $(unit_container).off('click').off('contextmenu');
+            $(unit_container).off('click contextmenu');
+            const event_listener_element = $(unit_container)
+                .find(`.${member_class}`).first();
             $(unit_container).on('click', function() {
-                elementLeftClick($(this).find("div").first());
+                elementLeftClick(event_listener_element);
             });
             $(unit_container).on('contextmenu', function(e) {
                 e.preventDefault();
-                elementRightClick($(this).find("div").first());
+                elementRightClick(event_listener_element);
             });
         });
     });
