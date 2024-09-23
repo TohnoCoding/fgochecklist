@@ -153,7 +153,7 @@ var NAonly_checkbox = "NAonly";
 var initial_load = true;
 
 var globalThreshold = 99999;
-var cookieName = "20240910_notice";
+var cookieName = "20240923_notice";
 
 /**
  * Setting up AJAX to always override the content/MIME type with json.
