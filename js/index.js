@@ -797,7 +797,6 @@ function buildUnitDataInUI(units_data) {
     var list_box = [], list_img = [];
     var img_default = getImagePath(icondefault, icondefault_external_source);
     list_img.push(loadSprite(img_default)); // Add Default Photo
-
     units_data.forEach(function(current_rarity) {
         if (current_rarity.disable) { return; } // Skip if disabled
         var curr_element = `#${current_rarity.list_element}`;
