@@ -593,7 +593,7 @@ function elementLeftClick(s_element) {
  * @param {string} s_element The ID of the unit clicked on.
  */
 function elementRightClick(s_element) {
-    if (!isFastMode()) { return; } // Fast Mode, Change Value Directly
+    if (!isFastMode()) { return; } // If not Fast Mode, don't do anything
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
     updateUnitDataInFastMode(id, -1, s_element); // Mark current_edit
@@ -686,8 +686,7 @@ function updateUnitData() {
     } else {
         var new_val = parseInt($('#npAdd').val()); // Get New Value
         user_data[current_edit] = new_val; // Add user data
-        $('#' + current_edit)
-            .addClass(member_class_checked);
+        $('#' + current_edit).addClass(member_class_checked);
         updateAmountOfCopiesOwned
             (current_edit, new_val, current_edit_ele);
         $('#addModal').modal('hide'); // Hide New Check Modal
@@ -794,201 +793,165 @@ function updateURLOptionModeOnly() {
  */
 function buildUnitDataInUI(units_data) {
     $('[data-toggle="tooltip-member"]').tooltip('dispose'); // Clear tooltip
-    $(".listbox").html(""); // Clear contents
-    $(".listbox_class").html(""); // Clear contents
-    // Draw Button & Create User Data
+    $(".listbox, .listbox_class").empty(); // Clear contents
     var list_box = [], list_img = [];
-    // Add Default Photo
     var img_default = getImagePath(icondefault, icondefault_external_source);
-    list_img.push(loadSprite(img_default));
-    var aa = 0, bb = 0; // Create loop iterators
-    for (aa = 0; aa < units_data.length; aa++) {
-        // List get
-        var current_rarity = units_data[aa];
-        var current_key = current_rarity.list_id;
-        // Skip if Disable
-        if (current_rarity.disable) { continue; }
-        // Prepare Stuff for Member Loop
-        var current_list = current_rarity.list;
-        var curr_element = "#" + current_rarity.list_element;
-        var current_path = current_rarity.list_iconpath;
+    list_img.push(loadSprite(img_default)); // Add Default Photo
+
+    units_data.forEach(function(current_rarity) {
+        if (current_rarity.disable) { return; } // Skip if disabled
+        var curr_element = `#${current_rarity.list_element}`;
         list_box.push(curr_element);
-        if (isClassMode()) { // Class Mode; Prepare Element
-            var list_class_available = current_rarity.class_available;
-            var current_class_html = "";
-            for (bb = 0; bb < list_class_available.length; bb++) {
-                var current_class = list_class_available[bb]; // Class Var
-                if (typeof max_data_eachclass[current_key] === "undefined")
-                    { max_data_eachclass[current_key] = {}; } // Make Max Data
-                max_data_eachclass[current_key][current_class] = 0;
-                // Prepare Div
-                current_class_html += '<div class="row classBox" id="' +
-                    current_key + "_" + current_class + '">';
-                current_class_html += '<div class="' + class_div_icon_class +
-                    '" style="text-align: center">';
+        if (isClassMode()) {
+            var classHtml = $("<div>");
+            current_rarity.class_available.forEach(function(current_class) {
+                // Initialize global for current key/class if not already done
+                if (!max_data_eachclass[current_rarity.list_id]) {
+                    max_data_eachclass[current_rarity.list_id] = {};
+                }
+                max_data_eachclass[current_rarity.list_id][current_class] = 0;
+                // Create the class container
+                var classContainer = $('<div>', { 
+                    'class': 'row classBox', 
+                    'id': `${current_rarity.list_id}_${current_class}` 
+                });
                 // Class Icon
                 var current_class_data = class_data_list[current_class];
                 var current_class_data_icn = getImageClassPath
                     (current_class_data.iconlist[current_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
-                var current_class_data_icn_ele = '<img src="' +
-                    current_class_data_icn + '" class="' + img_class +
-                    '" title="' + current_class_data.name +
-                    '" data-toggle="tooltip-member" data-placement="bottom"/>';
-                current_class_html += current_class_data_icn_ele;
-                // Class Basic Count
-                current_class_html += "<div>";
-                current_class_html += '<span id="' + class_count_have +
-                    current_key + "_" + current_class + '">0</span>/'
-                current_class_html += '<span id="' + class_count_max +
-                    current_key + "_" + current_class + '">0</span>'
-                current_class_html += "</div>";
-                // All + None Button
-                current_class_html += '<button type="button" class="btn ' +
-                    'btn-outline-primary btn-xs" ' +
-                    'onclick="promptOperationOnAllUnits(false, ' + "'" +
-                    current_key + "', '" + current_class + "'" +
-                    ')">All</button>';
-                current_class_html += '<button type="button" class="btn ' +
-                    'btn-outline-danger btn-xs" ' +
-                    'onclick="promptOperationOnAllUnits(true, ' +  "'" +
-                    current_key + "', '"+ current_class + "'" +
-                    ')">None</button>'
-                current_class_html += "</div>";
-                current_class_html += '<div class="row ' + class_div_list_class
-                    + ' classRow" id="' + current_rarity.list_element + '_' +
-                    current_class + '">';
-                current_class_html += "</div></div><hr />";
-            }
-            $(curr_element + "-" + class_divide_class)
-                .html(current_class_html); // Update List Div
+                var iconDiv = $('<div>', {
+                    'class': class_div_icon_class,
+                    'style': 'text-align: center'
+                }).append(
+                    $('<img>', {
+                        'src': current_class_data_icn,
+                        'class': img_class,
+                        'title': current_class_data.name,
+                        'data-toggle': 'tooltip-member',
+                        'data-placement': 'bottom'
+                    })
+                );
+                iconDiv.append($("<div>").append(   // Count display
+                    `<span id="${class_count_have}` +
+                    `${current_rarity.list_id}_${current_class}">0</span>/` +
+                    `<span id="${class_count_max}${current_rarity.list_id}` +
+                    `_${current_class}">0</span>`
+                ));
+                iconDiv.append(     // All + None Buttons
+                    $('<button>', {
+                        'type': 'button',
+                        'class': 'btn btn-outline-primary btn-xs',
+                        'text': 'All',
+                        'onclick': `promptOperationOnAllUnits(false, ` +
+                            `'${current_rarity.list_id}', '${current_class}')`
+                    }),
+                    $('<button>', {
+                        'type': 'button',
+                        'class': 'btn btn-outline-danger btn-xs',
+                        'text': 'None',
+                        'onclick': `promptOperationOnAllUnits(true, ` +
+                            `'${current_rarity.list_id}', '${current_class}')`
+                    })
+                );
+                classContainer.append(iconDiv);
+                classContainer.append($('<div>', {   // Add row for the class
+                    'class': `row ${class_div_list_class} classRow`,
+                    'id': `${current_rarity.list_element}_${current_class}`
+                }));
+                classHtml.append(classContainer).append('<hr />');
+            });
+            $(`${curr_element}-${class_divide_class}`).html(classHtml);
         }
-        // Loop List
-        var i = 0;
-        for (i = 0; i < current_list.length; i++) {
-            // Get Data
-            var current_servant = current_list[i];
-            if(isNAonly() && current_servant.game_id > globalThreshold )
-                { break; }
-            var current_type = servant_typelist[current_servant.stype];
-            servants_data_list[current_servant.id] = current_list[i];
-            servants_data_list[current_servant.id].key = current_key;
+        current_rarity.list.forEach(function(current_servant) {
+            if (isNAonly() && current_servant.game_id > globalThreshold)
+                { return; }
+            // Store unit data in global for later use
+            servants_data_list[current_servant.id] = current_servant;
+            servants_data_list[current_servant.id].key =
+                current_rarity.list_id;
             servants_data_list[current_servant.id].class =
                 current_servant.class;
             servants_data_list[current_servant.id].eventonly =
-                current_type.eventonly;
-            // Prepare
-            var current_user_data =
-                getStoredUnitData(current_servant.id);
-            var current_servant_html = '<div class="' +
-                member_class_grid + '"><div';
-            var current_servant_class = ' class="' +
-                member_class;
-            var current_servant_img = '';
-            if (isClassMode()) {
-                max_data_eachclass[current_key]
-                    [current_servant.class] += 1; // Count Data: All
+                servant_typelist[current_servant.stype].eventonly;
+            var current_user_data = getStoredUnitData(current_servant.id);
+            var unit_container = $('<div>', {
+                    'class': member_class_grid
+                }).append($('<div>', {
+                    'id': current_servant.id,
+                    'title': current_servant.name,
+                    'class': member_class + (current_user_data != null ?
+                        ' ' + member_class_checked : ''),
+                    'data-toggle': 'tooltip-member',
+                    'data-placement': 'bottom'
+                }));
+            var current_servant_img = img_default;  // Set default image
+            if (current_servant.img) {  // Handle custom unit image
+                current_servant_img = current_servant.imgpath
+                    ? getImagePath(current_servant.imgpath, true)
+                    : getImagePath(`${current_rarity.list_iconpath}/` +
+                        `${current_servant.id}${icontype}`, false); // Fallback
             }
-            // Create Servant Element
-            current_servant_html += ' id="' + current_servant.id + '" title="'
-                + current_servant.name + '"';
-            current_servant_html += ' data-toggle="tooltip-member" ' +
-                'data-placement="bottom"';
-            // Class
-            if (current_user_data != null)
-                { current_servant_class += ' ' + member_class_checked; }
-            current_servant_html += current_servant_class + '"';
-            current_servant_html += '>'; // Close div open tags
-            // Image
-            if (current_servant.img == false) {
-                current_servant_img = img_default;
-            } else if (current_servant.imgpath == null) {
-                current_servant_img = getImagePath(current_path + '/' +
-                    current_servant.id + icontype, false);
-                list_img.push(loadSprite(current_servant_img));
-            } else {
-                current_servant_img = getImagePath
-                    (current_servant.imgpath, true);
-                list_img.push(loadSprite(current_servant_img));
-            }
-            current_servant_html += '<img src="' + current_servant_img +
-                '" class="' + img_class + '"/>';
-            // Multiple Copy + Event Only Tag
-            current_servant_html += '<div id="' + morecopy_prefix +
-                current_servant.id + '" class="' + morecopy_class + '">';
-            if (current_user_data != null) {
-                if (current_user_data > 1) {
-                    current_servant_html += morecopy_text +
-                        current_user_data.toString();
-                }
-            }
-            current_servant_html += '</div>';
+            list_img.push(loadSprite(current_servant_img));
+            var enhance_copies_div = $('<div>', {  // Copies and event-only tag
+                'id': `${morecopy_prefix}${current_servant.id}`,
+                'class': morecopy_class,
+                'text': current_user_data > 1 ?
+                    morecopy_text + current_user_data : ''
+            });
+            unit_container.find('div').append(
+                $('<img>', { 'src': current_servant_img, 'class': img_class }),
+                enhance_copies_div
+            );
+            var current_type = servant_typelist[current_servant.stype];
             if (current_type.show) {
-                current_servant_html += '<div class="' +
-                    servant_type_box_class + ' ' + current_type.class + '">'
-                current_servant_html += current_type.ctext + '</div>';
+                unit_container.find('div').first().append($('<div>', {
+                    'class': `${servant_type_box_class} ${current_type.class}`,
+                    'html': current_type.ctext
+                }));
             }
-            current_servant_html += '</div></div>'; // Close Element
-            // Add to main list
-            var item = $(current_servant_html);
-            if (!isClassMode()) {
-                $(curr_element).append(item);
-                // Unbind then rebind Element
-                $(curr_element).off("click", "#" + current_servant.id);
-                $(curr_element).off("contextmenu", "#" + current_servant.id);
-                $(curr_element)
-                    .on("click", "#" + current_servant.id , function() {
-                        elementLeftClick(this);
-                });
-                $(curr_element)
-                    .on("contextmenu", "#" + current_servant.id , function() {
-                        elementRightClick(this);
-                        return false;
-                });
-            } else {
-                // Bind Element
-                $(curr_element + '_' + current_servant["class"]).append(item);
-                $(curr_element + '_' + current_servant.class)
-                    .off("click", "#" + current_servant.id);
-                $(curr_element + '_' + current_servant.class)
-                    .off("contextmenu", "#" + current_servant.id);
-                $(curr_element + '_' + current_servant.class)
-                    .on("click", "#" + current_servant.id, function()
-                        { elementLeftClick(this); });
-                $(curr_element + '_' + current_servant.class)
-                    .on("contextmenu", "#" + current_servant.id,
-                        function() { elementRightClick(this); return false; });
-            }
-        }
-    }
-    // Removes any empty classes; hides classes unreleased in NA
-    $(".classRow").each(function() {
-        if($(this).children().length == 0) {
-            $(this).next().remove();
+            // Append the unit_div to the correct class or main element
+            if (isClassMode()) {
+                $(`${curr_element}_${current_servant.class}`)
+                    .append(unit_container);
+                max_data_eachclass[current_rarity.list_id]
+                    [current_servant.class] += 1; // Increment class count
+            } else { $(curr_element).append(unit_container); }
+            // Unbind + rebind event listeners
+            $(unit_container).off('click').off('contextmenu');
+            $(unit_container).on('click', function() {
+                elementLeftClick($(this).find("div").first());
+            });
+            $(unit_container).on('contextmenu', function(e) {
+                e.preventDefault();
+                elementRightClick($(this).find("div").first());
+            });
+        });
+    });
+    $(".classRow").each(function() { // Remove empty/unreleased classes
+        if ($(this).children().length === 0) {
             $(this).parent().remove();
         }
     });
-    // Refresh, Close Loading Modal
     $.when.apply(null, list_img).done(function() {
-        for (var aa = 0, ll = list_box.length; aa < ll; aa++) {
-            var current_box = list_box[aa];
-            $(current_box + box_fake_suffix).hide();
+        list_box.forEach(function(current_box) {
+            $(`${current_box}${box_fake_suffix}`).hide();
             if (isClassMode()) {
                 $(current_box).hide();
-                $(current_box + "-" + class_divide_class).show();
+                $(`${current_box}-${class_divide_class}`).show();
             } else {
-                $(current_box + "-" + class_divide_class).hide();
+                $(`${current_box}-${class_divide_class}`).hide();
                 $(current_box).show();
             }
-        }
+        });
         updateStatisticsHTML();
-        // ToolTip + Box
         $("#" + statistic_area).show();
         $('[data-toggle="tooltip-member"]').tooltip();
         $('#loadingModal').modal('hide');
         jumpTo();
     });
 }
+
 
 /**
  * Updates the statistics section of the displayed page based on displayed
