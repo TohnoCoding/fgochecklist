@@ -910,7 +910,7 @@ function buildUnitDataInUI(units_data) {
                     'html': current_type.ctext
                 }));
             }
-            // Append the unit_div to the correct class container
+            // Append unit_container to the correct class container
             if (isClassMode()) {
                 $(`${curr_element}_${current_servant.class}`)
                     .append(unit_container);
@@ -953,7 +953,6 @@ function buildUnitDataInUI(units_data) {
         jumpTo();
     });
 }
-
 
 /**
  * Updates the statistics section of the displayed page based on displayed
@@ -1053,16 +1052,16 @@ function exportCanvasToImage() {
         callback: function (result) {
             if (result) {
                 $('#loadingModal').modal('show'); // Show Loading Modal
-                    html2canvas($('#' + capture_area)[0], { useCORS: true })
-                        .then(function(canvas) {
+                html2canvas($('#' + capture_area)[0], { useCORS: true })
+                    .then(function(canvas) {
                         // canvas is the final rendered <canvas> element
                         var alink = document.createElement('a');
                         // toDataURL defaults to png, so we need to request a
-                        // jpeg, then convert for file download.
+                        // jpeg, then convert for file download
                         alink.href = canvas.toDataURL("image/jpeg")
                             .replace("image/jpeg", "image/octet-stream");
-                        alink.download = export_filename.replace('_', '-')
-                            .replace("fgol", "jpg");
+                        alink.download = export_filename
+                            .replace('_', '-').replace("fgol", "jpg");
                         //Firefox requires the link to be in the body
                         document.body.appendChild(alink);
                         alink.click();
@@ -1196,7 +1195,7 @@ function promptSaveDataExport() {
 function exportCurrentDataToFile() {
     var blob = new
         Blob([export_header + export_header_separator + compress_input],
-        { type: "text/plain;charset=utf-8" });
+            { type: "text/plain;charset=utf-8" });
     saveAs(blob, export_filename);
 }
 
