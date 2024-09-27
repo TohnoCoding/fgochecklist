@@ -841,17 +841,15 @@ function buildUnitDataInUI(units_data) {
                     $('<button>', {
                         'type': 'button',
                         'class': 'btn btn-outline-primary btn-xs',
-                        'text': 'All',
-                        'onclick': `promptOperationOnAllUnits(false, ` +
-                            `'${current_rarity.list_id}', '${current_class}')`
-                    }),
+                        'text': 'All'
+                    }).on('click', function() { promptOperationOnAllUnits
+                        (false, current_rarity.list_id, current_class); } ),
                     $('<button>', {
                         'type': 'button',
                         'class': 'btn btn-outline-danger btn-xs',
-                        'text': 'None',
-                        'onclick': `promptOperationOnAllUnits(true, ` +
-                            `'${current_rarity.list_id}', '${current_class}')`
-                    })
+                        'text': 'None'
+                    }).on('click', function() { promptOperationOnAllUnits
+                        (true, current_rarity.list_id, current_class); } )
                 );
                 class_container.append(class_icon_div);
                 class_container.append($('<div>', {   // Add row for the class
