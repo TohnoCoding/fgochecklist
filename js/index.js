@@ -858,7 +858,7 @@ function buildUnitDataInUI(units_data) {
                     'class': `row ${class_div_list_class} classRow`,
                     'id': `${current_rarity.list_element}_${current_class}`
                 }));
-                class_html_wrapper.append(class_container).append('<hr />');
+                class_html_wrapper.append(class_container).append('<hr>');
             });
             $(`${curr_element}-${class_divide_class}`)
                 .html(class_html_wrapper);
@@ -932,7 +932,11 @@ function buildUnitDataInUI(units_data) {
     });
     $(".classRow").each(function() { // Remove empty/unreleased classes
         if ($(this).children().length === 0) {
+            const hrs = $(this).parent().parent().find("hr");
             $(this).parent().remove();
+            const secondLastNode = hrs.eq(-2);
+            const lastNode = secondLastNode.next();
+            if(lastNode.is("hr")) { lastNode.remove(); }
         }
     });
     $.when.apply(null, list_img).done(function() {
