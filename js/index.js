@@ -931,12 +931,10 @@ function buildUnitDataInUI(units_data) {
         });
     });
     $(".classRow").each(function() { // Remove empty/unreleased classes
+        const hrs = $(this).parent().parent().find("hr");
         if ($(this).children().length === 0) {
-            const hrs = $(this).parent().parent().find("hr");
             $(this).parent().remove();
-            const secondLastNode = hrs.eq(-2);
-            const lastNode = secondLastNode.next();
-            if(lastNode.is("hr")) { lastNode.remove(); }
+            hrs.eq(-1).remove();
         }
     });
     $.when.apply(null, list_img).done(function() {
