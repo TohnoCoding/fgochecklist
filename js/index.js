@@ -1536,7 +1536,6 @@ function copyToClipboard() {
     }
 }
 
-
 /**
  * Gets the value of a cookie with the specified name.
  * @param {string} name The name of the cookie to get.
