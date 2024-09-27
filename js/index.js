@@ -137,8 +137,6 @@ var compress_input = "";
 var current_edit = "";
 var current_edit_ele = null;
 
-var max_data_eachclass = {};
-
 var jump_to_target = null;
 
 // Global Objects
@@ -804,11 +802,6 @@ function buildUnitDataInUI(units_data) {
         if (isClassMode()) {
             var class_html_wrapper = $("<div>");
             current_rarity.class_available.forEach(function(current_class) {
-                // Initialize global for current key/class if not already done
-                if (!max_data_eachclass[current_rarity.list_id]) {
-                    max_data_eachclass[current_rarity.list_id] = {};
-                }
-                max_data_eachclass[current_rarity.list_id][current_class] = 0;
                 // Create the class container
                 var class_container = $('<div>', { 
                     'class': 'row classBox', 
@@ -912,8 +905,6 @@ function buildUnitDataInUI(units_data) {
             if (isClassMode()) {
                 $(`${curr_element}_${current_servant.class}`)
                     .append(unit_container);
-                max_data_eachclass[current_rarity.list_id]
-                    [current_servant.class] += 1; // Increment class count
             } else { $(curr_element).append(unit_container); }
             // Unbind + rebind event listeners
             $(unit_container).off('click contextmenu');
