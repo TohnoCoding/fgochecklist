@@ -226,12 +226,12 @@ $(async function() {
         $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
     $('[data-toggle="tooltip"]').tooltip();
     // Select2
-    list_new = $( "#npAdd" ).select2({
+    list_new = $("#npAdd").select2({
         theme: "bootstrap",
         dataAdapter: custom_adapter,
         data: copy_choice_allow
     });
-    list_update = $( "#npUpdate" ).select2({
+    list_update = $("#npUpdate").select2({
         theme: "bootstrap",
         dataAdapter: custom_adapter,
         data: copy_choice_allow
@@ -1295,7 +1295,7 @@ function finishLoading(servant_pass_data) {
     // Clear Contents
     $(".listbox").hide();
     $(".listbox_class").hide();
-    $( ".listbox_fake" ).show();
+    $(".listbox_fake").show();
     // Convert User Data from Input
     if (encoded_user_input !== null) {
         var array_input = encoded_user_input.split(",");
@@ -1307,8 +1307,7 @@ function finishLoading(servant_pass_data) {
         }
     }
     updateURL(); // Update URL
-    // Ajax; Class Data
-    $.ajax({
+    $.ajax({    // Ajax; Class Data
         url: dataclasspath,
         contentType: "application/json",
         dataType: "json",
@@ -1319,7 +1318,7 @@ function finishLoading(servant_pass_data) {
             class_data_list = outer_result; // Inject Class Data
             // If Passing
             if (typeof servant_pass_data !== "undefined") {
-                buildUnitDataInUI(servant_pass_data); // Load Data to Variable
+                buildUnitDataInUI(servant_pass_data); // Construct UI
                 return;
             }
             // Ajax; Unit Data
@@ -1359,8 +1358,7 @@ async function shortenURL() {
         window.location.pathname + "?" + compress_input_parameter + "=" +
         compress_input + (mashuSR_str !== "" ? "&" + mashuSR_str : "");
     if (full_url.includes("localhost") || full_url.includes("127.0.0.1")) {
-        full_url = full_url.replace("localhost", "fgotest.tld")
-        .replace("127.0.0.1", "fgotest.tld");
+        full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
     }
     /*******************************/
     /*     Shortening services     */
@@ -1474,16 +1472,32 @@ function shareURL(site) {
  * @param {string} url The shortened URL.
  */
 function showShortURLModal(url) {
-    var msg = share_text + '<hr/><form><div class="form-group"><div ' +
-        'class="input-group mb-3">';
-    msg += '<input type="text" id="link-copy" class="form-control" value="' +
-        url + '" readonly/>';
-    msg += '<div class="input-group-append">'
-    msg += '<button class="btn btn-outline-secondary" type="button" ' +
-        'onclick="copyToClipboard(' + "'link-copy'" + ')">Copy</button>';
-    msg += '</div></div></div></form>';
-    var url_dialog = bootbox.dialog({ message: msg });
-    url_dialog.init(function() { });
+    const $formGroup = $('<div>', { class: 'form-group' });
+    const $inputGroup = $('<div>', { class: 'input-group mb-3' });
+    const $input = $('<input>', {
+        type: 'text',
+        id: 'link-copy',
+        class: 'form-control',
+        value: url,
+        readonly: true
+    });
+    const $button = $('<button>', {
+        type: 'button',
+        class: 'btn btn-outline-secondary',
+        text: 'Copy',
+        id: 'copy_button'
+    })
+    console.log($button);
+    const $inputGroupAppend = $('<div>', { class: 'input-group-append' })
+        .append($button);
+    $inputGroup.append($input).append($inputGroupAppend);
+    $formGroup.append($inputGroup);
+    var url_dialog = bootbox.dialog({
+        message: $('<div>').append(share_text).append('<hr/>')
+            .append($formGroup).html()
+    });
+    url_dialog.init(function() { $('.bootbox').on('click', '#copy_button',
+            function() { copyToClipboard('link-copy'); }); });
 }
 
 /**
@@ -1509,8 +1523,19 @@ function showURLShorteningError() {
 function copyToClipboard() {
     var copyText = document.querySelector("#link-copy");
     copyText.select();
-    navigator.clipboard.writeText(copyText.value || copyText.defaultValue);
+    copyText.setSelectionRange(0, 99999);  // Mobile-proof
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(copyText.value || copyText.defaultValue)
+            .then(function() { console.log('Clipboard copy success'); })
+            .catch(function(err) { console.error('Copy failed: ', err); });
+    } else { // Fallback for older browsers and insecure contexts
+        try {
+            document.execCommand("copy");
+            console.log('Fallback: old way of copying to clipboard');
+        } catch (err) { console.error('Fallback copy failed', err); }
+    }
 }
+
 
 /**
  * Gets the value of a cookie with the specified name.
