@@ -1,23 +1,25 @@
-// Config
+// GENERAL CONFIGURATION VALUES/PARAMETERS
+// File-related configs and specs
 var icontype = ".png";
 var icondefault = "default.png";
 var icondefault_external_source = false;
-
 var datapath = "data/servants.json";
 var datapath_alternate = "data/servants.alternate.json";
 var dataclasspath = "data/servantsclass.json";
-
 var img_path = "img/servants/";
-var img_class = "img-fluid";
-var member_class_grid = "col-1 member-outer";
-var member_class = "member-container";
-var member_class_checked = "member-checked";
+
+var img_CSSclass = "img-fluid";
+var member_grid_CSSclass = "col-1 member-outer";
+var member_container_CSSclass = "member-container";
+var member_checked_CSSclass = "member-checked";
+
 var capture_area = "capturearea";
 var box_fake_suffix = "Fake";
 
-var morecopy_text = "NP";
-var morecopy_class = "member-np";
-var morecopy_prefix = "np_";
+// Copies config
+var additional_copies_text = "NP";
+var additional_copies_CSSclass = "member-np";
+var additional_copies_prefix = "np_";
 var copy_choice_allow = [
     { "id": 1, "text": "NP1" },
     { "id": 2, "text": "NP2" },
@@ -30,16 +32,17 @@ var copy_choice_max = 5;
 var share_tags = "FGO,FateGrandOrder,My_FGO_Checklist";
 var share_title = "See my Servant collection here!";
 
-// Class Config
-var class_divide_class = "ByClass";
-var class_div_icon_class = "col-1 class_icon_box";
-var class_div_list_class = "col";
+// Class-based CSS classes config
+var class_divide_CSSclass = "ByClass";
+var class_div_icon_CSSclass = "col-1 class_icon_box";
+var class_div_list_CSSclass = "col";
 var class_img_path = "img/classes/";
 
+// Class-based counters config
 var class_count_have = "class_have_";
 var class_count_max = "class_max_";
 
-// Servant Type
+// Servant Types config
 var servant_type_box_class = "member-type";
 var servant_typelist = [
     { "id": 0, "show": false, "eventonly": false, "ctext": null,
@@ -58,20 +61,20 @@ var servant_typelist = [
         "class": "member-eventonly" } // Welfare
 ];
 
-// Confirm
+// Confirm strings
 var member_uncheck_conf = "Are you sure you want to uncheck this Servant?";
 var member_clear_conf = "Are you sure you want to clear all checked Servants?";
 
-// Share
+// Share strings
 var share_text = "This is your current shortened URL:";
 var share_none_text = "There is nothing to share.";
 
-// Select Text
+// "Select All" Text
 var select_all_text = "This will not affect already selected Servants. " +
     "However, <b><i>THIS CHANGE CANNOT BE REVERTED</i></b>.<br><br>Are " +
     "you sure you want to continue?";
 
-// Statistic
+// Statistics
 var statistic_area = "statisticBox";
 
 // Parameters
@@ -214,7 +217,7 @@ async function fetchGlobalThreshold() {
 $(async function() {
     await fetchGlobalThreshold();
     $('#loadingModal').modal('show'); // Show Loading Modal
-    var cookie = (getCookie(cookieName) === "true");
+    var cookie = (getCookie(cookieName) === "true"); // Notice cookie check
     if(cookie) { removeNoticeboard(); }
     else { $("#noticeBoard").css("display", "block"); }
     // Load File Prepare
@@ -616,7 +619,7 @@ function removeUserData() {
                 if (current_user_data != null)
                     { executeUserDataRemoval(current_edit); } // Delete Data
                 $('#' + current_edit)
-                    .removeClass(member_class_checked); // Update element
+                    .removeClass(member_checked_CSSclass); // Update element
                 updateAmountOfCopiesOwned
                     (current_edit, 0, current_edit_ele); // Update list value
                 $('#updateModal').modal('hide'); // Hide Update Check Modal
@@ -646,7 +649,7 @@ function updateUnitDataInFastMode(id, val, s_element) {
         var new_val = current_user_data + val; // Get New Value
         if (new_val <= 0 || new_val > current_edit_max) {
             // Remove Instead
-            $(s_element).removeClass(member_class_checked);
+            $(s_element).removeClass(member_checked_CSSclass);
             updateAmountOfCopiesOwned(id, 0, s_element);
             executeUserDataRemoval(id); // Clear Number
         } else {
@@ -656,11 +659,11 @@ function updateUnitDataInFastMode(id, val, s_element) {
     } else {
         if (val <= 0) {
             user_data[id] = current_edit_max; // Add user data
-            $(s_element).addClass(member_class_checked);
+            $(s_element).addClass(member_checked_CSSclass);
             updateAmountOfCopiesOwned(id, user_data[id], s_element);
         } else {
             user_data[id] = 1; // Add user data
-            $(s_element).addClass(member_class_checked);
+            $(s_element).addClass(member_checked_CSSclass);
         }
     }
     updateStatisticsHTML();
@@ -684,7 +687,7 @@ function updateUnitData() {
     } else {
         var new_val = parseInt($('#npAdd').val()); // Get New Value
         user_data[current_edit] = new_val; // Add user data
-        $('#' + current_edit).addClass(member_class_checked);
+        $('#' + current_edit).addClass(member_checked_CSSclass);
         updateAmountOfCopiesOwned
             (current_edit, new_val, current_edit_ele);
         $('#addModal').modal('hide'); // Hide New Check Modal
@@ -701,8 +704,8 @@ function updateUnitData() {
  */
 function updateAmountOfCopiesOwned(id, new_val, s_element) {
     if (!id) { return; }
-    const content = new_val > 1 ? morecopy_text + new_val : "";
-    $(s_element).find(`#${morecopy_prefix}${id}`).html(content);
+    const content = new_val > 1 ? additional_copies_text + new_val : "";
+    $(s_element).find(`#${additional_copies_prefix}${id}`).html(content);
 }
 
 /**
@@ -813,12 +816,12 @@ function buildUnitDataInUI(units_data) {
                     (current_class_data.iconlist[current_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
                 var class_icon_div = $('<div>', {
-                    'class': class_div_icon_class,
+                    'class': class_div_icon_CSSclass,
                     'style': 'text-align: center'
                 }).append(
                     $('<img>', {
                         'src': current_class_data_icn,
-                        'class': img_class,
+                        'class': img_CSSclass,
                         'title': current_class_data.name,
                         'data-toggle': 'tooltip-member',
                         'data-placement': 'bottom'
@@ -846,12 +849,12 @@ function buildUnitDataInUI(units_data) {
                 );
                 class_container.append(class_icon_div);
                 class_container.append($('<div>', {   // Add row for the class
-                    'class': `row ${class_div_list_class} classRow`,
+                    'class': `row ${class_div_list_CSSclass} classRow`,
                     'id': `${current_rarity.list_element}_${current_class}`
                 }));
                 class_html_wrapper.append(class_container).append('<hr>');
             });
-            $(`${curr_element}-${class_divide_class}`)
+            $(`${curr_element}-${class_divide_CSSclass}`)
                 .html(class_html_wrapper);
         }
         current_rarity.list.forEach(function(current_servant) {
@@ -867,12 +870,13 @@ function buildUnitDataInUI(units_data) {
                 servant_typelist[current_servant.stype].eventonly;
             var current_user_data = getStoredUnitData(current_servant.id);
             var unit_container = $('<div>', {
-                    'class': member_class_grid
+                    'class': member_grid_CSSclass
                 }).append($('<div>', {
                     'id': current_servant.id,
                     'title': current_servant.name,
-                    'class': member_class + (current_user_data != null ?
-                        ' ' + member_class_checked : ''),
+                    'class': member_container_CSSclass + 
+                        (current_user_data != null ? ' ' +
+                            member_checked_CSSclass : ''),
                     'data-toggle': 'tooltip-member',
                     'data-placement': 'bottom'
                 }));
@@ -884,21 +888,22 @@ function buildUnitDataInUI(units_data) {
                         `${current_servant.id}${icontype}`, false); // Fallback
             }
             list_img.push(loadSprite(current_servant_img));
-            var enhance_copies_div = $('<div>', {  // Copies and event-only tag
-                'id': `${morecopy_prefix}${current_servant.id}`,
-                'class': morecopy_class,
+            var copiesContainer = $('<div>', {  // Copies
+                'id': `${additional_copies_prefix}${current_servant.id}`,
+                'class': additional_copies_CSSclass,
                 'text': current_user_data > 1 ?
-                    morecopy_text + current_user_data : ''
+                    additional_copies_text + current_user_data : ''
             });
             unit_container.find('div').append(
-                $('<img>', { 'src': current_servant_img, 'class': img_class }),
-                enhance_copies_div
+                $('<img>',
+                    { 'src': current_servant_img, 'class': img_CSSclass }),
+                copiesContainer
             );
             var current_type = servant_typelist[current_servant.stype];
             if (current_type.show) {
                 unit_container.find('div').first().append($('<div>', {
                     'class': `${servant_type_box_class} ${current_type.class}`,
-                    'html': current_type.ctext
+                    'html': current_type.ctext // Icon (limited, story, etc.)
                 }));
             }
             // Append unit_container to the correct class container
@@ -909,7 +914,7 @@ function buildUnitDataInUI(units_data) {
             // Unbind + rebind event listeners
             $(unit_container).off('click contextmenu');
             const event_listener_element = $(unit_container)
-                .find(`.${member_class}`).first();
+                .find(`.${member_container_CSSclass}`).first();
             $(unit_container).on('click', function() {
                 elementLeftClick(event_listener_element);
             });
@@ -931,9 +936,9 @@ function buildUnitDataInUI(units_data) {
             $(`${current_box}${box_fake_suffix}`).hide();
             if (isClassMode()) {
                 $(current_box).hide();
-                $(`${current_box}-${class_divide_class}`).show();
+                $(`${current_box}-${class_divide_CSSclass}`).show();
             } else {
-                $(`${current_box}-${class_divide_class}`).hide();
+                $(`${current_box}-${class_divide_CSSclass}`).hide();
                 $(current_box).show();
             }
         });
@@ -962,15 +967,15 @@ function updateStatisticsHTML() {
     $(elementToSearch).each(function() {
         var $container = $(this);
         var boxType = $container.attr('id').replace("-ByClass", "");
-        var $members = $container.find(`.${member_class}`);
+        var $members = $container.find(`.${member_container_CSSclass}`);
         var totalUnits = $members.length;
-        var ownedUnits = $members.filter(`.${member_class_checked}`).length;
+        var ownedUnits = $members.filter(`.${member_checked_CSSclass}`).length;
         var $notEventUnits = $members.filter(function() {
             return !$(this).find('.member-eventonly').length;
         });
         var totalNotEventUnits = $notEventUnits.length;
         var ownedNotEventUnits =
-            $notEventUnits.filter(`.${member_class_checked}`).length;
+            $notEventUnits.filter(`.${member_checked_CSSclass}`).length;
         overallTotal += totalUnits;
         overallOwned += ownedUnits;
         overallNotEventTotal += totalNotEventUnits;
@@ -986,9 +991,10 @@ function updateStatisticsHTML() {
             `(${ownedNotEventUnits}/${totalNotEventUnits})`);
         if (isClassMode()) { // Update class-specific stats if in class mode
             $(".classBox .classRow").each(function() {
-                var classTotal = $(this).find($(`.${member_class}`)).length;
+                var classTotal =
+                    $(this).find($(`.${member_container_CSSclass}`)).length;
                 var classOwned = $(this)
-                    .find($(`.${member_class_checked}`)).length;
+                    .find($(`.${member_checked_CSSclass}`)).length;
                 var partialCounterDivID =
                     $(this).parent().prop("id").replace("Box", "");
                 $("#class_have_" + partialCounterDivID).text(classOwned);
