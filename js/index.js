@@ -225,8 +225,8 @@ function jumpTo(){
  * Takes a key-value pair and sorts the keys alphabetically, then returns the
  * sorted collection.
  * @param {object} not_sorted Unsorted collection of key-value pairs.
- * @returns {object} A new collection of key-value pairs sorted alphabetically by the
- * keys.
+ * @returns {object} A new collection of key-value pairs sorted alphabetically
+ * by the keys.
  */
 function orderKeys(not_sorted) {
   var sorted = Object.keys(not_sorted)
@@ -240,7 +240,8 @@ function orderKeys(not_sorted) {
 /**
  * Preloads images asynchronously.
  * @param {string} src The address/URL of the image to load.
- * @returns {Promise<void>} A promise that resolves when the image finishes loading.
+ * @returns {Promise<void>} A promise that resolves when the image finishes
+ * loading.
  */
 function loadSprite(src) {
     var deferred = $.Deferred();
@@ -397,7 +398,7 @@ function loadLocallySavedData(getresult) {
     // Get Value
     compress_input = getresult;
     if (compress_input == null || compress_input == undefined) {
-        compress_input = null
+        compress_input = null;
         bootbox.alert(load_fail_text, null);
         return;
     }
@@ -528,7 +529,7 @@ async function shortenURL() {
     try {
         const result = await Promise.any(shortProviders);
         if (!result.value) { throw new
-            Error("All promises returned undefined."); }
+            Error("All promises returned undefined, shortening failed."); }
         return result.value;
     } catch (err) { console.error(err); return undefined; }
 }
