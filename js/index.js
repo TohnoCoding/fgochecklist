@@ -1000,7 +1000,7 @@ function finishLoading(servant_pass_data) {
  * time), pick a random Padoru image from the available list.
  */
 function pickRandomPadoru() {
-    var randomImg = padorus[Math.floor(Math.random() * padorus.length)];
+    const randomImg = padorus[Math.floor(Math.random() * padorus.length)];
     $("#padoru-walker").attr('src', randomImg);
 }
 // }
