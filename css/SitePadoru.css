@@ -1,37 +1,45 @@
 /*Keyframes*/
 @keyframes snow {
 	0% {
-		background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+		background-position: 0px 0px, 0px 0px,
+							 0px 0px, 0px 0px;
 	}
 	 100% {
-		background-position : 600px 900px, 300px 300px, 200px 200px, 800px 780px;
+		background-position : 600px 900px, 300px 300px,
+							  200px 200px, 800px 780px;
 	}
 }
 
 @-moz-keyframes snow {
 	0% {
-		background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+		background-position: 0px 0px, 0px 0px,
+							 0px 0px, 0px 0px;
 	}
 	 100% {
-		background-position : 600px 900px, 300px 300px, 200px 200px, 800px 780px;
+		background-position : 600px 900px, 300px 300px,
+							  200px 200px, 800px 780px;
 	}
 }
 
 @-webkit-keyframes snow {
 	0% {
-		background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+		background-position: 0px 0px, 0px 0px,
+							 0px 0px, 0px 0px;
 	}
 	 100% {
-		background-position : 600px 900px, 300px 300px, 200px 200px, 800px 780px;
+		background-position : 600px 900px, 300px 300px,
+							  200px 200px, 800px 780px;
 	}
 }
 
 @-ms-keyframes snow {
 	0% {
-		background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+		background-position: 0px 0px, 0px 0px,
+							 0px 0px, 0px 0px;
 	}
 	 100% {
-		background-position : 600px 900px, 300px 300px, 200px 200px, 800px 780px;
+		background-position : 600px 900px, 300px 300px,
+							  200px 200px, 800px 780px;
 	}
 }
 
@@ -45,7 +53,9 @@ body {
 }
 
 div.snowfall {
-	background-image : url('../img/padoru/snow.png'), url('../img/padoru/snow3.png'), url('../img/padoru/snow2.png'), url('../img/padoru/snow4.png');
+	background-image : url('../img/padoru/snow.png'), 
+		url('../img/padoru/snow3.png'), url('../img/padoru/snow2.png'),
+		url('../img/padoru/snow4.png');
 	-webkit-animation: snow 20s linear infinite;
 	-moz-animation: snow 20s linear infinite;
 	-ms-animation: snow 20s linear infinite;

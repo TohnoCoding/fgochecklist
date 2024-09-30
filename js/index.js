@@ -1,4 +1,4 @@
-// GENERAL CONFIGURATION VALUES/PARAMETERS
+// GENERAL/GLOBAL CONFIG VALUES/PARAMETERS {
 // File-related configs and specs
 var icontype = ".png";
 var icondefault = "default.png";
@@ -156,272 +156,60 @@ var initial_load = true;
 var globalThreshold = 99999;
 var cookieName = "20240930_notice";
 
+const padorus = [
+    "img/padoru/padoru-nero.png"
+    ,"img/padoru/padoru-bb.png"
+];
+// }
+/*****************************************************************************/
+// UTILITY FUNCTIONS {
 /**
- * Setting up AJAX to always override the content/MIME type with json.
+ * Gets the value of a cookie with the specified name.
+ * @param {string} name The name of the cookie to get.
+ * @returns {string} The value of the cookie if it exists; null if it doesn't.
  */
-$.ajaxSetup({
-    beforeSend: function(xhr) {
-        if (xhr.overrideMimeType) {
-            xhr.overrideMimeType("application/json");
-        }
+function getCookie(name) {
+    var equals = name + "=", i = 0;
+    var cookies = document.cookie.split(';');
+    for (i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ')
+            { cookie = cookie.substring(1, cookie.length); }
+        if(cookie.indexOf(equals) == 0)
+            { return cookie.substring(equals.length, cookie.length); }
     }
-});
-
-/**
- * Setting up custom data adapter for on-the-fly customizable jQuery Select2
- * boxes.
- */
-$.fn.select2.amd.define('select2/data/customAdapter',
-    ['select2/data/array', 'select2/utils'],
-    function (ArrayAdapter, Utils) {
-        function CustomDataAdapter ($element, options) {
-             CustomDataAdapter.__super__.constructor
-                .call(this, $element, options);
-        }
-        Utils.Extend(CustomDataAdapter, ArrayAdapter);
-        CustomDataAdapter.prototype.updateOptions = function (data) {
-            this.$element.find('option').remove();
-            this.addOptions(this.convertToOptions(data));
-        }
-        return CustomDataAdapter;
-    }
-);
-
-/**
- * Uses the Atlas Academy API to get the internal game ID of the latest Servant
- * released, in the global/EN server, in order to know when to construct NA/EN
- * links to the the Atlas Academy Database Servant pages. Slightly rewritten to
- * not use `$collection.at()` anymore since certain older versions of browsers
- * don't seem to support it.
- * @returns {Promise<void>} A promise that resolves when the fetch is complete.
- */
-async function fetchGlobalThreshold() {
-    try {
-        const NAreleases =
-            (await fetch    // get *all* NA release IDs
-                ("https://api.atlasacademy.io/export/NA/basic_servant.json")
-                .then((r) => r.json())).map((s) => s.collectionNo);
-        globalThreshold = NAreleases[NAreleases.length - 1];  // get last NA ID
-    } catch (error) {
-        console.error(error);
-        $(".newFeature").addClass("JPdisabled");
-        $("label[for='NAonly']").addClass("JPdisabled");
-        $("#NAonly").prop("disabled", true);
-        bootbox.alert(threshold_error, null);
-    }
+    return null;
 }
 
 /**
- * General setup for when the page is initially loaded and the DOM is ready.
+ * Sets a cookie.
+ * @param {string} name The name of the cookie.
+ * @param {any} value The desired value of the cookie.
  */
-$(async function() {
-    await fetchGlobalThreshold();
-    $('#loadingModal').modal('show'); // Show Loading Modal
-    var cookie = (getCookie(cookieName) === "true"); // Notice cookie check
-    if(cookie) { removeNoticeboard(); }
-    else { $("#noticeBoard").css("display", "block"); }
-    // Load File Prepare
-    $("#" + file_hidden_id).on("change", (function()
-        { loadUploadedFileData(); }));
-    var urlParams =
-        new URLSearchParams(window.location.search); // URL Params
-    custom_adapter =
-        $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
-    $('[data-toggle="tooltip"]').tooltip();
-    // Select2
-    list_new = $("#npAdd").select2({
-        theme: "bootstrap",
-        dataAdapter: custom_adapter,
-        data: copy_choice_allow
-    });
-    list_update = $("#npUpdate").select2({
-        theme: "bootstrap",
-        dataAdapter: custom_adapter,
-        data: copy_choice_allow
-    });
-    var MashuSR_input = urlParams.get(mashuSR_parameter);
-    var fastmode_input = urlParams.get(fastmode_parameter);
-    var classmode_input = urlParams.get(classmode_parameter);
-    var NAonly_input = urlParams.get(NAonly_parameter);
-    compress_input = urlParams.get(compress_input_parameter);
-    // Mash is SR
-    if (MashuSR_input != null) {
-        var Mashu_IS_SR = (parseInt(MashuSR_input) > 0);
-        $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
-    } else {
-        // Mash is SR
-        if (localStorage[mashuSR_local]) {
-            var Mashu_IS_SR = (parseInt(localStorage[mashuSR_local]) > 0);
-            $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
-        }
-    }
-    // ClassMode
-    if (classmode_input != null) {
-        var classmode_enable = (parseInt(classmode_input) > 0);
-        $('#' + classmode_checkbox).prop('checked', classmode_enable);
-    } else {
-        // ClassMode
-        if (localStorage[class_mode_local]) {
-            var classmode_enable =
-                (parseInt(localStorage[class_mode_local]) > 0);
-            $('#' + classmode_checkbox).prop('checked', classmode_enable);
-        }
-    }
-    // FastMode
-    if (fastmode_input != null) {
-        var fastmode_enable = (parseInt(fastmode_input) > 0);
-        $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
-    } else {
-        // FastMode
-        if (localStorage[fast_mode_local]) {
-            var fastmode_enable =
-                (parseInt(localStorage[fast_mode_local]) > 0);
-            $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
-        }
-    }
-    // NA only mode
-    if(NAonly_input != null) {
-        var NAonly_enable = (parseInt(NAonly_input) > 0);
-        $("#" + NAonly_checkbox).prop('checked', NAonly_enable);
-    } else {
-        if(localStorage[NAonly_local]) {
-            var NAonly_enable = (parseInt(localStorage[NAonly_local]) > 0);
-            $("#" + NAonly_checkbox).prop('checked', NAonly_enable);
-        }
-    }
-    // Load From URL
-    if (compress_input != null) {
-        encoded_user_input =
-            LZString.decompressFromEncodedURIComponent
-            (compress_input); // List Reader
-        finishLoading();
-    } else {
-        encoded_user_input = urlParams.get(raw_input_parameter);
-        if (encoded_user_input != null) { finishLoading(); }
-        else {
-            if (localStorage[list_local]) { loadLocalData(); } // List Reader
-            else {
-                encoded_user_input = ""; // Blank Raw
-                finishLoading();
-            }
-        }
-    }
-    if (localStorage[list_local])
-        { $('#' + load_btn).prop('disabled', false); } // Load Button Status
-    // Set Checkbox Events
-    $('#' + fastmode_checkbox).on("change",
-        function () { updateURLOptionModeOnly(); });
-    $('#' + classmode_checkbox).on("change",
-        function () { updateClassMode(); });
-    $('#' + mashuSR_checkbox).on("change", function () { updateClassMode(); });
-    $('#' + NAonly_checkbox).on("change", function () { updateClassMode(); });
-    $('#rmvNotice').on("click", function() {
-        setCookie(cookieName, true);
-        removeNoticeboard();
-    });
-    // Set Modal Closing Event
-    $("#addModal").on("hidden.bs.modal", function () {
-        current_edit = "";
-        current_edit_ele = null;
-    });
-    $("#updateModal").on("hidden.bs.modal", function () {
-        current_edit = "";
-        current_edit_ele = null;
-    });
-    try { var isFileSaverSupported = !!new Blob; } // Check for FileSaver.js
-    catch (e) {
-        $("#loadbutton_f").prop("disabled", "disabled");
-        $("#savebutton_f").prop("disabled", "disabled");
-        $("#page_whatami").append("<br><b>NOTICE:</b> FileSaver.js " +
-            "functionality not supported! Upload &amp; Download " +
-            "buttons have been disabled.");
-    }
-});
-
-/**
- * Toggles the display of the unique icon identifiers for each category of
- * units.
- */
-function toggleUnitTypeIcon() { $("." + servant_type_box_class).toggle(); }
-
-/**
- * Returns whether Fast Mode is activated.
- * @returns {boolean} True if Fast Mode is on, False otherwise.
- */
-function isFastMode()
-{ return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
-
-/**
- * Returns whether Class Mode is activated.
- * @returns {boolean} True if Class Mode is on, False otherwise.
- */
-function isClassMode()
-{ return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
-
-/**
- * Returns whether JP-only Servants should be hidden.
- * @returns True if the hiding checkbox is checked, False otherwise.
- */
-function isNAonly()
-{ return $('#' + NAonly_checkbox).is(':checked'); } // Hide JP Check
-
-/**
- * Returns whether Mash is marked as SR.
- * @returns {boolean} True if Mash is marked as SR, False otherwise.
- */
-function isMashuSR()
-{ return $('#' + mashuSR_checkbox).is(':checked'); } // SR Mash Check
-
-/**
- * Removes the specified unit from local storage.
- * @param {string} id The ID of the unit to remove.
- */
-function executeUserDataRemoval(id) { delete user_data[id]; }
-
-/**
- * Returns a string indicating the state of Fast Mode for URL injection.
- * @returns {string} An empty string if Fast Mode is off;
- * `{$fastmode_parameter}=1` if it's on.
- */
-function getFastModeURLstring()
-{ return isFastMode() ? fastmode_parameter + "=1" : ""; }
-
-/**
- * Returns a string indicating the state of Class Mode for URL injection.
- * @returns {string} An empty string if Class Mode is off,
- * `{$classmode_parameter}=1` if it's on.
- */
-function getClassModeURLstring()
-{ return isClassMode() ? classmode_parameter + "=1" : ""; }
-
-/**
- * Returns a string indicating whether JP-only units should be hidden.
- * @returns {string} An empty string if "hide JP units" is off;
- * `{$NAonly_parameter}=1` if it's on.
- */
-function getNAonlyURLstring()
-{ return isNAonly() ? NAonly_parameter + "=1" : ""; }
-
-/**
- * Returns the serialized form of the currently saved unit data.
- * @returns {string} A string representation of the currently saved unit data.
- */
-function getSerializedUnitData() {
-    return compress_input + (getMashuSRURLstring(false) ?
-        "&" + MashuIsSR : ''); // Get compress_input
+function setCookie(name, value) {
+    var date = new Date();
+    date.setFullYear(date.getFullYear() + 100);
+    var cookie = name + "=" + (value || "") + "; expires=" +
+        date.toUTCString() + "; path=/";
+    document.cookie = cookie;
 }
 
 /**
- * Triggers the File Open dialog box.
+ * Serializes the current data into an easily compressable string.
+ * @param {object} input_data The data to be serialized.
+ * @returns {string} A string representation of the current data.
  */
-function openFileUploadPrompt()
-{ document.getElementById(file_hidden_id).click(); }
-
-/**
- * Updates the UI whenever Class Mode is toggled.
- */
-function updateClassMode()
-{ updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
+function serializeCurrentDataForURLOutput(input_data) {
+    var serialized_input = "", key;
+    for (key in input_data) {
+        if (input_data.hasOwnProperty(key)) {
+            var current_user_data = input_data[key];
+            serialized_input += key + ">" + current_user_data + ",";
+        }
+    }
+    serialized_input = serialized_input.slice(0, -1); // Remove last comma
+    return serialized_input;
+}
 
 /**
  * Jumps to a specific point in the viewport.
@@ -518,23 +306,6 @@ function getStoredUnitData(id) {
 }
 
 /**
- * Serializes the current data into an easily compressable string.
- * @param {object} input_data The data to be serialized.
- * @returns {string} A string representation of the current data.
- */
-function serializeCurrentDataForURLOutput(input_data) {
-    var serialized_input = "", key;
-    for (key in input_data) {
-        if (input_data.hasOwnProperty(key)) {
-            var current_user_data = input_data[key];
-            serialized_input += key + ">" + current_user_data + ",";
-        }
-    }
-    serialized_input = serialized_input.slice(0, -1); // Remove last comma
-    return serialized_input;
-}
-
-/**
  * Validates if the current URL contains the old parameter name "mashu" and
  * converts/updates it to the current parameter name "mash" when Mash is marked
  * as SR.
@@ -557,237 +328,213 @@ function getMashParameter() {
 }
 
 /**
- * Left click on a given unit's portrait.
- * @param {string} s_element The ID of the unit clicked on.
+ * Setting up AJAX to always override the content/MIME type with json.
  */
-function elementLeftClick(s_element) {
-    var id = $(s_element).attr("id");
-    var name = $(s_element).data("original-title");
-    // Fast Mode, Change Value Directly
-    if (isFastMode()) {
-        updateUnitDataInFastMode(id, 1, s_element); // Change Value
-        return; // Stop
-    }
-    // Mark current_edit
-    current_edit = id;
-    current_edit_ele = s_element;
-    var current_user_data = getStoredUnitData(id);
-    var current_edit_max = servants_data_list[id].maxcopy;
-    // New Check or Update
-    if (current_user_data != null) {
-        getNewCopySource(current_edit_max, list_update); // Select 2
-        $('#nameUpdate').html(name); // Update Modal String
-        $('#npUpdate').val(current_user_data)
-            .trigger('change'); // Reset Modal Choice to Current
-        $('#updateModal').modal('show'); // Show Update Check Modal
-    } else {
-        getNewCopySource(current_edit_max, list_new); // Select 2
-        $('#nameAdd').html(name); // Update Modal String
-        $('#npAdd').val(copy_choice_default)
-            .trigger('change'); // Reset Modal Choice to Default
-        $('#addModal').modal('show'); // Show New Check Modal
-    }
-}
-
-/**
- * Right click on a given unit's portrait.
- * @param {string} s_element The ID of the unit clicked on.
- */
-function elementRightClick(s_element) {
-    if (!isFastMode()) { return; } // If not Fast Mode, don't do anything
-    var id = $(s_element).attr("id");
-    var name = $(s_element).data("original-title");
-    updateUnitDataInFastMode(id, -1, s_element); // Mark current_edit
-}
-
-/**
- * Confirms the removal of the currently selected unit.
- */
-function removeUserData() {
-    if (current_edit == "" || current_edit_ele == null)
-        { return; } // Prevent Blank Key
-    bootbox.confirm({ // Confirm
-        message: member_uncheck_conf,
-        buttons: {
-            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
-            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
-        },
-        callback: function (result) {
-            if (result) {
-                var current_user_data =
-                    getStoredUnitData(current_edit); // Get User Data
-                if (current_user_data != null)
-                    { executeUserDataRemoval(current_edit); } // Delete Data
-                $('#' + current_edit)
-                    .removeClass(member_checked_CSSclass); // Update element
-                updateAmountOfCopiesOwned
-                    (current_edit, 0, current_edit_ele); // Update list value
-                $('#updateModal').modal('hide'); // Hide Update Check Modal
-                updateStatisticsHTML();
-                updateURL();
-                current_edit = ""; // clear current_edit
-            }
-        }
-    });
-}
-
-/**
- * Handles quick update of unitss when Fast Mode is activated.
- * @param {string} id The ID of the selected unit.
- * @param {number} val The direction in which to increase the current value
- * (up or down).
- * @param {string} s_element The HTML element of the Selected unit.
- */
-function updateUnitDataInFastMode(id, val, s_element) {
-    // Mark current_edit
-    var current_user_data = getStoredUnitData(id);
-    var current_edit_max = servants_data_list[id].maxcopy;
-    if (current_edit_max > copy_choice_max)
-        { current_edit_max = copy_choice_max; } // Prevent Over Data
-    // New Check or Update
-    if (current_user_data != null) {
-        var new_val = current_user_data + val; // Get New Value
-        if (new_val <= 0 || new_val > current_edit_max) {
-            // Remove Instead
-            $(s_element).removeClass(member_checked_CSSclass);
-            updateAmountOfCopiesOwned(id, 0, s_element);
-            executeUserDataRemoval(id); // Clear Number
-        } else {
-            user_data[id] = new_val; // Update user data
-            updateAmountOfCopiesOwned(id, new_val, s_element);
-        }
-    } else {
-        if (val <= 0) {
-            user_data[id] = current_edit_max; // Add user data
-            $(s_element).addClass(member_checked_CSSclass);
-            updateAmountOfCopiesOwned(id, user_data[id], s_element);
-        } else {
-            user_data[id] = 1; // Add user data
-            $(s_element).addClass(member_checked_CSSclass);
+$.ajaxSetup({
+    beforeSend: function(xhr) {
+        if (xhr.overrideMimeType) {
+            xhr.overrideMimeType("application/json");
         }
     }
-    updateStatisticsHTML();
-    updateURL();
-}
+});
 
 /**
- * Updates the selected unit's ownership status/level.
+ * Setting up custom data adapter for on-the-fly customizable jQuery Select2
+ * boxes.
  */
-function updateUnitData() {
-    if (current_edit == "" || current_edit_ele == null)
-        { return; } // Prevent Blank Key
-    var current_user_data = getStoredUnitData(current_edit); // Get User Data
-    // New Check or Update
-    if (current_user_data != null) {
-        var new_val = parseInt($('#npUpdate').val()); // Get New Value
-        user_data[current_edit] = new_val; // Update user data
-        updateAmountOfCopiesOwned
-            (current_edit, new_val, current_edit_ele);
-        $('#updateModal').modal('hide'); // Hide Update Check Modal
-    } else {
-        var new_val = parseInt($('#npAdd').val()); // Get New Value
-        user_data[current_edit] = new_val; // Add user data
-        $('#' + current_edit).addClass(member_checked_CSSclass);
-        updateAmountOfCopiesOwned
-            (current_edit, new_val, current_edit_ele);
-        $('#addModal').modal('hide'); // Hide New Check Modal
-    }
-    updateStatisticsHTML(); updateURL();
-    current_edit = ""; // Clear current edit
-}
-
-/**
- * Updates the amount of copies owned by the specified value.
- * @param {string} id The ID of the unit to update.
- * @param {number} new_val The new amount of copies owned.
- * @param {string} s_element The target DOM element.
- */
-function updateAmountOfCopiesOwned(id, new_val, s_element) {
-    if (!id) { return; }
-    const content = new_val > 1 ? additional_copies_text + new_val : "";
-    $(s_element).find(`#${additional_copies_prefix}${id}`).html(content);
-}
-
-/**
- * Returns an URL component that determines if Mash should be treated as of SR
- * rarity.
- * @param {boolean} allowZero If false, returns "mash=1" if Mash is SR, and an
- * empty string if she's not; true returns "mash=0" for URL shortening if she's
- * not marked as SR.
- * @returns {string} Empty string for general use if Mash isn't marked as SR,
- * or "mash=0" for URL shortening; "mash=1" if she's marked as SR.
- */
-function getMashuSRURLstring(allowZero) {
-    return isMashuSR() ?
-        `${mashuSR_parameter}=1` :
-        (allowZero ? `${mashuSR_parameter}=0` : "");
-}
-
-/**
- * Updates the URL each time a unit's data is changed to reflect the new
- * collection status.
- * @returns {boolean} True when the URL is successfully updated.
- */
-function updateURL() {
-    // Sort keys and update raw input
-    user_data = orderKeys(user_data);
-    encoded_user_input = serializeCurrentDataForURLOutput(user_data);
-    var new_parameter = ""; // Initialize new parameter
-    // Compress user data and update buttons
-    if (encoded_user_input) {
-        compress_input =
-            LZString.compressToEncodedURIComponent(encoded_user_input);
-        new_parameter = `?${compress_input_parameter}=${compress_input}`;
-        $('#' + save_btn).prop('disabled', false);
-        $('#' + save_file_btn).prop('disabled', false);
-    } else {
-        compress_input = null;
-        $('#' + save_btn).prop('disabled', true);
-        $('#' + save_file_btn).prop('disabled', true);
-    }
-    // Add additional parameters
-    [getMashuSRURLstring(false), getClassModeURLstring(),
-        getFastModeURLstring(), getNAonlyURLstring()].forEach((param) => {
-        if (param)
-        { new_parameter += (new_parameter.includes("?") ? "&" : "?") + param; }
-    });
-    // Update URL
-    const newurl = `${window.location.protocol}//${window.location.host}` +
-        `${window.location.pathname}${new_parameter}`;
-    window.history.pushState({ path: newurl }, '', newurl);
-    return true;
-}
-
-/**
- * Updates the URL to include the various URL options (Mash being SR,
- * Class/Fast Modes being toggled).
- */
-function updateURLOptionModeOnly() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const options = [
-        { key: mashuSR_parameter, value:
-            getMashuSRURLstring(false), storageKey: mashuSR_local },
-        { key: classmode_parameter, value:
-            getClassModeURLstring(), storageKey: class_mode_local },
-        { key: fastmode_parameter, value:
-            getFastModeURLstring(), storageKey: fast_mode_local },
-        { key: NAonly_parameter, value:
-            getNAonlyURLstring(), storageKey: NAonly_local }
-    ];
-    options.forEach(({ key, value, storageKey }) => {
-        if (value) {
-            urlParams.set(key, value.slice(-1));  // Remove '=' from value
-            localStorage[storageKey] = 1;
-        } else {
-            urlParams.delete(key);
-            localStorage[storageKey] = 0;
+$.fn.select2.amd.define('select2/data/customAdapter',
+    ['select2/data/array', 'select2/utils'],
+    function (ArrayAdapter, Utils) {
+        function CustomDataAdapter ($element, options) {
+             CustomDataAdapter.__super__.constructor
+                .call(this, $element, options);
         }
-    });
-    const newUrl = `${window.location.protocol}//${window.location.host}` +
-        `${window.location.pathname}?${urlParams.toString()}`;
-    window.history.pushState({ path: newUrl }, '', newUrl);
+        Utils.Extend(CustomDataAdapter, ArrayAdapter);
+        CustomDataAdapter.prototype.updateOptions = function (data) {
+            this.$element.find('option').remove();
+            this.addOptions(this.convertToOptions(data));
+        }
+        return CustomDataAdapter;
+    }
+);
+// }
+/*****************************************************************************/
+// AJAX & API HANDLING {
+/**
+ * Uses the Atlas Academy API to get the internal game ID of the latest Servant
+ * released, in the global/EN server, in order to know when to construct NA/EN
+ * links to the the Atlas Academy Database Servant pages. Slightly rewritten to
+ * not use `$collection.at()` anymore since certain older versions of browsers
+ * don't seem to support it.
+ * @returns {Promise<void>} A promise that resolves when the fetch is complete.
+ */
+async function fetchGlobalThreshold() {
+    try {
+        const NAreleases =
+            (await fetch    // get *all* NA release IDs
+                ("https://api.atlasacademy.io/export/NA/basic_servant.json")
+                .then((r) => r.json())).map((s) => s.collectionNo);
+        globalThreshold = NAreleases[NAreleases.length - 1];  // get last NA ID
+    } catch (error) {
+        console.error(error);
+        $(".newFeature").addClass("JPdisabled");
+        $("label[for='NAonly']").addClass("JPdisabled");
+        $("#NAonly").prop("disabled", true);
+        bootbox.alert(threshold_error, null);
+    }
 }
 
+/**
+ * Loads the data stored in localstorage and expands its contents to display in
+ * the UI.
+ * @param {string} getresult The locally saved data.
+ */
+function loadLocallySavedData(getresult) {
+    // Clear User Data
+    user_data = {};
+    compress_input = "";
+    encoded_user_input = "";
+    // Get Value
+    compress_input = getresult;
+    if (compress_input == null || compress_input == undefined) {
+        compress_input = null
+        bootbox.alert(load_fail_text, null);
+        return;
+    }
+    // Get Raw
+    encoded_user_input =
+        LZString.decompressFromEncodedURIComponent(compress_input);
+    // Error; Stop
+    if (encoded_user_input == null || encoded_user_input == undefined) {
+        encoded_user_input = null;
+        bootbox.alert(load_fail_text, null);
+        return;
+    }
+    finishLoading(); // Update HTML
+    bootbox.alert(load_fin_text, null); // Alert
+}
+
+/**
+ * Reads the uploaded file data and overwrites the currently displayed data.
+ */
+function loadUploadedFileData() {
+    var input = document.getElementById(file_hidden_id);
+     if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var getFile = reader.result;
+            var n_txt = getFile
+                .startsWith(export_header + export_header_separator);
+            if (n_txt) {
+                var res = getFile.replace
+                    (export_header + export_header_separator, "");
+                return loadLocallySavedData(res);
+            } else { return bootbox.alert(load_fail_text, null); } // Alert
+        }
+        reader.readAsText(input.files[0]);
+    }
+}
+
+/**
+ * Shortens the current data URL and returns the shortened URL. Multiple
+ * providers are configured to be polled, and the returned URL will be from the
+ * provider that responds the fastest.
+ */
+async function shortenURL() {
+    // Warn user if no data
+    if (compress_input == "") { bootbox.alert(share_none_text); }
+    // Gather the full URL for shortening
+    var mashuSR_str = getMashuSRURLstring(true);
+    var full_url = window.location.protocol + "//" + window.location.host +
+        window.location.pathname + "?" + compress_input_parameter + "=" +
+        compress_input + (mashuSR_str !== "" ? "&" + mashuSR_str : "");
+    if (full_url.includes("localhost") || full_url.includes("127.0.0.1")) {
+        full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
+    }
+    /*******************************/
+    /*     Shortening services     */
+    /*******************************/
+    /**
+     * Shortens the current data URL with waa.ai/Akari-chan shortener.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     * shortening the current URL.
+     */
+    function waaai() {
+        return new Promise((resolve) => {
+            var ajaxdata = JSON.stringify({ url: full_url });
+            var ajaxrequest = {
+                headers: {
+                    Authorization:
+                        "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
+                },
+                url: "https://api.waa.ai/v2/links",
+                dataType: "json",
+                contentType: "application/json",
+                method: "POST",
+                data: ajaxdata,
+                success: function (result) {
+                    resolve({ serviceProvider: "Akari-chan",
+                        value: result.data.link });
+                }
+            };
+            $.ajax(ajaxrequest);
+        });
+    }
+    /**
+     * Shortens the current data URL with is.gd shortener.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     * shortening the current URL.
+     */
+    function isgd() {
+        return new Promise((resolve) => {
+            //var ajaxdata = JSON.stringify({  });
+            var ajaxrequest = {
+                url: "https://is.gd/create.php",
+                dataType: "json",
+                data: { format: "json", url: full_url },
+                success: function (result) {
+                    resolve({ serviceProvider: "is.gd",
+                        value: result.shorturl });
+                }
+            };
+            $.ajax(ajaxrequest);
+        });
+    }
+    /**
+     * Shortens the current data URL with owo.vc shortener.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     * shortening the current URL.
+     */
+    function owo() {
+        return new Promise((resolve) => {
+            var ajaxdata =
+                JSON.stringify({ link: full_url, generator: "owo",
+                    metadata: "IGNORE" });
+            var ajaxrequest = {
+                contentType: 'application/json; charset=utf-8',
+                url: "https://owo.vc/api/v2/link",
+                method: "POST",
+                dataType: "json",
+                data: ajaxdata,
+                success: function (result) {
+                    resolve({ serviceProvider: "owo", value: result.id });
+                }
+            };
+            $.ajax(ajaxrequest);
+        });
+    }
+    const shortProviders = [isgd(), waaai(), owo()];
+    //const shortProviders = [()];      // used for testing new providers
+    try {
+        const result = await Promise.any(shortProviders);
+        if (!result.value) { throw new
+            Error("All promises returned undefined."); }
+        return result.value;
+    } catch (err) { console.error(err); return undefined; }
+}
+// }
+/*****************************************************************************/
+// UI & DOM
 /**
  * Builds the completed UI with amount of copies for all characters.
  * @param {object} units_data The currently saved list data.
@@ -1014,6 +761,462 @@ function updateStatisticsHTML() {
 }
 
 /**
+ * Left click on a given unit's portrait.
+ * @param {string} s_element The ID of the unit clicked on.
+ */
+function elementLeftClick(s_element) {
+    var id = $(s_element).attr("id");
+    var name = $(s_element).data("original-title");
+    // Fast Mode, Change Value Directly
+    if (isFastMode()) {
+        updateUnitDataInFastMode(id, 1, s_element); // Change Value
+        return; // Stop
+    }
+    // Mark current_edit
+    current_edit = id;
+    current_edit_ele = s_element;
+    var current_user_data = getStoredUnitData(id);
+    var current_edit_max = servants_data_list[id].maxcopy;
+    // New Check or Update
+    if (current_user_data != null) {
+        getNewCopySource(current_edit_max, list_update); // Select 2
+        $('#nameUpdate').html(name); // Update Modal String
+        $('#npUpdate').val(current_user_data)
+            .trigger('change'); // Reset Modal Choice to Current
+        $('#updateModal').modal('show'); // Show Update Check Modal
+    } else {
+        getNewCopySource(current_edit_max, list_new); // Select 2
+        $('#nameAdd').html(name); // Update Modal String
+        $('#npAdd').val(copy_choice_default)
+            .trigger('change'); // Reset Modal Choice to Default
+        $('#addModal').modal('show'); // Show New Check Modal
+    }
+}
+
+/**
+ * Right click on a given unit's portrait.
+ * @param {string} s_element The ID of the unit clicked on.
+ */
+function elementRightClick(s_element) {
+    if (!isFastMode()) { return; } // If not Fast Mode, don't do anything
+    var id = $(s_element).attr("id");
+    var name = $(s_element).data("original-title");
+    updateUnitDataInFastMode(id, -1, s_element); // Mark current_edit
+}
+
+/**
+ * Triggers the File Open dialog box.
+ */
+function openFileUploadPrompt()
+{ document.getElementById(file_hidden_id).click(); }
+
+/**
+ * Updates the UI whenever Class Mode is toggled.
+ */
+function updateClassMode()
+{ updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
+
+/**
+ * Removes the noticeboard at the top.
+ */
+function removeNoticeboard() {
+    $('#noticeBoard').slideUp(function() {
+        $(this).remove(); // Removes the element after the animation completes
+    });
+}
+
+/**
+ * Toggles the display of the unique icon identifiers for each category of
+ * units.
+ */
+function toggleUnitTypeIcon() { $("." + servant_type_box_class).toggle(); }
+
+/**
+ * Handles quick update of unitss when Fast Mode is activated.
+ * @param {string} id The ID of the selected unit.
+ * @param {number} val The direction in which to increase the current value
+ * (up or down).
+ * @param {string} s_element The HTML element of the Selected unit.
+ */
+function updateUnitDataInFastMode(id, val, s_element) {
+    // Mark current_edit
+    var current_user_data = getStoredUnitData(id);
+    var current_edit_max = servants_data_list[id].maxcopy;
+    if (current_edit_max > copy_choice_max)
+        { current_edit_max = copy_choice_max; } // Prevent Over Data
+    // New Check or Update
+    if (current_user_data != null) {
+        var new_val = current_user_data + val; // Get New Value
+        if (new_val <= 0 || new_val > current_edit_max) {
+            // Remove Instead
+            $(s_element).removeClass(member_checked_CSSclass);
+            updateAmountOfCopiesOwned(id, 0, s_element);
+            executeUserDataRemoval(id); // Clear Number
+        } else {
+            user_data[id] = new_val; // Update user data
+            updateAmountOfCopiesOwned(id, new_val, s_element);
+        }
+    } else {
+        if (val <= 0) {
+            user_data[id] = current_edit_max; // Add user data
+            $(s_element).addClass(member_checked_CSSclass);
+            updateAmountOfCopiesOwned(id, user_data[id], s_element);
+        } else {
+            user_data[id] = 1; // Add user data
+            $(s_element).addClass(member_checked_CSSclass);
+        }
+    }
+    updateStatisticsHTML();
+    updateURL();
+}
+
+/**
+ * Updates the selected unit's ownership status/level.
+ */
+function updateUnitData() {
+    if (current_edit == "" || current_edit_ele == null)
+        { return; } // Prevent Blank Key
+    var current_user_data = getStoredUnitData(current_edit); // Get User Data
+    // New Check or Update
+    if (current_user_data != null) {
+        var new_val = parseInt($('#npUpdate').val()); // Get New Value
+        user_data[current_edit] = new_val; // Update user data
+        updateAmountOfCopiesOwned
+            (current_edit, new_val, current_edit_ele);
+        $('#updateModal').modal('hide'); // Hide Update Check Modal
+    } else {
+        var new_val = parseInt($('#npAdd').val()); // Get New Value
+        user_data[current_edit] = new_val; // Add user data
+        $('#' + current_edit).addClass(member_checked_CSSclass);
+        updateAmountOfCopiesOwned
+            (current_edit, new_val, current_edit_ele);
+        $('#addModal').modal('hide'); // Hide New Check Modal
+    }
+    updateStatisticsHTML(); updateURL();
+    current_edit = ""; // Clear current edit
+}
+
+/**
+ * Updates the amount of copies owned by the specified value.
+ * @param {string} id The ID of the unit to update.
+ * @param {number} new_val The new amount of copies owned.
+ * @param {string} s_element The target DOM element.
+ */
+function updateAmountOfCopiesOwned(id, new_val, s_element) {
+    if (!id) { return; }
+    const content = new_val > 1 ? additional_copies_text + new_val : "";
+    $(s_element).find(`#${additional_copies_prefix}${id}`).html(content);
+}
+
+/**
+ * Updates the URL to include the various URL options (Mash being SR,
+ * Class/Fast Modes being toggled).
+ */
+function updateURLOptionModeOnly() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const options = [
+        { key: mashuSR_parameter, value:
+            getMashuSRURLstring(false), storageKey: mashuSR_local },
+        { key: classmode_parameter, value:
+            getClassModeURLstring(), storageKey: class_mode_local },
+        { key: fastmode_parameter, value:
+            getFastModeURLstring(), storageKey: fast_mode_local },
+        { key: NAonly_parameter, value:
+            getNAonlyURLstring(), storageKey: NAonly_local }
+    ];
+    options.forEach(({ key, value, storageKey }) => {
+        if (value) {
+            urlParams.set(key, value.slice(-1));  // Remove '=' from value
+            localStorage[storageKey] = 1;
+        } else {
+            urlParams.delete(key);
+            localStorage[storageKey] = 0;
+        }
+    });
+    const newUrl = `${window.location.protocol}//${window.location.host}` +
+        `${window.location.pathname}?${urlParams.toString()}`;
+    window.history.pushState({ path: newUrl }, '', newUrl);
+}
+
+/**
+ * Finishes the UI setup process once all data has been handled.
+ * @param {object} servant_pass_data The data to display.
+ */
+function finishLoading(servant_pass_data) {
+    // Clear Contents
+    $(".listbox").hide();
+    $(".listbox_class").hide();
+    $(".listbox_fake").show();
+    // Convert User Data from Input
+    if (encoded_user_input !== null) {
+        var array_input = encoded_user_input.split(",");
+        for (var ii = 0, li = array_input.length; ii < li; ii++) {
+            var current_split = array_input[ii].split(">");
+            if (current_split[0] != "" && current_split[1] != "") {
+                user_data[current_split[0]] = parseInt(current_split[1]);
+            }
+        }
+    }
+    updateURL(); // Update URL
+    $.ajax({    // Ajax; Class Data
+        url: dataclasspath,
+        contentType: "application/json",
+        dataType: "json",
+        cache: false,
+        beforeSend: function(xhr) { if (xhr.overrideMimeType)
+            { xhr.overrideMimeType("application/json"); } },
+        success: function(outer_result) {
+            class_data_list = outer_result; // Inject Class Data
+            // If Passing
+            if (typeof servant_pass_data !== "undefined") {
+                buildUnitDataInUI(servant_pass_data); // Construct UI
+                return;
+            }
+            // Ajax; Unit Data
+            $.ajax({
+                url: isMashuSR() ? datapath_alternate : datapath,
+                contentType: "application/json",
+                dataType: "json",
+                cache: false,
+                beforeSend: function(xhr) { if (xhr.overrideMimeType)
+                    { xhr.overrideMimeType("application/json"); }
+                },
+                success: function(result) { buildUnitDataInUI(result); },
+                error: function(result) {
+                    alert("Error caching Unit Class Data on AJAX!"); // Alert
+                    $('#loadingModal').modal('hide'); // Close Loading Modal
+                }
+            });
+        },
+        error: function(result) {
+            alert("Error caching Unit Class Data on AJAX!"); // Alert
+            $('#loadingModal').modal('hide'); // Close Loading Modal
+        }
+    });
+}
+
+/**
+ * If the Padoru element containers exist (enabled during end of year holiday
+ * time), pick a random Padoru image from the available list.
+ */
+function pickRandomPadoru() {
+    var randomImg = padorus[Math.floor(Math.random() * padorus.length)];
+    $("#padoru-walker").attr('src', randomImg);
+}
+// }
+/*****************************************************************************/
+// SPECIFIC EVENT HANDLERS {
+/**
+ * Requests the shortening of the current URL and shows it to the user. Can
+ * additionally open share windows for Xwitter and Facebook if desired. If the
+ * URL can't be shortened, shows an error modal notifying the user.
+ * @param {string} site "Facebook", "Twitter" (opens new windows for direct
+ * sharing), or any other string (including an empty string) to just get the
+ * shortened URL.
+ */
+function shareURL(site) {
+    shortenURL().then((short_url) => {
+        if(short_url == undefined) { showURLShorteningError(); return; }
+        if (site == "facebook") {
+            showShortURLModal(short_url); // Share; Show Short URL
+            window.open("https://www.facebook.com/sharer.php?&u=" +
+                short_url,"","menubar=0"); // Share to FB
+        } else if (site == "twitter") {
+            showShortURLModal(short_url); // Share; Show Short URL
+            window.open("https://twitter.com/intent/tweet?url=" +
+                short_url + "&text=" + share_title + "&hashtags=" +
+                share_tags,"","menubar=0"); // Share to Xwitter
+        } else { showShortURLModal(short_url); }
+    });
+};
+
+/**
+ * Updates the URL each time a unit's data is changed to reflect the new
+ * collection status.
+ * @returns {boolean} True when the URL is successfully updated.
+ */
+function updateURL() {
+    // Sort keys and update raw input
+    user_data = orderKeys(user_data);
+    encoded_user_input = serializeCurrentDataForURLOutput(user_data);
+    var new_parameter = ""; // Initialize new parameter
+    // Compress user data and update buttons
+    if (encoded_user_input) {
+        compress_input =
+            LZString.compressToEncodedURIComponent(encoded_user_input);
+        new_parameter = `?${compress_input_parameter}=${compress_input}`;
+        $('#' + save_btn).prop('disabled', false);
+        $('#' + save_file_btn).prop('disabled', false);
+    } else {
+        compress_input = null;
+        $('#' + save_btn).prop('disabled', true);
+        $('#' + save_file_btn).prop('disabled', true);
+    }
+    // Add additional parameters
+    [getMashuSRURLstring(false), getClassModeURLstring(),
+        getFastModeURLstring(), getNAonlyURLstring()].forEach((param) => {
+        if (param)
+        { new_parameter += (new_parameter.includes("?") ? "&" : "?") + param; }
+    });
+    // Update URL
+    const newurl = `${window.location.protocol}//${window.location.host}` +
+        `${window.location.pathname}${new_parameter}`;
+    window.history.pushState({ path: newurl }, '', newurl);
+    return true;
+}
+
+/**
+ * Creates and opens a popup with the shortened URL of the currently active
+ * data.
+ * @param {string} url The shortened URL.
+ */
+function showShortURLModal(url) {
+    const $formGroup = $('<div>', { class: 'form-group' });
+    const $inputGroup = $('<div>', { class: 'input-group mb-3' });
+    const $input = $('<input>', {
+        type: 'text',
+        id: 'link-copy',
+        class: 'form-control',
+        value: url,
+        readonly: true
+    });
+    const $button = $('<button>', {
+        type: 'button',
+        class: 'btn btn-outline-secondary',
+        text: 'Copy',
+        id: 'copy_button'
+    })
+    console.log($button);
+    const $inputGroupAppend = $('<div>', { class: 'input-group-append' })
+        .append($button);
+    $inputGroup.append($input).append($inputGroupAppend);
+    $formGroup.append($inputGroup);
+    var url_dialog = bootbox.dialog({
+        message: $('<div>').append(share_text).append('<hr/>')
+            .append($formGroup).html()
+    });
+    url_dialog.init(function() { $('.bootbox').on('click', '#copy_button',
+            function() { copyToClipboard('link-copy'); }); });
+}
+
+/**
+ * Copies the resulting shortened URL to the clipboard.
+ */
+function copyToClipboard() {
+    var copyText = document.querySelector("#link-copy");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);  // Mobile-proof
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(copyText.value || copyText.defaultValue)
+            .then(function() { console.log('Clipboard copy success'); })
+            .catch(function(err) { console.error('Copy failed: ', err); });
+    } else { // Fallback for older browsers and insecure contexts
+        try {
+            document.execCommand("copy");
+            console.log('Fallback: old way of copying to clipboard');
+        } catch (err) { console.error('Fallback copy failed', err); }
+    }
+}
+// }
+/*****************************************************************************/
+// MISCELLANEOUS GETTERS
+/**
+ * Returns whether Fast Mode is activated.
+ * @returns {boolean} True if Fast Mode is on, False otherwise.
+ */
+function isFastMode()
+{ return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
+
+/**
+ * Returns whether Class Mode is activated.
+ * @returns {boolean} True if Class Mode is on, False otherwise.
+ */
+function isClassMode()
+{ return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
+
+/**
+ * Returns whether JP-only Servants should be hidden.
+ * @returns True if the hiding checkbox is checked, False otherwise.
+ */
+function isNAonly()
+{ return $('#' + NAonly_checkbox).is(':checked'); } // Hide JP Check
+
+/**
+ * Returns whether Mash is marked as SR.
+ * @returns {boolean} True if Mash is marked as SR, False otherwise.
+ */
+function isMashuSR()
+{ return $('#' + mashuSR_checkbox).is(':checked'); } // SR Mash Check
+
+/**
+ * Returns a string indicating the state of Fast Mode for URL injection.
+ * @returns {string} An empty string if Fast Mode is off;
+ * `{$fastmode_parameter}=1` if it's on.
+ */
+function getFastModeURLstring()
+{ return isFastMode() ? fastmode_parameter + "=1" : ""; }
+
+/**
+ * Returns a string indicating the state of Class Mode for URL injection.
+ * @returns {string} An empty string if Class Mode is off,
+ * `{$classmode_parameter}=1` if it's on.
+ */
+function getClassModeURLstring()
+{ return isClassMode() ? classmode_parameter + "=1" : ""; }
+
+/**
+ * Returns a string indicating whether JP-only units should be hidden.
+ * @returns {string} An empty string if "hide JP units" is off;
+ * `{$NAonly_parameter}=1` if it's on.
+ */
+function getNAonlyURLstring()
+{ return isNAonly() ? NAonly_parameter + "=1" : ""; }
+
+/**
+ * Returns the serialized form of the currently saved unit data.
+ * @returns {string} A string representation of the currently saved unit data.
+ */
+function getSerializedUnitData() {
+    return compress_input + (getMashuSRURLstring(false) ?
+        "&" + MashuIsSR : ''); // Get compress_input
+}
+
+/**
+ * Returns an URL component that determines if Mash should be treated as of SR
+ * rarity.
+ * @param {boolean} allowZero If false, returns "mash=1" if Mash is SR, and an
+ * empty string if she's not; true returns "mash=0" for URL shortening if she's
+ * not marked as SR.
+ * @returns {string} Empty string for general use if Mash isn't marked as SR,
+ * or "mash=0" for URL shortening; "mash=1" if she's marked as SR.
+ */
+function getMashuSRURLstring(allowZero) {
+    return isMashuSR() ?
+        `${mashuSR_parameter}=1` :
+        (allowZero ? `${mashuSR_parameter}=0` : "");
+}
+
+// }
+/*****************************************************************************/
+// MODALS AND DIALOGS {
+/**
+ * Displays a modal to inform the user that there was an issue with the URL
+ * shortening functionality, and that the current URL couldn't be shortened.
+ */
+function showURLShorteningError() {
+    var msg = "There has been an error with the URL shortening functionality" +
+        ". Your current data URL couldn'n be shortened.<br><br>More details" +
+        " can be found in your browser console.";
+    var error_dialog = bootbox.dialog({
+        message: msg,
+        buttons: {
+            confirm: { label: '<i class="fa fa-check"></i> Ok' }
+        }
+    });
+    error_dialog.init(function() { });
+}
+
+/**
  * Clears all selected data.
  */
 function clearAllData() {
@@ -1069,6 +1272,67 @@ function exportCanvasToImage() {
         }
     });
 }
+// }
+/*****************************************************************************/
+// DATA FUNCTIONS {
+/**
+ * Saves the currently selected data to localStorage.
+ */
+function saveLocalData() {
+    updateURL(); // Update URL First
+    if (compress_input == null) { return; } // Confirm compress_input not null
+    bootbox.confirm({ // Confirm
+        message: save_text,
+        buttons: {
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
+        },
+        callback: function (result) {
+            if (result) {
+                localStorage[list_local] = compress_input;
+                $('#' + load_btn).prop('disabled', false);
+                bootbox.alert(save_fin_text, null);
+            }
+        }
+    });
+}
+
+/**
+ * Confirms the removal of the currently selected unit.
+ */
+function removeUserData() {
+    if (current_edit == "" || current_edit_ele == null)
+        { return; } // Prevent Blank Key
+    bootbox.confirm({ // Confirm
+        message: member_uncheck_conf,
+        buttons: {
+            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
+            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
+        },
+        callback: function (result) {
+            if (result) {
+                var current_user_data =
+                    getStoredUnitData(current_edit); // Get User Data
+                if (current_user_data != null)
+                    { executeUserDataRemoval(current_edit); } // Delete Data
+                $('#' + current_edit)
+                    .removeClass(member_checked_CSSclass); // Update element
+                updateAmountOfCopiesOwned
+                    (current_edit, 0, current_edit_ele); // Update list value
+                $('#updateModal').modal('hide'); // Hide Update Check Modal
+                updateStatisticsHTML();
+                updateURL();
+                current_edit = ""; // clear current_edit
+            }
+        }
+    });
+}
+
+/**
+ * Removes the specified unit from local storage.
+ * @param {string} id The ID of the unit to remove.
+ */
+function executeUserDataRemoval(id) { delete user_data[id]; }
 
 /**
  * If data exists in the browser localStorage, confirms with the user whether
@@ -1093,79 +1357,6 @@ function loadLocalData() {
             }
         }
     });
-}
-
-/**
- * Saves the currently selected data to localStorage.
- */
-function saveLocalData() {
-    updateURL(); // Update URL First
-    if (compress_input == null) { return; } // Confirm compress_input not null
-    bootbox.confirm({ // Confirm
-        message: save_text,
-        buttons: {
-            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
-            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
-        },
-        callback: function (result) {
-            if (result) {
-                localStorage[list_local] = compress_input;
-                $('#' + load_btn).prop('disabled', false);
-                bootbox.alert(save_fin_text, null);
-            }
-        }
-    });
-}
-
-/**
- * Reads the uploaded file data and overwrites the currently displayed data.
- */
-function loadUploadedFileData() {
-    var input = document.getElementById(file_hidden_id);
-     if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var getFile = reader.result;
-            var n_txt = getFile
-                .startsWith(export_header + export_header_separator);
-            if (n_txt) {
-                var res = getFile.replace
-                    (export_header + export_header_separator, "");
-                return loadLocallySavedData(res);
-            } else { return bootbox.alert(load_fail_text, null); } // Alert
-        }
-        reader.readAsText(input.files[0]);
-    }
-}
-
-/**
- * Loads the data stored in localstorage and expands its contents to display in
- * the UI.
- * @param {string} getresult The locally saved data.
- */
-function loadLocallySavedData(getresult) {
-        // Clear User Data
-        user_data = {};
-        compress_input = "";
-        encoded_user_input = "";
-        // Get Value
-        compress_input = getresult;
-        if (compress_input == null || compress_input == undefined) {
-            compress_input = null
-            bootbox.alert(load_fail_text, null);
-            return;
-        }
-        // Get Raw
-        encoded_user_input =
-            LZString.decompressFromEncodedURIComponent(compress_input);
-        // Error; Stop
-        if (encoded_user_input == null || encoded_user_input == undefined) {
-            encoded_user_input = null;
-            bootbox.alert(load_fail_text, null);
-            return;
-        }
-        finishLoading(); // Update HTML
-        bootbox.alert(load_fin_text, null); // Alert
 }
 
 /**
@@ -1292,292 +1483,136 @@ function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
         }
     });
 }
-
+// }
+/*****************************************************************************/
+// GENERAL DOM INIT {
 /**
- * Finishes the UI setup process once all data has been handled.
- * @param {object} servant_pass_data The data to display.
+ * General setup for when the page is initially loaded and the DOM is ready.
  */
-function finishLoading(servant_pass_data) {
-    // Clear Contents
-    $(".listbox").hide();
-    $(".listbox_class").hide();
-    $(".listbox_fake").show();
-    // Convert User Data from Input
-    if (encoded_user_input !== null) {
-        var array_input = encoded_user_input.split(",");
-        for (var ii = 0, li = array_input.length; ii < li; ii++) {
-            var current_split = array_input[ii].split(">");
-            if (current_split[0] != "" && current_split[1] != "") {
-                user_data[current_split[0]] = parseInt(current_split[1]);
+$(async function() {
+    await fetchGlobalThreshold();
+    $('#loadingModal').modal('show'); // Show Loading Modal
+    var cookie = (getCookie(cookieName) === "true"); // Notice cookie check
+    if(cookie) { removeNoticeboard(); }
+    else { $("#noticeBoard").css("display", "block"); }
+    // Load File Prepare
+    $("#" + file_hidden_id).on("change", (function()
+        { loadUploadedFileData(); }));
+    var urlParams =
+        new URLSearchParams(window.location.search); // URL Params
+    custom_adapter =
+        $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
+    $('[data-toggle="tooltip"]').tooltip();
+    // Select2
+    list_new = $("#npAdd").select2({
+        theme: "bootstrap",
+        dataAdapter: custom_adapter,
+        data: copy_choice_allow
+    });
+    list_update = $("#npUpdate").select2({
+        theme: "bootstrap",
+        dataAdapter: custom_adapter,
+        data: copy_choice_allow
+    });
+    var MashuSR_input = urlParams.get(mashuSR_parameter);
+    var fastmode_input = urlParams.get(fastmode_parameter);
+    var classmode_input = urlParams.get(classmode_parameter);
+    var NAonly_input = urlParams.get(NAonly_parameter);
+    compress_input = urlParams.get(compress_input_parameter);
+    // Mash is SR
+    if (MashuSR_input != null) {
+        var Mashu_IS_SR = (parseInt(MashuSR_input) > 0);
+        $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
+    } else {
+        // Mash is SR
+        if (localStorage[mashuSR_local]) {
+            var Mashu_IS_SR = (parseInt(localStorage[mashuSR_local]) > 0);
+            $('#' + mashuSR_checkbox).prop('checked', Mashu_IS_SR);
+        }
+    }
+    // ClassMode
+    if (classmode_input != null) {
+        var classmode_enable = (parseInt(classmode_input) > 0);
+        $('#' + classmode_checkbox).prop('checked', classmode_enable);
+    } else {
+        // ClassMode
+        if (localStorage[class_mode_local]) {
+            var classmode_enable =
+                (parseInt(localStorage[class_mode_local]) > 0);
+            $('#' + classmode_checkbox).prop('checked', classmode_enable);
+        }
+    }
+    // FastMode
+    if (fastmode_input != null) {
+        var fastmode_enable = (parseInt(fastmode_input) > 0);
+        $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
+    } else {
+        // FastMode
+        if (localStorage[fast_mode_local]) {
+            var fastmode_enable =
+                (parseInt(localStorage[fast_mode_local]) > 0);
+            $('#' + fastmode_checkbox).prop('checked', fastmode_enable);
+        }
+    }
+    // NA only mode
+    if(NAonly_input != null) {
+        var NAonly_enable = (parseInt(NAonly_input) > 0);
+        $("#" + NAonly_checkbox).prop('checked', NAonly_enable);
+    } else {
+        if(localStorage[NAonly_local]) {
+            var NAonly_enable = (parseInt(localStorage[NAonly_local]) > 0);
+            $("#" + NAonly_checkbox).prop('checked', NAonly_enable);
+        }
+    }
+    // Load From URL
+    if (compress_input != null) {
+        encoded_user_input =
+            LZString.decompressFromEncodedURIComponent
+            (compress_input); // List Reader
+        finishLoading();
+    } else {
+        encoded_user_input = urlParams.get(raw_input_parameter);
+        if (encoded_user_input != null) { finishLoading(); }
+        else {
+            if (localStorage[list_local]) { loadLocalData(); } // List Reader
+            else {
+                encoded_user_input = ""; // Blank Raw
+                finishLoading();
             }
         }
     }
-    updateURL(); // Update URL
-    $.ajax({    // Ajax; Class Data
-        url: dataclasspath,
-        contentType: "application/json",
-        dataType: "json",
-        cache: false,
-        beforeSend: function(xhr) { if (xhr.overrideMimeType)
-            { xhr.overrideMimeType("application/json"); } },
-        success: function(outer_result) {
-            class_data_list = outer_result; // Inject Class Data
-            // If Passing
-            if (typeof servant_pass_data !== "undefined") {
-                buildUnitDataInUI(servant_pass_data); // Construct UI
-                return;
-            }
-            // Ajax; Unit Data
-            $.ajax({
-                url: isMashuSR() ? datapath_alternate : datapath,
-                contentType: "application/json",
-                dataType: "json",
-                cache: false,
-                beforeSend: function(xhr) { if (xhr.overrideMimeType)
-                    { xhr.overrideMimeType("application/json"); }
-                },
-                success: function(result) { buildUnitDataInUI(result); },
-                error: function(result) {
-                    alert("Error caching Unit Class Data on AJAX!"); // Alert
-                    $('#loadingModal').modal('hide'); // Close Loading Modal
-                }
-            });
-        },
-        error: function(result) {
-            alert("Error caching Unit Class Data on AJAX!"); // Alert
-            $('#loadingModal').modal('hide'); // Close Loading Modal
-        }
+    if (localStorage[list_local])
+        { $('#' + load_btn).prop('disabled', false); } // Load Button Status
+    // Set Checkbox Events
+    $('#' + fastmode_checkbox).on("change",
+        function () { updateURLOptionModeOnly(); });
+    $('#' + classmode_checkbox).on("change",
+        function () { updateClassMode(); });
+    $('#' + mashuSR_checkbox).on("change", function () { updateClassMode(); });
+    $('#' + NAonly_checkbox).on("change", function () { updateClassMode(); });
+    $('#rmvNotice').on("click", function() {
+        setCookie(cookieName, true);
+        removeNoticeboard();
     });
-}
-
-/**
- * Shortens the current data URL and returns the shortened URL. Multiple
- * providers are configured to be polled, and the returned URL will be from the
- * provider that responds the fastest.
- */
-async function shortenURL() {
-    // Warn user if no data
-    if (compress_input == "") { bootbox.alert(share_none_text); }
-    // Gather the full URL for shortening
-    var mashuSR_str = getMashuSRURLstring(true);
-    var full_url = window.location.protocol + "//" + window.location.host +
-        window.location.pathname + "?" + compress_input_parameter + "=" +
-        compress_input + (mashuSR_str !== "" ? "&" + mashuSR_str : "");
-    if (full_url.includes("localhost") || full_url.includes("127.0.0.1")) {
-        full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
-    }
-    /*******************************/
-    /*     Shortening services     */
-    /*******************************/
-    /**
-     * Shortens the current data URL with waa.ai/Akari-chan shortener.
-     * @returns {Promise<void>} A promise that resolves upon successfully
-     * shortening the current URL.
-     */
-    function waaai() {
-        return new Promise((resolve) => {
-            var ajaxdata = JSON.stringify({ url: full_url });
-            var ajaxrequest = {
-                headers: {
-                    Authorization:
-                        "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
-                },
-                url: "https://api.waa.ai/v2/links",
-                dataType: "json",
-                contentType: "application/json",
-                method: "POST",
-                data: ajaxdata,
-                success: function (result) {
-                    resolve({ serviceProvider: "Akari-chan",
-                        value: result.data.link });
-                }
-            };
-            $.ajax(ajaxrequest);
-        });
-    }
-    /**
-     * Shortens the current data URL with is.gd shortener.
-     * @returns {Promise<void>} A promise that resolves upon successfully
-     * shortening the current URL.
-     */
-    function isgd() {
-        return new Promise((resolve) => {
-            //var ajaxdata = JSON.stringify({  });
-            var ajaxrequest = {
-                url: "https://is.gd/create.php",
-                dataType: "json",
-                data: { format: "json", url: full_url },
-                success: function (result) {
-                    resolve({ serviceProvider: "is.gd",
-                        value: result.shorturl });
-                }
-            };
-            $.ajax(ajaxrequest);
-        });
-    }
-    /**
-     * Shortens the current data URL with owo.vc shortener.
-     * @returns {Promise<void>} A promise that resolves upon successfully
-     * shortening the current URL.
-     */
-    function owo() {
-        return new Promise((resolve) => {
-            var ajaxdata =
-                JSON.stringify({ link: full_url, generator: "owo",
-                    metadata: "IGNORE" });
-            var ajaxrequest = {
-                contentType: 'application/json; charset=utf-8',
-                url: "https://owo.vc/api/v2/link",
-                method: "POST",
-                dataType: "json",
-                data: ajaxdata,
-                success: function (result) {
-                    resolve({ serviceProvider: "owo", value: result.id });
-                }
-            };
-            $.ajax(ajaxrequest);
-        });
-    }
-    const shortProviders = [isgd(), waaai(), owo()];
-    //const shortProviders = [()];      // used for testing new providers
-    try {
-        const result = await Promise.any(shortProviders);
-        if (!result.value) { throw new
-            Error("All promises returned undefined."); }
-        return result.value;
-    } catch (err) { console.error(err); return undefined; }
-}
-
-/**
- * Requests the shortening of the current URL and shows it to the user. Can
- * additionally open share windows for Xwitter and Facebook if desired. If the
- * URL can't be shortened, shows an error modal notifying the user.
- * @param {string} site "Facebook", "Twitter" (opens new windows for direct
- * sharing), or any other string (including an empty string) to just get the
- * shortened URL.
- */
-function shareURL(site) {
-    shortenURL().then((short_url) => {
-        if(short_url == undefined) { showURLShorteningError(); return; }
-        if (site == "facebook") {
-            showShortURLModal(short_url); // Share; Show Short URL
-            window.open("https://www.facebook.com/sharer.php?&u=" +
-                short_url,"","menubar=0"); // Share to FB
-        } else if (site == "twitter") {
-            showShortURLModal(short_url); // Share; Show Short URL
-            window.open("https://twitter.com/intent/tweet?url=" +
-                short_url + "&text=" + share_title + "&hashtags=" +
-                share_tags,"","menubar=0"); // Share to Xwitter
-        } else { showShortURLModal(short_url); }
+    // Set Modal Closing Event
+    $("#addModal").on("hidden.bs.modal", function () {
+        current_edit = "";
+        current_edit_ele = null;
     });
-};
-
-/**
- * Creates and opens a popup with the shortened URL of the currently active
- * data.
- * @param {string} url The shortened URL.
- */
-function showShortURLModal(url) {
-    const $formGroup = $('<div>', { class: 'form-group' });
-    const $inputGroup = $('<div>', { class: 'input-group mb-3' });
-    const $input = $('<input>', {
-        type: 'text',
-        id: 'link-copy',
-        class: 'form-control',
-        value: url,
-        readonly: true
+    $("#updateModal").on("hidden.bs.modal", function () {
+        current_edit = "";
+        current_edit_ele = null;
     });
-    const $button = $('<button>', {
-        type: 'button',
-        class: 'btn btn-outline-secondary',
-        text: 'Copy',
-        id: 'copy_button'
-    })
-    console.log($button);
-    const $inputGroupAppend = $('<div>', { class: 'input-group-append' })
-        .append($button);
-    $inputGroup.append($input).append($inputGroupAppend);
-    $formGroup.append($inputGroup);
-    var url_dialog = bootbox.dialog({
-        message: $('<div>').append(share_text).append('<hr/>')
-            .append($formGroup).html()
-    });
-    url_dialog.init(function() { $('.bootbox').on('click', '#copy_button',
-            function() { copyToClipboard('link-copy'); }); });
-}
-
-/**
- * Displays a modal to inform the user that there was an issue with the URL
- * shortening functionality, and that the current URL couldn't be shortened.
- */
-function showURLShorteningError() {
-    var msg = "There has been an error with the URL shortening functionality" +
-        ". Your current data URL couldn'n be shortened.<br><br>More details" +
-        " can be found in your browser console.";
-    var error_dialog = bootbox.dialog({
-        message: msg,
-        buttons: {
-            confirm: { label: '<i class="fa fa-check"></i> Ok' }
-        }
-    });
-    error_dialog.init(function() { });
-}
-
-/**
- * Copies the resulting shortened URL to the clipboard.
- */
-function copyToClipboard() {
-    var copyText = document.querySelector("#link-copy");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);  // Mobile-proof
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(copyText.value || copyText.defaultValue)
-            .then(function() { console.log('Clipboard copy success'); })
-            .catch(function(err) { console.error('Copy failed: ', err); });
-    } else { // Fallback for older browsers and insecure contexts
-        try {
-            document.execCommand("copy");
-            console.log('Fallback: old way of copying to clipboard');
-        } catch (err) { console.error('Fallback copy failed', err); }
+    try { var isFileSaverSupported = !!new Blob; } // Check for FileSaver.js
+    catch (e) {
+        $("#loadbutton_f").prop("disabled", "disabled");
+        $("#savebutton_f").prop("disabled", "disabled");
+        $("#page_whatami").append("<br><b>NOTICE:</b> FileSaver.js " +
+            "functionality not supported! Upload &amp; Download " +
+            "buttons have been disabled.");
     }
-}
-
-/**
- * Gets the value of a cookie with the specified name.
- * @param {string} name The name of the cookie to get.
- * @returns {string} The value of the cookie if it exists; null if it doesn't.
- */
-function getCookie(name) {
-    var equals = name + "=", i = 0;
-    var cookies = document.cookie.split(';');
-    for (i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        while (cookie.charAt(0) == ' ')
-            { cookie = cookie.substring(1, cookie.length); }
-        if(cookie.indexOf(equals) == 0)
-            { return cookie.substring(equals.length, cookie.length); }
+    if ($('#walk-container').length && $('#padoru-walker').length) {
+        pickRandomPadoru();
     }
-    return null;
-}
-
-/**
- * Sets a cookie.
- * @param {string} name The name of the cookie.
- * @param {any} value The desired value of the cookie.
- */
-function setCookie(name, value) {
-    var date = new Date();
-    date.setFullYear(date.getFullYear() + 100);
-    var cookie = name + "=" + (value || "") + "; expires=" +
-        date.toUTCString() + "; path=/";
-    document.cookie = cookie;
-}
-
-/**
- * Removes the noticeboard at the top.
- */
-function removeNoticeboard() {
-    $('#noticeBoard').slideUp(function() {
-        $(this).remove(); // Removes the element after the animation completes
-    });
-}
+});
+// }
