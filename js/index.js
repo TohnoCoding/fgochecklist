@@ -545,7 +545,7 @@ function buildUnitDataInUI(units_data) {
     $(".listbox, .listbox_class").empty(); // Clear contents
     var list_box = [], list_img = [];
     var img_default = getImagePath(icondefault, icondefault_external_source);
-    list_img.push(loadSprite(img_default)); // Add Default Photo
+    list_img.push(loadSprite(img_default)); // Add default photo
     units_data.forEach(function(current_rarity) {
         if (current_rarity.disable) { return; } // Skip if disabled
         var curr_element = `#${current_rarity.list_element}`;
@@ -659,7 +659,7 @@ function buildUnitDataInUI(units_data) {
                 $(`${curr_element}_${current_servant.class}`)
                     .append(unit_container);
             } else { $(curr_element).append(unit_container); }
-            // Unbind + rebind event listeners
+            // Unbind then rebind event listeners
             $(unit_container).off('click contextmenu');
             const event_listener_element = $(unit_container)
                 .find(`.${member_container_CSSclass}`).first();
@@ -770,7 +770,7 @@ function elementLeftClick(s_element) {
     var name = $(s_element).data("original-title");
     // Fast Mode, Change Value Directly
     if (isFastMode()) {
-        updateUnitDataInFastMode(id, 1, s_element); // Change Value
+        updateUnitDataInFastMode(id, 1, s_element); // Change value
         return; // Stop
     }
     // Mark current_edit
@@ -781,16 +781,16 @@ function elementLeftClick(s_element) {
     // New Check or Update
     if (current_user_data != null) {
         getNewCopySource(current_edit_max, list_update); // Select 2
-        $('#nameUpdate').html(name); // Update Modal String
+        $('#nameUpdate').html(name); // Update modal string
         $('#npUpdate').val(current_user_data)
-            .trigger('change'); // Reset Modal Choice to Current
-        $('#updateModal').modal('show'); // Show Update Check Modal
+            .trigger('change'); // Reset modal choice to current
+        $('#updateModal').modal('show'); // Show update check modal
     } else {
         getNewCopySource(current_edit_max, list_new); // Select 2
-        $('#nameAdd').html(name); // Update Modal String
+        $('#nameAdd').html(name); // Update modal string
         $('#npAdd').val(copy_choice_default)
-            .trigger('change'); // Reset Modal Choice to Default
-        $('#addModal').modal('show'); // Show New Check Modal
+            .trigger('change'); // Reset modal choice to default
+        $('#addModal').modal('show'); // Show new check modal
     }
 }
 
@@ -815,7 +815,7 @@ function openFileUploadPrompt()
  * Updates the UI whenever Class Mode is toggled.
  */
 function updateClassMode()
-{ updateURLOptionModeOnly(); finishLoading(); } // Class Mode Change
+{ updateURLOptionModeOnly(); finishLoading(); } // Class mode change
 
 /**
  * Removes the noticeboard at the top.
@@ -844,15 +844,15 @@ function updateUnitDataInFastMode(id, val, s_element) {
     var current_user_data = getStoredUnitData(id);
     var current_edit_max = servants_data_list[id].maxcopy;
     if (current_edit_max > copy_choice_max)
-        { current_edit_max = copy_choice_max; } // Prevent Over Data
+        { current_edit_max = copy_choice_max; } // Prevent data overflow
     // New Check or Update
     if (current_user_data != null) {
-        var new_val = current_user_data + val; // Get New Value
+        var new_val = current_user_data + val; // Get new value
         if (new_val <= 0 || new_val > current_edit_max) {
             // Remove Instead
             $(s_element).removeClass(member_checked_CSSclass);
             updateAmountOfCopiesOwned(id, 0, s_element);
-            executeUserDataRemoval(id); // Clear Number
+            executeUserDataRemoval(id); // Clear number
         } else {
             user_data[id] = new_val; // Update user data
             updateAmountOfCopiesOwned(id, new_val, s_element);
@@ -877,21 +877,21 @@ function updateUnitDataInFastMode(id, val, s_element) {
 function updateUnitData() {
     if (current_edit == "" || current_edit_ele == null)
         { return; } // Prevent Blank Key
-    var current_user_data = getStoredUnitData(current_edit); // Get User Data
+    var current_user_data = getStoredUnitData(current_edit); // Get user data
     // New Check or Update
     if (current_user_data != null) {
-        var new_val = parseInt($('#npUpdate').val()); // Get New Value
+        var new_val = parseInt($('#npUpdate').val()); // Get new value
         user_data[current_edit] = new_val; // Update user data
         updateAmountOfCopiesOwned
             (current_edit, new_val, current_edit_ele);
-        $('#updateModal').modal('hide'); // Hide Update Check Modal
+        $('#updateModal').modal('hide'); // Hide update check modal
     } else {
-        var new_val = parseInt($('#npAdd').val()); // Get New Value
+        var new_val = parseInt($('#npAdd').val()); // Get new value
         user_data[current_edit] = new_val; // Add user data
         $('#' + current_edit).addClass(member_checked_CSSclass);
         updateAmountOfCopiesOwned
             (current_edit, new_val, current_edit_ele);
-        $('#addModal').modal('hide'); // Hide New Check Modal
+        $('#addModal').modal('hide'); // Hide new check modal
     }
     updateStatisticsHTML(); updateURL();
     current_edit = ""; // Clear current edit
@@ -959,7 +959,7 @@ function finishLoading(servant_pass_data) {
         }
     }
     updateURL(); // Update URL
-    $.ajax({    // Ajax; Class Data
+    $.ajax({    // Ajax; Class data
         url: dataclasspath,
         contentType: "application/json",
         dataType: "json",
@@ -967,13 +967,13 @@ function finishLoading(servant_pass_data) {
         beforeSend: function(xhr) { if (xhr.overrideMimeType)
             { xhr.overrideMimeType("application/json"); } },
         success: function(outer_result) {
-            class_data_list = outer_result; // Inject Class Data
+            class_data_list = outer_result; // Inject class data
             // If Passing
             if (typeof servant_pass_data !== "undefined") {
                 buildUnitDataInUI(servant_pass_data); // Construct UI
                 return;
             }
-            // Ajax; Unit Data
+            // Ajax; Unit data
             $.ajax({
                 url: isMashuSR() ? datapath_alternate : datapath,
                 contentType: "application/json",
@@ -985,13 +985,13 @@ function finishLoading(servant_pass_data) {
                 success: function(result) { buildUnitDataInUI(result); },
                 error: function(result) {
                     alert("Error caching Unit Class Data on AJAX!"); // Alert
-                    $('#loadingModal').modal('hide'); // Close Loading Modal
+                    $('#loadingModal').modal('hide'); // Close loading modal
                 }
             });
         },
         error: function(result) {
             alert("Error caching Unit Class Data on AJAX!"); // Alert
-            $('#loadingModal').modal('hide'); // Close Loading Modal
+            $('#loadingModal').modal('hide'); // Close loading modal
         }
     });
 }
@@ -1000,7 +1000,22 @@ function finishLoading(servant_pass_data) {
  * If the Padoru element containers exist (enabled during end of year holiday
  * time), pick a random Padoru image from the available list.
  */
-function pickRandomPadoru() {
+function checkDateToInjectPadoru() {
+    const today = new Date();
+    const holidayStart = new Date(today.getFullYear(), 10, 28);  // Nov/28th
+    const holidayEnd = new Date(today.getFullYear() + 
+        (today.getMonth() === 0 ? -1 : 0), 0, 3); // Jan/3rd
+    if (today < holidayStart && today > holidayEnd) { return; }
+    $('head').append($('<link>', {
+        'rel': "stylesheet",
+        'type': "text/css",
+        'href': "css/SitePadoru.css",
+        'crossorigin': "anonymous"
+    }));
+    $("#walk-container").append($('<img>', {
+        'class': "d-inline-block align-top",
+        'id': "padoru-walker"
+    }));
     const randomImg = padorus[Math.floor(Math.random() * padorus.length)];
     $("#padoru-walker").attr('src', randomImg);
 }
@@ -1019,11 +1034,11 @@ function shareURL(site) {
     shortenURL().then((short_url) => {
         if(short_url == undefined) { showURLShorteningError(); return; }
         if (site == "facebook") {
-            showShortURLModal(short_url); // Share; Show Short URL
+            showShortURLModal(short_url); // Share; show short URL
             window.open("https://www.facebook.com/sharer.php?&u=" +
                 short_url,"","menubar=0"); // Share to FB
         } else if (site == "twitter") {
-            showShortURLModal(short_url); // Share; Show Short URL
+            showShortURLModal(short_url); // Share; show short URL
             window.open("https://twitter.com/intent/tweet?url=" +
                 short_url + "&text=" + share_title + "&hashtags=" +
                 share_tags,"","menubar=0"); // Share to Xwitter
@@ -1126,28 +1141,28 @@ function copyToClipboard() {
  * @returns {boolean} True if Fast Mode is on, False otherwise.
  */
 function isFastMode()
-{ return $('#' + fastmode_checkbox).is(':checked'); } // FastMode Check
+{ return $('#' + fastmode_checkbox).is(':checked'); } // FastMode check
 
 /**
  * Returns whether Class Mode is activated.
  * @returns {boolean} True if Class Mode is on, False otherwise.
  */
 function isClassMode()
-{ return $('#' + classmode_checkbox).is(':checked'); } // ClassMode Check
+{ return $('#' + classmode_checkbox).is(':checked'); } // ClassMode check
 
 /**
  * Returns whether JP-only Servants should be hidden.
  * @returns True if the hiding checkbox is checked, False otherwise.
  */
 function isNAonly()
-{ return $('#' + NAonly_checkbox).is(':checked'); } // Hide JP Check
+{ return $('#' + NAonly_checkbox).is(':checked'); } // Hide JP check
 
 /**
  * Returns whether Mash is marked as SR.
  * @returns {boolean} True if Mash is marked as SR, False otherwise.
  */
 function isMashuSR()
-{ return $('#' + mashuSR_checkbox).is(':checked'); } // SR Mash Check
+{ return $('#' + mashuSR_checkbox).is(':checked'); } // SR Mash check
 
 /**
  * Returns a string indicating the state of Fast Mode for URL injection.
@@ -1229,9 +1244,9 @@ function clearAllData() {
         },
         callback: function (result) {
             if (result) {
-                user_data = {}; // Clear User Data
-                compress_input = ""; // Clear Raw Input
-                encoded_user_input = ""; // Clear Raw Input
+                user_data = {}; // Clear user data
+                compress_input = ""; // Clear raw input
+                encoded_user_input = ""; // Clear raw input
                 finishLoading();
             }
         }
@@ -1252,7 +1267,7 @@ function exportCanvasToImage() {
         },
         callback: function (result) {
             if (result) {
-                $('#loadingModal').modal('show'); // Show Loading Modal
+                $('#loadingModal').modal('show'); // Show loading modal
                 html2canvas($('#' + capture_area)[0], { useCORS: true })
                     .then(function(canvas) {
                         // canvas is the final rendered <canvas> element
@@ -1263,11 +1278,11 @@ function exportCanvasToImage() {
                             .replace("image/jpeg", "image/octet-stream");
                         alink.download = export_filename
                             .replace('_', '-').replace("fgol", "jpg");
-                        //Firefox requires the link to be in the body
+                        // Firefox requires the link to be in the body
                         document.body.appendChild(alink);
                         alink.click();
-                        document.body.removeChild(alink); // remove when done
-                        $('#loadingModal').modal('hide'); // close modal
+                        document.body.removeChild(alink); // Remove when done
+                        $('#loadingModal').modal('hide'); // Close modal
                     });
             }
         }
@@ -1313,17 +1328,17 @@ function removeUserData() {
         callback: function (result) {
             if (result) {
                 var current_user_data =
-                    getStoredUnitData(current_edit); // Get User Data
+                    getStoredUnitData(current_edit); // Get user data
                 if (current_user_data != null)
-                    { executeUserDataRemoval(current_edit); } // Delete Data
+                    { executeUserDataRemoval(current_edit); } // Delete data
                 $('#' + current_edit)
                     .removeClass(member_checked_CSSclass); // Update element
                 updateAmountOfCopiesOwned
                     (current_edit, 0, current_edit_ele); // Update list value
-                $('#updateModal').modal('hide'); // Hide Update Check Modal
+                $('#updateModal').modal('hide'); // Hide update check modal
                 updateStatisticsHTML();
                 updateURL();
-                current_edit = ""; // clear current_edit
+                current_edit = ""; // Clear current_edit
             }
         }
     });
@@ -1348,8 +1363,8 @@ function loadLocalData() {
         },
         callback: function (result) {
             if (result) {
-                $('#loadingModal').modal('show'); // Show Loading Modal
-                loadLocallySavedData(localStorage[list_local]); // Load List
+                $('#loadingModal').modal('show'); // Show loading modal
+                loadLocallySavedData(localStorage[list_local]); // Load list
             } else {
                 if (encoded_user_input == null) {
                     encoded_user_input = ""; // Blank out raw input
@@ -1423,7 +1438,7 @@ function promptOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
  * to operate on all units.
  */
 function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
-    $('#loadingModal').modal('show'); // Open Loading Modal
+    $('#loadingModal').modal('show'); // Open loading modal
     // Ajax; Unit Data
     $.ajax({
         url: isMashuSR() ? datapath_alternate : datapath,
@@ -1437,9 +1452,9 @@ function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
             if (typeof input_rarity !== "undefined" &&
                 typeof input_class !== "undefined") {
                     jump_to_target =
-                        input_rarity + "_" + input_class; // Create Jump Target
+                        input_rarity + "_" + input_class; // Create jump target
                     var tem_list = servants_data.filter(function(item)
-                        { return item.list_id == input_rarity; }); // Make List
+                        { return item.list_id == input_rarity; }); // Make list
                     var current_list = tem_list[0].list;
                     for (var i = 0, l = current_list.length; i < l; i++) {
                         var curr_servant = current_list[i];
@@ -1458,7 +1473,7 @@ function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
             } else {
                 // Update User Input
                 for (var aa = 0, ll = servants_data.length; aa < ll; aa++) {
-                    // list get
+                    // List get
                     var current_rarity = servants_data[aa];
                     var current_list = current_rarity.list;
                     for (var i = 0, l = current_list.length; i < l; i++) {
@@ -1475,12 +1490,12 @@ function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
                     }
                 }
             }
-            encoded_user_input = null; // Clear Raw Input
-            finishLoading(result); // Send to Finish
+            encoded_user_input = null; // Clear raw input
+            finishLoading(result); // Send to finish
         },
         error: function(result) {
             alert("Error attempting to select all data!"); // Alert
-            $('#loadingModal').modal('hide'); // Close Loading Modal
+            $('#loadingModal').modal('hide'); // Close loading modal
         }
     });
 }
@@ -1500,7 +1515,7 @@ $(async function() {
     $("#" + file_hidden_id).on("change", (function()
         { loadUploadedFileData(); }));
     var urlParams =
-        new URLSearchParams(window.location.search); // URL Params
+        new URLSearchParams(window.location.search); // URL parameters
     custom_adapter =
         $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
     $('[data-toggle="tooltip"]').tooltip();
@@ -1575,15 +1590,15 @@ $(async function() {
         encoded_user_input = urlParams.get(raw_input_parameter);
         if (encoded_user_input != null) { finishLoading(); }
         else {
-            if (localStorage[list_local]) { loadLocalData(); } // List Reader
+            if (localStorage[list_local]) { loadLocalData(); } // List reader
             else {
-                encoded_user_input = ""; // Blank Raw
+                encoded_user_input = ""; // Blank raw
                 finishLoading();
             }
         }
     }
     if (localStorage[list_local])
-        { $('#' + load_btn).prop('disabled', false); } // Load Button Status
+        { $('#' + load_btn).prop('disabled', false); } // Load button status
     // Set Checkbox Events
     $('#' + fastmode_checkbox).on("change",
         function () { updateURLOptionModeOnly(); });
@@ -1612,8 +1627,6 @@ $(async function() {
             "functionality not supported! Upload &amp; Download " +
             "buttons have been disabled.");
     }
-    if ($('#walk-container').length && $('#padoru-walker').length) {
-        pickRandomPadoru();
-    }
+    checkDateToInjectPadoru();
 });
 // }
