@@ -998,9 +998,7 @@ function finishLoading(servant_pass_data) {
 
 /**
  * If the date is within the appropriate range (set to between November 28th
- * and January 3rd), or the URL has the `forcepadoru` variable, inject the
- * holiday Padoru CSS. (If `nopadoru` is specified, nothing gets injected
- * regardless of whether `forcepadoru` is found elsewhere in the URL.)
+ * and January 3rd), inject the holiday Padoru CSS.
  */
 function checkDateToInjectPadoru() {
     const today = new Date();
