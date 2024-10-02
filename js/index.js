@@ -997,8 +997,8 @@ function finishLoading(servant_pass_data) {
 }
 
 /**
- * If the Padoru element containers exist (enabled during end of year holiday
- * time), pick a random Padoru image from the available list.
+ * If the date is within the appropriate range (set to between November 28th
+ * and January 3rd), inject the Padoru CSS and scrolling element.
  */
 function checkDateToInjectPadoru() {
     const today = new Date();
