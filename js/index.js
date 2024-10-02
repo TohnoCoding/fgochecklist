@@ -1002,25 +1002,13 @@ function finishLoading(servant_pass_data) {
  * holiday Padoru CSS. (If `nopadoru` is specified, nothing gets injected
  * regardless of whether `forcepadoru` is found elsewhere in the URL.)
  */
-function checkDateAndParamsToInjectPadoru() {
-    const urlparams = new URLSearchParams(window.location.search);
-    if (urlparams.has("nopadoru")) { return; } // Do nothing if "nopadoru"
-    if (urlparams.has("forcepadoru"))
-        { injectPadoru(); return; } // Force Padoru inject if "forcepadoru"
+function checkDateToInjectPadoru() {
     const today = new Date();
     const currMonth = today.getMonth();
     const currDay = today.getDate();
     if ((currMonth < 10 || (currMonth === 10 && currDay < 28)) // Before Nov 28
         || (currMonth === 0 && currDay > 3)) // After Jan 3
         { return; } // Do nothing if outside the above date range
-    injectPadoru();
-}
-
-/**
- * Injects the necessary elements to load the holiday Padoru CSS and elements
- * into the DOM.
- */
-function injectPadoru() {
     $('head').append($('<link>', {
         'rel': "stylesheet",
         'type': "text/css",
@@ -1093,7 +1081,6 @@ function updateURL() {
     const newurl = `${window.location.protocol}//${window.location.host}` +
         `${window.location.pathname}${new_parameter}`;
     window.history.pushState({ path: newurl }, '', newurl);
-    return true;
 }
 
 /**
@@ -1642,6 +1629,6 @@ $(async function() {
             "functionality not supported! Upload &amp; Download " +
             "buttons have been disabled.");
     }
-    checkDateAndParamsToInjectPadoru();
+    checkDateToInjectPadoru();
 });
 // }
