@@ -998,14 +998,29 @@ function finishLoading(servant_pass_data) {
 
 /**
  * If the date is within the appropriate range (set to between November 28th
- * and January 3rd), inject the Padoru CSS and scrolling element.
+ * and January 3rd), or the URL has the `forcepadoru` variable, inject the
+ * holiday Padoru CSS. (If `nopadoru` is specified, nothing gets injected
+ * regardless of whether `forcepadoru` is found elsewhere in the URL.)
  */
-function checkDateToInjectPadoru() {
+function checkDateAndParamsToInjectPadoru() {
+    const urlparams = new URLSearchParams(window.location.search);
+    if (urlparams.has("nopadoru")) { return; } // Do nothing if "nopadoru"
+    if (urlparams.has("forcepadoru"))
+        { injectPadoru(); return; } // Force Padoru inject if "forcepadoru"
     const today = new Date();
-    const holidayStart = new Date(today.getFullYear(), 10, 28);  // Nov/28th
-    const holidayEnd = new Date(today.getFullYear() + 
-        (today.getMonth() === 0 ? -1 : 0), 0, 3); // Jan/3rd
-    if (today < holidayStart && today > holidayEnd) { return; }
+    const currMonth = today.getMonth();
+    const currDay = today.getDate();
+    if ((currMonth < 10 || (currMonth === 10 && currDay < 28)) // Before Nov 28
+        || (currMonth === 0 && currDay > 3)) // After Jan 3
+        { return; } // Do nothing if outside the above date range
+    injectPadoru();
+}
+
+/**
+ * Injects the necessary elements to load the holiday Padoru CSS and elements
+ * into the DOM.
+ */
+function injectPadoru() {
     $('head').append($('<link>', {
         'rel': "stylesheet",
         'type': "text/css",
@@ -1627,6 +1642,6 @@ $(async function() {
             "functionality not supported! Upload &amp; Download " +
             "buttons have been disabled.");
     }
-    checkDateToInjectPadoru();
+    checkDateAndParamsToInjectPadoru();
 });
 // }
