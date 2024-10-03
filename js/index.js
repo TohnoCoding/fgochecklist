@@ -814,8 +814,10 @@ function openFileUploadPrompt()
 /**
  * Updates the UI whenever Class Mode is toggled.
  */
-function updateClassMode()
-{ updateURLOptionModeOnly(); finishLoading(); } // Class mode change
+function updateClassMode() {  // Class mode change
+    updateURLOptionModeOnly(); finishLoading();
+    if(!isClassMode()) { $('.row').toggleClass('center-portraits'); } 
+} 
 
 /**
  * Removes the noticeboard at the top.
