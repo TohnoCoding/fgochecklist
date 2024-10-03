@@ -5,7 +5,7 @@
   -webkit-transform: translateY(50%);
   -ms-transform: translateY(50%);
   transform: translateY(50%);
-  font-size: 0.8em;
+  font-size: 0.8em;  
 }
 
 .btn-data {
@@ -171,32 +171,21 @@ div.member-eventonly {
     .icon-bar { transform: scale(0.65); right: 0px; top: 2%; }
 }
 
-@media screen and (orientation: portrait) and (min-width: 768px) {
+@media screen and (orientation: portrait) { /* I HATE MOBILE SO DAMN MUCH */
     #buttonsArea { width: 40% !important; }
+    
     #checkboxArea { padding-right: 4em !important; }
-}
 
-@media screen and (max-aspect-ratio: 16/9) { /* TODO: ADJUST FOR MOBILE */
+    .icon-bar {
+        right: 5% !important;
+    }
+    
     .container {
-        max-width: 90%;
-    }
-
-    .col-1 {
-        margin-left: 15px !important;
-        margin-right: 15px !important;
-        margin-bottom: 15px !important;
-    }
-    
-    .member-container {
-        transform: scale(1.3);
-    }
-    
-    .member-np {
-        transform: scale(0.6);
-        margin-right: -5px;
-        margin-bottom: -5px;
+        max-width: 95% !important;
     }
 }
+
+.listbox { justify-content: center; }
 
 .statsColumn {
     max-width: 49.5%;

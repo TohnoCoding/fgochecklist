@@ -814,17 +814,15 @@ function openFileUploadPrompt()
 /**
  * Updates the UI whenever Class Mode is toggled.
  */
-function updateClassMode() {  // Class mode change
-    updateURLOptionModeOnly(); finishLoading();
-    if(!isClassMode()) { $('.row').toggleClass('center-portraits'); } 
-} 
+function updateClassMode()
+{ updateURLOptionModeOnly(); finishLoading(); }   // Class mode change
 
 /**
  * Removes the noticeboard at the top.
  */
 function removeNoticeboard() {
     $('#noticeBoard').slideUp(function() {
-        $(this).remove(); // Removes the element after the animation completes
+        $(this).remove(); // Removes element after animation completes
     });
 }
 
