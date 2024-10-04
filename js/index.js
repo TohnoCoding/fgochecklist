@@ -820,11 +820,8 @@ function updateClassMode()
 /**
  * Removes the noticeboard at the top.
  */
-function removeNoticeboard() {
-    $('#noticeBoard').slideUp(function() {
-        $(this).remove(); // Removes element after animation completes
-    });
-}
+function removeNoticeboard() // Removes element after animation completes
+{ $('#noticeBoard').slideUp(function() { $(this).remove(); }); }
 
 /**
  * Toggles the display of the unique icon identifiers for each category of
