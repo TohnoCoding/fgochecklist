@@ -177,7 +177,10 @@ div.member-eventonly {
     #checkboxArea { padding-right: 4em !important; }
 
     .icon-bar {
-        right: 5% !important;
+        right: 1% !important;
+        background-color: white;
+        border-radius: 5%;
+        top: -13%;
     }
     
     .container {
@@ -222,6 +225,7 @@ div.member-eventonly {
     margin-bottom: 5px !important;
     width: 49%;
     padding: 5px 1px !important;
+    min-width: 9em;
 }
 
 #headerCard { border: none; }
@@ -234,7 +238,7 @@ div.member-eventonly {
 
 #buttonsArea { padding-right: 2.75em; }
 
-.tableCell { width: 50%; }
+/* .tableCell { width: 50%; } */
 
 .form-check-input { margin-left: 1em; }
 
@@ -268,13 +272,14 @@ div.member-eventonly {
 .newFeature {
     background-color: red;
     color: white;
-    padding: 0.6% 1%;
+    padding: 0.6% 1.6%;
     animation: blink 0.5s step-start infinite;
     font-variant-caps: all-small-caps;
     padding-top: 0;
     padding-bottom: 3px;
+    display: inline-block;
 }
 
-.newFeature::before { content: '<NEW!>'; }
+.newFeature::before { content: 'NEW!'; }
 
 @keyframes blink { 50% { color: transparent; } } 
