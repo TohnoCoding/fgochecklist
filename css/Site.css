@@ -143,6 +143,9 @@ div.member-eventonly {
 /* share buttons */
 #share {
     z-index: 9999999;
+    background-color: white;
+    padding: 3px;
+    border-radius: 5%;
 }
 
 #share button {
