@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FGO Servant checklist with NP count</title>
+    <link rel="icon" href="img/favicon.ico">
+    <!-- OG -->
+    <meta property="og:title" content="FGO Servant checklist with NP count" />
+    <meta property="og:description" content="Another FGO Servant checklist with NP count, forked from Nechi." />
+    <meta property="og:image" content="img/fgo-check-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FGO Servant checklist with NP count">
+    <meta name="twitter:description" content="Another FGO Servant checklist with NP count, forked from Nechi.">
+    <meta name="twitter:image" content="img/fgo-check-og.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/select2/select2.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/select2/select2-bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/Site.css" crossorigin="anonymous">
+    <!-- JS -->
+    <script src="js/lib/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="js/lib/popper.min.js" crossorigin="anonymous"></script>
+    <script src="js/lib/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="js/lib/bootbox.min.js" crossorigin="anonymous"></script>
+    <script src="js/lib/select2.full.min.js" crossorigin="anonymous"></script>
+    <script src="js/lib/lz-string.min.js" crossorigin="anonymous"></script>
+    <script src="js/lib/html2canvas.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/5ed507ef8aa53d8ecfea96d96bc7214cd2476fd2/FileSaver.min.js"></script>
+</head>
+<body>
+    <div style="display: none;">
+        <img src="img/fou1.png"><img src="img/fou2.png"><img src="img/fou3.png"><img src="img/fou4.png">
+    </div>
+<!-- Start -->
+<div class="snowfall"> <!-- Triggered for Padoru -->
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-secondary">
+  <span class="navbar-brand">
+    <img src="img/DSGO.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    FGO Servant checklist with NP Count v3.0
+  </span>
+  <ul class="nav navbar-nav ml-auto">
+    <li class="nav-item" style="color: white;">
+        <a href="https://github.com/TohnoCoding/fgochecklist/" class="fab fa-github" target="_blank"> Project Github</a> | 
+        <a href="https://github.com/Nechigawara/nechi-fgo-checklist/" class="fab fa-github" target="_blank"> Nechi's repo</a>
+    </li>
+  </ul>
+</nav>
+<!-- Content -->
+<div class="container body-content" style="padding-top: 10px;">
+    <div id="noticeBoard" style="display: none;">
+        <h3 style="text-align: center;">2024/09/23: Improvement notice!</h3>
+        <span>
+            In addition to the functionality of hiding JP-only units and fixing the statistics table, I've recently reworked
+            almost the entirety of the underlying code to optimize it and improve its readability for collaborators and
+            project forks. But allow me to reiterate, I'm human and can make mistakes. If you find anything at all broken
+            in your regular use of the site, please reach out to me via <a target="_blank"
+            href="https://github.com/TohnoCoding/fgochecklist/issues/new">opening a new issue</a> on the
+            project repository and write down your findings with as much detail as possible (ideally, with a video recording
+            of your screen; most mobile devices have this capability built-in; if you're on Windows or Mac, you can use
+            Loom, and if you're on Linux, Kooha is a good option).<br><br>
+            ~Tohno Shiki<br>
+            <h6 id="rmvNotice">[ Click/tap here to remove this message. ]</h6>
+        </span>
+    </div>
+    <div class="card" id="headerCard">
+        <div id="card-body" class="card-body" style="text-align:center; padding: 0px;">
+            <p id="page_whatami">Please note that the site may take a while loading on first visit from caching all
+            images, and that <span style="font-weight: bold;">the best user experience is to use the site on <span
+            style="font-style: italic;">LANDSCAPE</span> view, as adjusting the complexity of a site like this for
+            mobile is a virtually impossible task for a non-UX developer like myself.</span> Sorry about that.</p>
+            <form>
+                <table id="optionsAndButtons">
+                    <tr>
+                        <td class="tableCell" id="checkboxArea">
+                            <div class="form-group form-check form-check-options">
+                                <label class="form-check-label" for="mashuSR">Mash is 4★ (SR)</label>
+                                <input type="checkbox" class="form-check-input" id="mashuSR">
+                            </div>
+                            <div class="form-group form-check form-check-options">
+                                <label class="form-check-label" for="classmode">Divide by Servant Class</label>
+                                <input type="checkbox" class="form-check-input" id="classmode">
+                            </div>
+                            <div class="form-group form-check form-check-options">
+                                <label class="form-check-label" for="fastmode">Fast Mode (Left/Right Click)</label>
+                                <input type="checkbox" class="form-check-input" id="fastmode">
+                            </div>
+                            <div class="form-group form-check form-check-options">
+                                <span class="newFeature"></span>
+                                <label class="form-check-label" for="NAonly">Hide unreleased in NA/Global</label>
+                                <input type="checkbox" class="form-check-input" id="NAonly">
+                            </div>
+                        </td>
+                        <td class="tableCell" id="buttonsArea">
+                            <button type="button" id="toggleUnitTypesButton" class="btn btn-options btn-secondary menu-btn" onclick="toggleUnitTypeIcon()">Toggle Icons</button>
+                            <!-- button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Disable for Padoru" disabled>Image export (slow)</button -->
+                            <button type="button" id="exportCanvasButton" class="btn btn-options btn-info" onclick="exportCanvasToImage()">Image export</button>
+                            <button type="button" id="clearAllButton" class="btn btn-options btn-danger" onclick="clearAllData()">Clear All</button>
+                            <button type="button" id="markAllButton" class="btn btn-options btn-primary" onclick="promptMarkAllUnitsSelected(false)">Mark All Owned</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>        
+            <!-- Social Share 
+            <hr/>
+            Share the list to your friends!!-->
+            <div id="share" class="icon-bar">
+                Share to<br />socials:<br />
+                 <!-- Facebook -->
+                 <button type="button" class="btn facebook" onclick="shareURL('facebook')" data-toggle="tooltip" data-placement="bottom" title="Share to Facebook"><i class="fab fa-facebook-f"></i></button><br />
+                 <!-- Twitter -->
+                 <button type="button" class="btn twitter" onclick="shareURL('twitter')" data-toggle="tooltip" data-placement="bottom" title="Share to Twitter"><i class="fab fa-twitter"></i></button><br />
+                 <!-- Just Link -->
+                 <button type="button" class="btn btn-info" onclick="shareURL('')" data-toggle="tooltip" data-placement="bottom" title="Just shorten URL"><i class="fas fa-link"></i></button>
+                 <br /><hr />List<br />data:
+                <form>
+                    <button type="button" id="loadbutton" class="btn btn-info btn-data" onclick="loadLocalData()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Load list from current browser"><img src="img/load.png" /></button><br />
+                    <button type="button" id="savebutton" class="btn btn-success btn-data" onclick="saveLocalData()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Save list to current browser"><img src="img/save.png" /></button>
+                </form>
+                <hr/>
+                <form>
+                    <div style="display:none">
+                        <input type="file" id="theFile" style="display:none" accept=".fgol"/>
+                    </div>
+                    <button type="button" id="loadbutton_f" class="btn btn-info btn-data" onclick="openFileUploadPrompt()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Load list from local file"><img src="img/upload.png" /></button><br />
+                    <button type="button" id="savebutton_f" class="btn btn-success btn-data" onclick="exportCurrentDataToFile()" disabled data-toggle="tooltip" data-placement="bottom" title data-original-title="Save list to local file"><img src="img/download.png" /></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <h3 align="center" id="statsTitle">Statistics for nerds<br>(only counts unique entries, not copies)</h3>
+    <div id="capturearea">
+        <div class="row statsBox" id="statisticBox" style="display:none;">
+            <table id="statsContainer">
+                <tr>
+                    <td class="col statsColumn">
+                        <h3 class="centerText">All Servants</h3>
+                        <h4><small>Overall:</small> <em id="statisticBoxAllPercent"></em>% <small>(<span id="statisticBoxAllHave"></span>/<span id="statisticBoxAllMax"></span>)</small></h4>
+                        <ul>
+                            <li id="ssrBoxAllStats"></li>
+                            <li id="srBoxAllStats"></li>
+                            <li id="rareBoxAllStats"></span></li>
+                            <li id="uncommonBoxAllStats"></li>
+                            <li id="commonBoxAllStats"></li>
+                            <li id="noneBoxAllStats"></li>
+                        </ul>
+                    </td>
+                    <td class="col statsColumn">
+                        <h3 class="centerText">Gacha Only</h3>
+                        <h4><small>Overall:</small> <em id="statisticBoxNotEventPercent"></em>% <small>(<span id="statisticBoxNotEventHave"></span>/<span id="statisticBoxNotEventMax"></span>)</small></h4>
+                        <ul>
+                            <li id="ssrBoxNotEventStats"></li>
+                            <li id="srBoxNotEventStats"></li>
+                            <li id="rareBoxNotEventStats"></li>
+                            <li id="uncommonBoxNotEventStats"></li>
+                            <li id="commonBoxNotEventStats"></li>
+                            <li id="noneBoxNotEventStats"></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="card" style="margin-top: 10px;">
+            <div class="card-header bg-warning header-shadow">5★ SSR</div>
+            <div class="card-body">
+                <div class="row listbox" id="ssrBox" style="display:none;"></div>
+                <div class="listbox_class" id="ssrBox-ByClass" style="display:none;"></div>
+                <div class="row listbox_fake" id="ssrBoxFake">
+                    <div class="col">Loading...</div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 10px;">
+            <div class="card-header bg-warning header-shadow">4★ SR</div>
+            <div class="card-body">
+                <div class="row listbox" id="srBox" style="display:none;"></div>
+                <div class="listbox_class" id="srBox-ByClass" style="display:none;"></div>
+                <div class="row listbox_fake" id="srBoxFake">
+                    <div class="col">Loading...</div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 10px;">
+            <div class="card-header bg-fgo-rare header-shadow">3★ R</div>
+            <div class="card-body">
+                <div class="row listbox" id="rareBox" style="display:none;"></div>
+                <div class="listbox_class" id="rareBox-ByClass" style="display:none;"></div>
+                <div class="row listbox_fake" id="rareBoxFake">
+                    <div class="col">Loading...</div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 10px;">
+            <div class="card-header bg-fgo-common header-shadow">2★ Uncommon</div>
+            <div class="card-body">
+                <div class="row listbox" id="uncommonBox" style="display:none;"></div>
+                <div class="listbox_class" id="uncommonBox-ByClass" style="display:none;"></div>
+                <div class="row listbox_fake" id="uncommonBoxFake">
+                    <div class="col">Loading...</div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 10px;">
+            <div class="card-header bg-fgo-common header-shadow">1★ Common</div>
+            <div class="card-body">
+                <div class="row listbox" id="commonBox" style="display:none;"></div>
+                <div class="listbox_class" id="commonBox-ByClass" style="display:none;"></div>
+                <div class="row listbox_fake" id="commonBoxFake">
+                    <div class="col">Loading...</div>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top: 10px;">
+            <div class="card-header bg-dark header-shadow">0✩ <span style="font-style: italic; text-decoration: line-through;">VOID</span></div>
+            <div class="card-body">
+                <div class="row listbox" id="noneBox" style="display:none;"></div>
+                <div class="listbox_class" id="noneBox-ByClass" style="display:none;"></div>
+                <div class="row listbox_fake" id="noneBoxFake">
+                    <div class="col">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="note">
+        Icon legend:
+        <ul>
+            <li><i class="fas fa-shield-alt"></i> = Starter Servant (Shielder)</li>
+            <li><i class="fas fa-lock"></i> = Servants unlocked <i>exclusively</i> in the Story banner (exception: Habetrot and both variants of Kishinami Hakuno)</li>
+            <li><i class="fas fa-star"></i> = Limited Servants</li>
+            <li><i class="fas fa-gift"></i> = Event Reward Servants ("welfares")</li>
+        </ul>
+    </div>
+</div>
+<!-- Footer -->
+<footer  id="footer" class="bd-footer">
+  <div class="container-fluid p-3 p-md-5">
+    <p>
+        Original project and code by Nechigawara Sanzenin. Forked <a href="https://github.com/Nechigawara/nechi-fgo-checklist/issues/7" target="_blank">under explicit permission</a> by Tohno Coding.<br />
+        This application is licensed under <a href="https://github.com/TohnoCoding/fgochecklist/blob/master/LICENSE" target="_blank">MIT</a>.<br/>
+        Fate/Grand Order and related materials are registered trademarks and properties of 
+        <a target="_blank" href="http://typemoon.com/">TYPE-MOON</a>, 
+        <a target="_blank" href="https://www.lasengle.co.jp/">LASENGLE</a>,
+        <a target="_blank" href="https://www.marv.jp/">Marvelous Inc.</a>, and
+        <a target="_blank" href="https://www.aniplex.co.jp/">Aniplex Inc.</a><br/>
+        Images hosted at <a href="https://imgur.com" target="_blank">imgur.com</a>.<br />
+        Data icons created by <a href="https://www.flaticon.com/authors/freepik" target="_blank">Freepik - Flaticon</a>.
+        <!-- Padoru Credit>
+        <span>BB Padoru by <a href="https://www.facebook.com/reichan.noshiyo" target="_blank">Rei Noshiyo</a></span-->
+    </p>
+  </div>
+</footer>
+<!-- Modal Add -->
+<div class="modal" tabindex="-1" role="dialog" id="addModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Servant - <span id="nameAdd"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="npAdd">Current NP level</label>
+                <select class="form-control" id="npAdd"></select>
+                <small id="npAddHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateUnitData()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Update -->
+<div class="modal" tabindex="-1" role="dialog" id="updateModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Servant - <span id="nameUpdate"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="npUpdate">Current NP level</label>
+                <select class="form-control" id="npUpdate"></select>
+                <small id="npUpdateHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+            </div>
+        </form>
+        <hr/>
+        <div style="text-align:center;">
+            <button type="button" class="btn btn-danger" onclick="removeUserData()">Uncheck this servant</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateUnitData()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal loading -->
+<div class="modal" tabindex="-1" role="dialog" id="loadingModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body" style="text-align:center">
+        <br><br><br>
+        <img src="img/fou1.png" id="fou">
+        <br><br><br><br>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End -->
+</div> <!-- Closing tag for Padoru -->
+<!-- EXTRA: Padoru Walker -->
+<div id="walk-container"></div>
+<!-- JS After -->
+<script src="js/index.js" crossorigin="anonymous"></script>
+</body>
+</html> 

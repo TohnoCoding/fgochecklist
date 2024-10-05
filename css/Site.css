@@ -1,94 +1,100 @@
+/* General Icon Bar and Button Styling */
 .icon-bar {
-  position: fixed;
-  top: -5%;
-  right: 10px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-  font-size: 0.8em;  
+    position: fixed;
+    top: -5%;
+    right: 10px;
+    transform: translateY(50%);
+    font-size: 0.8em;
 }
 
 .btn-data {
-  font-size: 16px;
-  padding: 0px;
-  padding-top: -2px;
+    font-size: 16px;
+    padding: 0;
+    padding-top: -2px;
 }
 
-.btn-data > img { margin-top: -6px; }
-
-.bg-fgo-rare { background-color: #B9B9B9 !important; }
-
-.bg-fgo-common { background-color: #908067 !important; }
-
-.btn-group-xs > .btn, .btn-xs {
-  padding: .20rem .3rem;
-  font-size: .775rem;
-  line-height: .4;
-  border-radius: .1.5rem;
-  margin-bottom: 5px;
+.btn-data > img {
+    margin-top: -6px;
 }
 
-.class_icon_box { border-right: 1px dashed #333; }
+/* Background Colors */
+.bg-fgo-rare {
+    background-color: #B9B9B9 !important;
+}
 
+.bg-fgo-common {
+    background-color: #908067 !important;
+}
+
+/* Button Group Styling */
+.btn-group-xs > .btn,
+.btn-xs {
+    padding: 0.2rem 0.3rem;
+    font-size: 0.775rem;
+    line-height: 0.4;
+    border-radius: 0.15rem;
+    margin-bottom: 5px;
+}
+
+/* Class Icon Box Styling */
+.class_icon_box {
+    border-right: 1px dashed #333;
+}
+
+/* Member Container Styling */
 div.member-outer {
     padding: 3px;
     margin: 0;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 div.member-container {
-	white-space: nowrap !important;
+    white-space: nowrap !important;
     position: relative;
     text-align: center;
     color: white;
-	cursor: pointer;
-	-webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+    cursor: pointer;
+    user-select: none;
 }
 
 div.member-container > img {
-	opacity: 0.25;
-    filter: alpha(opacity=25); /* For IE8 and earlier */
-	-webkit-filter: grayscale(70%); /* Safari 6.0 - 9.0 */
+    opacity: 0.25;
     filter: grayscale(70%);
-	text-shadow: none !important;
+    text-shadow: none !important;
 }
 
 div.member-checked {
-	background: rgb(86, 180, 239); /* fallback */
-	background:
-		linear-gradient(135deg, transparent 10%, rgb(86, 180, 239) 0) top left,
-		linear-gradient(225deg, transparent 10%, rgb(86, 180, 239) 0) top right,
-		linear-gradient(315deg, transparent 3%, rgb(86, 180, 239) 0) bottom right,
-		linear-gradient(45deg,  transparent 3%, rgb(86, 180, 239) 0) bottom left;
-	background-size: 50% 50%;
-	background-repeat: no-repeat;
-	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.6), 0px 0px 8px rgba(82, 168, 236, 0.6) inset;
-	border-radius: 10% 10% 3% 3%;
+    background: linear-gradient(135deg, transparent 10%, rgb(86, 180, 239) 0) top left,
+                linear-gradient(225deg, transparent 10%, rgb(86, 180, 239) 0) top right,
+                linear-gradient(315deg, transparent 3%, rgb(86, 180, 239) 0) bottom right,
+                linear-gradient(45deg, transparent 3%, rgb(86, 180, 239) 0) bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset, 0 0 8px rgba(82, 168, 236, 0.6), 0 0 8px rgba(82, 168, 236, 0.6) inset;
+    border-radius: 10% 10% 3% 3%;
 }
 
 div.member-checked > img {
-	opacity: 1 !important;
-    filter: alpha(opacity=100) !important; /* For IE8 and earlier */
-	-webkit-filter: grayscale(0%) !important; /* Safari 6.0 - 9.0 */
+    opacity: 1 !important;
     filter: grayscale(0%) !important;
 }
 
-/* Bottom left text */
-div.member-np {
+/* Text Styling */
+div.member-np,
+div.member-mashu,
+div.member-locked,
+div.member-limited,
+div.member-eventonly {
     position: absolute;
     bottom: 5%;
+    left: 5%;
+    text-shadow: 1px 1px 10px #000, 1px 1px 10px #ccc;
+}
+
+div.member-np {
+    left: auto;
     right: 5%;
 	text-shadow: 
      1px   0  0   #000, 
@@ -104,77 +110,79 @@ div.member-np {
 }
 
 div.member-mashu {
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
-	color: #aaa;
-	text-shadow:1px 1px 10px #000, 1px 1px 10px #ccc;
+    color: #aaa;
 }
 
 div.member-locked {
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
-	color: #F1D65B;
-	text-shadow:1px 1px 10px #000, 1px 1px 10px #ccc;
+    color: #F1D65B;
 }
 
 div.member-limited {
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
-	color: #636E7D;
-	text-shadow:1px 1px 10px #000, 1px 1px 10px #ccc;
+    color: #636E7D;
 }
 
 div.member-eventonly {
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
-	color: #4EB2D8;
-	text-shadow:1px 1px 10px #000, 1px 1px 10px #ccc;
+    color: #4EB2D8;
 }
 
 .header-shadow {
-	color: #FFF;
-	text-shadow:1px 1px 10px #000, 1px 1px 10px #ccc;
+    color: #FFF;
+    text-shadow: 1px 1px 10px #000, 1px 1px 10px #ccc;
 }
 
-/* share buttons */
+/* Share Buttons Styling */
 #share {
     z-index: 9999999;
 }
 
 #share button {
-	margin: 5px;
-  	font-size: 24px;
-	width: 40px;
-	height: 40px;
-  	color: #fff;
-	opacity: 0.75;
-	transition: opacity 0.15s linear;
+    margin: 5px;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    opacity: 0.75;
+    transition: opacity 0.15s linear;
 }
 
-#share button:hover { opacity: 1; }
+#share button:hover {
+    opacity: 1;
+}
 
-/* share colors */
-.facebook { background: #3b5998; }
+.facebook {
+    background: #3b5998;
+}
 
-.fa-facebook-f:before { margin-right: -10px !important; }
+.fa-facebook-f:before {
+    margin-right: -10px !important;
+}
 
-.twitter { background: #55acee; }
+.twitter {
+    background: #55acee;
+}
 
-.navbar a { color: #BBBBFF; } /* make header links visible */
+/* Navbar Styling */
+.navbar a {
+    color: #BBBBFF;
+}
 
-/* media queries for mobile */
+/* Media Queries for Mobile */
 @media screen and (max-height: 768px) and (orientation: landscape) {
-    .icon-bar { transform: scale(0.65); right: 0px; top: 2%; }
+    .icon-bar {
+        transform: scale(0.65);
+        right: 0;
+        top: 2%;
+    }
 }
 
-@media screen and (orientation: portrait) { /* I HATE MOBILE SO DAMN MUCH */
-    #buttonsArea { width: 40% !important; }
-    
-    #checkboxArea { padding-right: 4em !important; }
+@media screen and (orientation: portrait) {
+    #buttonsArea {
+        width: 40% !important;
+    }
+
+    #checkboxArea {
+        padding-right: 4em !important;
+    }
 
     .icon-bar {
         right: 1% !important;
@@ -182,13 +190,18 @@ div.member-eventonly {
         border-radius: 5%;
         top: -13%;
     }
-    
+
     .container {
         max-width: 95% !important;
     }
 }
 
-.listbox { justify-content: center; }
+/* Centering and Layout Adjustments */
+.listbox,
+.statsBox,
+.center-portraits {
+    justify-content: center;
+}
 
 .statsColumn {
     max-width: 49.5%;
@@ -196,51 +209,85 @@ div.member-eventonly {
     padding-left: 4em;
 }
 
-.center-portraits {
-    justify-content: center;
+#statsContainer {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 90%;
+    min-width: 60%;
 }
 
-#statsContainer { margin: 0 auto; padding: 0; max-width: 90%; min-width: 60%; }
+.centerText {
+    text-align: center;
+}
 
-.centerText { text-align: center; }
+/* Print Styling */
+@media print {
+    #share, #card-body, #footer {
+        display: none;
+    }
+}
 
-@media print { #share, #card-body, #footer { display: none; } }
+/* Loading Modal */
+#loadingModal .modal-body {
+    background-color: black;
+}
 
-#loadingModal .modal-body { background-color: black; }
-
-#fou { animation: runningFou 1s steps(4) infinite; }
+/* Animation */
+#fou {
+    animation: runningFou 1s steps(4) infinite;
+}
 
 @keyframes runningFou {
-    0%  { content: url('../img/fou1.png'); }
-    25% { content: url('../img/fou2.png'); }
-    50% { content: url('../img/fou3.png'); }
-    75% { content: url('../img/fou4.png'); }
+    0% {
+        content: url('../img/fou1.png');
+    }
+    25% {
+        content: url('../img/fou2.png');
+    }
+    50% {
+        content: url('../img/fou3.png');
+    }
+    75% {
+        content: url('../img/fou4.png');
+    }
 }
 
-.statsBox { justify-content: center; }
+/* Form and Button Options */
+.form-group {
+    margin-bottom: 0 !important;
+}
 
-.form-group { margin-bottom: 0px !important; }
-
-.btn-options  {
+.btn-options {
     margin-bottom: 5px !important;
     width: 49%;
     padding: 5px 1px !important;
     min-width: 9em;
 }
 
-#headerCard { border: none; }
+#headerCard {
+    border: none;
+}
 
-.form-check-options { text-align: right; }
+.form-check-options {
+    text-align: right;
+}
 
-#optionsAndButtons { margin: 0 auto !important; }
+#optionsAndButtons {
+    margin: 0 auto !important;
+}
 
-#checkboxArea { padding-right: 5em; width: 40%; }
+#checkboxArea {
+    padding-right: 5em;
+    width: 40%;
+}
 
-#buttonsArea { padding-right: 2.75em; }
+#buttonsArea {
+    padding-right: 2.75em;
+}
 
-/* .tableCell { width: 50%; } */
-
-.form-check-input { margin-left: 1em; }
+.form-check-input {
+    margin-left: 1em;
+}
 
 .JPdisabled {
     pointer-events: none;
@@ -248,8 +295,11 @@ div.member-eventonly {
     text-decoration: line-through;
 }
 
-#statsTitle { margin-top: 2%; }
+#statsTitle {
+    margin-top: 2%;
+}
 
+/* Notice Board */
 #noticeBoard {
     display: flex;
     justify-content: center;
@@ -261,14 +311,18 @@ div.member-eventonly {
     padding: 2%;
     margin: 0 auto;
     margin-bottom: 2%;
-    padding-bottom: 10px;
     background-color: white;
     text-align: justify;
     text-justify: inter-word;
 }
 
-#rmvNotice { text-align:center; cursor: grab; font-weight: bold; }
+#rmvNotice {
+    text-align: center;
+    cursor: grab;
+    font-weight: bold;
+}
 
+/* New Feature Styling */
 .newFeature {
     background-color: red;
     color: white;
@@ -280,6 +334,12 @@ div.member-eventonly {
     display: inline-block;
 }
 
-.newFeature::before { content: 'NEW!'; }
+.newFeature::before {
+    content: 'NEW!';
+}
 
-@keyframes blink { 50% { color: transparent; } } 
+@keyframes blink {
+    50% {
+        color: transparent;
+    }
+}
