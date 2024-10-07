@@ -376,6 +376,11 @@ td {
     padding: 0;
     border: 0;
     margin-bottom: 5px;
+    background-position: 0 0;
+}
+
+.hamburger-menu-button:hover {
+    background-position: 0 -73px !important;
 }
 
 /* Add some background darkening when the menu is active */
@@ -400,3 +405,21 @@ td {
 }
 
 .container { max-width: 80% !important; }
+
+#burger-select-image {
+    animation: bounce 0.5s;
+    animation-direction: alternate;
+    animation-timing-function: cubic-bezier(0.5, 0.05, 1, 0.5);
+    animation-iteration-count: infinite;
+    margin-bottom: 20px !important;
+}
+
+@keyframes bounce {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, 25px, 0);
+    }
+}
