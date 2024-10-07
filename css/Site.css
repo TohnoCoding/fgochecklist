@@ -1,12 +1,8 @@
-/* General Icon Bar and Button Styling */
-.icon-bar {
-    position: fixed;
-    top: -5%;
-    right: 10px;
-    transform: translateY(50%);
-    font-size: 0.8em;
+body {
+    font: 1em sans-serif;
 }
 
+/* General Button Styling */
 .btn-data {
     font-size: 16px;
     padding: 0;
@@ -147,6 +143,7 @@ div.member-eventonly {
     #statsContainer {
         transform-origin: top center !important;
         transform: scale(0.6) !important;
+        margin-bottom: -6em !important;
     }    
 }
 
@@ -190,6 +187,9 @@ div.member-eventonly {
 #card-body {
     text-align: center;
     padding: 0;
+    justify-content: center !important;
+    max-width: 75% !important;
+    margin: 0 auto;
 }
 
 /* Loading Modal */
@@ -234,12 +234,20 @@ div.member-eventonly {
 
 #optionsAndButtons {
     margin: auto !important;
+    align-content: center !important;
+    vertical-align: middle !important;
 }
 
-#checkboxes {
-    min-width: 80%;
-    text-align: left;
+#toggleUnitTypesButton {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin: auto;
 }
+
+.form-check-input {
+    position: relative;
+ }
 
 .JPdisabled {
     pointer-events: none;
@@ -276,7 +284,6 @@ div.member-eventonly {
 
 /* New Feature Styling */
 td {
-    vertical-align: top;
     line-height: normal;
     white-space: nowrap;
 }
@@ -392,4 +399,4 @@ td {
     pointer-events: all !important;
 }
 
-.container { max-width: 70% !important; }
+.container { max-width: 80% !important; }
