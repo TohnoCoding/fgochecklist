@@ -66,7 +66,7 @@ var member_uncheck_conf = "Are you sure you want to uncheck this Servant?";
 var member_clear_conf = "Are you sure you want to clear all checked Servants?";
 
 // Share strings
-var share_text = "This is your current shortened URL:";
+var share_text = "This is your shortened URL for easy sharing:";
 var share_none_text = "There is nothing to share.";
 
 // "Select All" Text
