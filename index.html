@@ -32,6 +32,7 @@
 <body>
     <div style="display: none;">
         <img src="img/fou1.png"><img src="img/fou2.png"><img src="img/fou3.png"><img src="img/fou4.png">
+        <input type="file" id="theFile" style="display:none" accept=".fgol"/>
     </div>
 <!-- Start -->
 <div class="snowfall"> <!-- Triggered for Padoru -->
@@ -51,18 +52,24 @@
 <!-- Content -->
 <div class="container body-content" style="padding-top: 10px;">
     <div id="noticeBoard" style="display: none;">
-        <h3 style="text-align: center;">2024/10/06: Massive UI overhaul!</h3>
+        <h3 style="text-align: center;">2024/10/07: Massive UI overhaul!</h3>
         <span>
             In my latest pizza-and-ginger-ale-and-cheesecake-fueled coding and design frenzy I've essentially completely
             overhauled the site UI as far as functionality goes beyond selecting your units. What used to be a sidebar with
-            buttons is now contained in a nifty expandable hamburger-type menu when you tap/click on the "Details" button on
-            the left, and the main page is reserved for selecting your units, selecting your main list options (hiding
-            non-NA, marking Mash as gold, etc.) and toggling the availability icons. Once again, I request that if you
-            encounter any sort of issue that causes you any kind of bad experience using the site, please let me know ASAP
-            via <a target="_blank" href="https://github.com/TohnoCoding/fgochecklist/issues/new">opening a new issue</a> on
-            the project repository and write down your findings with as much detail as possible (ideally, with a video
-            recording of your screen; most mobile devices have this capability built-in; if you're on Windows or Mac, you
-            can use Loom, and if you're on Linux, Kooha is a good option).<br><br>
+            buttons that got in the way in smaller screens, is now contained in a nifty expandable hamburger-type menu when
+            you tap/click on the "Details" button on the left, and the main page is reserved for selecting your units,
+            selecting your main list options (hiding non-NA, marking Mash as gold, etc.) and toggling the availability icons.
+            Should make usability much more comfortable.<br><br>
+            Also, I've added some donation buttons at the bottom of the expandable menu if you want to support me and
+            support future development projects (I'm just a struggling guy like everyone else) &mdash; <span
+            style="font-style:italic">there's absolutely NO obligation to use them if you can't or simply don't want
+            to</span>, but if you do, trust that it will be <span style="font-weight: bold;">enormously appreciated</span>.
+            <br><br>Once again, I request that if you encounter any sort of issue that causes you any kind of bad experience using
+            the site, please let me know ASAP via <a target="_blank"
+            href="https://github.com/TohnoCoding/fgochecklist/issues/new">opening a new issue</a> on the project repository
+            and write down your findings with as much detail as possible (ideally, with a video recording of your screen; most
+            mobile devices have this capability built-in; if you're on Windows or Mac, you can use Loom, and if you're on
+            Linux, Kooha is a good option).<br><br>
             ~Tohno Shiki<br>
             <h6 id="rmvNotice">[ Click/tap here to remove this message. ]</h6>
         </span>
@@ -297,17 +304,32 @@
 <div id="hamburger-menu" class="hamburger-menu">
     <img src="img/optionselect.png" class="burger-select" id="burger-select-image">
     <div class="burger-buttons">
-        <button type="button" onclick="shareURL('facebook')" class="hamburger-menu-button"><img src="img/hamburger/facebookshare.png"></button>
-        <button type="button" onclick="shareURL('twitter')" class="hamburger-menu-button"><img src="img/hamburger/xwittershare.png"></button>
-        <button type="button" onclick="shareURL('')" class="hamburger-menu-button"><img src="img/hamburger/shortenurl.png"></button>
-        <button type="button" onclick="loadLocalData()" class="hamburger-menu-button"><img src="img/hamburger/browserload.png"></button>
-        <button type="button" onclick="saveLocalData()" class="hamburger-menu-button"><img src="img/hamburger/browsersave.png"></button>
-        <button type="button" onclick="openFileUploadPrompt()" class="hamburger-menu-button"><img src="img/hamburger/fileload.png"></button>
-        <button type="button" onclick="exportCurrentDataToFile()" class="hamburger-menu-button"><img src="img/hamburger/filesave.png"></button>
-        <button type="button" onclick="exportCanvasToImage()" class="hamburger-menu-button"><img src="img/hamburger/imageexport.png"></button>
-        <button type="button" onclick="promptOperationOnAllUnits(false)" class="hamburger-menu-button"><img src="img/hamburger/markall.png"></button>
-        <button type="button" onclick="clearAllData()" class="hamburger-menu-button"><img src="img/hamburger/deleteall.png"></button>
-        <form><div style="display:none"><input type="file" id="theFile" style="display:none" accept=".fgol"/></div></form>
+        <button type="button" class="hamburger-menu-button"
+        onclick="shareURL('facebook')"><img src="img/hamburger/facebookshare.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="shareURL('twitter')"><img src="img/hamburger/xwittershare.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="shareURL('')"><img src="img/hamburger/shortenurl.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="loadLocalData()"><img src="img/hamburger/browserload.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="saveLocalData()"><img src="img/hamburger/browsersave.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="openFileUploadPrompt()"><img src="img/hamburger/fileload.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="exportCurrentDataToFile()"><img src="img/hamburger/filesave.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="exportCanvasToImage()"><img src="img/hamburger/imageexport.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="promptOperationOnAllUnits(false)"><img src="img/hamburger/markall.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="clearAllData()"><img src="img/hamburger/deleteall.png"></button><br><br>
+        <button type="button" class="hamburger-menu-button"
+        onclick="window.open('https://ko-fi.com/R5R114FFP8', '_blank')"><img
+        src="img/hamburger/kofi.png"></button>
+        <button type="button" class="hamburger-menu-button"
+        onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=5D62GN8HVL6EY', '_blank')"><img
+        src="img/hamburger/paypal.png"></button>
     </div>
 </div>
 <!-- JS After -->
