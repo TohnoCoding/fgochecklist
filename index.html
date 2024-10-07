@@ -5,14 +5,14 @@
     <title>FGO Servant checklist with NP count</title>
     <link rel="icon" href="img/favicon.ico">
     <!-- OG -->
-    <meta property="og:title" content="FGO Servant checklist with NP count" />
+    <meta property="og:title" content="FGO Servant Checklist" />
     <meta property="og:description" content="Another FGO Servant checklist with NP count, forked from Nechi." />
     <meta property="og:image" content="img/fgo-check-og.jpg" />
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FGO Servant checklist with NP count">
-    <meta name="twitter:description" content="Another FGO Servant checklist with NP count, forked from Nechi.">
-    <meta name="twitter:image" content="img/fgo-check-og.jpg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="twitter:title" content="FGO Servant Checklist" />
+    <meta name="twitter:description" content="Another FGO Servant checklist with NP count, forked from Nechi." />
+    <meta name="twitter:image" content="img/fgo-check-og.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/select2/select2.min.css" crossorigin="anonymous">
@@ -67,6 +67,7 @@
             <h6 id="rmvNotice">[ Click/tap here to remove this message. ]</h6>
         </span>
     </div>
+    <!-- Header area -->
     <div class="card" id="headerCard">
         <div id="card-body" class="card-body" style="text-align:center; padding: 0px;">
             <p id="page_whatami">Please note that the site may take a while loading on first visit from caching all
@@ -93,28 +94,11 @@
                     <td><label class="form-check-label newFeature" for="NAonly">Hide unreleased in NA/Global&nbsp;</label></td>
                 </tr>
             </table>
-            <!-- Hamburger button & menu | Social Share, data save/load, data import/export, clear all, select all -->
-            <div id="hamburger-button" class="hamburger-button">&nbsp;</div>
-            <div id="hamburger-menu" class="hamburger-menu">
-                <img src="img/optionselect.png">
-                <div class="burger-buttons">
-                    <button type="button" onclick="shareURL('facebook')" class="hamburger-menu-button"><img src="img/hamburger/facebookshare.png"></button>
-                    <button type="button" onclick="shareURL('twitter')" class="hamburger-menu-button"><img src="img/hamburger/xwittershare.png"></button>
-                    <button type="button" onclick="shareURL('')" class="hamburger-menu-button"><img src="img/hamburger/shortenurl.png"></button>
-                    <button type="button" onclick="loadLocalData()" class="hamburger-menu-button"><img src="img/hamburger/browserload.png"></button>
-                    <button type="button" onclick="saveLocalData()" class="hamburger-menu-button"><img src="img/hamburger/browsersave.png"></button>
-                    <button type="button" onclick="openFileUploadPrompt()" class="hamburger-menu-button"><img src="img/hamburger/fileload.png"></button>
-                    <button type="button" onclick="exportCurrentDataToFile()" class="hamburger-menu-button"><img src="img/hamburger/filesave.png"></button>
-                    <button type="button" onclick="exportCanvasToImage()" class="hamburger-menu-button"><img src="img/hamburger/imageexport.png"></button>
-                    <button type="button" onclick="promptOperationOnAllUnits(false)" class="hamburger-menu-button"><img src="img/hamburger/markall.png"></button>
-                    <button type="button" onclick="clearAllData()" class="hamburger-menu-button"><img src="img/hamburger/deleteall.png"></button>
-                    <form><div style="display:none"><input type="file" id="theFile" style="display:none" accept=".fgol"/></div></form>
-                </div>
-            </div>
         </div>
     </div>
     <h3 align="center" id="statsTitle">Stats for nerds (unique entries only)</h3>
     <div id="capturearea">
+        <!-- Statistics counters -->
         <div class="row statsBox" id="statisticBox" style="display:none;">
             <table id="statsContainer">
                 <tr>
@@ -145,6 +129,7 @@
                 </tr>
             </table>
         </div>
+        <!-- Servant card boxes -->
         <div class="card" style="margin-top: 10px;">
             <div class="card-header bg-warning header-shadow">5★ SSR</div>
             <div class="card-body">
@@ -210,7 +195,8 @@
         Icon legend:
         <ul>
             <li><i class="fas fa-shield-alt"></i> = Starter Servant (Shielder)</li>
-            <li><i class="fas fa-lock"></i> = Servants unlocked <i>exclusively</i> in the Story banner (exception: Habetrot and both variants of Kishinami Hakuno)</li>
+            <li><i class="fas fa-lock"></i> = Servants unlocked <i>exclusively</i> in the Story banner after clearing relevant story chapters (exception:
+                Habetrot and both variants of Kishinami Hakuno, who are summoned from the Friend Point banner once their chapters are cleared)</li>
             <li><i class="fas fa-star"></i> = Limited Servants</li>
             <li><i class="fas fa-gift"></i> = Event Reward Servants ("welfares")</li>
         </ul>
@@ -307,6 +293,24 @@
 <!-- EXTRA: Padoru Walker -->
 <div id="walk-container"></div>
 <div id="darkener"></div>
+<!-- Hamburger button & menu | Social Share, data save/load, data import/export, clear all, select all -->
+<div id="hamburger-button" class="hamburger-button">&nbsp;</div>
+<div id="hamburger-menu" class="hamburger-menu">
+    <img src="img/optionselect.png" class="burger-select">
+    <div class="burger-buttons">
+        <button type="button" onclick="shareURL('facebook')" class="hamburger-menu-button"><img src="img/hamburger/facebookshare.png"></button>
+        <button type="button" onclick="shareURL('twitter')" class="hamburger-menu-button"><img src="img/hamburger/xwittershare.png"></button>
+        <button type="button" onclick="shareURL('')" class="hamburger-menu-button"><img src="img/hamburger/shortenurl.png"></button>
+        <button type="button" onclick="loadLocalData()" class="hamburger-menu-button"><img src="img/hamburger/browserload.png"></button>
+        <button type="button" onclick="saveLocalData()" class="hamburger-menu-button"><img src="img/hamburger/browsersave.png"></button>
+        <button type="button" onclick="openFileUploadPrompt()" class="hamburger-menu-button"><img src="img/hamburger/fileload.png"></button>
+        <button type="button" onclick="exportCurrentDataToFile()" class="hamburger-menu-button"><img src="img/hamburger/filesave.png"></button>
+        <button type="button" onclick="exportCanvasToImage()" class="hamburger-menu-button"><img src="img/hamburger/imageexport.png"></button>
+        <button type="button" onclick="promptOperationOnAllUnits(false)" class="hamburger-menu-button"><img src="img/hamburger/markall.png"></button>
+        <button type="button" onclick="clearAllData()" class="hamburger-menu-button"><img src="img/hamburger/deleteall.png"></button>
+        <form><div style="display:none"><input type="file" id="theFile" style="display:none" accept=".fgol"/></div></form>
+    </div>
+</div>
 <!-- JS After -->
 <script src="js/index.js" crossorigin="anonymous"></script>
 </body>

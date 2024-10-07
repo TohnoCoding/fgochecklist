@@ -354,8 +354,13 @@ td {
     left: 0;
 }
 
-.burger-buttons > button {
-    margin-left: 10px !important;
+.burger-buttons {
+    margin-left: 75px !important;
+}
+
+.burger-select {
+    margin-left: 170px;
+    margin-bottom: 5px;
 }
 
 .hamburger-menu-button {
