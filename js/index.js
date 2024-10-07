@@ -371,10 +371,12 @@ $.fn.select2.amd.define('select2/data/customAdapter',
  */
 async function fetchGlobalThreshold() {
     try {
-        const NAreleases =
-            (await fetch    // get *all* NA release IDs
-                ("https://api.atlasacademy.io/export/NA/basic_servant.json")
-                .then((r) => r.json())).map((s) => s.collectionNo);
+        const response =
+            await fetch    // get *all* NA release IDs
+                ("https://api.atlasacademy.io/export/NA/basic_servant.json");
+        if (!response.ok)   // ensure successful response
+            { throw new Error(`Network error: ${response.status}}`); }
+        const NAreleases = await response.json();
         globalThreshold = NAreleases[NAreleases.length - 1];  // get last NA ID
     } catch (error) {
         console.error(error);
@@ -442,16 +444,15 @@ function loadUploadedFileData() {
  * provider that responds the fastest.
  */
 async function shortenURL() {
-    // Warn user if no data
-    if (compress_input == "") { bootbox.alert(share_none_text); }
+    if (compress_input === "")
+        { bootbox.alert(share_none_text);  return; } // Warn user if no data
     // Gather the full URL for shortening
     var mashuSR_str = getMashuSRURLstring(true);
     var full_url = window.location.protocol + "//" + window.location.host +
         window.location.pathname + "?" + compress_input_parameter + "=" +
         compress_input + (mashuSR_str !== "" ? "&" + mashuSR_str : "");
-    if (full_url.includes("localhost") || full_url.includes("127.0.0.1")) {
-        full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
-    }
+    full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
+
     /*******************************/
     /*     Shortening services     */
     /*******************************/
@@ -461,78 +462,82 @@ async function shortenURL() {
      * shortening the current URL.
      */
     function waaai() {
-        return new Promise((resolve) => {
-            var ajaxdata = JSON.stringify({ url: full_url });
-            var ajaxrequest = {
+        return new Promise((resolve, reject) => {
+            const ajaxdata = JSON.stringify({ url: full_url });
+            $.ajax({
                 headers: {
                     Authorization:
-                        "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b",
+                        "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b"
                 },
                 url: "https://api.waa.ai/v2/links",
                 dataType: "json",
                 contentType: "application/json",
                 method: "POST",
                 data: ajaxdata,
-                success: function (result) {
-                    resolve({ serviceProvider: "Akari-chan",
-                        value: result.data.link });
-                }
-            };
-            $.ajax(ajaxrequest);
+                success: (result) => resolve({
+                    serviceProvider: "Akari-chan", value: result.data.link
+                }),
+                error: (xhr, status, error) => 
+                    reject(new Error(`Akari-chan error: ${status} - ${error}`))
+            });
         });
     }
+
     /**
      * Shortens the current data URL with is.gd shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
      * shortening the current URL.
      */
     function isgd() {
-        return new Promise((resolve) => {
-            //var ajaxdata = JSON.stringify({  });
-            var ajaxrequest = {
+        return new Promise((resolve, reject) => {
+            $.ajax({
                 url: "https://is.gd/create.php",
                 dataType: "json",
                 data: { format: "json", url: full_url },
-                success: function (result) {
-                    resolve({ serviceProvider: "is.gd",
-                        value: result.shorturl });
-                }
-            };
-            $.ajax(ajaxrequest);
+                success: (result) => resolve({
+                    serviceProvider: "is.gd", value: result.shorturl
+                }),
+                error: (xhr, status, error) =>
+                    reject(new Error(`is.gd error: ${status} - ${error}`))
+            });
         });
     }
+
     /**
      * Shortens the current data URL with owo.vc shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
      * shortening the current URL.
      */
     function owo() {
-        return new Promise((resolve) => {
-            var ajaxdata =
-                JSON.stringify({ link: full_url, generator: "owo",
-                    metadata: "IGNORE" });
-            var ajaxrequest = {
+        return new Promise((resolve, reject) => {
+            const ajaxdata = JSON.stringify({ link: full_url,
+                generator: "owo", metadata: "IGNORE" });
+            $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 url: "https://owo.vc/api/v2/link",
                 method: "POST",
                 dataType: "json",
                 data: ajaxdata,
-                success: function (result) {
-                    resolve({ serviceProvider: "owo", value: result.id });
-                }
-            };
-            $.ajax(ajaxrequest);
+                success: (result) =>
+                    resolve({ serviceProvider: "owo", value: result.id }),
+                error: (xhr, status, error) =>
+                    reject(new Error(`owo error: ${status} - ${error}`))
+            });
         });
     }
     const shortProviders = [isgd(), waaai(), owo()];
-    //const shortProviders = [()];      // used for testing new providers
+    //const shortProviders = [()];      // used for testing
     try {
         const result = await Promise.any(shortProviders);
-        if (!result.value) { throw new
-            Error("All promises returned undefined, shortening failed."); }
+        if (!result || !result.value) { throw new
+            Error("All shortening services failed."); }
         return result.value;
-    } catch (err) { console.error(err); return undefined; }
+    } catch (err) {
+        console.error('Shortening failed:', err);
+        return undefined;
+    }
 }
+
 // }
 /*****************************************************************************/
 // UI & DOM
@@ -1099,7 +1104,6 @@ function showShortURLModal(url) {
         text: 'Copy',
         id: 'copy_button'
     })
-    console.log($button);
     const $inputGroupAppend = $('<div>', { class: 'input-group-append' })
         .append($button);
     $inputGroup.append($input).append($inputGroupAppend);
@@ -1121,7 +1125,6 @@ function copyToClipboard() {
     copyText.setSelectionRange(0, 99999);  // Mobile-proof
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(copyText.value || copyText.defaultValue)
-            .then(function() { console.log('Clipboard copy success'); })
             .catch(function(err) { console.error('Copy failed: ', err); });
     } else { // Fallback for older browsers and insecure contexts
         try {
