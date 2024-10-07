@@ -52,18 +52,24 @@
 <!-- Content -->
 <div class="container body-content" style="padding-top: 10px;">
     <div id="noticeBoard" style="display: none;">
-        <h3 style="text-align: center;">2024/10/06: Massive UI overhaul!</h3>
+        <h3 style="text-align: center;">2024/10/07: Massive UI overhaul!</h3>
         <span>
             In my latest pizza-and-ginger-ale-and-cheesecake-fueled coding and design frenzy I've essentially completely
             overhauled the site UI as far as functionality goes beyond selecting your units. What used to be a sidebar with
-            buttons is now contained in a nifty expandable hamburger-type menu when you tap/click on the "Details" button on
-            the left, and the main page is reserved for selecting your units, selecting your main list options (hiding
-            non-NA, marking Mash as gold, etc.) and toggling the availability icons. Once again, I request that if you
-            encounter any sort of issue that causes you any kind of bad experience using the site, please let me know ASAP
-            via <a target="_blank" href="https://github.com/TohnoCoding/fgochecklist/issues/new">opening a new issue</a> on
-            the project repository and write down your findings with as much detail as possible (ideally, with a video
-            recording of your screen; most mobile devices have this capability built-in; if you're on Windows or Mac, you
-            can use Loom, and if you're on Linux, Kooha is a good option).<br><br>
+            buttons that got in the way in smaller screens, is now contained in a nifty expandable hamburger-type menu when
+            you tap/click on the "Details" button on the left, and the main page is reserved for selecting your units,
+            selecting your main list options (hiding non-NA, marking Mash as gold, etc.) and toggling the availability icons.
+            Should make usability much more comfortable.<br><br>
+            Also, I've added some donation buttons at the bottom of the expandable menu if you want to support me and
+            support future development projects (I'm just a struggling guy like everyone else) &mdash; <span
+            style="font-style:italic">there's absolutely NO obligation to use them if you can't or simply don't want
+            to</span>, but if you do, trust that it will be <span style="font-weight: bold;">enormously appreciated</span>.
+            <br><br>Once again, I request that if you encounter any sort of issue that causes you any kind of bad experience using
+            the site, please let me know ASAP via <a target="_blank"
+            href="https://github.com/TohnoCoding/fgochecklist/issues/new">opening a new issue</a> on the project repository
+            and write down your findings with as much detail as possible (ideally, with a video recording of your screen; most
+            mobile devices have this capability built-in; if you're on Windows or Mac, you can use Loom, and if you're on
+            Linux, Kooha is a good option).<br><br>
             ~Tohno Shiki<br>
             <h6 id="rmvNotice">[ Click/tap here to remove this message. ]</h6>
         </span>
@@ -317,13 +323,13 @@
         <button type="button" class="hamburger-menu-button"
         onclick="promptOperationOnAllUnits(false)"><img src="img/hamburger/markall.png"></button>
         <button type="button" class="hamburger-menu-button"
-        onclick="clearAllData()"><img src="img/hamburger/deleteall.png"></button>
+        onclick="clearAllData()"><img src="img/hamburger/deleteall.png"></button><br><br>
         <button type="button" class="hamburger-menu-button"
         onclick="window.open('https://ko-fi.com/R5R114FFP8', '_blank')"><img
-        src="https://ko-fi.com/img/githubbutton_sm.svg"></button>
+        src="img/hamburger/kofi.png"></button>
         <button type="button" class="hamburger-menu-button"
         onclick="window.open('https://www.paypal.com/donate/?hosted_button_id=5D62GN8HVL6EY', '_blank')"><img
-        src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"></button>
+        src="img/hamburger/paypal.png"></button>
     </div>
 </div>
 <!-- JS After -->

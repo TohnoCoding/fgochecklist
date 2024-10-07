@@ -135,7 +135,11 @@ div.member-eventonly {
         transform-origin: top center !important;
         transform: scale(0.6) !important;
         margin-bottom: -6em !important;
-    }    
+    }
+
+    #noticeBoard {
+        width: 90% !important;
+    }
 }
 
 /* Centering and Layout Adjustments */
@@ -256,7 +260,7 @@ div.member-eventonly {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 90%;
+    width: 70%;
     border: 2px solid;
     border-radius: 10%;
     padding: 2%;
@@ -368,7 +372,7 @@ td {
     background: url('../img/hamburger/hamburger_button_back.png');
     margin: 0;
     padding: 0;
-    border: 0;
+    border: 0 !important;
     background-position: 0 0;
     width: 258px;
     height: 73px;

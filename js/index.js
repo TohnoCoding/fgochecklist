@@ -154,7 +154,7 @@ var NAonly_checkbox = "NAonly";
 var initial_load = true;
 
 var globalThreshold = 99999;
-var cookieName = "20241006_notice";
+var cookieName = "20241007_notice";
 
 const padorus = [
     "img/padoru/padoru-nero.png"
