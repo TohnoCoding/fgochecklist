@@ -39,7 +39,7 @@
 <nav class="navbar navbar-dark bg-secondary">
   <span class="navbar-brand">
     <img src="img/DSGO.png" width="30" height="30" class="d-inline-block align-top" alt="">
-    FGO Servant checklist with NP Count v3.0
+    FGO Servant Checklist v4.0
   </span>
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item" style="color: white;">
@@ -51,16 +51,18 @@
 <!-- Content -->
 <div class="container body-content" style="padding-top: 10px;">
     <div id="noticeBoard" style="display: none;">
-        <h3 style="text-align: center;">2024/09/23: Improvement notice!</h3>
+        <h3 style="text-align: center;">2024/10/06: Massive UI overhaul!</h3>
         <span>
-            In addition to the functionality of hiding JP-only units and fixing the statistics table, I've recently reworked
-            almost the entirety of the underlying code to optimize it and improve its readability for collaborators and
-            project forks. But allow me to reiterate, I'm human and can make mistakes. If you find anything at all broken
-            in your regular use of the site, please reach out to me via <a target="_blank"
-            href="https://github.com/TohnoCoding/fgochecklist/issues/new">opening a new issue</a> on the
-            project repository and write down your findings with as much detail as possible (ideally, with a video recording
-            of your screen; most mobile devices have this capability built-in; if you're on Windows or Mac, you can use
-            Loom, and if you're on Linux, Kooha is a good option).<br><br>
+            In my latest pizza-and-ginger-ale-and-cheesecake-fueled coding and design frenzy I've essentially completely
+            overhauled the site UI as far as functionality goes beyond selecting your units. What used to be a sidebar with
+            buttons is now contained in a nifty expandable hamburger-type menu when you tap/click on the "Details" button on
+            the left, and the main page is reserved for selecting your units, selecting your main list options (hiding
+            non-NA, marking Mash as gold, etc.) and toggling the availability icons. Once again, I request that if you
+            encounter any sort of issue that causes you any kind of bad experience using the site, please let me know ASAP
+            via <a target="_blank" href="https://github.com/TohnoCoding/fgochecklist/issues/new">opening a new issue</a> on
+            the project repository and write down your findings with as much detail as possible (ideally, with a video
+            recording of your screen; most mobile devices have this capability built-in; if you're on Windows or Mac, you
+            can use Loom, and if you're on Linux, Kooha is a good option).<br><br>
             ~Tohno Shiki<br>
             <h6 id="rmvNotice">[ Click/tap here to remove this message. ]</h6>
         </span>
@@ -68,69 +70,50 @@
     <div class="card" id="headerCard">
         <div id="card-body" class="card-body" style="text-align:center; padding: 0px;">
             <p id="page_whatami">Please note that the site may take a while loading on first visit from caching all
-            images, and that <span style="font-weight: bold;">the best user experience is to use the site on <span
-            style="font-style: italic;">LANDSCAPE</span> view, as adjusting the complexity of a site like this for
-            mobile is a virtually impossible task for a non-UX developer like myself.</span> Sorry about that.</p>
-            <form>
-                <table id="optionsAndButtons">
-                    <tr>
-                        <td class="tableCell" id="checkboxArea">
-                            <div class="form-group form-check form-check-options">
-                                <label class="form-check-label" for="mashuSR">Mash is 4★ (SR)</label>
-                                <input type="checkbox" class="form-check-input" id="mashuSR">
-                            </div>
-                            <div class="form-group form-check form-check-options">
-                                <label class="form-check-label" for="classmode">Divide by Servant Class</label>
-                                <input type="checkbox" class="form-check-input" id="classmode">
-                            </div>
-                            <div class="form-group form-check form-check-options">
-                                <label class="form-check-label" for="fastmode">Fast Mode (Left/Right Click)</label>
-                                <input type="checkbox" class="form-check-input" id="fastmode">
-                            </div>
-                            <div class="form-group form-check form-check-options">
-                                <span class="newFeature"></span>
-                                <label class="form-check-label" for="NAonly">Hide unreleased in NA/Global</label>
-                                <input type="checkbox" class="form-check-input" id="NAonly">
-                            </div>
-                        </td>
-                        <td class="tableCell" id="buttonsArea">
-                            <button type="button" id="toggleUnitTypesButton" class="btn btn-options btn-secondary menu-btn" onclick="toggleUnitTypeIcon()">Toggle Icons</button>
-                            <!-- button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Disable for Padoru" disabled>Image export (slow)</button -->
-                            <button type="button" id="exportCanvasButton" class="btn btn-options btn-info" onclick="exportCanvasToImage()">Image export</button>
-                            <button type="button" id="clearAllButton" class="btn btn-options btn-danger" onclick="clearAllData()">Clear All</button>
-                            <button type="button" id="markAllButton" class="btn btn-options btn-primary" onclick="promptMarkAllUnitsSelected(false)">Mark All Owned</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>        
-            <!-- Social Share 
-            <hr/>
-            Share the list to your friends!!-->
-            <div id="share" class="icon-bar">
-                Share to<br />socials:<br />
-                 <!-- Facebook -->
-                 <button type="button" class="btn facebook" onclick="shareURL('facebook')" data-toggle="tooltip" data-placement="bottom" title="Share to Facebook"><i class="fab fa-facebook-f"></i></button><br />
-                 <!-- Twitter -->
-                 <button type="button" class="btn twitter" onclick="shareURL('twitter')" data-toggle="tooltip" data-placement="bottom" title="Share to Twitter"><i class="fab fa-twitter"></i></button><br />
-                 <!-- Just Link -->
-                 <button type="button" class="btn btn-info" onclick="shareURL('')" data-toggle="tooltip" data-placement="bottom" title="Just shorten URL"><i class="fas fa-link"></i></button>
-                 <br /><hr />List<br />data:
-                <form>
-                    <button type="button" id="loadbutton" class="btn btn-info btn-data" onclick="loadLocalData()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Load list from current browser"><img src="img/load.png" /></button><br />
-                    <button type="button" id="savebutton" class="btn btn-success btn-data" onclick="saveLocalData()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Save list to current browser"><img src="img/save.png" /></button>
-                </form>
-                <hr/>
-                <form>
-                    <div style="display:none">
-                        <input type="file" id="theFile" style="display:none" accept=".fgol"/>
-                    </div>
-                    <button type="button" id="loadbutton_f" class="btn btn-info btn-data" onclick="openFileUploadPrompt()" data-toggle="tooltip" data-placement="bottom" title data-original-title="Load list from local file"><img src="img/upload.png" /></button><br />
-                    <button type="button" id="savebutton_f" class="btn btn-success btn-data" onclick="exportCurrentDataToFile()" disabled data-toggle="tooltip" data-placement="bottom" title data-original-title="Save list to local file"><img src="img/download.png" /></button>
-                </form>
+            images.<br>This list gets updated as soon as my schedule allows me, which should be at most during the first
+            few days after a new Servant is released.</p>
+            <button type="button" id="toggleUnitTypesButton" class="btn btn-options btn-secondary menu-btn"
+            onclick="toggleUnitTypeIcon()">Toggle Availability Icons On/Off</button>
+            <br>
+            <table id="optionsAndButtons">
+                <tr class="form-group form-check form-check-options">
+                    <td><input type="checkbox" class="form-check-input" id="mashuSR"></td>
+                    <td><label class="form-check-label" for="mashuSR">Mash is 4★ (SR)</label></td>
+                </tr>
+                <tr class="form-group form-check form-check-options">
+                    <td><input type="checkbox" class="form-check-input" id="classmode"></td>
+                    <td><label class="form-check-label" for="classmode">Divide by Servant Class</label></td>
+                </tr>
+                <tr class="form-group form-check form-check-options">
+                    <td><input type="checkbox" class="form-check-input" id="fastmode"></td>
+                    <td><label class="form-check-label" for="fastmode">Fast Mode (Left/Right Click)</label></td>
+                </tr>
+                <tr class="form-group form-check form-check-options">
+                    <td><input type="checkbox" class="form-check-input" id="NAonly"></td>
+                    <td><label class="form-check-label newFeature" for="NAonly">Hide unreleased in NA/Global&nbsp;</label></td>
+                </tr>
+            </table>
+            <!-- Hamburger button & menu | Social Share, data save/load, data import/export, clear all, select all -->
+            <div id="hamburger-button" class="hamburger-button">&nbsp;</div>
+            <div id="hamburger-menu" class="hamburger-menu">
+                <img src="img/optionselect.png">
+                <div class="burger-buttons">
+                    <button type="button" onclick="shareURL('facebook')" class="hamburger-menu-button"><img src="img/hamburger/facebookshare.png"></button>
+                    <button type="button" onclick="shareURL('twitter')" class="hamburger-menu-button"><img src="img/hamburger/xwittershare.png"></button>
+                    <button type="button" onclick="shareURL('')" class="hamburger-menu-button"><img src="img/hamburger/shortenurl.png"></button>
+                    <button type="button" onclick="loadLocalData()" class="hamburger-menu-button"><img src="img/hamburger/browserload.png"></button>
+                    <button type="button" onclick="saveLocalData()" class="hamburger-menu-button"><img src="img/hamburger/browsersave.png"></button>
+                    <button type="button" onclick="openFileUploadPrompt()" class="hamburger-menu-button"><img src="img/hamburger/fileload.png"></button>
+                    <button type="button" onclick="exportCurrentDataToFile()" class="hamburger-menu-button"><img src="img/hamburger/filesave.png"></button>
+                    <button type="button" onclick="exportCanvasToImage()" class="hamburger-menu-button"><img src="img/hamburger/imageexport.png"></button>
+                    <button type="button" onclick="promptOperationOnAllUnits(false)" class="hamburger-menu-button"><img src="img/hamburger/markall.png"></button>
+                    <button type="button" onclick="clearAllData()" class="hamburger-menu-button"><img src="img/hamburger/deleteall.png"></button>
+                    <form><div style="display:none"><input type="file" id="theFile" style="display:none" accept=".fgol"/></div></form>
+                </div>
             </div>
         </div>
     </div>
-    <h3 align="center" id="statsTitle">Statistics for nerds<br>(only counts unique entries, not copies)</h3>
+    <h3 align="center" id="statsTitle">Stats for nerds (unique entries only)</h3>
     <div id="capturearea">
         <div class="row statsBox" id="statisticBox" style="display:none;">
             <table id="statsContainer">
@@ -237,17 +220,17 @@
 <footer  id="footer" class="bd-footer">
   <div class="container-fluid p-3 p-md-5">
     <p>
-        Original project and code by Nechigawara Sanzenin. Forked <a href="https://github.com/Nechigawara/nechi-fgo-checklist/issues/7" target="_blank">under explicit permission</a> by Tohno Coding.<br />
-        This application is licensed under <a href="https://github.com/TohnoCoding/fgochecklist/blob/master/LICENSE" target="_blank">MIT</a>.<br/>
+        Original project and code by <a target="_blank" href="https://github.com/Nechigawara">Nechigawara Sanzenin</a>.
+        Forked <a href="https://github.com/Nechigawara/nechi-fgo-checklist/issues/7" target="_blank">under explicit permission</a> by Tohno Coding.<br />
+        This application is licensed under the general-purpose
+        <a href="https://github.com/TohnoCoding/fgochecklist/blob/master/LICENSE" target="_blank">MIT License</a>.<br/>
         Fate/Grand Order and related materials are registered trademarks and properties of 
         <a target="_blank" href="http://typemoon.com/">TYPE-MOON</a>, 
         <a target="_blank" href="https://www.lasengle.co.jp/">LASENGLE</a>,
         <a target="_blank" href="https://www.marv.jp/">Marvelous Inc.</a>, and
         <a target="_blank" href="https://www.aniplex.co.jp/">Aniplex Inc.</a><br/>
-        Images hosted at <a href="https://imgur.com" target="_blank">imgur.com</a>.<br />
-        Data icons created by <a href="https://www.flaticon.com/authors/freepik" target="_blank">Freepik - Flaticon</a>.
-        <!-- Padoru Credit>
-        <span>BB Padoru by <a href="https://www.facebook.com/reichan.noshiyo" target="_blank">Rei Noshiyo</a></span-->
+        Images hosted at <a href="https://imgur.com" target="_blank">imgur.com</a>.
+        <span id="padorucredits" style="display: none;"><br />BB Padoru by <a href="https://www.facebook.com/reichan.noshiyo" target="_blank">Rei Noshiyo</a>.</span>
     </p>
   </div>
 </footer>
@@ -323,7 +306,8 @@
 </div> <!-- Closing tag for Padoru -->
 <!-- EXTRA: Padoru Walker -->
 <div id="walk-container"></div>
+<div id="darkener"></div>
 <!-- JS After -->
 <script src="js/index.js" crossorigin="anonymous"></script>
 </body>
-</html> 
+</html>

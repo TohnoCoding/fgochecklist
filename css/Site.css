@@ -66,13 +66,19 @@ div.member-container > img {
 }
 
 div.member-checked {
-    background: linear-gradient(135deg, transparent 10%, rgb(86, 180, 239) 0) top left,
-                linear-gradient(225deg, transparent 10%, rgb(86, 180, 239) 0) top right,
-                linear-gradient(315deg, transparent 3%, rgb(86, 180, 239) 0) bottom right,
-                linear-gradient(45deg, transparent 3%, rgb(86, 180, 239) 0) bottom left;
+    background: linear-gradient(135deg, transparent 10%,
+                rgb(86, 180, 239) 0) top left,
+                linear-gradient(225deg, transparent 10%,
+                rgb(86, 180, 239) 0) top right,
+                linear-gradient(315deg, transparent 3%,
+                rgb(86, 180, 239) 0) bottom right,
+                linear-gradient(45deg, transparent 3%,
+                rgb(86, 180, 239) 0) bottom left;
     background-size: 50% 50%;
     background-repeat: no-repeat;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset, 0 0 8px rgba(82, 168, 236, 0.6), 0 0 8px rgba(82, 168, 236, 0.6) inset;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset, 
+                0 0 8px rgba(82, 168, 236, 0.6),
+                0 0 8px rgba(82, 168, 236, 0.6) inset;
     border-radius: 10% 10% 3% 3%;
 }
 
@@ -130,90 +136,43 @@ div.member-eventonly {
     text-shadow: 1px 1px 10px #000, 1px 1px 10px #ccc;
 }
 
-/* Share Buttons Styling */
-#share {
-    z-index: 9999999;
-}
-
-#share button {
-    margin: 5px;
-    font-size: 24px;
-    width: 40px;
-    height: 40px;
-    color: #fff;
-    opacity: 0.75;
-    transition: opacity 0.15s linear;
-}
-
-#share button:hover {
-    opacity: 1;
-}
-
-.facebook {
-    background: #3b5998;
-}
-
-.fa-facebook-f:before {
-    margin-right: -10px !important;
-}
-
-.twitter {
-    background: #55acee;
-}
-
 /* Navbar Styling */
 .navbar a {
     color: #BBBBFF;
 }
 
 /* Media Queries for Mobile */
-@media screen and (max-height: 768px) and (orientation: landscape) {
-    .icon-bar {
-        transform: scale(0.65);
-        right: 0;
-        top: 2%;
-    }
-}
-
-@media screen and (orientation: portrait) {
-    #buttonsArea {
-        width: 40% !important;
-    }
-
-    #checkboxArea {
-        padding-right: 4em !important;
-    }
-
-    .icon-bar {
-        right: 1% !important;
-        background-color: white;
-        border-radius: 5%;
-        top: -13%;
-    }
-
-    .container {
-        max-width: 95% !important;
-    }
+@media (max-width: 550px) {
+    #statsContainer {
+        transform-origin: top center !important;
+        transform: scale(0.6) !important;
+    }    
 }
 
 /* Centering and Layout Adjustments */
 .listbox,
-.statsBox,
-.center-portraits {
+.statsBox {
     justify-content: center;
+    margin: auto;
 }
 
 .statsColumn {
     max-width: 49.5%;
-    display: inline-block;
-    padding-left: 4em;
+    white-space: nowrap;
+}
+
+/* Overwriting the GODDAMN flex structure from _grid.css
+   so stuff is ACTUALLY visible on small screens */
+.col-1 { 
+    flex: 0 0 82px;
+    max-width: 82px;
 }
 
 #statsContainer {
     margin: 0 auto;
     padding: 0;
     max-width: 90%;
-    min-width: 60%;
+    table-layout: auto;
 }
 
 .centerText {
@@ -222,9 +181,14 @@ div.member-eventonly {
 
 /* Print Styling */
 @media print {
-    #share, #card-body, #footer {
+    #card-body, #footer {
         display: none;
     }
+}
+
+#card-body {
+    text-align: center;
+    padding: 0;
 }
 
 /* Loading Modal */
@@ -259,8 +223,7 @@ div.member-eventonly {
 
 .btn-options {
     margin-bottom: 5px !important;
-    width: 49%;
-    padding: 5px 1px !important;
+    padding: 5px 20px !important;
     min-width: 9em;
 }
 
@@ -268,25 +231,13 @@ div.member-eventonly {
     border: none;
 }
 
-.form-check-options {
-    text-align: right;
-}
-
 #optionsAndButtons {
-    margin: 0 auto !important;
+    margin: auto !important;
 }
 
-#checkboxArea {
-    padding-right: 5em;
-    width: 40%;
-}
-
-#buttonsArea {
-    padding-right: 2.75em;
-}
-
-.form-check-input {
-    margin-left: 1em;
+#checkboxes {
+    min-width: 80%;
+    text-align: left;
 }
 
 .JPdisabled {
@@ -305,7 +256,7 @@ div.member-eventonly {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 70%;
+    width: 90%;
     border: 2px solid;
     border-radius: 10%;
     padding: 2%;
@@ -323,19 +274,28 @@ div.member-eventonly {
 }
 
 /* New Feature Styling */
+td {
+    vertical-align: top;
+    line-height: normal;
+    white-space: nowrap;
+}
+
 .newFeature {
+    display: inline !important;
+    white-space: nowrap;
+}    
+
+.newFeature::after {
+    content: 'NEW!';
     background-color: red;
     color: white;
-    padding: 0.6% 1.6%;
+    padding: 0.6% 1%;
     animation: blink 0.5s step-start infinite;
     font-variant-caps: all-small-caps;
     padding-top: 0;
     padding-bottom: 3px;
-    display: inline-block;
-}
-
-.newFeature::before {
-    content: 'NEW!';
+    display: inline !important;
+    white-space: nowrap;
 }
 
 @keyframes blink {
@@ -343,3 +303,87 @@ div.member-eventonly {
         color: transparent;
     }
 }
+
+/* Hamburger menu stuff */
+.hamburger-button {
+    position: fixed;
+    top: 12%;
+    left: 0px;
+    font-size: 60px;
+    cursor: pointer;
+    z-index: 1045; /* On top of everything except modals */
+    width: 59px;
+    height: 64px;
+    background-image: url('../img/burger-menu.png');
+    background-position: 0 0;
+}
+
+.hamburger-button:hover, .hamburger-button-open {
+    background-position: 0 -64px !important;
+}
+
+.hamburger-menu {
+    position: fixed;
+    top: 0;
+    left: -500%; /* Hidden by default */
+    width: 400px;
+    height: 100%;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s;
+    z-index: 1040; /* Behind the button and other dialogs */
+    padding-top: 30px;
+}
+
+.hamburger-menu a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.hamburger-menu a:hover {
+    color: #f1f1f1;
+}
+
+/* When menu is expanded */
+.hamburger-menu.active {
+    left: 0;
+}
+
+.burger-buttons > button {
+    margin-left: 10px !important;
+}
+
+.hamburger-menu-button {
+    background: url('../img/hamburger/hamburger_button_back.png');
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin-bottom: 5px;
+}
+
+/* Add some background darkening when the menu is active */
+#darkener {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 999;
+    pointer-events: none;
+    display: flex;
+}
+
+.visible-darkener { 
+    transition: opacity 0.5s ease;
+    opacity: 1 !important;
+    pointer-events: all !important;
+}
+
+.container { max-width: 70% !important; }

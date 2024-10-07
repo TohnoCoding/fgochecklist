@@ -154,11 +154,11 @@ var NAonly_checkbox = "NAonly";
 var initial_load = true;
 
 var globalThreshold = 99999;
-var cookieName = "20240930_notice";
+var cookieName = "20241006_notice";
 
 const padorus = [
     "img/padoru/padoru-nero.png"
-    ,"img/padoru/padoru-bb.png"
+    //,"img/padoru/.png"
 ];
 // }
 /*****************************************************************************/
@@ -1255,9 +1255,10 @@ function clearAllData() {
  */
 function exportCanvasToImage() {
     bootbox.confirm({ // Confirm
-        message: "WARNING: Image result will not look exactly like in the"
-        + "page. (Capture library issues.)<br/>It is recommendeded to share " +
-        " the link or use an external capture tool instead.<br/>Continue?",
+        message: "WARNING: Image result may not look exactly like in the "
+        + "page due to capture library limitations.<br/>It is recommendeded" +
+        " to share the link or use an external capture tool instead.<br/>" +
+        "Continue?",
         buttons: {
             cancel: { label: '<i class="fa fa-times"></i> Cancel' },
             confirm: { label: '<i class="fa fa-check"></i> Confirm' }
@@ -1625,5 +1626,10 @@ $(async function() {
             "buttons have been disabled.");
     }
     checkDateToInjectPadoru();
+    $(".hamburger-button").on("click", function() {
+        $("#darkener").toggleClass("visible-darkener");
+        $(".hamburger-menu").toggleClass("active");
+        $("#hamburger-button").toggleClass("hamburger-button-open");
+    });
 });
 // }
