@@ -361,7 +361,10 @@ td {
     margin-bottom: 5px;
 }
 
-.hamburger-menu-button {
+.hamburger-menu-button,
+.hamburger-menu-button:hover,
+.hamburger-menu-button:focus,
+.hamburger-menu-button:active {
     background: url('../img/hamburger/hamburger_button_back.png');
     margin: 0;
     padding: 0;
