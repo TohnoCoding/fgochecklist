@@ -377,7 +377,8 @@ async function fetchGlobalThreshold() {
         if (!response.ok)   // ensure successful response
             { throw new Error(`Network error: ${response.status}}`); }
         const NAreleases = await response.json();
-        globalThreshold = NAreleases[NAreleases.length - 1];  // get last NA ID
+        globalThreshold = 
+            NAreleases[NAreleases.length - 1].collectionNo;  // get last NA ID
     } catch (error) {
         console.error(error);
         $(".newFeature").addClass("JPdisabled");

@@ -3,15 +3,6 @@ body {
 }
 
 /* General Button Styling */
-.btn-data {
-    font-size: 16px;
-    padding: 0;
-    padding-top: -2px;
-}
-
-.btn-data > img {
-    margin-top: -6px;
-}
 
 /* Background Colors */
 .bg-fgo-rare {
@@ -23,7 +14,7 @@ body {
 }
 
 /* Button Group Styling */
-.btn-group-xs > .btn,
+
 .btn-xs {
     padding: 0.2rem 0.3rem;
     font-size: 0.775rem;
@@ -416,11 +407,6 @@ td {
 }
 
 @keyframes bounce {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: translate3d(0, 25px, 0);
-    }
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(0, 25px, 0); }
 }
