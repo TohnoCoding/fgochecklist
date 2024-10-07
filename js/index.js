@@ -452,7 +452,6 @@ async function shortenURL() {
         window.location.pathname + "?" + compress_input_parameter + "=" +
         compress_input + (mashuSR_str !== "" ? "&" + mashuSR_str : "");
     full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
-
     /*******************************/
     /*     Shortening services     */
     /*******************************/
@@ -474,15 +473,13 @@ async function shortenURL() {
                 contentType: "application/json",
                 method: "POST",
                 data: ajaxdata,
-                success: (result) => resolve({
-                    serviceProvider: "Akari-chan", value: result.data.link
-                }),
+                success: (result) => resolve({ serviceProvider: "Akari-chan",
+                    value: result.data.link }),
                 error: (xhr, status, error) => 
                     reject(new Error(`Akari-chan error: ${status} - ${error}`))
             });
         });
     }
-
     /**
      * Shortens the current data URL with is.gd shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
@@ -494,15 +491,13 @@ async function shortenURL() {
                 url: "https://is.gd/create.php",
                 dataType: "json",
                 data: { format: "json", url: full_url },
-                success: (result) => resolve({
-                    serviceProvider: "is.gd", value: result.shorturl
-                }),
+                success: (result) => resolve({ serviceProvider: "is.gd",
+                    value: result.shorturl }),
                 error: (xhr, status, error) =>
                     reject(new Error(`is.gd error: ${status} - ${error}`))
             });
         });
     }
-
     /**
      * Shortens the current data URL with owo.vc shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
@@ -526,7 +521,7 @@ async function shortenURL() {
         });
     }
     const shortProviders = [isgd(), waaai(), owo()];
-    //const shortProviders = [()];      // used for testing
+    //const shortProviders = [()];      // used for testing new providers
     try {
         const result = await Promise.any(shortProviders);
         if (!result || !result.value) { throw new
@@ -537,7 +532,6 @@ async function shortenURL() {
         return undefined;
     }
 }
-
 // }
 /*****************************************************************************/
 // UI & DOM
