@@ -375,8 +375,9 @@ td {
     margin: 0;
     padding: 0;
     border: 0;
-    margin-bottom: 5px;
     background-position: 0 0;
+    width: 258px;
+    height: 73px;
 }
 
 .hamburger-menu-button:hover {
