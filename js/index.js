@@ -1624,10 +1624,11 @@ $(async function() {
             "buttons have been disabled.");
     }
     checkDateToInjectPadoru();
-    $(".hamburger-button").on("click", function() {
+    $("#hamburger-button").on("click", function() {
         $("#darkener").toggleClass("visible-darkener");
         $(".hamburger-menu").toggleClass("active");
         $("#hamburger-button").toggleClass("hamburger-button-open");
     });
+    $("#darkener").on("click", function() { $("#hamburger-button").click(); });
 });
 // }
