@@ -1617,8 +1617,10 @@ $(async function() {
     });
     try { var isFileSaverSupported = !!new Blob; } // Check for FileSaver.js
     catch (e) {
-        $("#loadbutton_f").prop("disabled", "disabled");
-        $("#savebutton_f").prop("disabled", "disabled");
+        $("#loadbutton_f").removeAttr("href");
+        $("#savebutton_f").removeAttr("href");
+        $("#loadbutton_f").toggleClass("disabled-link");
+        $("#savebutton_f").toggleClass("disabled-link");
         $("#page_whatami").append("<br><b>NOTICE:</b> FileSaver.js " +
             "functionality not supported! Upload &amp; Download " +
             "buttons have been disabled.");

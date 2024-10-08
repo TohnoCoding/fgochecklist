@@ -335,7 +335,7 @@ td {
     overflow-x: hidden;
     transition: 0.5s;
     z-index: 1040; /* Behind the button and other dialogs */
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 .hamburger-menu a {
@@ -381,6 +381,14 @@ td {
 
 .hamburger-menu-button:hover {
     background-position: 0 -73px !important;
+}
+
+.disabled-link {
+    filter: grayscale(100%);
+}
+
+.disabled-link a {
+    filter: grayscale(100%);
 }
 
 /* Add some background darkening when the menu is active */
