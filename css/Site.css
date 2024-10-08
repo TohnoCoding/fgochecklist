@@ -365,17 +365,18 @@ td {
     margin-bottom: 5px;
 }
 
-.hamburger-menu-button,
-.hamburger-menu-button:hover,
-.hamburger-menu-button:focus,
-.hamburger-menu-button:active {
+.hamburger-menu-button, .hamburger-menu-button > a,
+.hamburger-menu-button:hover, .hamburger-menu-button:hover > a:hover,
+.hamburger-menu-button:focus, .hamburger-menu-button:focus > a:focus,
+.hamburger-menu-button:active, .hamburger-menu-button:active > a:active {
     background: url('../img/hamburger/hamburger_button_back.png');
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     border: 0 !important;
     background-position: 0 0;
     width: 258px;
     height: 73px;
+    transition: none !important;
 }
 
 .hamburger-menu-button:hover {
