@@ -970,7 +970,6 @@ function shareURL(site) {
 /**
  * Updates the URL each time a unit's data is changed to reflect the new
  * collection status.
- * @returns {boolean} True when the URL is successfully updated.
  */
 function updateURL() {
     // Sort keys and update raw input
