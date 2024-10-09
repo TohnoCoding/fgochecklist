@@ -1593,8 +1593,8 @@ $(async function() {
             }
         }
     }
-    if (localStorage[list_local])
-        { $('#' + load_btn).prop('disabled', false); } // Load button status
+    if (localStorage[list_local])      // Load button status
+        { $('#' + load_btn).removeAttr("href").toggleClass("disabled-link"); }
     // Set Checkbox Events
     $('#' + fastmode_checkbox).on("change",
         function () { updateURLOptionModeOnly(); });
