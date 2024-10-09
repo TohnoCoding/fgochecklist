@@ -1292,7 +1292,8 @@ function exportCanvasToImage() {
  */
 function saveLocalData() {
     updateURL(); // Update URL First
-    if (compress_input == null) { return; } // Confirm compress_input not null
+    if (compress_input == null || compress_input == "")
+        { return; } // Confirm compress_input not null, exit if so
     bootbox.confirm({ // Confirm
         message: save_text,
         buttons: {
@@ -1302,7 +1303,8 @@ function saveLocalData() {
         callback: function (result) {
             if (result) {
                 localStorage[list_local] = compress_input;
-                $('#' + load_btn).prop('disabled', false);
+                $('#' + load_btn).toggleClass("disabled-link")
+                    .prop("href", "javascript:loadLocalData();");
                 bootbox.alert(save_fin_text, null);
             }
         }
