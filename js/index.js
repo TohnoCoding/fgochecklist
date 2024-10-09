@@ -1304,7 +1304,7 @@ function saveLocalData() {
             if (result) {
                 localStorage[list_local] = compress_input;
                 $('#' + load_btn).toggleClass("disabled-link")
-                    .prop("href", "javascript:loadLocalData();");
+                    .attr("href", "javascript:loadLocalData();");
                 bootbox.alert(save_fin_text, null);
             }
         }
@@ -1632,5 +1632,7 @@ $(async function() {
         $("#hamburger-button").toggleClass("hamburger-button-open");
     });
     $("#darkener").on("click", function() { $("#hamburger-button").click(); });
+    if(localStorage[list_local]) { $("#" + load_btn).attr("href",
+        "javascript:loadLocalData()"); }
 });
 // }
