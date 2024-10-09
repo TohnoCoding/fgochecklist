@@ -252,83 +252,6 @@ function loadSprite(src) {
 }
 
 /**
- * Builds a new Select2 box for the desired unit for the detailed popup.
- * @param {number} current_max The currently selected element.
- * @param {object} s_list The list of elements to display in the box.
- */
-function getNewCopySource(current_max, s_list) {
-    if (current_max < copy_choice_max && current_max > 0) {
-        var new_choice_allow = []; var i = 0;
-        for (i = 0; i < copy_choice_allow.length; i++) {
-            if (copy_choice_allow[i].id <= current_max) {
-                new_choice_allow.push(copy_choice_allow[i]);
-            } else { break; }
-        }
-        s_list.data('select2').dataAdapter.updateOptions(new_choice_allow);
-    } else
-    { s_list.data('select2').dataAdapter.updateOptions(copy_choice_allow); }
-}
-
-/**
- * Gets the path to an image in the current codebase project. Used for loading
- * an unknown image if the unit json definition data file doesn't include one.
- * @param {string} path The path to the image local to the codebase.
- * @param {boolean} external_source Whether the image is from an external
- * source.
- * @returns {string} The full path to the desired image.
- */
-function getImagePath(path, external_source) {
-    if (external_source) { return path; } else {
-        return location.href.substring
-            (0, location.href.lastIndexOf("/") + 1) + img_path + path;
-    }
-}
-
-/**
- * Gets the path to the class images.
- * @param {string} path The class to get the image for.
- * @returns {string} The full path to the desired class image.
- */
-function getImageClassPath(path) {
-    return location.href.substring
-        (0, location.href.lastIndexOf("/") + 1) + class_img_path + path;
-}
-
-/**
- * Fetches data stored about the currently selected unit. If none, returns
- * undefined.
- * @param {string} id The ID of the currently selected unit.
- * @returns {object} Undefined if there's no stored data; the saved data of the
- * selected unit if there is.
- */
-function getStoredUnitData(id) {
-    if (typeof user_data[id] === "undefined") { return null; }
-    return user_data[id];
-}
-
-/**
- * Validates if the current URL contains the old parameter name "mashu" and
- * converts/updates it to the current parameter name "mash" when Mash is marked
- * as SR.
- * @returns {string} Forces returning "mash".
- */
-function getMashParameter() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var mashValue = urlParams.get("mash") || urlParams.get("mashu");
-    if (mashValue !== null) {
-        // Update the parameter to the new standard 'mash' if it's 'mashu'
-        if (urlParams.has("mashu")) {
-            urlParams.delete("mashu");
-            urlParams.set("mash", mashValue);
-            // Update the URL without reloading the page
-            window.history.replaceState({}, '',
-                `${window.location.pathname}?${urlParams}`);
-        }
-    }
-    return mashValue;
-}
-
-/**
  * Setting up AJAX to always override the content/MIME type with json.
  */
 $.ajaxSetup({
@@ -1207,6 +1130,82 @@ function getMashuSRURLstring(allowZero) {
         (allowZero ? `${mashuSR_parameter}=0` : "");
 }
 
+/**
+ * Builds a new Select2 box for the desired unit for the detailed popup.
+ * @param {number} current_max The currently selected element.
+ * @param {object} s_list The list of elements to display in the box.
+ */
+function getNewCopySource(current_max, s_list) {
+    if (current_max < copy_choice_max && current_max > 0) {
+        var new_choice_allow = []; var i = 0;
+        for (i = 0; i < copy_choice_allow.length; i++) {
+            if (copy_choice_allow[i].id <= current_max) {
+                new_choice_allow.push(copy_choice_allow[i]);
+            } else { break; }
+        }
+        s_list.data('select2').dataAdapter.updateOptions(new_choice_allow);
+    } else
+    { s_list.data('select2').dataAdapter.updateOptions(copy_choice_allow); }
+}
+
+/**
+ * Gets the path to an image in the current codebase project. Used for loading
+ * an unknown image if the unit json definition data file doesn't include one.
+ * @param {string} path The path to the image local to the codebase.
+ * @param {boolean} external_source Whether the image is from an external
+ * source.
+ * @returns {string} The full path to the desired image.
+ */
+function getImagePath(path, external_source) {
+    if (external_source) { return path; } else {
+        return location.href.substring
+            (0, location.href.lastIndexOf("/") + 1) + img_path + path;
+    }
+}
+
+/**
+ * Gets the path to the class images.
+ * @param {string} path The class to get the image for.
+ * @returns {string} The full path to the desired class image.
+ */
+function getImageClassPath(path) {
+    return location.href.substring
+        (0, location.href.lastIndexOf("/") + 1) + class_img_path + path;
+}
+
+/**
+ * Fetches data stored about the currently selected unit. If none, returns
+ * undefined.
+ * @param {string} id The ID of the currently selected unit.
+ * @returns {object} Undefined if there's no stored data; the saved data of the
+ * selected unit if there is.
+ */
+function getStoredUnitData(id) {
+    if (typeof user_data[id] === "undefined") { return null; }
+    return user_data[id];
+}
+
+/**
+ * Validates if the current URL contains the old parameter name "mashu" and
+ * converts/updates it to the current parameter name "mash" when Mash is marked
+ * as SR.
+ * @returns {string} Forces returning "mash".
+ */
+function getMashParameter() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var mashValue = urlParams.get("mash") || urlParams.get("mashu");
+    if (mashValue !== null) {
+        // Update the parameter to the new standard 'mash' if it's 'mashu'
+        if (urlParams.has("mashu")) {
+            urlParams.delete("mashu");
+            urlParams.set("mash", mashValue);
+            // Update the URL without reloading the page
+            window.history.replaceState({}, '',
+                `${window.location.pathname}?${urlParams}`);
+        }
+    }
+    return mashValue;
+}
 // }
 /*****************************************************************************/
 // MODALS AND DIALOGS {
@@ -1220,9 +1219,7 @@ function showURLShorteningError() {
         " can be found in your browser console.";
     var error_dialog = bootbox.dialog({
         message: msg,
-        buttons: {
-            confirm: { label: '<i class="fa fa-check"></i> Ok' }
-        }
+        buttons: { confirm: { label: '<i class="fa fa-check"></i> Ok' } }
     });
     error_dialog.init(function() { });
 }
