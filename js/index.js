@@ -157,8 +157,8 @@ var globalThreshold = 99999;
 var cookieName = "20241007_notice";
 
 const padorus = [
-    "img/padoru/padoru-nero.png"
-    //,"img/padoru/.png"
+    "padoru-nero.png"
+    //,".png"
 ];
 // }
 /*****************************************************************************/
@@ -930,15 +930,16 @@ function checkDateToInjectPadoru() {
     $('head').append($('<link>', {
         'rel': "stylesheet",
         'type': "text/css",
-        'href': "css/SitePadoru.css",
+        'href': "./css/SitePadoru.css",
         'crossorigin': "anonymous"
     }));
     $("#walk-container").append($('<img>', {
         'class': "d-inline-block align-top",
         'id': "padoru-walker"
     }));
-    const randomImg = padorus[Math.floor(Math.random() * padorus.length)];
-    $("#padoru-walker").attr('src', randomImg);
+    const randomPadoru = "./img/padoru/" +
+        padorus[Math.floor(Math.random() * padorus.length)];
+    $("#padoru-walker").attr('src', randomPadoru);
 }
 // }
 /*****************************************************************************/

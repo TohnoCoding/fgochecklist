@@ -14,24 +14,24 @@
     <meta name="twitter:image" content="img/fgo-check-og.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/select2/select2.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/select2/select2-bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/select2/select2.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/select2/select2-bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/Site.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./css/Site.css" crossorigin="anonymous">
     <!-- JS -->
-    <script src="js/lib/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-    <script src="js/lib/popper.min.js" crossorigin="anonymous"></script>
-    <script src="js/lib/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script src="js/lib/bootbox.min.js" crossorigin="anonymous"></script>
-    <script src="js/lib/select2.full.min.js" crossorigin="anonymous"></script>
-    <script src="js/lib/lz-string.min.js" crossorigin="anonymous"></script>
-    <script src="js/lib/html2canvas.min.js" crossorigin="anonymous"></script>
+    <script src="./js/lib/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="./js/lib/popper.min.js" crossorigin="anonymous"></script>
+    <script src="./js/lib/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="./js/lib/bootbox.min.js" crossorigin="anonymous"></script>
+    <script src="./js/lib/select2.full.min.js" crossorigin="anonymous"></script>
+    <script src="./js/lib/lz-string.min.js" crossorigin="anonymous"></script>
+    <script src="./js/lib/html2canvas.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/5ed507ef8aa53d8ecfea96d96bc7214cd2476fd2/FileSaver.min.js"></script>
 </head>
 <body>
     <div style="display: none;">
-        <img src="img/fou1.png"><img src="img/fou2.png"><img src="img/fou3.png"><img src="img/fou4.png">
+        <img src="./img/fou1.png"><img src="./img/fou2.png"><img src="./img/fou3.png"><img src="./img/fou4.png">
         <input type="file" id="theFile" style="display:none" accept=".fgol"/>
     </div>
 <!-- Start -->
@@ -39,7 +39,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-dark bg-secondary">
   <span class="navbar-brand">
-    <img src="img/DSGO.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <img src="./img/DSGO.png" width="30" height="30" class="d-inline-block align-top" alt="">
     FGO Servant Checklist v4.0
   </span>
 </nav>
@@ -216,7 +216,6 @@
         <a target="_blank" href="https://www.marv.jp/">Marvelous Inc.</a>, and
         <a target="_blank" href="https://www.aniplex.co.jp/">Aniplex Inc.</a><br/>
         Images hosted at <a href="https://imgur.com" target="_blank">imgur.com</a>.
-        <span id="padorucredits" style="display: none;"><br />BB Padoru by <a href="https://www.facebook.com/reichan.noshiyo" target="_blank">Rei Noshiyo</a>.</span>
     </p>
   </div>
 </footer>
@@ -282,7 +281,7 @@
     <div class="modal-content">
       <div class="modal-body" style="text-align:center">
         <br><br><br>
-        <img src="img/fou1.png" id="fou">
+        <img src="./img/fou1.png" id="fou">
         <br><br><br><br>
       </div>
     </div>
@@ -296,46 +295,46 @@
 <!-- Hamburger button & menu | Social Share, data save/load, data import/export, clear all, select all -->
 <div id="hamburger-button" class="hamburger-button">&nbsp;</div>
 <div id="hamburger-menu" class="hamburger-menu">
-    <img src="img/optionselect.png" class="burger-select" id="burger-select-image">
+    <img src="./img/optionselect.png" class="burger-select" id="burger-select-image">
     <div class="burger-buttons">
         <a class="hamburger-menu-button"
-        href="javascript:shareURL('facebook')"><img src="img/hamburger/facebookshare.png"></a>
+        href="javascript:shareURL('facebook')"><img src="./img/hamburger/facebookshare.png"></a>
         <a class="hamburger-menu-button"
-        href="javascript:shareURL('twitter')"><img src="img/hamburger/xwittershare.png"></a>
+        href="javascript:shareURL('twitter')"><img src="./img/hamburger/xwittershare.png"></a>
         <a class="hamburger-menu-button"
-        href="javascript:shareURL('')"><img src="img/hamburger/shortenurl.png"></a>
+        href="javascript:shareURL('')"><img src="./img/hamburger/shortenurl.png"></a>
         <a class="hamburger-menu-button disabled-link" id="loadbutton"><img
-            src="img/hamburger/browserload.png"></a>
+            src="./img/hamburger/browserload.png"></a>
         <a class="hamburger-menu-button" id="savebutton"
-        href="javascript:saveLocalData()"><img src="img/hamburger/browsersave.png"></a>
+        href="javascript:saveLocalData()"><img src="./img/hamburger/browsersave.png"></a>
         <a class="hamburger-menu-button" id="loadbutton_f"
-        href="javascript:openFileUploadPrompt()"><img src="img/hamburger/fileload.png"></a>
+        href="javascript:openFileUploadPrompt()"><img src="./img/hamburger/fileload.png"></a>
         <a class="hamburger-menu-button" id="savebutton_f"
-        href="javascript:exportCurrentDataToFile()"><img src="img/hamburger/filesave.png"></a>
+        href="javascript:exportCurrentDataToFile()"><img src="./img/hamburger/filesave.png"></a>
         <a class="hamburger-menu-button"
-        href="javascript:exportCanvasToImage()"><img src="img/hamburger/imageexport.png"></a>
+        href="javascript:exportCanvasToImage()"><img src="./img/hamburger/imageexport.png"></a>
         <a class="hamburger-menu-button"
-        href="javascript:promptOperationOnAllUnits(false)"><img src="img/hamburger/markall.png"></a>
+        href="javascript:promptOperationOnAllUnits(false)"><img src="./img/hamburger/markall.png"></a>
         <a class="hamburger-menu-button"
-        href="javascript:clearAllData()"><img src="img/hamburger/deleteall.png"></a><br><br>
+        href="javascript:clearAllData()"><img src="./img/hamburger/deleteall.png"></a><br><br>
         <a class="hamburger-menu-button"
         href="https://github.com/TohnoCoding/fgochecklist" target="_blank"><img
-        src="img/hamburger/github.png"></a>
+        src="./img/hamburger/github.png"></a>
         <a class="hamburger-menu-button"
         href="https://github.com/Nechigawara/nechi-fgo-checklist/" target="_blank"><img
-        src="img/hamburger/nechi.png"></a>
+        src="./img/hamburger/nechi.png"></a>
         <a class="hamburger-menu-button"
         href="https://tohnocoding.github.io/fgobanners" target="_blank"><img
-        src="img/hamburger/banners.png"></a>
+        src="./img/hamburger/banners.png"></a>
         <a class="hamburger-menu-button"
         href="https://ko-fi.com/R5R114FFP8" target="_blank"><img
-        src="img/hamburger/kofi.png"></a>
+        src="./img/hamburger/kofi.png"></a>
         <a class="hamburger-menu-button"
         href="https://www.paypal.me/MasterTohno" target="_blank"><img
-        src="img/hamburger/paypal.png"></a>
+        src="./img/hamburger/paypal.png"></a>
     </div>
 </div>
 <!-- JS After -->
-<script src="js/index.js" crossorigin="anonymous"></script>
+<script src="./js/index.js" crossorigin="anonymous"></script>
 </body>
 </html>
