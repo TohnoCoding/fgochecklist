@@ -1626,7 +1626,6 @@ $(async function() {
             "functionality not supported! Upload &amp; Download " +
             "buttons have been disabled.");
     }
-    checkDateToInjectPadoru();
     $("#hamburger-button").on("click", function() {
         $("#darkener").toggleClass("visible-darkener");
         $(".hamburger-menu").toggleClass("active");
@@ -1635,5 +1634,6 @@ $(async function() {
     $("#darkener").on("click", function() { $("#hamburger-button").click(); });
     if(localStorage[list_local]) { $("#" + load_btn).attr("href",
         "javascript:loadLocalData()"); }
-});
+    });
+    checkDateToInjectPadoru();
 // }
