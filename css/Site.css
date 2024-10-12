@@ -1,5 +1,5 @@
 body {
-    font: 1em;
+    font-size: 1em !important;
 }
 
 /* General Button Styling */
