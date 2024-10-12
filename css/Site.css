@@ -142,6 +142,15 @@ div.member-eventonly {
     }
 }
 
+@media (min-aspect-ratio: 6/13) {
+    .card {
+        margin-left: -2.5em !important;
+        width: 128% !important;
+        transform-origin: top center !important;
+        transform: scale(0.9);
+    }
+}
+
 /* Centering and Layout Adjustments */
 .listbox,
 .statsBox {
