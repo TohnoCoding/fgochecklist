@@ -130,22 +130,27 @@ div.member-eventonly {
 }
 
 /* Media Queries for Mobile */
-@media (max-width: 550px) {
-    #statsContainer {
-        transform-origin: top center !important;
-        transform: scale(0.6) !important;
-        margin-bottom: -6em !important;
-    }
-
+@media (max-width: 380px) {
     #noticeBoard {
         width: 90% !important;
     }
 
     .card {
-        margin-left: -2.5em !important;
-        width: 128% !important;
+        margin-left: -2.7em !important;
+        width: 133% !important;
         transform-origin: top center !important;
-        transform: scale(0.9);
+    }
+
+    .card-body {
+        padding: 5px !important;
+    }
+}
+
+@media (max-width: 650px) {
+    #statsContainer {
+        transform-origin: top center !important;
+        transform: scale(0.6) !important;
+        margin-bottom: -6em !important;
     }
 }
 

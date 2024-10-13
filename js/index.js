@@ -1634,6 +1634,7 @@ $(async function() {
     $("#darkener").on("click", function() { $("#hamburger-button").click(); });
     if(localStorage[list_local]) { $("#" + load_btn).attr("href",
         "javascript:loadLocalData()"); }
-    });
     checkDateToInjectPadoru();
+    //alert(`${window.innerWidth}x${window.innerHeight}px, ${window.devicePixelRatio} DPR`);
+});
 // }
