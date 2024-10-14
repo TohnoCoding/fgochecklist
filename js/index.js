@@ -332,7 +332,8 @@ function loadLocallySavedData(getresult) {
     encoded_user_input =
         LZString.decompressFromEncodedURIComponent(compress_input);
     // Error; Stop
-    if (encoded_user_input == null || encoded_user_input == undefined) {
+    if (encoded_user_input == null || encoded_user_input == undefined ||
+        encoded_user_input == "") {
         encoded_user_input = null;
         bootbox.alert(load_fail_text, null);
         return;
