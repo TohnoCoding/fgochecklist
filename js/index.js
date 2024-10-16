@@ -97,8 +97,8 @@ var NAonly_local = "fgo_naonly";
 
 var list_local = "fgo_list";
 
-var load_text = "List data found on your current browser. Would you like to " +
-    "load it?";
+var load_text =
+    "List data found on your current browser. Would you like to load it?";
 var save_text = "Would you like to save current list data? This will " +
     "overwrite old data if it exists.";
 
