@@ -160,10 +160,8 @@ const padorus = [
     "padoru-nero.png"
     //,".png"
 ];
-const padoruStartMonth = 10;
-const padoruStartDay = 28;
-const padoruEndMonth = 0;
-const padoruEndDay = 3;
+const padoruStartMonth = 10, padoruStartDay = 28;   //  Before Nov 28
+const padoruEndMonth = 0, padoruEndDay = 3;         //  After Jan 3
 // }
 /*****************************************************************************/
 // UTILITY FUNCTIONS {
@@ -929,8 +927,9 @@ function checkDateToInjectPadoru() {
     const today = new Date();
     const currMonth = today.getMonth();
     const currDay = today.getDate();
-    if ((currMonth < 10 || (currMonth === 10 && currDay < 28)) // Before Nov 28
-        || (currMonth === 0 && currDay > 3)) // After Jan 3
+    if ((currMonth < padoruStartMonth ||
+        (currMonth === padoruStartMonth && currDay < padoruStartDay))
+        || (currMonth === padoruEndMonth && currDay > padoruEndDay))
         { return; } // Do nothing if outside the above date range
     $('head').append($('<link>', {
         'rel': "stylesheet",
