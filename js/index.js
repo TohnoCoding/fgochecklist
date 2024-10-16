@@ -160,6 +160,10 @@ const padorus = [
     "padoru-nero.png"
     //,".png"
 ];
+const padoruStartMonth = 10;
+const padoruStartDay = 28;
+const padoruEndMonth = 0;
+const padoruEndDay = 3;
 // }
 /*****************************************************************************/
 // UTILITY FUNCTIONS {
