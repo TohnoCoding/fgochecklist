@@ -1646,6 +1646,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ERmZDAe.png"
+            },
+            {
+                "id": "5-51",
+                "name": "Kazuradrop",
+                "class": "alterego",
+                "game_id": "426",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/6JmPBFk.png"
             }
         ]
     },
