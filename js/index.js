@@ -942,9 +942,8 @@ function checkDateToInjectPadoru() {
         padorus[Math.floor(Math.random() * padorus.length)];
     $("#padoru-walker").attr('src', randomPadoru);
     var $snowfall = $('<div>', { 'class': 'snowfall', 'id': 'snowfall' });
-    var $bodyContents = $('body').contents().detach();
-    $snowfall.append($bodyContents);
-    $('body').empty().append($snowfall);
+    var $pageBody = $('body').contents().detach();
+    $('body').empty().append($snowfall.append($pageBody));
 }
 // }
 /*****************************************************************************/
