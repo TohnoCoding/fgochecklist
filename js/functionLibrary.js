@@ -181,11 +181,10 @@ async function shortenURL() {
     if (Config.compress_input === "") { bootbox.alert(Config.share_none_text);
         return; } // Warn user if no data
     // Gather the full URL for shortening
-    var mashuSR_str = getMashuSRURLstring(true);
+    var mashSR_str = getMashSRURLstring(true);
     var full_url = window.location.protocol + "//" + window.location.host +
         window.location.pathname + "?" + Config.compress_input_parameter + "=" +
-        Config.compress_input +
-        (Config.mashuSR_str !== "" ? "&" + Config.mashuSR_str : "");
+        Config.compress_input + (mashSR_str !== "" ? "&" + mashSR_str : "");
     full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
     /*******************************/
     /*     Shortening services     */
@@ -514,8 +513,8 @@ function updateClassMode()
 function updateURLOptionModeOnly() {
     const urlParams = new URLSearchParams(window.location.search);
     const options = [
-        { key: Config.mashuSR_parameter, value:
-            getMashuSRURLstring(false), storageKey: Config.mashuSR_local },
+        { key: Config.mashSR_parameter, value:
+            getMashSRURLstring(false), storageKey: Config.mashSR_local },
         { key: Config.classmode_parameter, value:
             getClassModeURLstring(), storageKey: Config.class_mode_local },
         { key: Config.fastmode_parameter, value:
@@ -574,7 +573,7 @@ function finishLoading(servant_pass_data) {
             }
             // Ajax; Unit data
             $.ajax({
-                url: isMashuSR() ? Config.datapath_alternate : Config.datapath,
+                url: isMashSR() ? Config.datapath_alternate : Config.datapath,
                 contentType: "application/json",
                 dataType: "json",
                 cache: false,
@@ -822,7 +821,7 @@ function updateURL() {
         $('#' + Config.save_file_btn).prop('disabled', true);
     }
     // Add additional parameters
-    [getMashuSRURLstring(false), getClassModeURLstring(),
+    [getMashSRURLstring(false), getClassModeURLstring(),
         getFastModeURLstring(), getNAonlyURLstring()].forEach((param) => {
         if (param)
         { new_parameter += (new_parameter.includes("?") ? "&" : "?") + param; }
@@ -911,8 +910,8 @@ function isNAonly()
  * Returns whether Mash is marked as SR.
  * @returns {boolean} True if Mash is marked as SR, False otherwise.
  */
-function isMashuSR()
-{ return $('#' + Config.mashuSR_checkbox).is(':checked'); }
+function isMashSR()
+{ return $('#' + Config.mashSR_checkbox).is(':checked'); }
 
 /**
  * Returns a string indicating the state of Fast Mode for URL injection.
@@ -939,15 +938,6 @@ function getNAonlyURLstring()
 { return isNAonly() ? Config.NAonly_parameter + "=1" : ""; }
 
 /**
- * Returns the serialized form of the currently saved unit data.
- * @returns {string} A string representation of the currently saved unit data.
- */
-function getSerializedUnitData() {
-    return Config.compress_input + (getMashuSRURLstring(false) ?
-        "&" + Config.MashuIsSR : ''); // Get compress_input
-}
-
-/**
  * Returns an URL component that determines if Mash should be treated as of SR
  * rarity.
  * @param {boolean} allowZero If false, returns "mash=1" if Mash is SR, and an
@@ -956,10 +946,9 @@ function getSerializedUnitData() {
  * @returns {string} Empty string for general use if Mash isn't marked as SR,
  * or "mash=0" for URL shortening; "mash=1" if she's marked as SR.
  */
-function getMashuSRURLstring(allowZero) {
-    return isMashuSR() ?
-        `${Config.mashuSR_parameter}=1` :
-        (allowZero ? `${Config.mashuSR_parameter}=0` : "");
+function getMashSRURLstring(allowZero) {
+    return isMashSR() ? `${Config.mashSR_parameter}=1` :
+        (allowZero ? `${Config.mashSR_parameter}=0` : "");
 }
 
 /**
@@ -1253,7 +1242,7 @@ function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
     $('#loadingModal').modal('show'); // Open loading modal
     // Ajax; Unit Data
     $.ajax({
-        url: isMashuSR() ? Config.datapath_alternate : Config.datapath,
+        url: isMashSR() ? Config.datapath_alternate : Config.datapath,
         contentType: "application/json",
         dataType: "json",
         cache: false,

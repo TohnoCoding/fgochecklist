@@ -50,7 +50,7 @@ var Config = {
             "class": null }, // Default
         { "id": 1, "show": true, "eventonly": false,
             "ctext": '<i class="fas fa-shield-alt"></i>',
-            "class": "member-mashu" }, // Mash
+            "class": "member-mash" }, // Mash
         { "id": 2, "show": true, "eventonly": false,
             "ctext": '<i class="fas fa-lock"></i>',
             "class": "member-locked" }, // Storylocked
@@ -87,13 +87,13 @@ var Config = {
     classmode_checkbox: "classmode",
     classmode_parameter: "classlist",
 
-    mashuSR_checkbox: "mashuSR",
-    mashuSR_parameter: getMashParameter() || "mash",
+    mashSR_checkbox: "mashSR",
+    mashSR_parameter: getMashParameter() || "mash",
 
     // Save & Load
     fast_mode_local: "fgo_fastmode",
     class_mode_local: "fgo_classmode",
-    mashuSR_local: "fgo_mashu",
+    mashSR_local: "fgo_mash",
     NAonly_local: "fgo_naonly",
 
     list_local: "fgo_list",

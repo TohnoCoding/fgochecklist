@@ -76,7 +76,7 @@ div.member-checked > img {
 
 /* Text Styling */
 div.member-np,
-div.member-mashu,
+div.member-mash,
 div.member-locked,
 div.member-limited,
 div.member-eventonly {
@@ -102,7 +102,7 @@ div.member-np {
 	1px 1px 10px #ccc;
 }
 
-div.member-mashu {
+div.member-mash {
     color: #aaa;
 }
 

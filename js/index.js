@@ -61,21 +61,21 @@ $(async function() {
         dataAdapter: Config.custom_adapter,
         data: Config.copy_choice_allow
     });
-    var MashuSR_input = urlParams.get(Config.mashuSR_parameter);
+    var MashSR_input = urlParams.get(Config.mashSR_parameter);
     var fastmode_input = urlParams.get(Config.fastmode_parameter);
     var classmode_input = urlParams.get(Config.classmode_parameter);
     var NAonly_input = urlParams.get(Config.NAonly_parameter);
     Config.compress_input = urlParams.get(Config.compress_input_parameter);
     // Mash is SR
-    if (MashuSR_input != null) {
-        var Mashu_is_SR = (parseInt(MashuSR_input) > 0);
-        $('#' + Config.mashuSR_checkbox).prop('checked', Mashu_is_SR);
+    if (MashSR_input != null) {
+        var Mash_is_SR = (parseInt(MashSR_input) > 0);
+        $('#' + Config.mashSR_checkbox).prop('checked', Mash_is_SR);
     } else {
         // Mash is SR
-        if (localStorage[Config.mashuSR_local]) {
-            var Mashu_is_SR =
-                (parseInt(localStorage[Config.mashuSR_local]) > 0);
-            $('#' + Config.mashuSR_checkbox).prop('checked', Mashu_is_SR);
+        if (localStorage[Config.mashSR_local]) {
+            var Mash_is_SR =
+                (parseInt(localStorage[Config.mashSR_local]) > 0);
+            $('#' + Config.mashSR_checkbox).prop('checked', Mash_is_SR);
         }
     }
     // ClassMode
@@ -142,7 +142,7 @@ $(async function() {
         function () { updateURLOptionModeOnly(); });
     $('#' + Config.classmode_checkbox).on("change",
         function () { updateClassMode(); });
-    $('#' + Config.mashuSR_checkbox).on("change",
+    $('#' + Config.mashSR_checkbox).on("change",
         function () { updateClassMode(); });
     $('#' + Config.NAonly_checkbox).on("change",
         function () { updateClassMode(); });
