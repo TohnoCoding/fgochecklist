@@ -611,15 +611,15 @@ function checkDateToInjectPadoru() {
     $('head').append($('<link>', {
         'rel': "stylesheet",
         'type': "text/css",
-        'href': "./css/SitePadoru.css",
+        'href': "./css/padoruSite.css",
         'crossorigin': "anonymous"
     }));
     $("#walk-container").append($('<img>', {
         'class': "d-inline-block align-top",
         'id': "padoru-walker"
     }));
-    const randomPadoru = "./img/padoru/" +
-        Config.padorus[Math.floor(Math.random() * Config.padorus.length)];
+    const randomPadoru = "./img/padoru/" + Config.padorus
+        [Math.floor(Math.random() * Config.padorus.length)] + ".png";
     $("#padoru-walker").attr('src', randomPadoru);
     var $snowfall = $('<div>', { 'class': 'snowfall', 'id': 'snowfall' });
     var $pageBody = $('body').contents().detach();

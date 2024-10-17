@@ -158,8 +158,8 @@ var Config = {
     cookieName: "20241007_notice",
 
     padorus: [
-        "padoru-nero.png"
-        //,".png"
+        "padoru-nero"
+        //,""
     ],
     padoruStartMonth: 10, padoruStartDay: 28,   //  Before Nov 28
     padoruEndMonth: 0, padoruEndDay: 3,         //  After Jan 3
