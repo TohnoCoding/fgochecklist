@@ -1040,7 +1040,8 @@ function showConfirmationModal(msg, onConfirm) {
             confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
         callback: function (result) {
-            if (result && typeof(onConfirm) === 'function') { onConfirm(); }
+            if (result && typeof(onConfirm) === 'function')
+                { onConfirm(result); }
         }
     });
 }
@@ -1055,14 +1056,14 @@ function showAlert(message) { bootbox.alert(message, null); }
  * Clears all selected data.
  */
 function clearAllData() {
-    showConfirmationModal(config.member_clear_conf, (function (result) {
+    showConfirmationModal(Config.member_clear_conf, function (result) {
         if (result) {
             Config.user_data = {}; // Clear user data
             Config.compress_input = ""; // Clear raw input
             Config.encoded_user_input = ""; // Clear raw input
             finishLoading();
         }
-    }));
+    });
 }
 
 /**
@@ -1073,7 +1074,7 @@ function exportCanvasToImage() {
         "page due to capture library limitations.<br/>It is recommendeded" +
         " to share the link or use an external capture tool instead.<br/>" +
         "Continue?";
-    showConfirmationModal(msg, (function (result) {
+    showConfirmationModal(msg, function (result) {
         if (result) {
             $('#loadingModal').modal('show'); // Show loading modal
             html2canvas($('#' + Config.capture_area)[0], { useCORS: true })
@@ -1093,7 +1094,7 @@ function exportCanvasToImage() {
                     $('#loadingModal').modal('hide'); // Close modal
                 });
         }
-    }));
+    });
 }
 // }
 /*****************************************************************************/
@@ -1107,14 +1108,14 @@ function saveLocalData() {
         showAlert("There is nothing to save.");
         return; // Confirm compress_input not null, exit if so
     }
-    showConfirmationModal(Config.save_text, (function (result) {
+    showConfirmationModal(Config.save_text, function (result) {
         if (result) {
             localStorage[Config.list_local] = Config.compress_input;
             $('#' + Config.load_btn).removeClass("disabled-link")
                 .attr("href", "javascript:loadLocalData();");
             showAlert(Config.save_fin_text, null);
         }
-    }));
+    });
 }
 
 /**
@@ -1123,7 +1124,7 @@ function saveLocalData() {
 function removeUserData() {
     if (Config.current_edit == "" || Config.current_edit_ele == null)
         { return; } // Prevent Blank Key
-    showConfirmationModal(Config.member_uncheck_conf, (function (result) {
+    showConfirmationModal(Config.member_uncheck_conf, function (result) {
         if (result) {
             var current_user_data =
                 getStoredUnitData(Config.current_edit); // Get user data
@@ -1138,7 +1139,7 @@ function removeUserData() {
             updateURL();
             Config.current_edit = ""; // Clear current_edit
         }
-    }));
+    });
 }
 
 /**
@@ -1152,7 +1153,7 @@ function executeUserDataRemoval(id) { delete Config.user_data[id]; }
  * it should be loaded or ignored.
  */
 function loadLocalData() {
-    showConfirmationModal(Config.load_text, (function (result) {
+    showConfirmationModal(Config.load_text, function (result) {
         if (result) {
             $('#loadingModal').modal('show'); // Show loading modal
             loadLocallySavedData
@@ -1163,7 +1164,7 @@ function loadLocalData() {
                 finishLoading();
             }
         }
-    }));
+    });
 }
 
 /**
