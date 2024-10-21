@@ -39,7 +39,7 @@ $(async function() {
     await fetchGlobalThreshold();
     $('#loadingModal').modal('show'); // Show Loading Modal
     var cookie =
-        (getCookie(Config.cookieName) === "true"); // Notice cookie check
+        (getCookie(Config.cookieName) === "true"); // Noticeboard cookie check
     if(cookie) { removeNoticeboard(); }
     else { $("#noticeBoard").css("display", "block"); }
     // Load File Prepare

@@ -112,7 +112,7 @@ async function fetchGlobalThreshold() {
         $(".newFeature").addClass("JPdisabled");
         $("label[for='NAonly']").addClass("JPdisabled");
         $("#NAonly").prop("disabled", true);
-        bootbox.alert(Config.threshold_error, null);
+        showAlert(Config.threshold_error);
     }
 }
 
@@ -130,7 +130,7 @@ function loadLocallySavedData(getresult) {
     Config.compress_input = getresult;
     if (Config.compress_input == null || Config.compress_input == undefined) {
         Config.compress_input = null;
-        bootbox.alert(Config.load_fail_text, null);
+        showAlert(Config.load_fail_text);
         return;
     }
     // Get Raw
@@ -141,11 +141,11 @@ function loadLocallySavedData(getresult) {
         Config.encoded_user_input == undefined ||
         Config.encoded_user_input == "") {
         Config.encoded_user_input = null;
-        bootbox.alert(Config.load_fail_text, null);
+        showAlert(Config.load_fail_text);
         return;
     }
     finishLoading(); // Update HTML
-    bootbox.alert(Config.load_fin_text, null); // Alert
+    showAlert(Config.load_fin_text); // Alert
 }
 
 /**
@@ -165,8 +165,7 @@ function loadUploadedFileData() {
                     (Config.export_header +
                         Config.export_header_separator, "");
                 return loadLocallySavedData(res);
-            } else { return bootbox.alert
-                (Config.load_fail_text, null); } // Alert
+            } else { return showAlert(Config.load_fail_text); } // Alert
         }
         reader.readAsText(input.files[0]);
     }
@@ -178,8 +177,8 @@ function loadUploadedFileData() {
  * provider that responds the fastest.
  */
 async function shortenURL() {
-    if (Config.compress_input === "") { bootbox.alert(Config.share_none_text);
-        return; } // Warn user if no data
+    if (Config.compress_input === "")
+    { showAlert(Config.share_none_text); return; } // Warn user if no data
     // Gather the full URL for shortening
     var mashSR_str = getMashSRURLstring(true);
     var full_url = window.location.protocol + "//" + window.location.host +
@@ -582,13 +581,13 @@ function finishLoading(servant_pass_data) {
                 },
                 success: function(result) { buildUnitDataInUI(result); },
                 error: function(result) {
-                    alert("Error caching Unit Class Data on AJAX!"); // Alert
+                    showAlert("Error caching Unit Class Data on AJAX!"); // Alert
                     $('#loadingModal').modal('hide'); // Close loading modal
                 }
             });
         },
         error: function(result) {
-            alert("Error caching Unit Class Data on AJAX!"); // Alert
+            showAlert("Error caching Unit Class Data on AJAX!"); // Alert
             $('#loadingModal').modal('hide'); // Close loading modal
         }
     });
@@ -901,7 +900,7 @@ function isClassMode()
 
 /**
  * Returns whether JP-only Servants should be hidden.
- * @returns True if the hiding checkbox is checked, False otherwise.
+ * @returns {boolean} True if the hiding checkbox is checked, False otherwise.
  */
 function isNAonly()
 { return $('#' + Config.NAonly_checkbox).is(':checked'); }
@@ -1028,22 +1027,41 @@ function showURLShorteningError() {
 }
 
 /**
- * Clears all selected data.
+ * Shows a Bootbox confirmation modal with the specified message, and executes
+ * the specified function if the dialog box result is a confirmation.
+ * @param {string} msg The message to display in the confirmation box.
+ * @param {function} onConfirm The callback function to execute on confirm.
  */
-function clearAllData() {
-    bootbox.confirm({ // Confirm
-        message: Config.member_clear_conf,
+function showConfirmationModal(msg, onConfirm) {
+    bootbox.confirm({
+        message: msg,
         buttons: {
             cancel: { label: '<i class="fa fa-times"></i> Cancel' },
             confirm: { label: '<i class="fa fa-check"></i> Confirm' }
         },
         callback: function (result) {
-            if (result) {
-                Config.user_data = {}; // Clear user data
-                Config.compress_input = ""; // Clear raw input
-                Config.encoded_user_input = ""; // Clear raw input
-                finishLoading();
-            }
+            if (result && typeof(onConfirm) === 'function')
+                { onConfirm(result); }
+        }
+    });
+}
+
+/**
+ * Shows an alert modal.
+ * @param {string} message The message to display in the alert modal.
+ */
+function showAlert(message) { bootbox.alert(message, null); }
+
+/**
+ * Clears all selected data.
+ */
+function clearAllData() {
+    showConfirmationModal(Config.member_clear_conf, function (result) {
+        if (result) {
+            Config.user_data = {}; // Clear user data
+            Config.compress_input = ""; // Clear raw input
+            Config.encoded_user_input = ""; // Clear raw input
+            finishLoading();
         }
     });
 }
@@ -1052,35 +1070,29 @@ function clearAllData() {
  * Exports the current data to a downloadable image.
  */
 function exportCanvasToImage() {
-    bootbox.confirm({ // Confirm
-        message: "WARNING: Image result may not look exactly like in the "
-        + "page due to capture library limitations.<br/>It is recommendeded" +
+    var msg = "WARNING: Image result may not look exactly like in the " +
+        "page due to capture library limitations.<br/>It is recommendeded" +
         " to share the link or use an external capture tool instead.<br/>" +
-        "Continue?",
-        buttons: {
-            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
-            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
-        },
-        callback: function (result) {
-            if (result) {
-                $('#loadingModal').modal('show'); // Show loading modal
-                html2canvas($('#' + Config.capture_area)[0], { useCORS: true })
-                    .then(function(canvas) {
-                        // canvas is the final rendered <canvas> element
-                        var alink = document.createElement('a');
-                        // toDataURL defaults to png, so we need to request a
-                        // jpeg, then convert for file download
-                        alink.href = canvas.toDataURL("image/jpeg")
-                            .replace("image/jpeg", "image/octet-stream");
-                        alink.download = Config.export_filename
-                            .replace('_', '-').replace("fgol", "jpg");
-                        // Firefox requires the link to be in the body
-                        document.body.appendChild(alink);
-                        alink.click();
-                        document.body.removeChild(alink); // Remove when done
-                        $('#loadingModal').modal('hide'); // Close modal
-                    });
-            }
+        "Continue?";
+    showConfirmationModal(msg, function (result) {
+        if (result) {
+            $('#loadingModal').modal('show'); // Show loading modal
+            html2canvas($('#' + Config.capture_area)[0], { useCORS: true })
+                .then(function(canvas) {
+                    // canvas is the final rendered <canvas> element
+                    var alink = document.createElement('a');
+                    // toDataURL defaults to png, so we need to request a
+                    // jpeg, then convert for file download
+                    alink.href = canvas.toDataURL("image/jpeg")
+                        .replace("image/jpeg", "image/octet-stream");
+                    alink.download = Config.export_filename
+                        .replace('_', '-').replace("fgol", "jpg");
+                    // Firefox requires the link to be in the body
+                    document.body.appendChild(alink);
+                    alink.click();
+                    document.body.removeChild(alink); // Remove when done
+                    $('#loadingModal').modal('hide'); // Close modal
+                });
         }
     });
 }
@@ -1093,22 +1105,15 @@ function exportCanvasToImage() {
 function saveLocalData() {
     updateURL(); // Update URL First
     if (Config.compress_input == null || Config.compress_input == "") {
-        bootbox.alert({ message: "There is nothing to save." });
+        showAlert("There is nothing to save.");
         return; // Confirm compress_input not null, exit if so
     }
-    bootbox.confirm({ // Confirm
-        message: Config.save_text,
-        buttons: {
-            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
-            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
-        },
-        callback: function (result) {
-            if (result) {
-                localStorage[Config.list_local] = Config.compress_input;
-                $('#' + Config.load_btn).removeClass("disabled-link")
-                    .attr("href", "javascript:loadLocalData();");
-                bootbox.alert(Config.save_fin_text, null);
-            }
+    showConfirmationModal(Config.save_text, function (result) {
+        if (result) {
+            localStorage[Config.list_local] = Config.compress_input;
+            $('#' + Config.load_btn).removeClass("disabled-link")
+                .attr("href", "javascript:loadLocalData();");
+            showAlert(Config.save_fin_text, null);
         }
     });
 }
@@ -1119,27 +1124,20 @@ function saveLocalData() {
 function removeUserData() {
     if (Config.current_edit == "" || Config.current_edit_ele == null)
         { return; } // Prevent Blank Key
-    bootbox.confirm({ // Confirm
-        message: Config.member_uncheck_conf,
-        buttons: {
-            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
-            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
-        },
-        callback: function (result) {
-            if (result) {
-                var current_user_data =
-                    getStoredUnitData(Config.current_edit); // Get user data
-                if (Config.current_user_data != null)
-                    { executeUserDataRemoval(current_edit); } // Delete data
-                $('#' + Config.current_edit)  // Update element
-                    .removeClass(Config.member_checked_CSSclass);
-                updateAmountOfCopiesOwned  // Update list value
-                    (Config.current_edit, 0, Config.current_edit_ele);
-                $('#updateModal').modal('hide'); // Hide update check modal
-                updateStatisticsHTML();
-                updateURL();
-                Config.current_edit = ""; // Clear current_edit
-            }
+    showConfirmationModal(Config.member_uncheck_conf, function (result) {
+        if (result) {
+            var current_user_data =
+                getStoredUnitData(Config.current_edit); // Get user data
+            if (Config.current_user_data != null)
+                { executeUserDataRemoval(current_edit); } // Delete data
+            $('#' + Config.current_edit)  // Update element
+                .removeClass(Config.member_checked_CSSclass);
+            updateAmountOfCopiesOwned  // Update list value
+                (Config.current_edit, 0, Config.current_edit_ele);
+            $('#updateModal').modal('hide'); // Hide update check modal
+            updateStatisticsHTML();
+            updateURL();
+            Config.current_edit = ""; // Clear current_edit
         }
     });
 }
@@ -1155,22 +1153,15 @@ function executeUserDataRemoval(id) { delete Config.user_data[id]; }
  * it should be loaded or ignored.
  */
 function loadLocalData() {
-    bootbox.confirm({ // Confirm
-        message: Config.load_text,
-        buttons: {
-            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
-            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
-        },
-        callback: function (result) {
-            if (result) {
-                $('#loadingModal').modal('show'); // Show loading modal
-                loadLocallySavedData
-                    (localStorage[Config.list_local]); // Load list
-            } else {
-                if (Config.encoded_user_input == null) {
-                    Config.encoded_user_input = ""; // Blank out raw input
-                    finishLoading();
-                }
+    showConfirmationModal(Config.load_text, function (result) {
+        if (result) {
+            $('#loadingModal').modal('show'); // Show loading modal
+            loadLocallySavedData
+                (localStorage[Config.list_local]); // Load list
+        } else {
+            if (Config.encoded_user_input == null) {
+                Config.encoded_user_input = ""; // Blank out raw input
+                finishLoading();
             }
         }
     });
@@ -1183,15 +1174,8 @@ function loadLocalData() {
 function promptSaveDataExport() {
     updateURL(); // Update URL First
     if (Config.compress_input == null) { return; } // Confirm not null
-    bootbox.confirm({ // Confirm
-        message: Config.save_text,
-        buttons: {
-            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
-            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
-        },
-        callback: function(result) { if (result)
-            { exportCurrentDataToFile(Config.compress_input); } }
-    });
+    showConfirmationModal(Config.save_text, (function(result) { if (result)
+        { exportCurrentDataToFile(Config.compress_input); } }));
 }
 
 /**
@@ -1216,15 +1200,10 @@ function exportCurrentDataToFile() {
  * to operate on all units.
  */
 function promptOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
-    bootbox.confirm({ // Confirm
-        message: Config.select_all_text,
-        buttons: {
-            cancel: { label: '<i class="fa fa-times"></i> Cancel' },
-            confirm: { label: '<i class="fa fa-check"></i> Confirm' }
-        },
-        callback: function(result) { if (result) { executeOperationOnAllUnits
-            (markAsDeleted, input_rarity, input_class); } }
-    });
+    showConfirmationModal(Config.select_all_text, (function(result) {
+        if (result) { executeOperationOnAllUnits
+        (markAsDeleted, input_rarity, input_class); }
+    }));
 }
 
 /**
@@ -1295,7 +1274,7 @@ function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
             finishLoading(result); // Send to finish
         },
         error: function(result) {
-            alert("Error attempting to select all data!"); // Alert
+            showAlert("Error attempting to select all data!"); // Alert
             $('#loadingModal').modal('hide'); // Close loading modal
         }
     });
