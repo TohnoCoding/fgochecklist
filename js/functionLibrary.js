@@ -1053,20 +1053,6 @@ function showConfirmationModal(msg, onConfirm) {
 function showAlert(message) { bootbox.alert(message, null); }
 
 /**
- * Clears all selected data.
- */
-function clearAllData() {
-    showConfirmationModal(Config.member_clear_conf, function (result) {
-        if (result) {
-            Config.user_data = {}; // Clear user data
-            Config.compress_input = ""; // Clear raw input
-            Config.encoded_user_input = ""; // Clear raw input
-            finishLoading();
-        }
-    });
-}
-
-/**
  * Exports the current data to a downloadable image.
  */
 function exportCanvasToImage() {
@@ -1114,6 +1100,20 @@ function saveLocalData() {
             $('#' + Config.load_btn).removeClass("disabled-link")
                 .attr("href", "javascript:loadLocalData();");
             showAlert(Config.save_fin_text, null);
+        }
+    });
+}
+
+/**
+ * Clears all selected data.
+ */
+function clearAllData() {
+    showConfirmationModal(Config.member_clear_conf, function (result) {
+        if (result) {
+            Config.user_data = {}; // Clear user data
+            Config.compress_input = ""; // Clear raw input
+            Config.encoded_user_input = ""; // Clear raw input
+            finishLoading();
         }
     });
 }
