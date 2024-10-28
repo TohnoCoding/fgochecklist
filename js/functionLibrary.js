@@ -595,12 +595,11 @@ function finishLoading(servant_pass_data) {
 
 /**
  * If the date is within the appropriate range (set to between November 28th
- * and January 3rd), inject the holiday Padoru CSS.
+ * and January 3rd in the config file), inject the holiday Padoru CSS.
  */
 function checkDateToInjectPadoru() {
     const today = new Date();
-    const currMonth = today.getMonth();
-    const currDay = today.getDate();
+    const currMonth = today.getMonth(), currDay = today.getDate();
     if ((currMonth < Config.padoruStartMonth ||
         (currMonth === Config.padoruStartMonth &&
             currDay < Config.padoruStartDay))
