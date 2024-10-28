@@ -277,7 +277,7 @@ function buildUnitDataInUI(units_data) {
     $(".listbox, .listbox_class").empty(); // Clear contents
     var list_box = [], list_img = [];
     var img_default =
-        getImagePath(Config.icondefault, Config.icondefault_external_source);
+        getPortraitImagePath(Config.icondefault, Config.icondefault_external_source);
     list_img.push(loadSprite(img_default)); // Add default photo
     units_data.forEach(function(current_rarity) {
         if (current_rarity.disable) { return; } // Skip if disabled
@@ -293,7 +293,7 @@ function buildUnitDataInUI(units_data) {
                 });
                 // Class Icon
                 var current_class_data = Config.class_data_list[current_class];
-                var current_class_data_icn = getImageClassPath
+                var current_class_data_icn = getClassImagePath
                     (current_class_data.iconlist[current_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
                 var class_icon_div = $('<div>', {
@@ -365,8 +365,8 @@ function buildUnitDataInUI(units_data) {
             var current_servant_img = img_default;  // Set default image
             if (current_servant.img) {  // Handle custom unit image
                 current_servant_img = current_servant.imgpath
-                    ? getImagePath(current_servant.imgpath, true)
-                    : getImagePath(`${current_rarity.list_iconpath}/` +
+                    ? getPortraitImagePath(current_servant.imgpath, true)
+                    : getPortraitImagePath(`${current_rarity.list_iconpath}/` +
                         `${current_servant.id}${icontype}`, false); // Fallback
             }
             list_img.push(loadSprite(current_servant_img));
@@ -971,31 +971,43 @@ function getNewCopySource(current_max, s_list) {
 }
 
 /**
- * Gets the path to an image in the current codebase project. Used for loading
- * an unknown image if the unit json definition data file doesn't include one.
+ * Gets the path to an unit portrait image. Loads a default "unknown" image
+ * if the unit json definition data file doesn't include one, or if the `img`
+ * property of the current unit is set to false.
  * @param {string} path The path to the image local to the codebase.
  * @param {boolean} external_source Whether the image is from an external
  * source.
  * @returns {string} The full path to the desired image.
  */
-function getImagePath(path, external_source) {
-    if (external_source) { return path; } else {
-        return location.href.substring
-            (0, location.href.lastIndexOf("/") + 1) +
-                Config.img_path + path;
-    }
+function getPortraitImagePath(path, external_source) {
+    return getImagePath(path, external_source, true);
 }
 
 /**
- * Gets the path to the class images.
- * @param {string} path The class to get the image for.
+ * Constructs the path to an image, allowing flexible use for specific unit
+ * portraits, a generic unit portrait, or class images based on invoking
+ * parameters.
+ * @param {string} path The path to the image, either an absolute URL
+ * (depending on external_source) or local to the current codebase.
+ * @param {boolean} [external_source = false] Specifies whether the image is
+ * external to the codebase or not.
+ * @param {boolean} [isPortrait = false] Specifies whether the image being
+ * loaded is an unit portrait or not.
+ * @returns {string} The fully formed path to the desired image.
+ */
+function getImagePath(path, external_source = false, isPortrait = false) {
+    if (isPortrait && external_source) { return path; }
+    const src = isPortrait ? Config.img_path : Config.class_img_path;
+    return `${location.href.substring(0, location.href.lastIndexOf("/") +
+        1)}${src}${path}`;
+}
+
+/**
+ * Gets the path of a class image.
+ * @param {string} servantClass The class to get the image for.
  * @returns {string} The full path to the desired class image.
  */
-function getImageClassPath(path) {
-    return location.href.substring
-        (0, location.href.lastIndexOf("/") + 1) +
-            Config.class_img_path + path;
-}
+function getClassImagePath(servantClass) { return getImagePath(servantClass); }
 
 /**
  * Fetches data stored about the currently selected unit. If none, returns
