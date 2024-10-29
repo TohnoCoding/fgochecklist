@@ -957,15 +957,15 @@ function getMashSRURLstring(allowZero) {
  */
 function getNewCopySource(current_max, s_list) {
     if (current_max < Config.copy_choice_max && current_max > 0) {
-        var new_choice_allow = []; var i = 0;
+        var new_choice_allow = [], i = 0;
         for (i = 0; i < Config.copy_choice_allow.length; i++) {
             debugger;
-            if (copy_choice_allow[i].id <= current_max) {
-                new_choice_allow.push(copy_choice_allow[i]);
+            if (Config.copy_choice_allow[i].id <= current_max) {
+                new_choice_allow.push(Config.copy_choice_allow[i]);
             } else { break; }
         }
         s_list.data('select2').dataAdapter
-            .updateOptions(Config.new_choice_allow);
+            .updateOptions(new_choice_allow);
     } else
     { s_list.data('select2').dataAdapter
         .updateOptions(Config.copy_choice_allow); }
