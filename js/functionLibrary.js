@@ -1138,8 +1138,8 @@ function removeUserData() {
         if (result) {
             var current_user_data =
                 getStoredUnitData(Config.current_edit); // Get user data
-            if (Config.current_user_data != null)
-                { executeUserDataRemoval(current_edit); } // Delete data
+            if (current_user_data != null)
+                { executeUserDataRemoval(Config.current_edit); } // Delete data
             $('#' + Config.current_edit)  // Update element
                 .removeClass(Config.member_checked_CSSclass);
             updateAmountOfCopiesOwned  // Update list value
