@@ -963,8 +963,7 @@ function getNewCopySource(current_max, s_list) {
             } else { break; }
         }
         s_list.data('select2').dataAdapter.updateOptions(new_choice_allow);
-    } else
-    { s_list.data('select2').dataAdapter
+    } else { s_list.data('select2').dataAdapter
         .updateOptions(Config.copy_choice_allow); }
 }
 
