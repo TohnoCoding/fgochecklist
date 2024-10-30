@@ -1228,8 +1228,7 @@ function promptOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
  */
 function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
     $('#loadingModal').modal('show'); // Open loading modal
-    // Ajax; Unit Data
-    $.ajax({
+    $.ajax({            // Ajax; Unit Data
         url: isMashSR() ? Config.datapath_alternate : Config.datapath,
         contentType: "application/json",
         dataType: "json",
