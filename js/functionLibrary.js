@@ -1106,8 +1106,6 @@ function saveLocalData() {
     showConfirmationModal(Config.save_text, function (result) {
         if (result) {
             localStorage[Config.list_local] = Config.compress_input;
-            $('#' + Config.load_btn).removeClass("disabled-link")
-                .attr("href", "javascript:loadLocalData();");
             showAlert(Config.save_fin_text, null);
         }
     });
