@@ -351,7 +351,6 @@ function buildUnitDataInUI(units_data) {
             Config.servants_data_list[current_servant.id].eventonly =
                 Config.servant_typelist[current_servant.stype].eventonly;
             var current_user_data = getStoredUnitData(current_servant.id);
-            debugger;
             var unit_container = $('<div>', {
                     'class': Config.member_grid_CSSclass
                 }).append($('<div>', {
@@ -644,6 +643,7 @@ function updateUnitDataInFastMode(id, val, s_element) {
         { current_edit_max = Config.copy_choice_max; } // Prevent data overflow
     // New Check or Update
     var new_val = current_user_data + val; // Get new value
+    debugger;
     if (current_user_data != null) {
         if (new_val <= 0 || new_val > current_edit_max) {
             // Remove Instead
@@ -652,6 +652,7 @@ function updateUnitDataInFastMode(id, val, s_element) {
             executeUserDataRemoval(id); // Clear number
         } else {
             Config.user_data[id] = new_val; // Update user data
+            $(s_element).addClass(Config.member_checked_CSSclass);
             updateAmountOfCopiesOwned(id, new_val, s_element);
         }
         if (new_val > current_edit_max / 2)
@@ -668,7 +669,6 @@ function updateUnitDataInFastMode(id, val, s_element) {
         if (new_val <= current_edit_max / 2)
             { $(s_element).addClass(Config.member_checked_CSSclass); }
     }
-    
     updateStatisticsHTML();
     updateURL();
 }

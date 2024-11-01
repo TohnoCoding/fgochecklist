@@ -134,7 +134,7 @@ $(async function() {
             }
         }
     }
-    if (localStorage[Config.list_local])      // Load button status
+    if (!localStorage[Config.list_local])      // Load button status
         { $('#' + Config.load_btn).removeAttr("href")
             .toggleClass("disabled-link"); }
     // Set Checkbox Events
