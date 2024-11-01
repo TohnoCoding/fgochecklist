@@ -351,6 +351,7 @@ function buildUnitDataInUI(units_data) {
             Config.servants_data_list[current_servant.id].eventonly =
                 Config.servant_typelist[current_servant.stype].eventonly;
             var current_user_data = getStoredUnitData(current_servant.id);
+            debugger;
             var unit_container = $('<div>', {
                     'class': Config.member_grid_CSSclass
                 }).append($('<div>', {
@@ -375,7 +376,7 @@ function buildUnitDataInUI(units_data) {
                     `${Config.additional_copies_prefix}${current_servant.id}`,
                 'class': Config.additional_copies_CSSclass,
                 'text': current_user_data > 1 ?
-                    Config.additional_copies_text + current_user_data : ''
+                    Config.copy_choice_allow[current_user_data - 1].text : ''
             });
             unit_container.find('div').append(
                 $('<img>',
@@ -642,8 +643,8 @@ function updateUnitDataInFastMode(id, val, s_element) {
     if (current_edit_max > Config.copy_choice_max)
         { current_edit_max = Config.copy_choice_max; } // Prevent data overflow
     // New Check or Update
+    var new_val = current_user_data + val; // Get new value
     if (current_user_data != null) {
-        var new_val = current_user_data + val; // Get new value
         if (new_val <= 0 || new_val > current_edit_max) {
             // Remove Instead
             $(s_element).removeClass(Config.member_checked_CSSclass);
@@ -653,6 +654,8 @@ function updateUnitDataInFastMode(id, val, s_element) {
             Config.user_data[id] = new_val; // Update user data
             updateAmountOfCopiesOwned(id, new_val, s_element);
         }
+        if (new_val > current_edit_max / 2)
+            { $(s_element).removeClass(Config.member_checked_CSSclass); }
     } else {
         if (val <= 0) {
             Config.user_data[id] = current_edit_max; // Add user data
@@ -662,7 +665,10 @@ function updateUnitDataInFastMode(id, val, s_element) {
             Config.user_data[id] = 1; // Add user data
             $(s_element).addClass(Config.member_checked_CSSclass);
         }
+        if (new_val <= current_edit_max / 2)
+            { $(s_element).addClass(Config.member_checked_CSSclass); }
     }
+    
     updateStatisticsHTML();
     updateURL();
 }
@@ -703,7 +709,7 @@ function updateUnitData() {
 function updateAmountOfCopiesOwned(id, new_val, s_element) {
     if (!id) { return; }
     const content =
-        new_val > 1 ? Config.additional_copies_text + new_val : "";
+        new_val > 1 ? Config.copy_choice_allow[new_val - 1].text : "";
     $(s_element).find
         (`#${Config.additional_copies_prefix}${id}`).html(content);
 }

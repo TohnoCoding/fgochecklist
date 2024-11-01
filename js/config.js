@@ -18,18 +18,23 @@ var Config = {
     box_fake_suffix: "Fake",
 
     // Copies config
-    additional_copies_text: "NP",
+    additional_copies_text: "",
     additional_copies_CSSclass: "member-np",
     additional_copies_prefix: "np_",
     copy_choice_allow: [
-        { "id": 1, "text": "NP1" },
-        { "id": 2, "text": "NP2" },
-        { "id": 3, "text": "NP3" },
-        { "id": 4, "text": "NP4" },
-        { "id": 5, "text": "NP5" }
+        { "id":  1, "text": "NP1" },
+        { "id":  2, "text": "NP2" },
+        { "id":  3, "text": "NP3" },
+        { "id":  4, "text": "NP4" },
+        { "id":  5, "text": "NP5" },
+        { "id":  6, "text": "WL1" },
+        { "id":  7, "text": "WL2" },
+        { "id":  8, "text": "WL3" },
+        { "id":  9, "text": "WL4" },
+        { "id": 10, "text": "WL5" }
     ],
     copy_choice_default: 1,
-    copy_choice_max: 5,
+    copy_choice_max: 10,
     share_tags: "FGO,FateGrandOrder,My_FGO_Checklist",
     share_title: "See my Servant collection here!",
 

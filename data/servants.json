@@ -12,7 +12,7 @@
                 "name": "Artoria Pendragon",
                 "class": "saber",
                 "game_id": "2",
-                "maxcopy": 5,
+                "maxcopy": 10,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/bdTYD2w.png"
