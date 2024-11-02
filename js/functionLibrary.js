@@ -357,8 +357,9 @@ function buildUnitDataInUI(units_data) {
                     'id': current_servant.id,
                     'title': current_servant.name,
                     'class': Config.member_container_CSSclass + 
-                        (current_user_data != null ? ' ' +
-                            Config.member_checked_CSSclass : ''),
+                    (current_user_data == null ? '' :
+                    (current_user_data <= Config.copy_choice_allow.length / 2 ?
+                        ' ' + Config.member_checked_CSSclass : '' )),
                     'data-toggle': 'tooltip-member',
                     'data-placement': 'bottom'
                 }));
@@ -566,10 +567,8 @@ function finishLoading(servant_pass_data) {
         success: function(outer_result) {
             Config.class_data_list = outer_result; // Inject class data
             // If Passing
-            if (typeof servant_pass_data !== "undefined") {
-                buildUnitDataInUI(servant_pass_data); // Construct UI
-                return;
-            }
+            if (typeof servant_pass_data !== "undefined")
+            { buildUnitDataInUI(servant_pass_data); return; } // Construct UI
             // Ajax; Unit data
             $.ajax({
                 url: isMashSR() ? Config.datapath_alternate : Config.datapath,
@@ -636,39 +635,30 @@ function checkDateToInjectPadoru() {
  * @param {string} s_element The HTML element of the Selected unit.
  */
 function updateUnitDataInFastMode(id, val, s_element) {
-    // Mark current_edit
-    var current_user_data = getStoredUnitData(id);
+    var current_user_data = getStoredUnitData(id); // Mark current_edit
     var current_edit_max = Config.servants_data_list[id].maxcopy;
     if (current_edit_max > Config.copy_choice_max)
         { current_edit_max = Config.copy_choice_max; } // Prevent data overflow
     // New Check or Update
     var new_val = current_user_data + val; // Get new value
-    debugger;
     if (current_user_data != null) {
         if (new_val <= 0 || new_val > current_edit_max) {
             // Remove Instead
-            $(s_element).removeClass(Config.member_checked_CSSclass);
             updateAmountOfCopiesOwned(id, 0, s_element);
             executeUserDataRemoval(id); // Clear number
         } else {
             Config.user_data[id] = new_val; // Update user data
-            $(s_element).addClass(Config.member_checked_CSSclass);
             updateAmountOfCopiesOwned(id, new_val, s_element);
         }
-        if (new_val > current_edit_max / 2)
-            { $(s_element).removeClass(Config.member_checked_CSSclass); }
     } else {
         if (val <= 0) {
             Config.user_data[id] = current_edit_max; // Add user data
-            $(s_element).addClass(Config.member_checked_CSSclass);
             updateAmountOfCopiesOwned(id, Config.user_data[id], s_element);
-        } else {
-            Config.user_data[id] = 1; // Add user data
-            $(s_element).addClass(Config.member_checked_CSSclass);
-        }
-        if (new_val <= current_edit_max / 2)
-            { $(s_element).addClass(Config.member_checked_CSSclass); }
+        } else { Config.user_data[id] = 1; } // Add user data
     }
+    new_val <= current_edit_max / 2 && new_val > 0 ? 
+        $(s_element).addClass(Config.member_checked_CSSclass) :
+        $(s_element).removeClass(Config.member_checked_CSSclass);
     updateStatisticsHTML();
     updateURL();
 }
@@ -678,24 +668,21 @@ function updateUnitDataInFastMode(id, val, s_element) {
  */
 function updateUnitData() {
     if (Config.current_edit == "" || Config.current_edit_ele == null)
-        { return; } // Prevent Blank Key
+        { return; } // Prevent blank key
     var current_user_data =
         getStoredUnitData(Config.current_edit); // Get user data
-    // New Check or Update
-    if (current_user_data != null) {
-        var new_val = parseInt($('#npUpdate').val()); // Get new value
-        Config.user_data[Config.current_edit] = new_val; // Update user data
-        updateAmountOfCopiesOwned
-            (Config.current_edit, new_val, Config.current_edit_ele);
-        $('#updateModal').modal('hide'); // Hide update check modal
-    } else {
-        var new_val = parseInt($('#npAdd').val()); // Get new value
-        Config.user_data[Config.current_edit] = new_val; // Add user data
-        $('#' + Config.current_edit).addClass(Config.member_checked_CSSclass);
-        updateAmountOfCopiesOwned
-            (Config.current_edit, new_val, Config.current_edit_ele);
-        $('#addModal').modal('hide'); // Hide new check modal
-    }
+    var threshold = Config.copy_choice_allow.length / 2;
+    var new_val = parseInt(current_user_data != null ? 
+        $('#npUpdate').val() : $('#npAdd').val());
+    Config.user_data[Config.current_edit] = new_val; // Set new value
+    var $unitElement = $('#' + Config.current_edit);
+    if (new_val > 0 && new_val <= threshold)   // Handle CSS class application
+        { $unitElement.addClass(Config.member_checked_CSSclass); }
+        else { $unitElement.removeClass(Config.member_checked_CSSclass); }
+    updateAmountOfCopiesOwned   // Update displayed amount of owned units
+        (Config.current_edit, new_val, Config.current_edit_ele);
+    $(current_user_data != null ? '#updateModal' : '#addModal')
+        .modal('hide');     // Close relevant modal
     updateStatisticsHTML(); updateURL();
     Config.current_edit = ""; // Clear current edit
 }
@@ -961,17 +948,20 @@ function getMashSRURLstring(allowZero) {
  * @param {object} s_list The list of elements to display in the box.
  */
 function getNewCopySource(current_max, s_list) {
-    if (current_max < Config.copy_choice_max && current_max > 0) {
-        var new_choice_allow = [], i = 0;
-        for (i = 0; i < Config.copy_choice_allow.length; i++) {
-            if (Config.copy_choice_allow[i].id <= current_max) {
-                new_choice_allow.push(Config.copy_choice_allow[i]);
-            } else { break; }
-        }
-        s_list.data('select2').dataAdapter.updateOptions(new_choice_allow);
-    } else { s_list.data('select2').dataAdapter
-        .updateOptions(Config.copy_choice_allow); }
+    // Clone the original array so Config.copy_choice_allow remains unchanged
+    var tempChoices = Config.copy_choice_allow.map(option => {
+        const newOption = { ...option }; // Copy each option object
+        newOption.text = newOption.text.replace("WL", "Wishlisted at NP");
+        return newOption;
+    });
+    var new_choice_allow =    // Filter choices based on current_max
+        (current_max < Config.copy_choice_max && current_max > 0)
+        ? tempChoices.filter(choice => choice.id <= current_max)
+        : tempChoices;
+    s_list.data('select2').dataAdapter      // Update Select 2 option list
+        .updateOptions(new_choice_allow);
 }
+
 
 /**
  * Gets the path to an unit portrait image. Loads a default "unknown" image
