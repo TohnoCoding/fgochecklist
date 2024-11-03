@@ -473,6 +473,7 @@ td {
     left: 20px;
     background-color: #333;
     width: 100%;
+    z-index: 400;
 }
 
 .changelog-content {
@@ -507,6 +508,9 @@ td {
     margin: 0 0 10px 20px;
     font-size: 1em;
     line-height: 1.4em;
+    position: relative;
+    padding-left: 50px;
+    margin: 10px 0;
 }
 
 #changelogContent pre {
@@ -528,5 +532,8 @@ td {
     content: "\f00c";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    margin-right: 8px;
+    margin-left: 25px;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
