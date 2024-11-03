@@ -160,7 +160,7 @@ var Config = {
     initial_load: true,
 
     globalThreshold: 99999,
-    cookieName: "20241007_notice",
+    cookieName: "20241102_notice",
 
     padorus: [
         "padoru-nero"

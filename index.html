@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="./css/baseSite.css" crossorigin="anonymous">
     <!-- JS -->
     <script type="text/javascript" src="./js/lib/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./js/changelog.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="./js/lib/popper.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="./js/lib/bootstrap.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="./js/lib/bootbox.min.js" crossorigin="anonymous"></script>
@@ -43,32 +44,14 @@
     <img src="./img/DSGO.png" width="30" height="30" class="d-inline-block align-top" alt="">
     FGO Servant Checklist v4.0
   </span>
+  <ul class="nav navbar-nav ml-auto">
+	<li class="nav-item">
+        <a href="javascript:showChangelogModal();"><img src="./img/changelog.png" /></a>
+    </li>
+  </ul>
 </nav>
 <!-- Content -->
 <div class="container body-content" style="padding-top: 10px;">
-    <div id="noticeBoard" style="display: none;">
-        <h3 style="text-align: center;">2024/10/07: Massive UI overhaul!</h3>
-        <span>
-            In my latest pizza-and-ginger-ale-and-cheesecake-fueled coding and design frenzy I've essentially completely
-            overhauled the site UI as far as functionality goes beyond selecting your units. What used to be a sidebar with
-            buttons that got in the way in smaller screens, is now contained in a nifty expandable hamburger-type menu when
-            you tap/click on the "Details" button on the left, and the main page is reserved for selecting your units,
-            selecting your main list options (hiding non-NA, marking Mash as gold, etc.) and toggling the availability icons.
-            Should make usability much more comfortable.<br><br>
-            Also, I've added some donation buttons at the bottom of the expandable menu if you want to support me and
-            support future development projects (I'm just a struggling guy like everyone else) &mdash; <span
-            style="font-style:italic">there's absolutely NO obligation to use them if you can't or simply don't want
-            to</span>, but if you do, trust that it will be <span style="font-weight: bold;">enormously appreciated</span>.
-            <br><br>Once again, I request that if you encounter any sort of issue that causes you any kind of bad experience using
-            the site, please let me know ASAP via <a target="_blank"
-            href="https://github.com/TohnoCoding/fgochecklist/issues/new">opening a new issue</a> on the project repository
-            and write down your findings with as much detail as possible (ideally, with a video recording of your screen; most
-            mobile devices have this capability built-in; if you're on Windows or Mac, you can use Loom, and if you're on
-            Linux, Kooha is a good option).<br><br>
-            ~Tohno Shiki<br>
-            <h6 id="rmvNotice">[ Click/tap here to remove this message. ]</h6>
-        </span>
-    </div>
     <!-- Header area -->
     <div class="card" id="headerCard">
         <div id="card-body" class="card-body" style="text-align:center; padding: 0px;">
@@ -220,6 +203,14 @@
     </p>
   </div>
 </footer>
+<!-- Modal Changelog -->
+<div id="changelogModal" class="changelog-modal">
+    <a id="closeChangelog" class="close-button" href="javascript:hideChangelogModal();"><img src="./img/btnclose.png" /></a>
+    <div class="changelog-wrapper">
+        <div class="changelog-title"><h2>Project Changelog:</h2> <h4>(Newer entries are at the top.)</h4></div>
+        <div id="changelogContent" class="changelog-content">&nbsp;</div>
+    </div>
+</div>
 <!-- Modal Add -->
 <div class="modal" tabindex="-1" role="dialog" id="addModal">
   <div class="modal-dialog" role="document">

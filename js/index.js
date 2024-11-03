@@ -168,11 +168,23 @@ $(async function() {
             "buttons have been disabled.");
     }
     $("#hamburger-button").on("click", function() {
-        $("#darkener").toggleClass("visible-darkener");
-        $(".hamburger-menu").toggleClass("active");
-        $("#hamburger-button").toggleClass("hamburger-button-open");
+        if (!$(this).hasClass("active")) {
+            $(this).addClass("active");
+            $(".hamburger-menu").addClass("active");
+            $("#darkener").addClass("visible-darkener");
+        } else {
+            $(this).removeClass("active");
+            $(".hamburger-menu").removeClass("active");
+            $("#darkener").removeClass("visible-darkener");
+            hideChangelogModal();
+        }
     });
-    $("#darkener").on("click", function() { $("#hamburger-button").click(); });
+    $("#darkener").on("click", function() {
+        $(".hamburger-menu").removeClass("active");
+        $("#hamburger-button").removeClass("hamburger-button-open");
+        $("#darkener").removeClass("visible-darkener");
+        hideChangelogModal();
+    });
     if(localStorage[Config.list_local]) { $("#" + Config.load_btn).attr("href",
         "javascript:loadLocalData()"); }
     checkDateToInjectPadoru();

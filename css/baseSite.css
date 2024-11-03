@@ -319,6 +319,8 @@ td {
     }
 }
 
+.container { max-width: 80% !important; }
+
 /* Hamburger menu stuff */
 .hamburger-button {
     position: fixed;
@@ -424,8 +426,6 @@ td {
     pointer-events: all !important;
 }
 
-.container { max-width: 80% !important; }
-
 #burger-select-image {
     animation: bounce 0.5s;
     animation-direction: alternate;
@@ -437,4 +437,96 @@ td {
 @keyframes bounce {
     from { transform: translate3d(0, 0, 0); }
     to { transform: translate3d(0, 25px, 0); }
+}
+
+/* Changelog modal stuff */
+.changelog-modal {
+    position: fixed;
+    top: 2%;
+    left: -500%;
+    width: 80%;
+    height: 80%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    transition: left 0.5s ease;
+    z-index: 1041;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.close-button {
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    cursor: pointer;
+    z-index: 500;
+}
+
+.changelog-title {
+    color: white;
+    position: absolute;
+    top: 3px;
+    left: 20px;
+    background-color: #333;
+    width: 100%;
+}
+
+.changelog-content {
+    padding: 10px;
+    line-height: 1.6;
+    font-size: 16px;
+    margin: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.changelog-wrapper {
+    max-height: 75vh;
+    overflow-y: auto;
+    margin-left: -15px;
+    margin-top: 25px;
+}
+
+#changelogContent dl {
+    margin: 20px;
+    padding: 0;
+    color: #FFF;
+}
+
+#changelogContent dt {
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+#changelogContent dd {
+    margin: 0 0 10px 20px;
+    font-size: 1em;
+    line-height: 1.4em;
+}
+
+#changelogContent pre {
+    display: inline;
+    border: 1px solid white;
+    padding: 3px;
+    color: white;
+    margin: 2px;
+}
+
+#changelogContent dt::before {
+    content: "\f073";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 8px;
+}
+
+#changelogContent dd::before {
+    content: "\f00c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 8px;
 }
