@@ -14,19 +14,19 @@ function showChangelogModal() {
         })
         .then((data) => {
             $('#changelogContent').html(data);
-            $('#changelogModal').css('left', '10%');
+            $('#changelogModal').css('top', '3%');
         })
         .catch((error) => {
             $('#changelogContent').html("Failed to load changelog.");
             console.error
                 ("There was a problem with the fetch operation:", error);
-            $('#changelogModal').css('left', '10%');
+            $('#changelogModal').css('top', '3%');
         });
     $("#darkener").toggleClass("visible-darkener");
 }
 
 function hideChangelogModal() {
-    $('#changelogModal').css('left', '-500%');
+    $('#changelogModal').css('top', '-500%');
     if (!$("#hamburger-button").hasClass("active")) 
     { $("#darkener").removeClass("visible-darkener"); }
 }
