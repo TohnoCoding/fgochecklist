@@ -27,6 +27,6 @@ function showChangelogModal() {
 
 function hideChangelogModal() {
     $('#changelogModal').css('top', '-500%');
-    if (!$("#hamburger-button").hasClass("active")) 
-    { $("#darkener").removeClass("visible-darkener"); }
+    if ($("#hamburger-button").hasClass("active")) { return; }
+    $("#darkener").removeClass("visible-darkener");
 }
