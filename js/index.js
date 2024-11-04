@@ -39,8 +39,8 @@ $(async function() {
     await fetchGlobalThreshold();
     $('#loadingModal').modal('show'); // Show Loading Modal
     var cookie =
-        (getCookie(Config.cookieName) === "true"); // Noticeboard cookie check
-    if(cookie) { removeNoticeboard(); }
+        (getCookie(Config.cookieName) === "true"); // Changelog cookie check
+    if(!cookie) { showChangelogModal(); }
     else { $("#noticeBoard").css("display", "block"); }
     // Load File Prepare
     $("#" + Config.file_hidden_id).on("change", (function()
@@ -146,10 +146,6 @@ $(async function() {
         function () { updateClassMode(); });
     $('#' + Config.NAonly_checkbox).on("change",
         function () { updateClassMode(); });
-    $('#rmvNotice').on("click", function() {
-        setCookie(Config.cookieName, true);
-        removeNoticeboard();
-    });
     // Set Modal Closing Event
     $("#addModal").on("hidden.bs.modal", function () {
         Config.current_edit = "";

@@ -26,6 +26,7 @@ function showChangelogModal() {
 }
 
 function hideChangelogModal() {
+    setCookie(Config.cookieName, true);
     $('#changelogModal').css('top', '-500%');
     if ($("#hamburger-button").hasClass("active")) { return; }
     $("#darkener").removeClass("visible-darkener");
