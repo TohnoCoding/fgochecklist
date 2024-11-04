@@ -656,7 +656,8 @@ function updateUnitDataInFastMode(id, val, s_element) {
             updateAmountOfCopiesOwned(id, Config.user_data[id], s_element);
         } else { Config.user_data[id] = 1; } // Add user data
     }
-    new_val <= current_edit_max / 2 && new_val > 0 ? 
+    var copy_limit = id > 1 ? current_edit_max / 2 : current_edit_max;
+    new_val > 0 && new_val <= copy_limit ?  // Handles special Mash case
         $(s_element).addClass(Config.member_checked_CSSclass) :
         $(s_element).removeClass(Config.member_checked_CSSclass);
     updateStatisticsHTML();
