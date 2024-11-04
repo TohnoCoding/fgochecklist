@@ -3012,7 +3012,7 @@
                 "name": "Dobrynya Nikitich",
                 "class": "rider",
                 "game_id": "332",
-                "max_copy": 5,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/PBxja3r.png"
@@ -3022,7 +3022,7 @@
                 "name": "Hephaestion",
                 "class": "pretender",
                 "game_id": "335",
-                "max_copy": 5,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/SHQLj5l.png"
@@ -3032,7 +3032,7 @@
                 "name": "Taisui Xingjun",
                 "class": "alterego",
                 "game_id": "338",
-                "max_copy": 5,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/r529xoI.png"
@@ -3042,7 +3042,7 @@
                 "name": "Daikokuten",
                 "class": "caster",
                 "game_id": "340",
-                "max_copy": 5,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IWY2LjM.png"
