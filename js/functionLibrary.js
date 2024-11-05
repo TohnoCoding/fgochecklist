@@ -636,15 +636,13 @@ function checkDateToInjectPadoru() {
  */
 function updateUnitDataInFastMode(id, val, s_element) {
     var current_user_data = getStoredUnitData(id); // Mark current_edit
-    var current_edit_max = Config.servants_data_list[id].maxcopy;
-    if (current_edit_max > Config.copy_choice_max)
-        { current_edit_max = Config.copy_choice_max; } // Prevent data overflow
+    var current_edit_max = Math.min(Config.servants_data_list[id].maxcopy,
+        Config.copy_choice_max);
     // New Check or Update
     var new_val = current_user_data + val; // Get new value
     if (current_user_data != null) {
         if (new_val <= 0 || new_val > current_edit_max) {
-            // Remove Instead
-            updateAmountOfCopiesOwned(id, 0, s_element);
+            updateAmountOfCopiesOwned(id, 0, s_element); // Remove Instead
             executeUserDataRemoval(id); // Clear number
         } else {
             Config.user_data[id] = new_val; // Update user data
@@ -656,10 +654,12 @@ function updateUnitDataInFastMode(id, val, s_element) {
             updateAmountOfCopiesOwned(id, Config.user_data[id], s_element);
         } else { Config.user_data[id] = 1; } // Add user data
     }
-    var copy_limit = id == "3-0" ? current_edit_max : current_edit_max / 2 ;
-    new_val > 0 && new_val <= copy_limit ?  // Handles special Mash case
-        $(s_element).addClass(Config.member_checked_CSSclass) :
-        $(s_element).removeClass(Config.member_checked_CSSclass);
+    var copy_limit = id === "3-0" ? current_edit_max : current_edit_max / 2 ;
+    if (id === "3-0" && new_val === -1)  // Account for Mash's special case
+    { $(s_element).addClass(Config.member_checked_CSSclass); }
+    else if (new_val > 0 && new_val <= copy_limit)
+    { $(s_element).addClass(Config.member_checked_CSSclass); }
+    else { $(s_element).removeClass(Config.member_checked_CSSclass); }
     updateStatisticsHTML();
     updateURL();
 }
