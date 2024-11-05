@@ -93,7 +93,7 @@ var Config = {
     classmode_parameter: "classlist",
 
     mashSR_checkbox: "mashSR",
-    mashSR_parameter: getMashParameter() || "mash",
+    mashSR_parameter: String(getMashParameter() || "mash"),
 
     // Save & Load
     fast_mode_local: "fgo_fastmode",
