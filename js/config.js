@@ -93,7 +93,7 @@ var Config = {
     classmode_parameter: "classlist",
 
     mashSR_checkbox: "mashSR",
-    mashSR_parameter: String(getMashParameter() || "mash"),
+    mashSR_parameter: "mash",
 
     // Save & Load
     fast_mode_local: "fgo_fastmode",
@@ -170,25 +170,3 @@ var Config = {
     padoruEndMonth: 0, padoruEndDay: 3,         //  After Jan 3
     // }
 };
-
-/**
- * Validates if the current URL contains the old parameter name "mashu" and
- * converts/updates it to the current parameter name "mash" when Mash is marked
- * as SR.
- * @returns {string} Forces returning "mash".
- */
-function getMashParameter() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var mashValue = urlParams.get("mash") || urlParams.get("mashu");
-    if (mashValue !== null) {
-        // Update the parameter to the new standard 'mash' if it's 'mashu'
-        if (urlParams.has("mashu")) {
-            urlParams.delete("mashu");
-            urlParams.set("mash", mashValue);
-            // Update the URL without reloading the page
-            window.history.replaceState({}, '',
-                `${window.location.pathname}?${urlParams}`);
-        }
-    }
-    return mashValue;
-}
