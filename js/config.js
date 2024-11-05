@@ -1,4 +1,4 @@
-var Config = {
+const Config = {
     // GENERAL/GLOBAL CONFIG VALUES/PARAMETERS {
     // File-related configs and specs
     icontype: ".png",
