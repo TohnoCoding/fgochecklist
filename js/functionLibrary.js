@@ -625,8 +625,6 @@ function checkDateToInjectPadoru() {
 // }
 /*****************************************************************************/
 // SPECIFIC EVENT HANDLERS {
-
-
 /**
  * Handles quick update of unitss when Fast Mode is activated.
  * @param {string} id The ID of the selected unit.
