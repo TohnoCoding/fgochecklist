@@ -714,13 +714,11 @@ function elementLeftClick(s_element) {
         updateUnitDataInFastMode(id, 1, s_element); // Change value
         return; // Stop
     }
-    // Mark current_edit
-    Config.current_edit = id;
-    Config.current_edit_ele = s_element;
+    Config.current_edit = id;               // Mark current_edit
+    Config.current_edit_ele = s_element;    // Mark current_edit
     var current_user_data = getStoredUnitData(id);
     var current_edit_max = Config.servants_data_list[id].maxcopy;
-    // New Check or Update
-    if (current_user_data != null) {
+    if (current_user_data != null) {        // New Check or Update
         getNewCopySource(current_edit_max, Config.list_update); // Select 2
         $('#nameUpdate').html(name); // Update modal string
         $('#npUpdate').val(current_user_data)
@@ -751,12 +749,6 @@ function elementRightClick(s_element) {
  */
 function openFileUploadPrompt()
 { document.getElementById(Config.file_hidden_id).click(); }
-
-/**
- * Removes the noticeboard at the top.
- */
-function removeNoticeboard() // Removes element after animation completes
-{ $('#noticeBoard').slideUp(function() { $(this).remove(); }); }
 
 /**
  * Toggles the display of the unique icon identifiers for each category of
@@ -854,7 +846,7 @@ function showShortURLModal(url) {
             .append($formGroup).html()
     });
     url_dialog.init(function() { $('.bootbox').on('click', '#copy_button',
-            function() { copyToClipboard('link-copy'); }); });
+        function() { copyToClipboard('link-copy'); }); });
 }
 
 /**
@@ -992,8 +984,8 @@ function getPortraitImagePath(path, external_source) {
 function getImagePath(path, external_source = false, isPortrait = false) {
     if (isPortrait && external_source) { return path; }
     const src = isPortrait ? Config.img_path : Config.class_img_path;
-    return `${location.href.substring(0, location.href.lastIndexOf("/") +
-        1)}${src}${path}`;
+    return `${location.href.substring(0,
+        location.href.lastIndexOf("/") + 1)}${src}${path}`;
 }
 
 /**
