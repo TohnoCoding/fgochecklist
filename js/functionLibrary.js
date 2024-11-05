@@ -65,11 +65,11 @@ function jumpTo(){
  * by the keys.
  */
 function orderKeys(not_sorted) {
-  var sorted = Object.keys(not_sorted)
-    .sort().reduce(function (acc, key) {
-        acc[key] = not_sorted[key];
-        return acc;
-    }, {});
+    var sorted = Object.keys(not_sorted).sort()
+        .reduce(function (acc, key) {
+            acc[key] = not_sorted[key];
+            return acc;
+        }, {});
     return sorted;
 }
 
