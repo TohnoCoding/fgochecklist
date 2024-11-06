@@ -626,7 +626,7 @@ function checkDateToInjectPadoru() {
 /*****************************************************************************/
 // SPECIFIC EVENT HANDLERS {
 /**
- * Handles quick update of unitss when Fast Mode is activated.
+ * Handles quick update of units when Fast Mode is activated.
  * @param {string} id The ID of the selected unit.
  * @param {number} val The direction in which to increase the current value
  * (up or down).
@@ -676,8 +676,8 @@ function updateUnitData() {
     Config.user_data[Config.current_edit] = new_val; // Set new value
     var $unitElement = $('#' + Config.current_edit);
     if (new_val > 0 && new_val <= threshold)   // Handle CSS class application
-        { $unitElement.addClass(Config.member_checked_CSSclass); }
-        else { $unitElement.removeClass(Config.member_checked_CSSclass); }
+    { $unitElement.addClass(Config.member_checked_CSSclass); }
+    else { $unitElement.removeClass(Config.member_checked_CSSclass); }
     updateAmountOfCopiesOwned   // Update displayed amount of owned units
         (Config.current_edit, new_val, Config.current_edit_ele);
     $(current_user_data != null ? '#updateModal' : '#addModal')
