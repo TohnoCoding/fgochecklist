@@ -153,7 +153,7 @@ function loadLocallySavedData(getresult) {
  */
 function loadUploadedFileData() {
     var input = document.getElementById(Config.file_hidden_id);
-     if (input.files && input.files[0]) {
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
             var getFile = reader.result;
@@ -182,8 +182,8 @@ async function shortenURL() {
     // Gather the full URL for shortening
     var mashSR_str = getMashSRURLstring(true);
     var full_url = window.location.protocol + "//" + window.location.host +
-        window.location.pathname + "?" + Config.compress_input_parameter + "=" +
-        Config.compress_input + (mashSR_str !== "" ? "&" + mashSR_str : "");
+        window.location.pathname + "?" + Config.compress_input_parameter + "="
+        + Config.compress_input + (mashSR_str !== "" ? "&" + mashSR_str : "");
     full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
     /*******************************/
     /*     Shortening services     */
@@ -960,9 +960,8 @@ function getNewCopySource(current_max, s_list) {
  * source.
  * @returns {string} The full path to the desired image.
  */
-function getPortraitImagePath(path, external_source) {
-    return getImagePath(path, external_source, true);
-}
+function getPortraitImagePath(path, external_source)
+{ return getImagePath(path, external_source, true); }
 
 /**
  * Constructs the path to an image, allowing flexible use for specific unit
@@ -1180,93 +1179,96 @@ function exportCurrentDataToFile() {
 }
 
 /**
- * Prompts the user to operate on all units. If deleting, deletes all units of
- * a given group. If adding, marks all units of a given group at first level of
- * copies.
- * @param {boolean} markAsDeleted Determines whether the operation needs to
- * delete or add all units.
+ * Prompts the user to operate on all units. If deleting, deletes all units
+ * of a given group. If adding, marks all units of a given group at the first
+ * level of NP copies.
+ * @param {boolean} markAsDeleted Determines whether the operation deletes or
+ * adds all units.
  * @param {string} input_rarity The desired rarity in which to operate on all
  * units.
- * @param {string} input_class The desired class in the desired rarity in which
- * to operate on all units.
+ * @param {string} input_class The desired class in the desired rarity in
+ * which to operate on all units.
  */
 function promptOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
-    showConfirmationModal(Config.select_all_text, (function(result) {
+    showConfirmationModal(Config.select_all_text, (result) => {
         if (result) { executeOperationOnAllUnits
-        (markAsDeleted, input_rarity, input_class); }
-    }));
+            (markAsDeleted, input_rarity, input_class); }
+    });
 }
 
 /**
- * Operates on all units of a given group/subgroup. If markAsDeleted is true,
- * deletes all the units from the specified group. If it's false, marks all
- * units as owned at first level of copies.
- * @param {boolean} markAsDeleted Determines whether the operation needs to
- * delete or add all units.
- * @param {string} input_rarity The desired rarity in which to operate on all
- * units.
- * @param {string} input_class The desired class in the desired rarity in which
- * to operate on all units.
+ * Performs the requested operation on all units of a specified group. Deletes
+ * or marks as owned all units in the group based on markAsDeleted.
+ * @param {boolean} markAsDeleted Determines if units are deleted or added.
+ * @param {string} in_rarity The rarity of units to operate on.
+ * @param {string} in_class The class within the rarity to operate on.
  */
-function executeOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
-    $('#loadingModal').modal('show'); // Open loading modal
-    $.ajax({            // Ajax; Unit Data
+function executeOperationOnAllUnits(markAsDeleted, in_rarity, in_class) {
+    $('#loadingModal').modal('show');
+    $.ajax({
         url: isMashSR() ? Config.datapath_alternate : Config.datapath,
         contentType: "application/json",
         dataType: "json",
         cache: false,
-        beforeSend: function(xhr) { if (xhr.overrideMimeType)
-            { xhr.overrideMimeType("application/json"); } },
-        success: function(result) {
-            var servants_data = result;
-            if (typeof input_rarity !== "undefined" &&
-                typeof input_class !== "undefined") {
-                    Config.jump_to_target =
-                        input_rarity + "_" + input_class; // Create jump target
-                    var tem_list = servants_data.filter(function(item)
-                        { return item.list_id == input_rarity; }); // Make list
-                    var current_list = tem_list[0].list;
-                    for (var i = 0, l = current_list.length; i < l; i++) {
-                        var curr_servant = current_list[i];
-                        if (curr_servant.class == input_class) {
-                            if (markAsDeleted) {
-                                if (typeof Config.user_data[curr_servant.id] !==
-                                    "undefined")
-                                    { executeUserDataRemoval(curr_servant.id); }
-                            } else {
-                                if (typeof Config.user_data[curr_servant.id] ===
-                                    "undefined")
-                                    { Config.user_data[curr_servant.id] = 1; }
-                            }
-                        }
-                    }
-            } else {
-                // Update User Input
-                for (var aa = 0, ll = servants_data.length; aa < ll; aa++) {
-                    // List get
-                    var current_rarity = servants_data[aa];
-                    var current_list = current_rarity.list;
-                    for (var i = 0, l = current_list.length; i < l; i++) {
-                        var curr_servant = current_list[i];
-                        if (markAsDeleted) {
-                            if (typeof Config.user_data[curr_servant.id] !==
-                                "undefined")
-                                { executeUserDataRemoval(curr_servant.id); }
-                        } else {
-                            if (typeof Config.user_data[curr_servant.id] ===
-                                "undefined")
-                                 { Config.user_data[curr_servant.id] = 1; }
-                        }
-                    }
-                }
-            }
-            Config.encoded_user_input = null; // Clear raw input
-            finishLoading(result); // Send to finish
+        beforeSend(xhr) {
+            if (xhr.overrideMimeType) xhr.overrideMimeType("application/json");
         },
-        error: function(result) {
-            showAlert("Error attempting to select all data!"); // Alert
-            $('#loadingModal').modal('hide'); // Close loading modal
+        success(result) {
+            const servants_data = result;
+            // Determine if specific rarity/class filtering is needed
+            if (in_rarity && in_class) {
+                Config.jump_to_target = `${in_rarity}_${in_class}`;
+                const filteredServants =
+                    filterServants(servants_data, in_rarity, in_class);
+                applyOperationToServants(filteredServants, markAsDeleted);
+            } else {
+                // Apply operation to all units in all rarities
+                servants_data.forEach(rarity => {
+                    applyOperationToServants(rarity.list, markAsDeleted);
+                });
+            }
+            Config.encoded_user_input = null;
+            finishLoading(result);
+        },
+        error() {
+            showAlert("Error attempting to select all data!");
+            $('#loadingModal').modal('hide');
         }
     });
 }
+
+/**
+ * Filters servants based on rarity and class.
+ * @param {Array} servants_data The full data array of servants.
+ * @param {string} rarity The rarity to filter by.
+ * @param {string} unitClass The class within the specified rarity.
+ * @returns {Array} Filtered array of servants in the specified rarity
+ * and class.
+ */
+function filterServants(servants_data, rarity, unitClass) {
+    return servants_data
+        .find(r => r.list_id === rarity)?.list
+        .filter(servant => servant.class === unitClass) || [];
+}
+
+/**
+ * Applies the specified operation to a list of servants, either marking as
+ * owned at first level or deleting them.
+ * @param {Array} servants The list of servants to operate on.
+ * @param {boolean} markAsDeleted Whether to delete or add the units.
+ */
+function applyOperationToServants(servants, markAsDeleted) {
+    servants.forEach(servant => {
+        if (markAsDeleted) {
+            if (Config.user_data[servant.id] !== undefined) {
+                executeUserDataRemoval(servant.id);
+            }
+        } else {
+            if (Config.user_data[servant.id] === undefined) {
+                Config.user_data[servant.id] = 1;
+            }
+        }
+    });
+}
+
 // }
