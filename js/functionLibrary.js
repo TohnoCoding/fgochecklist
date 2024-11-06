@@ -501,10 +501,9 @@ function updateStatisticsHTML() {
 }
 
 /**
- * Updates the UI whenever Class Mode is toggled.
+ * Rebuilds the UI whenever any of the app toggles is triggered.
  */
-function updateClassMode()
-{ updateURLOptionModeOnly(); finishLoading(); }   // Class mode change
+function rebuildUI() { updateURLOptionModeOnly(); finishLoading(); }
 
 /**
  * Updates the URL to include the various URL options (Mash being SR,
@@ -652,12 +651,9 @@ function updateUnitDataInFastMode(id, val, s_element) {
             updateAmountOfCopiesOwned(id, Config.user_data[id], s_element);
         } else { Config.user_data[id] = 1; } // Add user data
     }
-    var copy_limit = id === "3-0" ? current_edit_max : current_edit_max / 2;
-    if (id === "3-0" && new_val === -1)  // Account for Mash's special case
-    { $(s_element).addClass(Config.member_checked_CSSclass); }
-    else if (new_val > 0 && new_val <= copy_limit)
-    { $(s_element).addClass(Config.member_checked_CSSclass); }
-    else { $(s_element).removeClass(Config.member_checked_CSSclass); }
+    var maxcp = id === "3-0" ? current_edit_max : current_edit_max / 2;
+    $(s_element).toggleClass(Config.member_checked_CSSclass,
+        id === "3-0" && new_val === -1 || (new_val > 0 && new_val <= maxcp));
     updateStatisticsHTML();
     updateURL();
 }
@@ -675,9 +671,8 @@ function updateUnitData() {
         $('#npUpdate').val() : $('#npAdd').val());
     Config.user_data[Config.current_edit] = new_val; // Set new value
     var $unitElement = $('#' + Config.current_edit);
-    if (new_val > 0 && new_val <= threshold)   // Handle CSS class application
-    { $unitElement.addClass(Config.member_checked_CSSclass); }
-    else { $unitElement.removeClass(Config.member_checked_CSSclass); }
+    $unitElement.toggleClass(Config.member_checked_CSSclass,
+        (new_val > 0 && new_val <= threshold));
     updateAmountOfCopiesOwned   // Update displayed amount of owned units
         (Config.current_edit, new_val, Config.current_edit_ele);
     $(current_user_data != null ? '#updateModal' : '#addModal')

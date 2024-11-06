@@ -141,11 +141,11 @@ $(async function() {
     $('#' + Config.fastmode_checkbox).on("change",
         function () { updateURLOptionModeOnly(); });
     $('#' + Config.classmode_checkbox).on("change",
-        function () { updateClassMode(); });
+        function () { rebuildUI(); });
     $('#' + Config.mashSR_checkbox).on("change",
-        function () { updateClassMode(); });
+        function () { rebuildUI(); });
     $('#' + Config.NAonly_checkbox).on("change",
-        function () { updateClassMode(); });
+        function () { rebuildUI(); });
     // Set Modal Closing Event
     $("#addModal").on("hidden.bs.modal", function () {
         Config.current_edit = "";
@@ -164,16 +164,10 @@ $(async function() {
             "buttons have been disabled.");
     }
     $("#hamburger-button").on("click", function() {
-        if (!$(this).hasClass("active")) {
-            $(this).addClass("active");
-            $(".hamburger-menu").addClass("active");
-            $("#darkener").addClass("visible-darkener");
-        } else {
-            $(this).removeClass("active");
-            $(".hamburger-menu").removeClass("active");
-            $("#darkener").removeClass("visible-darkener");
-            hideChangelogModal();
-        }
+        const isActive = $(this).toggleClass("active").hasClass("active");
+        $(".hamburger-menu").toggleClass("active", isActive);
+        $("#darkener").toggleClass("visible-darkener", isActive); 
+        if (!isActive) { hideChangelogModal(); }
     });
     $("#darkener").on("click", function() {
         $(".hamburger-menu").removeClass("active");
