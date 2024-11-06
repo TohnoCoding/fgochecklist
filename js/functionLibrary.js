@@ -579,13 +579,15 @@ function finishLoading(servant_pass_data) {
                 },
                 success: function(result) { buildUnitDataInUI(result); },
                 error: function(result) {
-                    showAlert("Error caching Unit Class Data on AJAX!"); // Alert
+                    showAlert("Error caching Unit Class Data on AJAX!<br>" +
+                        "<br>Please refresh the page to try again."); // Alert
                     $('#loadingModal').modal('hide'); // Close loading modal
                 }
             });
         },
         error: function(result) {
-            showAlert("Error caching Unit Class Data on AJAX!"); // Alert
+            showAlert("Error caching Unit Class Data on AJAX!<br><br>" +
+                "Please refresh the page to try again."); // Alert
             $('#loadingModal').modal('hide'); // Close loading modal
         }
     });
