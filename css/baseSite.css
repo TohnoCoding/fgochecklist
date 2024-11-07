@@ -537,3 +537,7 @@ td {
     left: 0;
     top: 0;
 }
+
+#changelogContent .codeUpdate::before {
+    content: "\f121"
+}

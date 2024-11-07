@@ -1,159 +1,175 @@
 <dl>
     <dt>2024/11/07</dt>
-    <dd>Full reorganization of JS library.</dd>
+    <dd>Adjusted the changelog so user-visible ("regular") changes are marked with checkmarks, and
+        strictly code stuff that isn't visible to end user is marked with a code icon.</dd>
+    <dd class="codeUpdate">Full reorganization of JS library.</dd>
     <dt>2024/11/06</dt>
-    <dd>Optimized multiple CSS assignment checks.</dd>
-    <dd>Optimized the multi-target operations (select all, delete all).</dd>
+    <dd class="codeUpdate">Optimized multiple CSS assignment checks.</dd>
+    <dd class="codeUpdate">Optimized the multi-target operations (select all, delete all).</dd>
     <dt>2024/11/05</dt>
-    <dd>Fixed another bug with selecting Mash backwards in Fast Mode.</dd>
-    <dd>Mash seems to be quite the lure for bugs, as another one was fixed related to her URL parameter when
-        marking her as SR.</dd>
+    <dd class="codeUpdate">Fixed another bug with selecting Mash backwards in Fast Mode.</dd>
+    <dd class="codeUpdate">Mash seems to be quite the lure for bugs, as another one was fixed related
+        to her URL parameter when marking her as SR.</dd>
     <dt>2024/11/04</dt>
-    <dd>Fixed a data definition typo on four Servants that was causing NP level issues (Dobrynya Nikitich, Hephaestion,
-        Taisui Xingjun, &amp; Daikokuten).</dd>
-    <dd>Also did a drive-by fix of an issue with selecting Mash in Fast Mode.</dd>
-    <dd>Fixed an issue with the summoning of the changelog modal which wouldn't dismiss the darkening layer.</dd>
+    <dd class="codeUpdate">Fixed a data definition typo on four Servants that was causing NP level issues
+        (Dobrynya Nikitich, Hephaestion, Taisui Xingjun, &amp; Daikokuten).</dd>
+    <dd class="codeUpdate">Also did a drive-by fix of an issue with selecting Mash in Fast Mode.</dd>
+    <dd>Fixed an issue with the summoning of the changelog modal which wouldn't dismiss
+        the darkening layer.</dd>
     <dt>2024/11/03</dt>
-    <dd>Didn't like the changelog summon animation so I made it slide down from the top and hide upwards.</dd>
+    <dd>Didn't like the changelog summon animation so I made it slide down from the top
+        and hide upwards.</dd>
     <dt>2024/11/02</dt>
-    <dd>First full initial implementation of the wishlist state. Do note that Servants can only have one of three states:
-        "not owned" (dark), "owned at NP#" (light, with a number on the lower right corner), and "wishlisted at NP#" (dark,
-        with a number on the lower right corner). There's currently no way to mark already owned units at further wishlisted
-        NP levels.</dd>
-    <dd>Initial implementation of the changelog modal, in case anyone wants to snoop around to see how the project's been
-        evolving. Only important updates are logged here; adding new Servants isn't exactly remarkable. Any future major
-        updates will be logged here.</dd>
-    <dd><span style="font-weight: bold; font-style: italic;">Please, if you find anything wrong with the site,
-        <a target="_blank" href="https://github.com/TohnoCoding/fgochecklist/issues/new/choose">immediately open a new
-        issue on the project repository</a> to let me know.</span></dd>
+    <dd>First full initial implementation of the wishlist state. Do note that Servants
+        can only have one of three states: "not owned" (dark), "owned at NP#" (light, with a number on the
+        lower right corner), and "wishlisted at NP#" (dark, with a number on the lower right corner).
+        There's currently no way to mark already owned units at further wishlisted NP levels.</dd>
+    <dd>Initial implementation of the changelog modal, in case anyone wants to snoop
+        around to see how the project's been evolving. Only important updates are logged here; adding
+        new Servants isn't exactly remarkable. Any future major updates will be logged here.</dd>
+    <dd class="codeUpdate"><span style="font-weight: bold; font-style: italic;">Please, if you find anything
+        wrong with the site,
+        <a target="_blank" href="https://github.com/TohnoCoding/fgochecklist/issues/new/choose">immediately
+        open a new issue on the project repository</a> to let me know.</span></dd>
     <dt>2024/10/29</dt>
     <dd>Fixed an issue which prevented Mash from being selectable without Fast Mode enabled.</dd>
     <dt>2024/10/28</dt>
     <dd>Reworked and optimized Servant portrait and class icon image loading logic.</dd>
     <dt>2024/10/21</dt>
-    <dd>Simplified/optimized all uses of the bootbox confirmation modal.</dd>
+    <dd class="codeUpdate">Simplified/optimized all uses of the bootbox confirmation modal.</dd>
     <dt>2024/10/17</dt>
-    <dd>Reorganized entire project file name structure.</dd>
-    <dd>Redesigned the style injection for the holiday season.</dd>
-    <dd>Changed all remaining instances of legacy <pre>mashu</pre> variable name to <pre>mash</pre>.</dd>
+    <dd class="codeUpdate">Reorganized entire project file name structure.</dd>
+    <dd class="codeUpdate">Redesigned the style injection for the holiday season.</dd>
+    <dd class="codeUpdate">Changed all remaining instances of legacy <pre>mashu</pre> variable name to
+        <pre>mash</pre>.</dd>
     <dt>2024/10/13</dt>
     <dd>Initial attempt to fix visual functionality for mobile devices.</dd>
-    <dd>Refactored the holiday styling injection.</dd>
+    <dd class="codeUpdate">Refactored the holiday styling injection.</dd>
     <dt>2024/10/11</dt>
-    <dd>Rearranged some code pathing.</dd>
+    <dd class="codeUpdate">Rearranged some code pathing.</dd>
     <dt>2024/10/09</dt>
     <dd>Added some extra links to the hamburger-style expandable menu.</dd>
-    <dd>Moved the project Github repo link and Nechigawara's original Github repo link to the expandable menu.</dd>
+    <dd>Moved the project Github repo link and Nechigawara's original Github repo link to the expandable
+        menu.</dd>
     <dt>2024/10/08</dt>
-    <dd>Improved the client-side check for FileSaver.js support.</dd>
+    <dd class="codeUpdate">Improved the client-side check for FileSaver.js support.</dd>
     <dt>2024/10/07</dt>
-    <dd>Version 4.0, baby!</dd>
+    <dd class="codeUpdate">Version 4.0, baby!</dd>
     <dd>Improved the visibility of the burger menu buttons by adding a glow when you hover over them.</dd>
     <dd>Added some donation buttons to the expandable side menu in case you want to support my work a bit.</dd>
     <dd>Removed the "new feature" blinker to the "Hide unreleased in NA" checkbox feature.</dd>
     <dt>2024/10/06</dt>
-    <dd>First full implementation of the Details hamburger-style menu and deprecation of the annoying and ugly sidebar for
-        data functions and URL sharing.</dd>
-    <dd>Continued mucking around with media queries to adjust mobile device visibility.</dd>
+    <dd>First full implementation of the Details hamburger-style menu and deprecation of the annoying and
+        ugly sidebar for data functions and URL sharing.</dd>
+    <dd class="codeUpdate">Continued mucking around with media queries to adjust mobile device visibility.</dd>
     <dt>2024/10/01</dt>
-    <dd>Completely redesigned the way the holiday season styling injection is done so that it works automatically now between
-        specified dates.</dd>
+    <dd class="codeUpdate">Completely redesigned the way the holiday season styling injection is done so that
+        it works automatically now between specified dates.</dd>
     <dt>2024/09/30</dt>
     <dd>Almost complete rewrite and redesign of the main JS project file for better organization.</dd>
     <dt>2024/09/27</dt>
-    <dd>Refactored several functions to ensure backwards compatibility and best practices using dynamic libraries.</dd>
-    <dd>Removed yet more unused legacy leftovers.</dd>
+    <dd class="codeUpdate">Refactored several functions to ensure backwards compatibility and best practices
+        using dynamic libraries.</dd>
+    <dd class="codeUpdate">Removed yet more unused legacy leftovers.</dd>
     <dd>Fixed a potential spoiler element when dividing by class for NA-only players.</dd>
     <dt>2024/09/23</dt>
     <dd>Removed unnecessary files.</dd>
-    <dd>Completely rewrote from the ground up the code that builds the finalized UI for the user for better readability and
-        maintainability.</dd>
+    <dd class="codeUpdate">Completely rewrote from the ground up the code that builds the finalized UI for the
+        user for better readability and maintainability.</dd>
     <dt>2024/09/18</dt>
-    <dd>Optimized and refactored code for readability.</dd>
-    <dd>Removed some more unused legacy code.</dd>
+    <dd class="codeUpdate">Optimized and refactored code for readability.</dd>
+    <dd class="codeUpdate">Removed some more unused legacy code.</dd>
     <dt>2024/09/17</dt>
-    <dd>Removed unused legacy code.</dd>
-    <dd>Refactored code for readability and consistency.</dd>
+    <dd class="codeUpdate">Removed unused legacy code.</dd>
+    <dd class="codeUpdate">Refactored code for readability and consistency.</dd>
     <dt>2024/09/16</dt>
-    <dd>Removed all uses of deprecated JS calls to replace them with more up-to-date function calls.</dd>
+    <dd class="codeUpdate">Removed all uses of deprecated JS calls to replace them with more up-to-date
+        function calls.</dd>
     <dd>Added simple cookie functionality to hide the noticeboard.</dd>
     <dt>2024/09/15</dt>
-    <dd>Fixed the code that manages the NA threshold to hide unreleased units to maintain compatibility with older browsers.</dd>
+    <dd class="codeUpdate">Fixed the code that manages the NA threshold to hide unreleased units to maintain
+        compatibility with older browsers.</dd>
     <dt>2024/09/14</dt>
-    <dd>Improved and optimized URL shortening and sharing code.</dd>
-    <dd>Removed duplicate functions.</dd>
+    <dd class="codeUpdate">Improved and optimized URL shortening and sharing code.</dd>
+    <dd class="codeUpdate">Removed duplicate functions.</dd>
     <dt>2024/09/13</dt>
-    <dd>Fixed statistics counters to account for Class Mode being enabled.</dd>
+    <dd class="codeUpdate">Fixed statistics counters to account for Class Mode being enabled.</dd>
     <dt>2024/09/12</dt>
     <dd>Replaced the Beast class icon.</dd>
-    <dd>Fixed an incorrect HTML function call.</dd>
-    <dd>Removed a duplicate function causing several events to be triggered twice.</dd>
-    <dd>Removed an useless execution control scheme derived from the duplicate function issue.</dd>
+    <dd class="codeUpdate">Fixed an incorrect HTML function call.</dd>
+    <dd class="codeUpdate">Removed a duplicate function causing several events to be triggered twice.</dd>
+    <dd class="codeUpdate">Removed an useless execution control scheme derived from the duplicate
+        function issue.</dd>
     <dt>2024/09/11</dt>
-    <dd>Redesigned, optimized and corrected statistics calculations.</dd>
-    <dd>Re-included statistics into the rendering area for image exporting.</dd>
+    <dd class="codeUpdate">Redesigned, optimized and corrected statistics calculations.</dd>
+    <dd class="codeUpdate">Re-included statistics into the rendering area for image exporting.</dd>
     <dt>2024/09/10</dt>
-    <dd>Fully implemented a new functionality to hide units that have yet to be released in NA by consuming an Atlas Academy
-        API endpoint.</dd>
-    <dd>Fixed a data source typo that had been lying dormant for ages but hadn't been discovered due to not needing to use that
-        specific property.</dd>
+    <dd class="codeUpdate">Fully implemented a new functionality to hide units that have yet to be released
+        in NA by consuming an Atlas Academy API endpoint.</dd>
+    <dd class="codeUpdate">Fixed a data source typo that had been lying dormant for ages but hadn't been
+        discovered due to not needing to use that specific property.</dd>
     <dt>2024/09/09</dt>
-    <dd>First full release of in-source code documentation.</dd>
+    <dd class="codeUpdate">First full release of in-source code documentation.</dd>
     <dt>2024/09/08</dt>
-    <dd>Initial (partial) in-source code documentation release.</dd>
+    <dd class="codeUpdate">Initial (partial) in-source code documentation release.</dd>
     <dt>2024/09/06</dt>
-    <dd>Fixed a GIANT bug which was causing Fast Mode to register more clicks/taps than intended when triggering the 
-        <pre>updateClassMode()</pre> function, that had been plaguing me for YEARS.</dd>
+    <dd class="codeUpdate">Fixed a GIANT bug which was causing Fast Mode to register more clicks/taps
+        than intended when triggering the <pre>updateClassMode()</pre> function, that had been plaguing
+        me for YEARS.</dd>
     <dd>Removed Tumblr share button. Who the hell still uses Tumblr in 2024, seriously.</dd>
     <dt>2024/09/05</dt>
     <dd>Code rewrite and optimization.</dd>
-    <dd>Changed the loading animation from the non-descript squares to the cute running Fou animation from the game.</dd>
+    <dd>Changed the loading animation from the non-descript squares to the cute running Fou animation
+        from the game.</dd>
     <dt>2024/09/01</dt>
-    <dd>Started working on some massive code cleanup.</dd>
-    <dd>Removed leftover unused functions and variables.</dd>
+    <dd class="codeUpdate">Started working on some massive code cleanup.</dd>
+    <dd class="codeUpdate">Removed leftover unused functions and variables.</dd>
     <dd>Did multiple semantic and spelling corrections.</dd>
-    <dd>Removed call to URL shortener that was erroring out.</dd>
+    <dd class="codeUpdate">Removed call to URL shortener that was erroring out.</dd>
     <dt>2024/08/30></dt>
-    <dd>Implemented downloadable filename to include a timestamp.</dd>
+    <dd class="codeUpdate">Implemented downloadable filename to include a timestamp.</dd>
     <dt>2024/08/28</dt>
     <dd>Fixed Mysterious Heroine XX Alter's portrait.</dd>
     <dt>2024/08/06</dt>
     <dd>Added specific styling for printing.</dd>
     <dt>2024/02/26</dt>
-    <dd>Added new URL shortener provider.</dd>
-    <dd>Restructured <pre>shareURL()</pre> for optimization.</dd>
+    <dd class="codeUpdate">Added new URL shortener provider.</dd>
+    <dd class="codeUpdate">Restructured <pre>shareURL()</pre> for optimization.</dd>
     <dt>2024/02/16</dt>
-    <dd>Fixed (hopefully permanently) the calls to URL shorteners to be done in a staggered manner.</dd>
+    <dd class="codeUpdate">Fixed (hopefully permanently) the calls to URL shorteners to be done
+        in a staggered manner.</dd>
     <dt>2024/01/08</dt>
-    <dd>Successfully integrated y.gy as an URL shortener provider.</dd>
+    <dd class="codeUpdate">Successfully integrated y.gy as an URL shortener provider.</dd>
     <dt>2023/12/31</dt>
     <dd>Added a notice of is.gd shortening not being available because is.gd crapped out.</dd>
     <dt>2023/12/20</dt>
-    <dd>Removed the notice about Martha Santa being skipped in the data sources. It's been 6 months since the fix, and she's already
-        in NA, so it's about time.</dd>
+    <dd>Removed the notice about Martha Santa being skipped in the data sources. It's been 6 months
+        since the fix, and she's already in NA, so it's about time.</dd>
     <dt>2023/07/17</dt>
     <dd>Fixed Oberon's portrait to be less spoiler-y.</dd>
     <dt>2023/07/08</dt>
-    <dd>Fixed Medusa Saber's internal data source ID.</dd>
+    <dd class="codeUpdate">Fixed Medusa Saber's internal data source ID.</dd>
     <dt>2023/06/23</dt>
-    <dd>Fixed Bhima's and Duryodhana's availability status.</dd>
+    <dd class="codeUpdate">Fixed Bhima's and Duryodhana's availability status.</dd>
     <dt>2023/06/05</dt>
-    <dd>Fixed English localizations of certain Servants and added the missing Martha Santa to the data sources.</dd>
+    <dd>Fixed English localizations of certain Servants and added the missing Martha Santa to the
+        data sources.</dd>
     <dt>2023/06/01</dt>
-    <dd>Updated DataSpec.md with the Beast class.</dd>
+    <dd class="codeUpdate">Updated DataSpec.md with the Beast class.</dd>
     <dt>2023/04/25</dt>
-    <dd>Fixed image link for Tiamat Larva.</dd>
+    <dd class="codeUpdate">Fixed image link for Tiamat Larva.</dd>
     <dt>2022/08/06</dt>
-    <dd>Fixed a typo that broke Archetype: Earth's/Arcueid Brunestud's entry in the data sources.</dd>
+    <dd class="codeUpdate">Fixed a typo that broke Archetype: Earth's/Arcueid Brunestud's entry
+        in the data sources.</dd>
     <dt>2022/08/04</dt>
     <dd>Added silver Alter-Ego icon to the class icons.</dd>
-    <dd>Removed reference to the no-longer-existing Sidebar.css file.</dd>
+    <dd class="codeUpdate">Removed reference to the no-longer-existing Sidebar.css file.</dd>
     <dt>2022/06/09</dt>
     <dd>Redistributed action buttons at the top of the page.</dd>
     <dt>2022/02/22</dt>
     <dd>Data management buttons moved to sidebar.</dd>
     <dt>2022/02/10</dt>
-    <dd>Completely removed any remnants of TinyURL usage in the codebase.</dd>
+    <dd class="codeUpdate">Completely removed any remnants of TinyURL usage in the codebase.</dd>
     <dt>2022/01/22</dt>
     <dd>Initial public release of fork from Nechigawara's original project.</dd>
 </dl>
