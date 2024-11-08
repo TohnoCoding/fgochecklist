@@ -529,15 +529,16 @@ td {
 }
 
 #changelogContent dd::before {
-    content: "\f00c";
+    content: "\f15c";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    margin-left: 25px;
+    margin-left: 30px;
     position: absolute;
     left: 0;
     top: 0;
 }
 
 #changelogContent .codeUpdate::before {
-    content: "\f121"
+    content: "\f121";
+    margin-left: 23px;
 }
