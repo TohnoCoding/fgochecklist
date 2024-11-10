@@ -26,24 +26,27 @@ const Config = {
         { "id":  2, "text": "NP2" },
         { "id":  3, "text": "NP3" },
         { "id":  4, "text": "NP4" },
-        { "id":  5, "text": "NP5" },
+        { "id":  5, "text": "NP5" }
     ],
     wishlist_copies_text: "",
     wishlist_copies_prefix: "wl_",
     wishlist_choice_allow: [
-        { "id":  1, "text": "WL1" },
-        { "id":  2, "text": "WL2" },
-        { "id":  3, "text": "WL3" },
-        { "id":  4, "text": "WL4" },
-        { "id":  5, "text": "WL5" },
-        { "id":  6, "text": "WL6" },
-        { "id":  7, "text": "WL7" },
-        { "id":  8, "text": "WL8" },
-        { "id":  9, "text": "WL9" },
-        { "id": 10, "text": "WL10" }
+        { "id":  0, "text": "Not wishlisted", badge:"" },
+        { "id":  1, "text": "1 copy wishlisted", badge: "WL1" },
+        { "id":  2, "text": "2 copies wishlisted", badge: "WL2" },
+        { "id":  3, "text": "3 copies wishlisted", badge: "WL3" },
+        { "id":  4, "text": "4 copies wishlisted", badge: "WL4" },
+        { "id":  5, "text": "5 copies wishlisted", badge: "WL5" },
+        { "id":  6, "text": "6 copies wishlisted", badge: "WL6" },
+        { "id":  7, "text": "7 copies wishlisted", badge: "WL7" },
+        { "id":  8, "text": "8 copies wishlisted", badge: "WL8" },
+        { "id":  9, "text": "9 copies wishlisted", badge: "WL9" }
     ],
     copy_choice_default: 1,
-    copy_choice_max: 10,
+    copy_choice_max: 5,
+    wishlist_choice_default: 0,
+    wishlist_choice_max: 9,
+
     share_tags: "FGO,FateGrandOrder,My_FGO_Checklist",
     share_title: "See my Servant collection here!",
 
@@ -104,12 +107,12 @@ const Config = {
     mashSR_checkbox: "mashSR",
     mashSR_parameter: "mash",
 
-    // Save & Load
     fast_mode_local: "fgo_fastmode",
     class_mode_local: "fgo_classmode",
     mashSR_local: "fgo_mash",
     NAonly_local: "fgo_naonly",
-
+    
+    // Data, Save & Load
     list_local: "fgo_list",
 
     load_text:
@@ -161,6 +164,8 @@ const Config = {
     custom_adapter: null,
     list_new: null,
     list_update: null,
+    wishlist_new: null,
+    wishlist_update: null,
 
     threshold_error: "Unable to get the NA threshold, JP-only Servants " +
         "will not be able to be hidden.",

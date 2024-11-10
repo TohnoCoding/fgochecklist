@@ -407,12 +407,14 @@ function buildUnitDataInUI(units_data) {
                         `${current_servant.id}${icontype}`, false); // Fallback
             }
             list_img.push(loadSprite(current_servant_img));
+            var nptext = current_user_data >= 1 &&
+                current_user_data <= Config.copy_choice_allow.length ?
+                Config.copy_choice_allow[current_user_data - 1].text : '';
             var copiesContainer = $('<div>', {  // Copies
                 'id':
                     `${Config.additional_copies_prefix}${current_servant.id}`,
                 'class': Config.additional_copies_CSSclass,
-                'text': current_user_data > 1 ?
-                    Config.copy_choice_allow[current_user_data - 1].text : ''
+                'text': nptext
             });
             unit_container.find('div').append(
                 $('<img>',
@@ -649,20 +651,24 @@ function updateUnitDataInFastMode(id, val, s_element) {
  */
 function updateUnitData() {
     if (Config.current_edit == "" || Config.current_edit_ele == null)
-        { return; } // Prevent blank key
+        { return; } // Prevent Blank Key
     var current_user_data =
         getStoredUnitData(Config.current_edit); // Get user data
-    var threshold = Config.copy_choice_allow.length / 2;
-    var new_val = parseInt(current_user_data != null ? 
-        $('#npUpdate').val() : $('#npAdd').val());
-    Config.user_data[Config.current_edit] = new_val; // Set new value
-    var $unitElement = $('#' + Config.current_edit);
-    $unitElement.toggleClass(Config.member_checked_CSSclass,
-        (new_val > 0 && new_val <= threshold));
-    updateAmountOfCopiesOwned   // Update displayed amount of owned units
-        (Config.current_edit, new_val, Config.current_edit_ele);
-    $(current_user_data != null ? '#updateModal' : '#addModal')
-        .modal('hide');     // Close relevant modal
+    // New Check or Update
+    if (current_user_data != null) {
+        var new_val = parseInt($('#npUpdate').val()); // Get new value
+        Config.user_data[Config.current_edit] = new_val; // Update user data
+        updateAmountOfCopiesOwned
+            (Config.current_edit, new_val, Config.current_edit_ele);
+        $('#updateModal').modal('hide'); // Hide update check modal
+    } else {
+        var new_val = parseInt($('#npAdd').val()); // Get new value
+        Config.user_data[Config.current_edit] = new_val; // Add user data
+        $('#' + Config.current_edit).addClass(Config.member_checked_CSSclass);
+        updateAmountOfCopiesOwned
+            (Config.current_edit, new_val, Config.current_edit_ele);
+        $('#addModal').modal('hide'); // Hide new check modal
+    }
     updateStatisticsHTML(); updateURL();
     Config.current_edit = ""; // Clear current edit
 }
@@ -674,29 +680,35 @@ function updateUnitData() {
 function elementLeftClick(s_element) {
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
-    // Fast Mode, Change Value Directly
-    if (isFastMode()) {
+    if (isFastMode()) {     // Fast Mode, Change Value Directly
         updateUnitDataInFastMode(id, 1, s_element); // Change value
         return; // Stop
     }
-    Config.current_edit = id;               // Mark current_edit
-    Config.current_edit_ele = s_element;    // Mark current_edit
-    var current_user_data = getStoredUnitData(id);
-    var current_edit_max = Config.servants_data_list[id].maxcopy;
-    if (current_user_data != null) {        // New Check or Update
-        getNewCopySource(current_edit_max, Config.list_update); // Select 2
-        $('#nameUpdate').html(name); // Update modal string
-        $('#npUpdate').val(current_user_data)
-            .trigger('change'); // Reset modal choice to current
-        $('#updateModal').modal('show'); // Show update check modal
+    // Set current edit markers
+    Config.current_edit = id;
+    Config.current_edit_ele = s_element;
+    var current_user_data = getStoredUnitData(id),
+        current_edit_max = Config.servants_data_list[id].maxcopy;
+    // If data exists, set Update Modal; if not, set Add Modal
+    if (current_user_data != null) {
+        getNewCopySource(current_edit_max, Config.list_update,
+            Config.wishlist_update, id);
+        $('#nameUpdate').html(name);
+        $('#npUpdate').val(current_user_data.owned ||
+            Config.copy_choice_default).trigger('change'); 
+        $('#wlUpdate').val(current_user_data.wishlist ||
+            Config.wishlist_choice_default).trigger('change'); 
+        $('#updateModal').modal('show');
     } else {
-        getNewCopySource(current_edit_max, Config.list_new); // Select 2
-        $('#nameAdd').html(name); // Update modal string
-        $('#npAdd').val(Config.copy_choice_default)
-            .trigger('change'); // Reset modal choice to default
-        $('#addModal').modal('show'); // Show new check modal
+        getNewCopySource(current_edit_max, Config.list_new,
+            Config.wishlist_new, id);
+        $('#nameAdd').html(name);
+        $('#npAdd').val(Config.copy_choice_default).trigger('change');
+        $('#wlAdd').val(Config.wishlist_choice_default).trigger('change');
+        $('#addModal').modal('show');
     }
 }
+
 
 /**
  * Right click on a given unit's portrait.
@@ -1043,22 +1055,34 @@ function applyOperationToServants(servants, markAsDeleted) {
 /**
  * Builds a new Select2 combobox/dropdown for the desired unit for the detailed
  * popup.
- * @param {number} current_max The currently selected element.
- * @param {object} s_list The list of elements to display in the box.
+ * @param {number} current_max The max amount of copies of the currently
+ * selected element.
+ * @param {object} nplist The list of elements to display in the box.
  */
-function getNewCopySource(current_max, s_list) {
-    // Clone the original array so Config.copy_choice_allow remains unchanged
-    var tempChoices = Config.copy_choice_allow.map(option => {
-        const newOption = { ...option }; // Copy each option object
-        newOption.text = newOption.text.replace("WL", "Wishlisted at NP");
-        return newOption;
-    });
-    var new_choice_allow =    // Filter choices based on current_max
-        (current_max < Config.copy_choice_max && current_max > 0)
-        ? tempChoices.filter(choice => choice.id <= current_max)
-        : tempChoices;
-    s_list.data('select2').dataAdapter      // Update Select 2 option list
-        .updateOptions(new_choice_allow);
+function getNewCopySource(current_max, nplist, wishlist, unitID) {
+    const isMash = unitID === "3-0";
+    var npChoices =
+        Config.copy_choice_allow.filter(choice => choice.id <= current_max);
+    nplist.data('select2').dataAdapter.updateOptions(npChoices);
+    wishlist.data('select2').dataAdapter
+        .updateOptions(Config.wishlist_choice_allow);
+    if (isMash) {
+        wishlist.empty().prop('disabled', true).data('select2').dataAdapter.
+            updateOptions([]);
+        $("#wlAddHelp").text("Mash cannot be wishlisted, as she is your " +
+            "default Servant.");
+        $("#wlUpdateHelp").text("Mash cannot be wishlisted, as she is your " +
+            "default Servant.");
+    } else {
+        wishlist.prop('disabled', false).data('select2').dataAdapter
+            .updateOptions(Config.wishlist_choice_allow.map(option => {
+                return { id: option.id, text: option.text };
+            }));
+        $("#wlAddHelp").text("At what NP level do you wish to have this " +
+            "Servant?");
+        $("#wlUpdateHelp").text("At what NP level do you wish to have this " +
+            "Servant?");
+    }
 }
 
 /**

@@ -213,60 +213,76 @@
 </div>
 <!-- Modal Add -->
 <div class="modal" tabindex="-1" role="dialog" id="addModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Servant - <span id="nameAdd"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="npAdd">Current NP level</label>
-                <select class="form-control" id="npAdd"></select>
-                <small id="npAddHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Servant - <span id="nameAdd"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateUnitData()">Save changes</button>
-      </div>
+            <div class="modal-body">
+                <form>
+                    <!-- Owned NP Level -->
+                    <div class="form-group">
+                        <label for="npAdd">Current NP Level</label>
+                        <select class="form-control" id="npAdd"></select>
+                        <small id="npAddHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+                    </div>
+                    <br>
+                    <!-- Wishlist Level -->
+                    <div class="form-group">
+                        <label for="wlAdd">Wishlist NP Level</label>
+                        <select class="form-control" id="wlAdd"></select>
+                        <small id="wlAddHelp" class="form-text text-muted">At what NP level do you wish to have this Servant?</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="updateUnitData()">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <!-- Modal Update -->
 <div class="modal" tabindex="-1" role="dialog" id="updateModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Update Servant - <span id="nameUpdate"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="npUpdate">Current NP level</label>
-                <select class="form-control" id="npUpdate"></select>
-                <small id="npUpdateHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Servant - <span id="nameUpdate"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </form>
-        <hr/>
-        <div style="text-align:center;">
-            <button type="button" class="btn btn-danger" onclick="removeUserData()">Uncheck this servant</button>
+            <div class="modal-body">
+                <form>
+                    <!-- Owned NP Level -->
+                    <div class="form-group">
+                        <label for="npUpdate">Current NP Level</label>
+                        <select class="form-control" id="npUpdate"></select>
+                        <small id="npUpdateHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+                    </div>
+                    <br>
+                    <!-- Wishlist Level -->
+                    <div class="form-group">
+                        <label for="wlUpdate">Wishlist NP Level</label>
+                        <select class="form-control" id="wlUpdate"></select>
+                        <small id="wlUpdateHelp" class="form-text text-muted">At what NP level do you wish to have this Servant?</small>
+                    </div>
+                </form>
+                <hr/>
+                <div style="text-align:center;">
+                    <button type="button" class="btn btn-danger" onclick="removeUserData()">Uncheck this servant</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateUnitData()">Save changes</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateUnitData()">Save changes</button>
-      </div>
     </div>
-  </div>
-</div>
+</div>    
 <!-- Modal loading -->
 <div class="modal" tabindex="-1" role="dialog" id="loadingModal" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">

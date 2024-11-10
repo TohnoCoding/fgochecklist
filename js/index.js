@@ -61,6 +61,16 @@ $(async function() {
         dataAdapter: Config.custom_adapter,
         data: Config.copy_choice_allow
     });
+    Config.wishlist_new = $("#wlAdd").select2({
+        theme: "bootstrap",
+        dataAdapter: Config.custom_adapter,
+        data: Config.wishlist_choice_allow
+    });
+    Config.wishlist_update = $("#wlUpdate").select2({
+        theme: "bootstrap",
+        dataAdapter: Config.custom_adapter,
+        data: Config.wishlist_choice_allow
+    });
     var MashSR_input = urlParams.get(Config.mashSR_parameter);
     var fastmode_input = urlParams.get(Config.fastmode_parameter);
     var classmode_input = urlParams.get(Config.classmode_parameter);
