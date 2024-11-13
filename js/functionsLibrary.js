@@ -151,16 +151,16 @@ function loadUploadedFileData() {
     var input = document.getElementById(Config.file_hidden_id);
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-        reader.onload = function (e) {
-            var getFile = reader.result;
-            var n_txt = getFile
+        reader.onload = function() {
+            var fileContents = reader.result;
+            var isValid = fileContents
                 .startsWith(Config.export_header +
                     Config.export_header_separator);
-            if (n_txt) {
-                var res = getFile.replace
+            if (isValid) {
+                var decompressedData = fileContents.replace
                     (Config.export_header +
                         Config.export_header_separator, "");
-                return loadLocallySavedData(res);
+                return loadLocallySavedData(decompressedData);
             } else { return showAlert(Config.load_fail_text); } // Alert
         }
         reader.readAsText(input.files[0]);
@@ -184,9 +184,16 @@ function loadLocallySavedData(getresult) {
         showAlert(Config.load_fail_text);
         return;
     }
-    // Get Raw
-    Config.encoded_user_input =
+    Config.encoded_user_input =         // Get Raw
         LZString.decompressFromEncodedURIComponent(Config.compress_input);
+    // Ensure backwards compatibility
+    Config.encoded_user_input.split(",").forEach(entry => {
+        const [id, data] = entry.split(">");
+        if (id && data) {
+            let [owned, wishlist] = data.split(":").map(Number);
+            Config.user_data[id] = { owned: owned || 0, wishlist: wishlist || 0 };
+        }
+    });
     // Error; Stop
     if (Config.encoded_user_input == null ||
         Config.encoded_user_input == undefined ||
@@ -567,8 +574,11 @@ function finishLoading(servant_pass_data) {
         for (var ii = 0, li = array_input.length; ii < li; ii++) {
             var current_split = array_input[ii].split(">");
             if (current_split[0] != "" && current_split[1] != "") {
-                Config.user_data[current_split[0]] =
-                    parseInt(current_split[1]);
+                var npAndWishlist = current_split[1].split(":");
+                Config.user_data[current_split[0]] = {
+                    np: parseInt(npAndWishlist[0]),
+                    wl: npAndWishlist[1] ? parseInt(npAndWishlist[1]) : 0
+                };
             }
         }
     }
@@ -1121,7 +1131,7 @@ function setCookie(name, value) {
  * @param {object} input_data The data to be serialized.
  * @returns {string} A string representation of the current data.
  */
-function serializeCurrentDataForURLOutput(input_data) {
+function old_serializeCurrentDataForURLOutput(input_data) {
     var serialized_input = "", key;
     for (key in input_data) {
         if (input_data.hasOwnProperty(key)) {
@@ -1131,6 +1141,12 @@ function serializeCurrentDataForURLOutput(input_data) {
     }
     serialized_input = serialized_input.slice(0, -1); // Remove last comma
     return serialized_input;
+}
+
+function serializeCurrentDataForURLOutput(input_data) {
+    return Object.entries(input_data)
+        .map(([id, { owned, wishlist }]) => `${id}>${owned}:${wishlist}`)
+        .join(",");
 }
 
 /**
