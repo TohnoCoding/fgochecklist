@@ -394,7 +394,7 @@ function buildUnitDataInUI(units_data) {
                     'title': current_servant.name,
                     'class': Config.member_container_CSSclass + 
                     (current_user_data == null ? '' :
-                    (current_user_data <= Config.copy_choice_allow.length / 2 ?
+                    (current_user_data <= Config.copy_choice_allow.length ?
                         ' ' + Config.member_checked_CSSclass : '' )),
                     'data-toggle': 'tooltip-member',
                     'data-placement': 'bottom'

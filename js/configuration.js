@@ -22,6 +22,7 @@ const Config = {
     additional_copies_CSSclass: "member-np",
     additional_copies_prefix: "np_",
     copy_choice_allow: [
+        { "id":  0, "text": "" },
         { "id":  1, "text": "NP1" },
         { "id":  2, "text": "NP2" },
         { "id":  3, "text": "NP3" },
