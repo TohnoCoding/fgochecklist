@@ -1656,6 +1656,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/6JmPBFk.png"
+            },
+            {
+                "id": "5-52",
+                "name": "Tutankhamun",
+                "class": "alterego",
+                "game_id": "427",
+                "maxcopy": 10,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/JmOrqzt.png"
             }
         ]
     },
@@ -3416,6 +3426,16 @@
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/5tsKT8l.png"
+            },
+            {
+                "id": "4-40",
+                "name": "Van Gogh (Miner)",
+                "class": "lancer",
+                "game_id": "428",
+                "maxcopy": 10,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/X1pK7vE.png"
             }
         ]
     },
