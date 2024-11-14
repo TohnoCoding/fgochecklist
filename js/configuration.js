@@ -4,8 +4,8 @@ const Config = {
     icontype: ".png",
     icondefault: "default.png",
     icondefault_external_source: false,
-    datapath: "data/servants.json",
-    datapath_alternate: "data/servants.alternate.json",
+    datapath: "data/servants.test.json",
+    datapath_alternate: "data/servants.alternate.test.json",
     dataclasspath: "data/servantsclass.json",
     img_path: "img/servants/",
 
@@ -22,12 +22,12 @@ const Config = {
     additional_copies_CSSclass: "member-np",
     additional_copies_prefix: "np_",
     copy_choice_allow: [
-        { "id":  0, "text": "" },
-        { "id":  1, "text": "NP1" },
-        { "id":  2, "text": "NP2" },
-        { "id":  3, "text": "NP3" },
-        { "id":  4, "text": "NP4" },
-        { "id":  5, "text": "NP5" }
+        { "id":  0, "text": "Not currently owned", "badge": "" },
+        { "id":  1, "text": "NP1", "badge": "NP1" },
+        { "id":  2, "text": "NP2", "badge": "NP2" },
+        { "id":  3, "text": "NP3", "badge": "NP3" },
+        { "id":  4, "text": "NP4", "badge": "NP4" },
+        { "id":  5, "text": "NP5", "badge": "NP5" }
     ],
     wishlist_copies_text: "",
     wishlist_copies_prefix: "wl_",
@@ -167,6 +167,7 @@ const Config = {
     list_update: null,
     wishlist_new: null,
     wishlist_update: null,
+    webAppVersion: "5.0",
 
     threshold_error: "Unable to get the NA threshold, JP-only Servants " +
         "will not be able to be hidden.",

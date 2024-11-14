@@ -394,15 +394,21 @@ function buildUnitDataInUI(units_data) {
             Config.servants_data_list[current_servant.id].eventonly =
                 Config.servant_typelist[current_servant.stype].eventonly;
             var current_user_data = getStoredUnitData(current_servant.id);
+            var isNotSelected = 
+                current_user_data == null ||
+                current_user_data['np'] == null ||
+                current_user_data['np'] == NaN ||
+                current_user_data['np'] < 1;
             var unit_container = $('<div>', {
                     'class': Config.member_grid_CSSclass
                 }).append($('<div>', {
                     'id': current_servant.id,
                     'title': current_servant.name,
                     'class': Config.member_container_CSSclass + 
-                    (current_user_data == null ? '' :
-                    (current_user_data <= Config.copy_choice_allow.length ?
-                        ' ' + Config.member_checked_CSSclass : '' )),
+                    (isNotSelected ? '' :
+                        (current_user_data.np <= 
+                            Config.copy_choice_allow.length ?
+                            ' ' + Config.member_checked_CSSclass : '' )),
                     'data-toggle': 'tooltip-member',
                     'data-placement': 'bottom'
                 }));
@@ -414,9 +420,12 @@ function buildUnitDataInUI(units_data) {
                         `${current_servant.id}${icontype}`, false); // Fallback
             }
             list_img.push(loadSprite(current_servant_img));
-            var nptext = current_user_data >= 1 &&
-                current_user_data <= Config.copy_choice_allow.length ?
-                Config.copy_choice_allow[current_user_data - 1].text : '';
+            debugger;
+            var nptext = current_user_data !== null && 
+                current_user_data.np !== NaN &&
+                (current_user_data.np >= 0 &&
+                current_user_data.np <= Config.copy_choice_allow.length) ?
+                Config.copy_choice_allow[current_user_data.np].badge : '';
             var copiesContainer = $('<div>', {  // Copies
                 'id':
                     `${Config.additional_copies_prefix}${current_servant.id}`,

@@ -37,6 +37,7 @@ $.fn.select2.amd.define('select2/data/customAdapter',
  */
 $(async function() {
     await fetchGlobalThreshold();
+    $("#webAppVersion").text(Config.webAppVersion);
     $('#loadingModal').modal('show'); // Show Loading Modal
     var cookie =
         (getCookie(Config.cookieName) === "true"); // Changelog cookie check
