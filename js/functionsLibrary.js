@@ -384,7 +384,7 @@ function buildUnitDataInUI(units_data) {
         }
         current_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > Config.globalThreshold)
-                { return; }
+                { return; }    // Exit if filtering to NA-only
             // Store unit data in global for later use
             Config.servants_data_list[current_servant.id] = current_servant;
             Config.servants_data_list[current_servant.id].key =
@@ -420,7 +420,6 @@ function buildUnitDataInUI(units_data) {
                         `${current_servant.id}${icontype}`, false); // Fallback
             }
             list_img.push(loadSprite(current_servant_img));
-            debugger;
             var nptext = current_user_data !== null && 
                 current_user_data.np !== NaN &&
                 (current_user_data.np >= 0 &&
