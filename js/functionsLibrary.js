@@ -80,7 +80,7 @@ function loadLocalData() {
     showConfirmationModal(Config.load_text, function (result) {
         if (result) {
             $('#loadingModal').modal('show'); // Show loading modal
-            loadLocallySavedData
+            decodeAndProcessData
                 (localStorage[Config.list_local]); // Load list
         } else {
             if (Config.encoded_user_input == null) {
@@ -160,7 +160,7 @@ function loadUploadedFileData() {
                 var decompressedData = fileContents.replace
                     (Config.export_header +
                         Config.export_header_separator, "");
-                return loadLocallySavedData(decompressedData);
+                return decodeAndProcessData(decompressedData);
             } else { return showAlert(Config.load_fail_text); } // Alert
         }
         reader.readAsText(input.files[0]);
@@ -172,7 +172,7 @@ function loadUploadedFileData() {
  * the UI.
  * @param {string} getresult The locally saved data.
  */
-function loadLocallySavedData(getresult) {
+function decodeAndProcessData(getresult) {
     // Clear User Data
     Config.user_data = {};
     Config.compress_input = "";
@@ -382,10 +382,91 @@ function buildUnitDataInUI(units_data) {
             $(`${curr_element}-${Config.class_divide_CSSclass}`)
                 .html(class_html_wrapper);
         }
+        // current_rarity.list.forEach(function(current_servant) {
+        //     if (isNAonly() && current_servant.game_id > Config.globalThreshold)
+        //         { return; }    // Exit if filtering to NA-only
+        //     // Store unit data in global for later use
+        //     Config.servants_data_list[current_servant.id] = current_servant;
+        //     Config.servants_data_list[current_servant.id].key =
+        //         current_rarity.list_id;
+        //     Config.servants_data_list[current_servant.id].class =
+        //         current_servant.class;
+        //     Config.servants_data_list[current_servant.id].eventonly =
+        //         Config.servant_typelist[current_servant.stype].eventonly;
+        //     var current_user_data = getStoredUnitData(current_servant.id);
+        //     var isNotSelected = 
+        //         current_user_data == null ||
+        //         current_user_data['np'] == null ||
+        //         current_user_data['np'] == NaN ||
+        //         current_user_data['np'] < 1;
+        //     var unit_container = $('<div>', {
+        //             'class': Config.member_grid_CSSclass
+        //         }).append($('<div>', {
+        //             'id': current_servant.id,
+        //             'title': current_servant.name,
+        //             'class': Config.member_container_CSSclass + 
+        //             (isNotSelected ? '' :
+        //                 (current_user_data.np <= 
+        //                     Config.copy_choice_allow.length ?
+        //                     ' ' + Config.member_checked_CSSclass : '' )),
+        //             'data-toggle': 'tooltip-member',
+        //             'data-placement': 'bottom'
+        //         }));
+        //     var current_servant_img = img_default;  // Set default image
+        //     if (current_servant.img) {  // Handle custom unit image
+        //         current_servant_img = current_servant.imgpath
+        //             ? getPortraitImagePath(current_servant.imgpath, true)
+        //             : getPortraitImagePath(`${current_rarity.list_iconpath}/` +
+        //                 `${current_servant.id}${icontype}`, false); // Fallback
+        //     }
+        //     list_img.push(loadSprite(current_servant_img));
+        //     var nptext = current_user_data !== null && 
+        //         current_user_data.np !== NaN &&
+        //         (current_user_data.np >= 0 &&
+        //         current_user_data.np <= Config.copy_choice_allow.length) ?
+        //         Config.copy_choice_allow[current_user_data.np].badge : '';
+        //     var copiesContainer = $('<div>', {  // Copies
+        //         'id':
+        //             `${Config.additional_copies_prefix}${current_servant.id}`,
+        //         'class': Config.additional_copies_CSSclass,
+        //         'text': nptext
+        //     });
+        //     unit_container.find('div').append(
+        //         $('<img>',
+        //             { 'src': current_servant_img,
+        //                 'class': Config.img_CSSclass }),
+        //         copiesContainer
+        //     );
+        //     var current_type = Config.servant_typelist[current_servant.stype];
+        //     if (current_type.show) {
+        //         unit_container.find('div').first().append($('<div>', {
+        //             'class': `${Config.servant_type_box_class} ` +
+        //                 `${current_type.class}`,
+        //             'html': current_type.ctext // Icon (limited, story, etc.)
+        //         }));
+        //     }
+        //     // Append unit_container to the correct class container
+        //     if (isClassMode()) {
+        //         $(`${curr_element}_${current_servant.class}`)
+        //             .append(unit_container);
+        //     } else { $(curr_element).append(unit_container); }
+        //     // Unbind then rebind event listeners
+        //     $(unit_container).off('click contextmenu');
+        //     const event_listener_element = $(unit_container)
+        //         .find(`.${Config.member_container_CSSclass}`).first();
+        //     $(unit_container).on('click', function() {
+        //         elementLeftClick(event_listener_element);
+        //     });
+        //     $(unit_container).on('contextmenu', function(e) {
+        //         e.preventDefault();
+        //         elementRightClick(event_listener_element);
+        //     });
+        // });
+
         current_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > Config.globalThreshold)
-                { return; }    // Exit if filtering to NA-only
-            // Store unit data in global for later use
+                { return; }     // Exit if filtering to NA-only
+            // Store unit data globally for other uses
             Config.servants_data_list[current_servant.id] = current_servant;
             Config.servants_data_list[current_servant.id].key =
                 current_rarity.list_id;
@@ -393,71 +474,83 @@ function buildUnitDataInUI(units_data) {
                 current_servant.class;
             Config.servants_data_list[current_servant.id].eventonly =
                 Config.servant_typelist[current_servant.stype].eventonly;
-            var current_user_data = getStoredUnitData(current_servant.id);
-            var isNotSelected = 
-                current_user_data == null ||
-                current_user_data['np'] == null ||
-                current_user_data['np'] == NaN ||
-                current_user_data['np'] < 1;
-            var unit_container = $('<div>', {
-                    'class': Config.member_grid_CSSclass
-                }).append($('<div>', {
-                    'id': current_servant.id,
-                    'title': current_servant.name,
-                    'class': Config.member_container_CSSclass + 
-                    (isNotSelected ? '' :
-                        (current_user_data.np <= 
-                            Config.copy_choice_allow.length ?
-                            ' ' + Config.member_checked_CSSclass : '' )),
+            // Retrieve user data with default values for `np` and `wl`
+            var current_user_data =
+                getStoredUnitData(current_servant.id) || { np: 0, wl: 0 };
+            var ownedLevel = !isNaN(current_user_data.np)
+                && current_user_data.np != null ?
+                    current_user_data.np : 0;
+            var wishlistLevel = !isNaN(current_user_data.wl)
+                && current_user_data.wl != null ?
+                    current_user_data.wl : 0;
+            console.log("before reassignment: ", current_servant.name, ownedLevel, wishlistLevel);
+            if (ownedLevel >= Config.copy_choice_allow.length)
+            { wishlistLevel = ownedLevel - 5; ownedLevel = 0; }
+            console.log("after reassignment: ", current_servant.name, ownedLevel, wishlistLevel);
+            // Define the main unit container
+            var unit_container = $('<div>', 
+                { class: Config.member_grid_CSSclass }).append(
+                $('<div>', {
+                    id: current_servant.id,
+                    title: current_servant.name,
+                    class: Config.member_container_CSSclass + 
+                        (ownedLevel > 0 ? 
+                            ` ${Config.member_checked_CSSclass}` : ""),
                     'data-toggle': 'tooltip-member',
                     'data-placement': 'bottom'
-                }));
-            var current_servant_img = img_default;  // Set default image
-            if (current_servant.img) {  // Handle custom unit image
+                })
+            );
+            var current_servant_img = img_default;
+            if (current_servant.img) {
                 current_servant_img = current_servant.imgpath
                     ? getPortraitImagePath(current_servant.imgpath, true)
                     : getPortraitImagePath(`${current_rarity.list_iconpath}/` +
-                        `${current_servant.id}${icontype}`, false); // Fallback
+                        `${current_servant.id}${Config.icontype}`, false);
             }
-            list_img.push(loadSprite(current_servant_img));
-            var nptext = current_user_data !== null && 
-                current_user_data.np !== NaN &&
-                (current_user_data.np >= 0 &&
-                current_user_data.np <= Config.copy_choice_allow.length) ?
-                Config.copy_choice_allow[current_user_data.np].badge : '';
-            var copiesContainer = $('<div>', {  // Copies
-                'id':
-                    `${Config.additional_copies_prefix}${current_servant.id}`,
-                'class': Config.additional_copies_CSSclass,
-                'text': nptext
-            });
+            list_img.push(loadSprite(current_servant_img))
+            // Retrieve badges directly from configuration
+            var npBadge = Config.copy_choice_allow[ownedLevel].badge;
+            var wlBadge = Config.wishlist_choice_allow[wishlistLevel].badge;
+            // Append main image and NP/Wishlist badges to the unit container
             unit_container.find('div').append(
                 $('<img>',
-                    { 'src': current_servant_img,
-                        'class': Config.img_CSSclass }),
-                copiesContainer
+                    { src: current_servant_img, class: Config.img_CSSclass }
+                ),
+                $('<div>', {  // Copies
+                    id: 
+                        `${Config.additional_copies_prefix}${current_servant.id}`,
+                    class: Config.additional_copies_CSSclass,
+                    text: npBadge
+                }),
+                $('<div>', {
+                    id: `${Config.wishlist_copies_prefix}${current_servant.id}`,
+                    class: `${Config.additional_copies_CSSclass} wl-level`,
+                    text: wlBadge
+                })
             );
+            // Availability icon (e.g., limited, story-locked) based on servant type
             var current_type = Config.servant_typelist[current_servant.stype];
             if (current_type.show) {
-                unit_container.find('div').first().append($('<div>', {
-                    'class': `${Config.servant_type_box_class} ` +
-                        `${current_type.class}`,
-                    'html': current_type.ctext // Icon (limited, story, etc.)
-                }));
+                unit_container.find('div').first().append(
+                    $('<div>', {
+                        class: `${Config.servant_type_box_class} ${current_type.class}`,
+                        html: current_type.ctext // Icon content
+                    })
+                );
             }
-            // Append unit_container to the correct class container
+            // Append unit_container to correct class container
             if (isClassMode()) {
                 $(`${curr_element}_${current_servant.class}`)
                     .append(unit_container);
             } else { $(curr_element).append(unit_container); }
-            // Unbind then rebind event listeners
-            $(unit_container).off('click contextmenu');
-            const event_listener_element = $(unit_container)
+            // Event handler unbinding and rebinding
+            unit_container.off('click contextmenu');
+            const event_listener_element = unit_container
                 .find(`.${Config.member_container_CSSclass}`).first();
-            $(unit_container).on('click', function() {
+            unit_container.on('click', function() {
                 elementLeftClick(event_listener_element);
             });
-            $(unit_container).on('contextmenu', function(e) {
+            unit_container.on('contextmenu', function(e) {
                 e.preventDefault();
                 elementRightClick(event_listener_element);
             });
@@ -562,7 +655,7 @@ function updateStatisticsHTML() {
 function updateAmountOfCopiesOwned(id, new_val, s_element) {
     if (!id) { return; }
     const content =
-        new_val > 1 ? Config.copy_choice_allow[new_val - 1].text : "";
+        new_val > 1 ? Config.copy_choice_allow[new_val].text : "";
     $(s_element).find
         (`#${Config.additional_copies_prefix}${id}`).html(content);
 }
@@ -582,11 +675,11 @@ function finishLoading(servant_pass_data) {
         for (var ii = 0, li = array_input.length; ii < li; ii++) {
             var current_split = array_input[ii].split(">");
             if (current_split[0] != "" && current_split[1] != "") {
-                var npAndWishlist = current_split[1].split(":");
-                Config.user_data[current_split[0]] = {
-                    np: parseInt(npAndWishlist[0]),
-                    wl: npAndWishlist[1] ? parseInt(npAndWishlist[1]) : 0
-                };
+                var servantId = current_split[0];
+                var storedValue = parseInt(current_split[1]);
+                if (!isNaN(storedValue)) {  // Check for/convert old format
+                    Config.user_data[servantId] = { np: storedValue, wl: 0 };
+                } else { Config.user_data[servantId] = storedValue; }
             }
         }
     }
@@ -643,7 +736,7 @@ function updateUnitDataInFastMode(id, val, s_element) {
         Config.copy_choice_max);
     // New Check or Update
     var new_val = current_user_data + val; // Get new value
-    if (current_user_data != null) {
+    if (current_user_data.np != null) {
         if (new_val <= 0 || new_val > current_edit_max) {
             updateAmountOfCopiesOwned(id, 0, s_element); // Remove Instead
             executeUserDataRemoval(id); // Clear number
@@ -653,7 +746,7 @@ function updateUnitDataInFastMode(id, val, s_element) {
         }
     } else {
         if (val <= 0) {
-            Config.user_data[id] = current_edit_max; // Add user data
+            Config.user_data[id].np = current_edit_max; // Add user data
             updateAmountOfCopiesOwned(id, Config.user_data[id], s_element);
         } else { Config.user_data[id] = 1; } // Add user data
     }
@@ -673,15 +766,15 @@ function updateUnitData() {
     var current_user_data =
         getStoredUnitData(Config.current_edit); // Get user data
     // New Check or Update
-    if (current_user_data != null) {
+    if (current_user_data.np != null && !isNaN(current_user_data.np)) {
         var new_val = parseInt($('#npUpdate').val()); // Get new value
-        Config.user_data[Config.current_edit] = new_val; // Update user data
+        Config.user_data[Config.current_edit].np = new_val; // Update user data
         updateAmountOfCopiesOwned
             (Config.current_edit, new_val, Config.current_edit_ele);
         $('#updateModal').modal('hide'); // Hide update check modal
     } else {
         var new_val = parseInt($('#npAdd').val()); // Get new value
-        Config.user_data[Config.current_edit] = new_val; // Add user data
+        Config.user_data[Config.current_edit].np = new_val; // Add user data
         $('#' + Config.current_edit).addClass(Config.member_checked_CSSclass);
         updateAmountOfCopiesOwned
             (Config.current_edit, new_val, Config.current_edit_ele);
