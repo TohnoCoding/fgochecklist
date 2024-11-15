@@ -25,7 +25,7 @@ const Config = {
     additional_copies_prefix: "np_",
     copy_choice_allow: [
         { id:  0, text: "Not currently owned", badge: " " },
-        { id:  1, text: "NP1", badge: "NP1" },
+        { id:  1, text: "NP1", badge: " " },
         { id:  2, text: "NP2", badge: "NP2" },
         { id:  3, text: "NP3", badge: "NP3" },
         { id:  4, text: "NP4", badge: "NP4" },
