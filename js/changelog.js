@@ -25,6 +25,9 @@ function showChangelogModal() {
     $("#darkener").toggleClass("visible-darkener");
 }
 
+/**
+ * Hides the changelog modal from visibility.
+ */
 function hideChangelogModal() {
     setCookie(Config.cookieName, true);
     $('#changelogModal').css('top', '-500%');

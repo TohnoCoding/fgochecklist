@@ -38,10 +38,8 @@ $.fn.select2.amd.define('select2/data/customAdapter',
 $(async function() {
     await fetchGlobalThreshold();
     $('#loadingModal').modal('show'); // Show Loading Modal
-    var cookie =
-        (getCookie(Config.cookieName) === "true"); // Changelog cookie check
+    var cookie = getCookie(Config.cookieName); // Changelog cookie check
     if(!cookie) { showChangelogModal(); }
-    else { $("#noticeBoard").css("display", "block"); }
     // Load File Prepare
     $("#" + Config.file_hidden_id).on("change", (function()
         { loadUploadedFileData(); }));
