@@ -678,7 +678,6 @@ function finishLoading(servant_pass_data) {
     // Convert User Data from Input
     if (Config.encoded_user_input !== null) {
         var array_input = Config.encoded_user_input.split(",");
-        console.log("Config.encoded_user_input", Config.encoded_user_input);
         for (var ii = 0, li = array_input.length; ii < li; ii++) {
             var current_split = array_input[ii].split(">");
             if (current_split[0] != "" && current_split[1] != "") {
@@ -693,7 +692,6 @@ function finishLoading(servant_pass_data) {
             }
         }
     }
-    console.log(Config.user_data);
     updateURL(); // Update URL
     $.ajax({    // Ajax; Class data
         url: Config.dataclasspath,
