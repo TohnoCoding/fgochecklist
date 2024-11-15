@@ -177,8 +177,7 @@ function decodeAndProcessData(getresult) {
     Config.user_data = {};
     Config.compress_input = "";
     Config.encoded_user_input = "";
-    // Get Value
-    Config.compress_input = getresult;
+    Config.compress_input = getresult;      // Get Value
     if (Config.compress_input == null || Config.compress_input == undefined) {
         Config.compress_input = null;
         showAlert(Config.load_fail_text);
@@ -186,14 +185,6 @@ function decodeAndProcessData(getresult) {
     }
     Config.encoded_user_input =         // Get Raw
         LZString.decompressFromEncodedURIComponent(Config.compress_input);
-    // Ensure backwards compatibility
-    Config.encoded_user_input.split(",").forEach(entry => {
-        const [id, data] = entry.split(">");
-        if (id && data) {
-            let [owned, wishlist] = data.split(":").map(Number);
-            Config.user_data[id] = { owned: owned || 0, wishlist: wishlist || 0 };
-        }
-    });
     // Error; Stop
     if (Config.encoded_user_input == null ||
         Config.encoded_user_input == undefined ||
@@ -202,6 +193,23 @@ function decodeAndProcessData(getresult) {
         showAlert(Config.load_fail_text);
         return;
     }
+    // Ensure backwards compatibility
+    Config.encoded_user_input.split(",").forEach(entry => {
+        const [id, data] = entry.split(">");
+        if (id && data) {
+            let owned, wishlist;
+            if (!data.includes(":")) { // Read & fix legacy format
+                let legacyValue = parseInt(data, 10);
+                if (legacyValue >= 1 && legacyValue <= 5)
+                { wishlist = 0; owned = legacyValue; } // Owned copies 1-5
+                else if (legacyValue >= 6 && legacyValue <= 10)
+                { owned = 0; wishlist = legacyValue - 5; } // WL copies 1-5
+            } else {    // New format with `np:wl` format
+                [owned, wishlist] = data.split(":").map(Number);
+            }
+            Config.user_data[id] = { np: owned || 0, wl: wishlist || 0 };
+        }
+    });
     finishLoading(); // Update HTML
     showAlert(Config.load_fin_text); // Alert
 }
@@ -483,10 +491,8 @@ function buildUnitDataInUI(units_data) {
             var wishlistLevel = !isNaN(current_user_data.wl)
                 && current_user_data.wl != null ?
                     current_user_data.wl : 0;
-            console.log("before reassignment: ", current_servant.name, ownedLevel, wishlistLevel);
             if (ownedLevel >= Config.copy_choice_allow.length)
             { wishlistLevel = ownedLevel - 5; ownedLevel = 0; }
-            console.log("after reassignment: ", current_servant.name, ownedLevel, wishlistLevel);
             // Define the main unit container
             var unit_container = $('<div>', 
                 { class: Config.member_grid_CSSclass }).append(
@@ -672,17 +678,22 @@ function finishLoading(servant_pass_data) {
     // Convert User Data from Input
     if (Config.encoded_user_input !== null) {
         var array_input = Config.encoded_user_input.split(",");
+        console.log("Config.encoded_user_input", Config.encoded_user_input);
         for (var ii = 0, li = array_input.length; ii < li; ii++) {
             var current_split = array_input[ii].split(">");
             if (current_split[0] != "" && current_split[1] != "") {
                 var servantId = current_split[0];
                 var storedValue = parseInt(current_split[1]);
-                if (!isNaN(storedValue)) {  // Check for/convert old format
-                    Config.user_data[servantId] = { np: storedValue, wl: 0 };
-                } else { Config.user_data[servantId] = storedValue; }
+                if (!isNaN(storedValue))  // Check for legacy number & convert
+                { Config.user_data[servantId] = { np: storedValue, wl: 0 }; }
+                else { // For new format, parse value as { np, wl } object
+                    var [np, wl] = current_split[1].split(":").map(Number);
+                    Config.user_data[servantId] = { np: np || 0, wl: wl || 0 };
+                }
             }
         }
     }
+    console.log(Config.user_data);
     updateURL(); // Update URL
     $.ajax({    // Ajax; Class data
         url: Config.dataclasspath,

@@ -102,6 +102,24 @@ div.member-np {
 	1px 1px 10px #ccc;
 }
 
+div.wl-level {
+    left: auto;
+    right: 5%;
+    top: 0%;
+	text-shadow: 
+     1px   0  0   #000, 
+    -1px   0  0   #000, 
+     0    1px 0   #000, 
+     0   -1px 0   #000, 
+     1px  1px 0   #000, 
+    -1px -1px 0   #000, 
+     1px -1px 0   #000, 
+    -1px  1px 0   #000,
+	1px 1px 10px #000,
+	1px 1px 10px #ccc;
+    z-index: 35;
+}
+
 div.member-mash {
     color: #aaa;
 }
