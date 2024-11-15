@@ -15,6 +15,7 @@ const Config = {
     member_grid_CSSclass: "col-1 member-outer",
     member_container_CSSclass: "member-container",
     member_checked_CSSclass: "member-checked",
+    member_wishlist_CSSclass: "member-wishlist",
 
     capture_area: "capturearea",
     box_fake_suffix: "Fake",
