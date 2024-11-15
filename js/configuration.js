@@ -46,7 +46,7 @@ const Config = {
         { id:  8, text: "8 copies wishlisted", badge: "WL8" },
         { id:  9, text: "9 copies wishlisted", badge: "WL9" }
     ],
-    copy_choice_default: 1,
+    copy_choice_default: 0,
     copy_choice_max: 5,
     wishlist_choice_default: 0,
     wishlist_choice_max: 9,

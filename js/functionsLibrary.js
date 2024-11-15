@@ -133,10 +133,14 @@ function removeUserData() {
                 getStoredUnitData(Config.current_edit); // Get user data
             if (current_user_data != null)
                 { executeUserDataRemoval(Config.current_edit); } // Delete data
-            $('#' + Config.current_edit)  // Update element
-                .removeClass(Config.member_checked_CSSclass);
-            updateAmountOfCopiesOwned  // Update list value
+            $(`#${Config.current_edit}`)  // Update element
+                .removeClass(Config.member_owned_CSSclass);
+            $(`#${Config.current_edit}`)  // Update element
+                .removeClass(Config.member_wishlist_CSSclass);
+            updateBadgeInUI  // Update list value
                 (Config.current_edit, 0, Config.current_edit_ele);
+            updateBadgeInUI
+                (Config.current_edit, 0, Config.current_edit_ele, true);
             $('#updateModal').modal('hide'); // Hide update check modal
             updateStatisticsHTML(); updateURL();
             Config.current_edit = ""; // Clear current_edit
@@ -178,17 +182,13 @@ function decodeAndProcessData(getresult) {
     Config.compress_input = "";
     Config.encoded_user_input = "";
     Config.compress_input = getresult;      // Get Value
-    if (Config.compress_input == null || Config.compress_input == undefined) {
-        Config.compress_input = null;
-        showAlert(Config.load_fail_text);
-        return;
-    }
+    if (!Config.compress_input || Config.compress_input.trim() === "")
+    { Config.compress_input = null; return showAlert(Config.load_fail_text); }
     Config.encoded_user_input =         // Get Raw
         LZString.decompressFromEncodedURIComponent(Config.compress_input);
     // Error; Stop
-    if (Config.encoded_user_input == null ||
-        Config.encoded_user_input == undefined ||
-        Config.encoded_user_input == "") {
+    if (!Config.encoded_user_input ||
+            Config.encoded_user_input.trim() === "") {
         Config.encoded_user_input = null;
         showAlert(Config.load_fail_text);
         return;
@@ -197,17 +197,12 @@ function decodeAndProcessData(getresult) {
     Config.encoded_user_input.split(",").forEach(entry => {
         const [id, data] = entry.split(">");
         if (id && data) {
-            let owned, wishlist;
-            if (!data.includes(":")) { // Read & fix legacy format
-                let legacyValue = parseInt(data, 10);
-                if (legacyValue >= 1 && legacyValue <= 5)
-                { wishlist = 0; owned = legacyValue; } // Owned copies 1-5
-                else if (legacyValue >= 6 && legacyValue <= 10)
-                { owned = 0; wishlist = legacyValue - 5; } // WL copies 1-5
-            } else {    // New format with `np:wl` format
-                [owned, wishlist] = data.split(":").map(Number);
+            var [np, wl] = data.split(":").map(Number);
+            if (!data.includes(":")) {  // Legacy format: convert
+                np = parseInt(data); wl = 0;
+                if (np > 5) { wl = np - 5; np = 0; }
             }
-            Config.user_data[id] = { np: owned || 0, wl: wishlist || 0 };
+            Config.user_data[id] = { np: np || 0, wl: wl || 0 };
         }
     });
     finishLoading(); // Update HTML
@@ -390,87 +385,6 @@ function buildUnitDataInUI(units_data) {
             $(`${curr_element}-${Config.class_divide_CSSclass}`)
                 .html(class_html_wrapper);
         }
-        // current_rarity.list.forEach(function(current_servant) {
-        //     if (isNAonly() && current_servant.game_id > Config.globalThreshold)
-        //         { return; }    // Exit if filtering to NA-only
-        //     // Store unit data in global for later use
-        //     Config.servants_data_list[current_servant.id] = current_servant;
-        //     Config.servants_data_list[current_servant.id].key =
-        //         current_rarity.list_id;
-        //     Config.servants_data_list[current_servant.id].class =
-        //         current_servant.class;
-        //     Config.servants_data_list[current_servant.id].eventonly =
-        //         Config.servant_typelist[current_servant.stype].eventonly;
-        //     var current_user_data = getStoredUnitData(current_servant.id);
-        //     var isNotSelected = 
-        //         current_user_data == null ||
-        //         current_user_data['np'] == null ||
-        //         current_user_data['np'] == NaN ||
-        //         current_user_data['np'] < 1;
-        //     var unit_container = $('<div>', {
-        //             'class': Config.member_grid_CSSclass
-        //         }).append($('<div>', {
-        //             'id': current_servant.id,
-        //             'title': current_servant.name,
-        //             'class': Config.member_container_CSSclass + 
-        //             (isNotSelected ? '' :
-        //                 (current_user_data.np <= 
-        //                     Config.copy_choice_allow.length ?
-        //                     ' ' + Config.member_checked_CSSclass : '' )),
-        //             'data-toggle': 'tooltip-member',
-        //             'data-placement': 'bottom'
-        //         }));
-        //     var current_servant_img = img_default;  // Set default image
-        //     if (current_servant.img) {  // Handle custom unit image
-        //         current_servant_img = current_servant.imgpath
-        //             ? getPortraitImagePath(current_servant.imgpath, true)
-        //             : getPortraitImagePath(`${current_rarity.list_iconpath}/` +
-        //                 `${current_servant.id}${icontype}`, false); // Fallback
-        //     }
-        //     list_img.push(loadSprite(current_servant_img));
-        //     var nptext = current_user_data !== null && 
-        //         current_user_data.np !== NaN &&
-        //         (current_user_data.np >= 0 &&
-        //         current_user_data.np <= Config.copy_choice_allow.length) ?
-        //         Config.copy_choice_allow[current_user_data.np].badge : '';
-        //     var copiesContainer = $('<div>', {  // Copies
-        //         'id':
-        //             `${Config.additional_copies_prefix}${current_servant.id}`,
-        //         'class': Config.additional_copies_CSSclass,
-        //         'text': nptext
-        //     });
-        //     unit_container.find('div').append(
-        //         $('<img>',
-        //             { 'src': current_servant_img,
-        //                 'class': Config.img_CSSclass }),
-        //         copiesContainer
-        //     );
-        //     var current_type = Config.servant_typelist[current_servant.stype];
-        //     if (current_type.show) {
-        //         unit_container.find('div').first().append($('<div>', {
-        //             'class': `${Config.servant_type_box_class} ` +
-        //                 `${current_type.class}`,
-        //             'html': current_type.ctext // Icon (limited, story, etc.)
-        //         }));
-        //     }
-        //     // Append unit_container to the correct class container
-        //     if (isClassMode()) {
-        //         $(`${curr_element}_${current_servant.class}`)
-        //             .append(unit_container);
-        //     } else { $(curr_element).append(unit_container); }
-        //     // Unbind then rebind event listeners
-        //     $(unit_container).off('click contextmenu');
-        //     const event_listener_element = $(unit_container)
-        //         .find(`.${Config.member_container_CSSclass}`).first();
-        //     $(unit_container).on('click', function() {
-        //         elementLeftClick(event_listener_element);
-        //     });
-        //     $(unit_container).on('contextmenu', function(e) {
-        //         e.preventDefault();
-        //         elementRightClick(event_listener_element);
-        //     });
-        // });
-
         current_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > Config.globalThreshold)
                 { return; }     // Exit if filtering to NA-only
@@ -491,17 +405,19 @@ function buildUnitDataInUI(units_data) {
             var wishlistLevel = !isNaN(current_user_data.wl)
                 && current_user_data.wl != null ?
                     current_user_data.wl : 0;
-            if (ownedLevel >= Config.copy_choice_allow.length)
-            { wishlistLevel = ownedLevel - 5; ownedLevel = 0; }
-            // Define the main unit container
-            var unit_container = $('<div>', 
+            //if (current_servant.name.includes("Iskandar")) { debugger; }
+            // if (ownedLevel >= Config.copy_choice_allow.length)
+            // { wishlistLevel = ownedLevel - 5; ownedLevel = 0; }
+            var unit_container = $('<div>', // Define the main unit container
                 { class: Config.member_grid_CSSclass }).append(
                 $('<div>', {
                     id: current_servant.id,
                     title: current_servant.name,
                     class: Config.member_container_CSSclass + 
                         (ownedLevel > 0 ? 
-                            ` ${Config.member_checked_CSSclass}` : ""),
+                            ` ${Config.member_owned_CSSclass}` : "") +
+                        (wishlistLevel > 0 ?
+                            ` ${Config.member_wishlist_CSSclass}` : ""),
                     'data-toggle': 'tooltip-member',
                     'data-placement': 'bottom'
                 })
@@ -522,13 +438,13 @@ function buildUnitDataInUI(units_data) {
                 $('<img>',
                     { src: current_servant_img, class: Config.img_CSSclass }
                 ),
-                $('<div>', {  // Copies
+                $('<div>', {    // NP copies
                     id: 
                         `${Config.additional_copies_prefix}${current_servant.id}`,
                     class: Config.additional_copies_CSSclass,
                     text: npBadge
                 }),
-                $('<div>', {
+                $('<div>', {    // Wishlist copies
                     id: `${Config.wishlist_copies_prefix}${current_servant.id}`,
                     class: `${Config.additional_copies_CSSclass} wl-level`,
                     text: wlBadge
@@ -608,13 +524,13 @@ function updateStatisticsHTML() {
         var $members = $container.find(`.${Config.member_container_CSSclass}`);
         var totalUnits = $members.length;
         var ownedUnits =
-            $members.filter(`.${Config.member_checked_CSSclass}`).length;
+            $members.filter(`.${Config.member_owned_CSSclass}`).length;
         var $notEventUnits = $members.filter(function() {
             return !$(this).find('.member-eventonly').length;
         });
         var totalNotEventUnits = $notEventUnits.length;
         var ownedNotEventUnits =
-            $notEventUnits.filter(`.${Config.member_checked_CSSclass}`).length;
+            $notEventUnits.filter(`.${Config.member_owned_CSSclass}`).length;
         overallTotal += totalUnits;
         overallOwned += ownedUnits;
         overallNotEventTotal += totalNotEventUnits;
@@ -633,7 +549,7 @@ function updateStatisticsHTML() {
                 var classTotal = $(this)
                     .find($(`.${Config.member_container_CSSclass}`)).length;
                 var classOwned = $(this)
-                    .find($(`.${Config.member_checked_CSSclass}`)).length;
+                    .find($(`.${Config.member_owned_CSSclass}`)).length;
                 var partialCounterDivID =
                     $(this).parent().prop("id").replace("Box", "");
                 $("#class_have_" + partialCounterDivID).text(classOwned);
@@ -658,13 +574,16 @@ function updateStatisticsHTML() {
  * @param {number} new_val The new amount of copies owned.
  * @param {string} s_element The target DOM element.
  */
-function updateAmountOfCopiesOwned(id, new_val, s_element) {
+function updateBadgeInUI(id, level, element, isWishlist = false) {
     if (!id) { return; }
-    const content =
-        new_val > 1 ? Config.copy_choice_allow[new_val].text : "";
-    $(s_element).find
-        (`#${Config.additional_copies_prefix}${id}`).html(content);
+    const prefix = isWishlist ? 
+        Config.wishlist_copies_prefix : Config.additional_copies_prefix;
+    const choiceList = isWishlist ? 
+        Config.wishlist_choice_allow : Config.copy_choice_allow;
+    const content = level > 0 ? choiceList[level]?.badge || "" : "";
+    $(element).find(`#${prefix}${id}`).html(content);
 }
+
 
 /**
  * Finishes the UI setup process once all data has been handled.
@@ -747,20 +666,20 @@ function updateUnitDataInFastMode(id, val, s_element) {
     var new_val = current_user_data + val; // Get new value
     if (current_user_data.np != null) {
         if (new_val <= 0 || new_val > current_edit_max) {
-            updateAmountOfCopiesOwned(id, 0, s_element); // Remove Instead
+            updateBadgeInUI(id, 0, s_element); // Remove Instead
             executeUserDataRemoval(id); // Clear number
         } else {
             Config.user_data[id] = new_val; // Update user data
-            updateAmountOfCopiesOwned(id, new_val, s_element);
+            updateBadgeInUI(id, new_val, s_element);
         }
     } else {
         if (val <= 0) {
             Config.user_data[id].np = current_edit_max; // Add user data
-            updateAmountOfCopiesOwned(id, Config.user_data[id], s_element);
+            updateBadgeInUI(id, Config.user_data[id], s_element);
         } else { Config.user_data[id] = 1; } // Add user data
     }
     var maxcp = id === "3-0" ? current_edit_max : current_edit_max / 2;
-    $(s_element).toggleClass(Config.member_checked_CSSclass,
+    $(s_element).toggleClass(Config.member_owned_CSSclass,
         id === "3-0" && new_val === -1 || (new_val > 0 && new_val <= maxcp));
     updateStatisticsHTML();
     updateURL();
@@ -769,7 +688,7 @@ function updateUnitDataInFastMode(id, val, s_element) {
 /**
  * Updates the selected unit's ownership status/level.
  */
-function updateUnitData() {
+function old_updateUnitData() {
     if (Config.current_edit == "" || Config.current_edit_ele == null)
         { return; } // Prevent Blank Key
     var current_user_data =
@@ -778,20 +697,46 @@ function updateUnitData() {
     if (current_user_data.np != null && !isNaN(current_user_data.np)) {
         var new_val = parseInt($('#npUpdate').val()); // Get new value
         Config.user_data[Config.current_edit].np = new_val; // Update user data
-        updateAmountOfCopiesOwned
+        updateBadgeInUI
             (Config.current_edit, new_val, Config.current_edit_ele);
         $('#updateModal').modal('hide'); // Hide update check modal
     } else {
         var new_val = parseInt($('#npAdd').val()); // Get new value
         Config.user_data[Config.current_edit].np = new_val; // Add user data
-        $('#' + Config.current_edit).addClass(Config.member_checked_CSSclass);
-        updateAmountOfCopiesOwned
+        $('#' + Config.current_edit).addClass(Config.member_owned_CSSclass);
+        updateBadgeInUI
             (Config.current_edit, new_val, Config.current_edit_ele);
         $('#addModal').modal('hide'); // Hide new check modal
     }
     updateStatisticsHTML(); updateURL();
     Config.current_edit = ""; // Clear current edit
 }
+
+function updateUnitData(isAdding) {
+    if (Config.current_edit == "" || Config.current_edit_ele == null)
+        { return; } // Prevent Blank Key
+    const action = isAdding ? "Add" : "Update";
+    const owned = Config.member_owned_CSSclass;
+    const wish = Config.member_wishlist_CSSclass;
+    const id = Config.current_edit;
+    const element = Config.current_edit_ele;
+    const newNPlevel = parseInt($(`#np${action}`).val());
+    const newWLlevel = parseInt($(`#wl${action}`).val());
+    if (newNPlevel == 0 && newWLlevel == 0)
+    { $(`#${action}`).modal('hide'); return showAlert("No data to save."); }
+    Config.user_data[id] = { np: newNPlevel, wl: newWLlevel, };
+    updateBadgeInUI(id, newNPlevel, element); // Owned copies
+    updateBadgeInUI(id, newWLlevel, element, true); // Wishlist copies
+    if (newNPlevel != 0) { $(`#${id}`).addClass(owned); }
+    else { $(`#${id}`).removeClass(owned); }
+    if (newWLlevel != 0) { $(`#${id}`).addClass(wish); }
+    else { $(`#${id}`).removeClass(wish); }
+    $(`#${action.toLowerCase()}Modal`).modal('hide');
+    updateStatisticsHTML();
+    updateURL();                // Persist data in URL
+    Config.current_edit = "";   // Housekeeping cleanup
+}
+
 
 /**
  * Left click on a given unit's portrait.
@@ -1241,23 +1186,22 @@ function setCookie(name, value) {
  * @param {object} input_data The data to be serialized.
  * @returns {string} A string representation of the current data.
  */
-function old_serializeCurrentDataForURLOutput(input_data) {
+function serializeCurrentDataForURLOutput(input_data) {
     var serialized_input = "", key;
     for (key in input_data) {
         if (input_data.hasOwnProperty(key)) {
             var current_user_data = input_data[key];
-            serialized_input += key + ">" + current_user_data + ",";
+            if (current_user_data.np > 5) {
+                current_user_data.wl = current_user_data.np - 5;
+                current_user_data.np = 0;
+            }
+            serialized_input += key + ">" + current_user_data.np + ":" +
+                current_user_data.wl + ",";
         }
     }
-    serialized_input = serialized_input.slice(0, -1); // Remove last comma
-    return serialized_input;
+    return serialized_input.slice(0, -1); // Remove trailing comma
 }
 
-function serializeCurrentDataForURLOutput(input_data) {
-    return Object.entries(input_data)
-        .map(([id, { owned, wishlist }]) => `${id}>${owned}:${wishlist}`)
-        .join(",");
-}
 
 /**
  * Jumps to a specific point in the viewport.

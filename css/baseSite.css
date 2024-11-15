@@ -47,8 +47,8 @@ div.member-container {
 }
 
 div.member-container > img {
-    opacity: 0.25;
-    filter: grayscale(70%);
+    opacity: 1;
+    filter: grayscale(100%);
     text-shadow: none !important;
 }
 
@@ -70,13 +70,14 @@ div.member-checked {
 }
 
 div.member-checked > img {
-    opacity: 1 !important;
     filter: grayscale(0%) !important;
 }
 
-div.member-wishlist > img {
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+div.member-wishlist {
+    border: 2px solid rgb(255, 0, 0);
+    background-color: rgb(255, 0, 0);
+    padding: 4px !important;
+    max-width: 86px;
 }
 
 /* Text Styling */
