@@ -14,7 +14,7 @@ const Config = {
     img_CSSclass: "img-fluid",
     member_grid_CSSclass: "col-1 member-outer",
     member_container_CSSclass: "member-container",
-    member_checked_CSSclass: "member-checked",
+    member_owned_CSSclass: "member-checked",
     member_wishlist_CSSclass: "member-wishlist",
 
     capture_area: "capturearea",
