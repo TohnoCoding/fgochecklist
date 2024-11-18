@@ -77,8 +77,6 @@ div.member-checked > img {
 }
 
 div.member-wishlist {
-    width: 75px;
-    height: 82px;
     background: red;
     clip-path: polygon(
         8px 0,
