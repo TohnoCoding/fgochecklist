@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>FGO Servant Checklist 4.0</title>
+    <title>FGO Servant Checklist</title>
     <link rel="icon" href="./img/favicon.ico">
     <!-- OG -->
-    <meta property="og:title" content="FGO Servant Checklist 4.0" />
+    <meta property="og:title" content="FGO Servant Checklist" />
     <meta property="og:description" content="An FGO Servant checklist with NP counts, forked from Nechi." />
     <meta property="og:image" content="img/fgo-check-og.jpg" />
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FGO Servant Checklist 4.0" />
+    <meta name="twitter:title" content="FGO Servant Checklist" />
     <meta name="twitter:description" content="An FGO Servant checklist with NP counts, forked from Nechi." />
     <meta name="twitter:image" content="img/fgo-check-og.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,7 +42,7 @@
 <nav class="navbar navbar-dark bg-secondary">
   <span class="navbar-brand">
     <img src="./img/DSGO.png" width="30" height="30" class="d-inline-block align-top" alt="">
-    FGO Servant Checklist v4.0
+    FGO Servant Checklist v<span id="webAppVersion">X</span>
   </span>
   <ul class="nav navbar-nav ml-auto">
 	<li class="nav-item">
@@ -58,7 +58,14 @@
             <p id="page_whatami">Please note that the site may take a while loading on first visit from caching all
             images.<br>This list gets updated as soon as my schedule allows me, which should be at most during the first
             few days after a new Servant is released.<br>~Tohno Shiki</p>
-        </div>
+            <h5 class="newFeature">
+                &nbsp;IMPORTANT: Fast Mode functionality has changed. With the implementation of the true wishlisting feature,
+                left-clicking/short tapping will increase NP copies, and right-clicking/long tapping will increase wishlisted
+                copies. If you hit the maximum amount of copies for either value, altering them again will wrap them around
+                back to zero.&nbsp;
+            </h5>
+            </div>
+        <br>
         <button type="button" id="toggleUnitTypesButton" class="btn btn-options btn-secondary menu-btn"
         onclick="toggleUnitTypeIcon()">Toggle Availability Icons On/Off</button>
         <table id="optionsAndButtons">
@@ -213,60 +220,76 @@
 </div>
 <!-- Modal Add -->
 <div class="modal" tabindex="-1" role="dialog" id="addModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Servant - <span id="nameAdd"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="npAdd">Current NP level</label>
-                <select class="form-control" id="npAdd"></select>
-                <small id="npAddHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Servant - <span id="nameAdd"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateUnitData()">Save changes</button>
-      </div>
+            <div class="modal-body">
+                <form>
+                    <!-- Owned NP Level -->
+                    <div class="form-group">
+                        <label for="npAdd">Current NP Level</label>
+                        <select class="form-control" id="npAdd"></select>
+                        <small id="npAddHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+                    </div>
+                    <br>
+                    <!-- Wishlist Level -->
+                    <div class="form-group">
+                        <label for="wlAdd">Wishlist NP Level</label>
+                        <select class="form-control" id="wlAdd"></select>
+                        <small id="wlAddHelp" class="form-text text-muted">At what NP level do you wish to have this Servant?</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="updateUnitData(true)">Save changes</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <!-- Modal Update -->
 <div class="modal" tabindex="-1" role="dialog" id="updateModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Update Servant - <span id="nameUpdate"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="npUpdate">Current NP level</label>
-                <select class="form-control" id="npUpdate"></select>
-                <small id="npUpdateHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Servant - <span id="nameUpdate"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </form>
-        <hr/>
-        <div style="text-align:center;">
-            <button type="button" class="btn btn-danger" onclick="removeUserData()">Uncheck this servant</button>
+            <div class="modal-body">
+                <form>
+                    <!-- Owned NP Level -->
+                    <div class="form-group">
+                        <label for="npUpdate">Current NP Level</label>
+                        <select class="form-control" id="npUpdate"></select>
+                        <small id="npUpdateHelp" class="form-text text-muted">What's this Servant's NP level?</small>
+                    </div>
+                    <br>
+                    <!-- Wishlist Level -->
+                    <div class="form-group">
+                        <label for="wlUpdate">Wishlist NP Level</label>
+                        <select class="form-control" id="wlUpdate"></select>
+                        <small id="wlUpdateHelp" class="form-text text-muted">At what NP level do you wish to have this Servant?</small>
+                    </div>
+                </form>
+                <hr/>
+                <div style="text-align:center;">
+                    <button type="button" class="btn btn-danger" onclick="removeUserData()">Uncheck this servant</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateUnitData(false)">Save changes</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="updateUnitData()">Save changes</button>
-      </div>
     </div>
-  </div>
-</div>
+</div>    
 <!-- Modal loading -->
 <div class="modal" tabindex="-1" role="dialog" id="loadingModal" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
@@ -326,5 +349,8 @@
 <!-- Page End -->
 <!-- JS After -->
 <script type="text/javascript" src="./js/index.js" crossorigin="anonymous"></script>
+<!-- Eruda Console for mobile analysis -->
+<!-- script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script -->
 </body>
 </html>

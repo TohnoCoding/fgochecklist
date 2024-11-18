@@ -6,13 +6,16 @@ const Config = {
     icondefault_external_source: false,
     datapath: "data/servants.json",
     datapath_alternate: "data/servants.alternate.json",
+    // datapath: "data/servants.test.json",
+    // datapath_alternate: "data/servants.alternate.test.json",
     dataclasspath: "data/servantsclass.json",
     img_path: "img/servants/",
 
     img_CSSclass: "img-fluid",
     member_grid_CSSclass: "col-1 member-outer",
     member_container_CSSclass: "member-container",
-    member_checked_CSSclass: "member-checked",
+    member_owned_CSSclass: "member-checked",
+    member_wishlist_CSSclass: "member-wishlist",
 
     capture_area: "capturearea",
     box_fake_suffix: "Fake",
@@ -22,19 +25,32 @@ const Config = {
     additional_copies_CSSclass: "member-np",
     additional_copies_prefix: "np_",
     copy_choice_allow: [
-        { "id":  1, "text": "NP1" },
-        { "id":  2, "text": "NP2" },
-        { "id":  3, "text": "NP3" },
-        { "id":  4, "text": "NP4" },
-        { "id":  5, "text": "NP5" },
-        { "id":  6, "text": "WL1" },
-        { "id":  7, "text": "WL2" },
-        { "id":  8, "text": "WL3" },
-        { "id":  9, "text": "WL4" },
-        { "id": 10, "text": "WL5" }
+        { id:  0, text: "Not currently owned", badge: " " },
+        { id:  1, text: "NP1", badge: " " },
+        { id:  2, text: "NP2", badge: "NP2" },
+        { id:  3, text: "NP3", badge: "NP3" },
+        { id:  4, text: "NP4", badge: "NP4" },
+        { id:  5, text: "NP5", badge: "NP5" }
     ],
-    copy_choice_default: 1,
-    copy_choice_max: 10,
+    wishlist_copies_text: "",
+    wishlist_copies_prefix: "wl_",
+    wishlist_choice_allow: [
+        { id:  0, text: "Not wishlisted", badge: " " },
+        { id:  1, text: "1 copy wishlisted", badge: "WL1" },
+        { id:  2, text: "2 copies wishlisted", badge: "WL2" },
+        { id:  3, text: "3 copies wishlisted", badge: "WL3" },
+        { id:  4, text: "4 copies wishlisted", badge: "WL4" },
+        { id:  5, text: "5 copies wishlisted", badge: "WL5" },
+        { id:  6, text: "6 copies wishlisted", badge: "WL6" },
+        { id:  7, text: "7 copies wishlisted", badge: "WL7" },
+        { id:  8, text: "8 copies wishlisted", badge: "WL8" },
+        { id:  9, text: "9 copies wishlisted", badge: "WL9" }
+    ],
+    copy_choice_default: 0,
+    copy_choice_max: 5,
+    wishlist_choice_default: 0,
+    wishlist_choice_max: 9,
+
     share_tags: "FGO,FateGrandOrder,My_FGO_Checklist",
     share_title: "See my Servant collection here!",
 
@@ -51,18 +67,18 @@ const Config = {
     // Servant Types config
     servant_type_box_class: "member-type",
     servant_typelist: [
-        { "id": 0, "show": false, "eventonly": false, "ctext": null,
+        { id: 0, "show": false, "eventonly": false, "ctext": null,
             "class": null }, // Default
-        { "id": 1, "show": true, "eventonly": false,
+        { id: 1, "show": true, "eventonly": false,
             "ctext": '<i class="fas fa-shield-alt"></i>',
             "class": "member-mash" }, // Mash
-        { "id": 2, "show": true, "eventonly": false,
+        { id: 2, "show": true, "eventonly": false,
             "ctext": '<i class="fas fa-lock"></i>',
             "class": "member-locked" }, // Storylocked
-        { "id": 3, "show": true, "eventonly": false,
+        { id: 3, "show": true, "eventonly": false,
             "ctext": '<i class="fas fa-star"></i>',
             "class": "member-limited" }, // Limited
-        { "id": 4, "show": true, "eventonly": true,
+        { id: 4, "show": true, "eventonly": true,
             "ctext": '<i class="fas fa-gift"></i>',
             "class": "member-eventonly" } // Welfare
     ],
@@ -95,12 +111,12 @@ const Config = {
     mashSR_checkbox: "mashSR",
     mashSR_parameter: "mash",
 
-    // Save & Load
     fast_mode_local: "fgo_fastmode",
     class_mode_local: "fgo_classmode",
     mashSR_local: "fgo_mash",
     NAonly_local: "fgo_naonly",
-
+    
+    // Data, Save & Load
     list_local: "fgo_list",
 
     load_text:
@@ -152,6 +168,9 @@ const Config = {
     custom_adapter: null,
     list_new: null,
     list_update: null,
+    wishlist_new: null,
+    wishlist_update: null,
+    webAppVersion: "5.0",
 
     threshold_error: "Unable to get the NA threshold, JP-only Servants " +
         "will not be able to be hidden.",

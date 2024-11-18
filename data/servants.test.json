@@ -1,0 +1,232 @@
+[
+    {
+        "list_id": "ssr",
+        "list_name": "5★",
+        "list_element": "ssrBox",
+        "list_iconpath": "",
+        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker","ruler","avenger","mooncancer","alterego","foreigner","pretender","beast"],
+        "disable": false,
+        "list": [
+            {
+                "id": "5-0",
+                "name": "Artoria Pendragon",
+                "class": "saber",
+                "game_id": "2",
+                "maxcopy": 10,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/bdTYD2w.png"
+            },
+            {
+                "id": "5-2",
+                "name": "Gilgamesh",
+                "class": "archer",
+                "game_id": "12",
+                "maxcopy": 10,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/i7lN19t.png"
+            },
+            {
+                "id": "5-E",
+                "name": "Nikola Tesla",
+                "class": "archer",
+                "game_id": "77",
+                "maxcopy": 10,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/rz9yJH9.png"
+            }
+        ]
+    },
+    {
+        "list_id": "sr",
+        "list_name": "4★",
+        "list_element": "srBox",
+        "list_iconpath": "",
+        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker","ruler","avenger","mooncancer","alterego","foreigner","pretender"],
+        "disable": false,
+        "list": [
+            {
+                "id": "4-0",
+                "name": "Artoria Pendragon (Alter)",
+                "class": "saber",
+                "game_id": "3",
+                "maxcopy": 10,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/pNYZgBz.png"
+            },
+            {
+                "id": "4-1",
+                "name": "Artoria Pendragon (Lily)",
+                "class": "saber",
+                "game_id": "4",
+                "maxcopy": 10,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/owPXnSd.png"
+            },
+            {
+                "id": "4-2",
+                "name": "Nero Claudius",
+                "class": "saber",
+                "game_id": "5",
+                "maxcopy": 10,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ycUdS92.png"
+            },
+            {
+                "id": "4-3",
+                "name": "Siegfried",
+                "class": "saber",
+                "game_id": "6",
+                "maxcopy": 10,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/jlcmIp5.png"
+            },
+            {
+                "id": "4-F",
+                "name": "Elizabeth Báthory (Halloween)",
+                "class": "caster",
+                "game_id": "61",
+                "maxcopy": 10,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/YVeutxw.png"
+            }            
+        ]
+    },
+    {
+        "list_id": "rare",
+        "list_name": "3★",
+        "list_element": "rareBox",
+        "list_iconpath": "",
+        "class_available": ["shielder", "saber","archer","lancer","rider","caster","assassin","berserker","avenger","alterego"],
+        "disable": false,
+        "list": [
+            {
+                "id": "3-0",
+                "name": "Mash Kyrielight",
+                "class": "shielder",
+                "game_id": "1",
+                "maxcopy": 3,
+                "stype": 1,
+                "img": true,
+                "imgpath": "https://i.imgur.com/mxdbHP6.png"
+            },
+            {
+                "id": "3-3",
+                "name": "Robin Hood",
+                "class": "archer",
+                "game_id": "13",
+                "maxcopy": 10,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ZiJ1dtC.png"
+            },
+            {
+                "id": "3-F",
+                "name": "Cú Chulainn (Caster)",
+                "class": "caster",
+                "game_id": "38",
+                "maxcopy": 10,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/UYIpYrd.png"
+            }
+        ]
+    },
+    {
+        "list_id": "uncommon",
+        "list_name": "2★",
+        "list_element": "uncommonBox",
+        "list_iconpath": "",
+        "class_available": ["archer","lancer","rider","caster","assassin","berserker"],
+        "disable": false,
+        "list": [
+            {
+                "id": "2-0",
+                "name": "Musashibō Benkei",
+                "class": "lancer",
+                "game_id": "19",
+                "maxcopy": 10,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Hsn5gOd.png"
+            },
+            {
+                "id": "2-1",
+                "name": "Leonidas I",
+                "class": "lancer",
+                "game_id": "21",
+                "maxcopy": 10,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/CwFAXFT.png"
+            }
+        ]
+    },
+    {
+        "list_id": "common",
+        "list_name": "1★",
+        "list_element": "commonBox",
+        "list_iconpath": "",
+        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker"],
+        "disable": false,
+        "list": [
+            {
+                "id": "1-0",
+                "name": "Arash",
+                "class": "archer",
+                "game_id": "16",
+                "maxcopy": 10,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Ft2tyhW.png"
+            },
+            {
+                "id": "1-2",
+                "name": "Sasaki Kojirō",
+                "class": "assassin",
+                "game_id": "39",
+                "maxcopy": 10,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/c0qHuE6.png"
+            },
+            {
+                "id": "1-B",
+                "name": "Mary Anning",
+                "class": "lancer",
+                "game_id": "341",
+                "maxcopy": 10,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ii4yFGR.png"
+            }
+        ]
+    },
+    {
+        "list_id": "none",
+        "list_name": "1✩",
+        "list_element": "noneBox",
+        "list_iconpath": "",
+        "class_available": ["avenger"],
+        "disable": false,
+        "list": [
+            {
+                "id": "0-0",
+                "name": "Angra Mainyu",
+                "class": "avenger",
+                "game_id": "107",
+                "maxcopy": 10,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/UkyfnFa.png"
+            }
+        ]
+    }
+]

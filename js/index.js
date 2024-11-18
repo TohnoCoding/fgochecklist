@@ -37,6 +37,7 @@ $.fn.select2.amd.define('select2/data/customAdapter',
  */
 $(async function() {
     await fetchGlobalThreshold();
+    $("#webAppVersion").text(Config.webAppVersion);
     $('#loadingModal').modal('show'); // Show Loading Modal
     var cookie = getCookie(Config.cookieName); // Changelog cookie check
     if(!cookie) { showChangelogModal(); }
@@ -48,21 +49,19 @@ $(async function() {
     Config.custom_adapter =
         $.fn.select2.amd.require('select2/data/customAdapter'); // Prepare
     $('[data-toggle="tooltip"]').tooltip();
-    // Select2
-    Config.list_new = $("#npAdd").select2({
-        theme: "bootstrap",
-        dataAdapter: Config.custom_adapter,
-        data: Config.copy_choice_allow
-    });
-    Config.list_update = $("#npUpdate").select2({
-        theme: "bootstrap",
-        dataAdapter: Config.custom_adapter,
-        data: Config.copy_choice_allow
-    });
-    var MashSR_input = urlParams.get(Config.mashSR_parameter);
-    var fastmode_input = urlParams.get(Config.fastmode_parameter);
-    var classmode_input = urlParams.get(Config.classmode_parameter);
-    var NAonly_input = urlParams.get(Config.NAonly_parameter);
+    var adpt = Config.custom_adapter;       // Select2
+    Config.list_new = $("#npAdd").select2({ theme: "bootstrap",
+    dataAdapter: adpt, data: Config.copy_choice_allow });
+    Config.list_update = $("#npUpdate").select2({ theme: "bootstrap",
+        dataAdapter: adpt, data: Config.copy_choice_allow });
+    Config.wishlist_new = $("#wlAdd").select2({ theme: "bootstrap",
+        dataAdapter: adpt, data: Config.wishlist_choice_allow });
+    Config.wishlist_update = $("#wlUpdate").select2({ theme: "bootstrap",
+        dataAdapter: adpt, data: Config.wishlist_choice_allow });
+    var MashSR_input = urlParams.get(Config.mashSR_parameter),
+        fastmode_input = urlParams.get(Config.fastmode_parameter),
+        classmode_input = urlParams.get(Config.classmode_parameter),
+        NAonly_input = urlParams.get(Config.NAonly_parameter);
     Config.compress_input = urlParams.get(Config.compress_input_parameter);
     // Mash is SR
     if (MashSR_input != null) {

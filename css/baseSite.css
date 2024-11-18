@@ -31,10 +31,11 @@ body {
 /* Member Container Styling */
 div.member-outer {
     padding: 3px;
-    margin: 0;
+    margin: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box !important;
 }
 
 div.member-container {
@@ -47,8 +48,9 @@ div.member-container {
 }
 
 div.member-container > img {
-    opacity: 0.25;
-    filter: grayscale(70%);
+    opacity: 1;
+    filter: grayscale(100%);
+    opacity: 0.6;
     text-shadow: none !important;
 }
 
@@ -70,8 +72,33 @@ div.member-checked {
 }
 
 div.member-checked > img {
-    opacity: 1 !important;
     filter: grayscale(0%) !important;
+    opacity: 1;
+}
+
+div.member-wishlist {
+    background: red;
+    clip-path: polygon(
+        8px 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        100% 100%,
+        0 100%,
+        0 8px
+    );
+    border-bottom: 0px;
+    box-sizing: border-box !important;
+    padding-top: 3px;
+    width: 81px;
+    height: 88px;
+    padding-right: 1px;
+    border-left: 3px solid red !important;
+}
+
+div.member-wishlist > img {
+    background-image: url('../img/servants/portraitbg.png');
+    background-position: center center;
+    opacity: 1;
 }
 
 /* Text Styling */
@@ -100,6 +127,24 @@ div.member-np {
     -1px  1px 0   #000,
 	1px 1px 10px #000,
 	1px 1px 10px #ccc;
+}
+
+div.wl-level {
+    left: auto;
+    right: 5%;
+    top: 0%;
+	text-shadow: 
+     1px   0  0   #000, 
+    -1px   0  0   #000, 
+     0    1px 0   #000, 
+     0   -1px 0   #000, 
+     1px  1px 0   #000, 
+    -1px -1px 0   #000, 
+     1px -1px 0   #000, 
+    -1px  1px 0   #000,
+	1px 1px 10px #000,
+	1px 1px 10px #ccc;
+    z-index: 35;
 }
 
 div.member-mash {
@@ -295,16 +340,24 @@ td {
     white-space: nowrap;
 }
 
-.newFeature {
+.newFeature::before {
+    content: 'NEW!';
+    background-color: red;
+    color: white;
+    padding: 5px;
+    animation: blink 0.5s step-start infinite;
+    font-variant-caps: all-small-caps;
+    padding-top: 0;
+    padding-bottom: 3px;
     display: inline !important;
-    white-space: nowrap;
+    white-space: nowrap; 
 }    
 
 .newFeature::after {
     content: 'NEW!';
     background-color: red;
     color: white;
-    padding: 0.6% 1%;
+    padding: 5px;
     animation: blink 0.5s step-start infinite;
     font-variant-caps: all-small-caps;
     padding-top: 0;
