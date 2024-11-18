@@ -92,7 +92,7 @@ div.member-wishlist {
     width: 81px;
     height: 88px;
     padding-right: 1px;
-    border-left: 1px solid red;
+    border-left: 3px solid red !important;
 }
 
 div.member-wishlist > img {
@@ -340,16 +340,24 @@ td {
     white-space: nowrap;
 }
 
-.newFeature {
+.newFeature::before {
+    content: 'NEW!';
+    background-color: red;
+    color: white;
+    padding: 5px;
+    animation: blink 0.5s step-start infinite;
+    font-variant-caps: all-small-caps;
+    padding-top: 0;
+    padding-bottom: 3px;
     display: inline !important;
-    white-space: nowrap;
+    white-space: nowrap; 
 }    
 
 .newFeature::after {
     content: 'NEW!';
     background-color: red;
     color: white;
-    padding: 0.6% 1%;
+    padding: 5px;
     animation: blink 0.5s step-start infinite;
     font-variant-caps: all-small-caps;
     padding-top: 0;
