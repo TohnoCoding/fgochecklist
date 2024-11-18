@@ -1,3 +1,4 @@
+//#region DATA HANDLING & STORAGE
 /*****************************************************************************/
 /*                          DATA HANDLING & STORAGE                          */
 /*****************************************************************************/
@@ -142,7 +143,8 @@ function removeUserData() {
             updateBadgeInUI
                 (Config.current_edit, 0, Config.current_edit_ele, true);
             $('#updateModal').modal('hide'); // Hide update check modal
-            updateStatisticsHTML(); updateURL();
+            updateStatisticsHTML();
+            updateURL();
             Config.current_edit = ""; // Clear current_edit
         }
     });
@@ -208,6 +210,9 @@ function decodeAndProcessData(getresult) {
     finishLoading(); // Update HTML
     showAlert(Config.load_fin_text); // Alert
 }
+//#endregion
+
+//#region URL & STATE UPDATES
 /*****************************************************************************/
 /*                            URL & STATE UPDATES                            */
 /*****************************************************************************/
@@ -275,6 +280,9 @@ function updateURLOptionModeOnly() {
         `${window.location.pathname}?${urlParams.toString()}`;
     window.history.pushState({ path: newUrl }, '', newUrl);
 }
+//#endregion
+
+//#region UI MANIPULATION & DISPLAY
 /*****************************************************************************/
 /*                         UI MANIPULATION & DISPLAY                         */
 /*****************************************************************************/
@@ -365,7 +373,7 @@ function buildUnitDataInUI(units_data) {
                     $('<button>', {
                         'type': 'button',
                         'class': 'btn btn-outline-primary btn-xs',
-                        'text': 'All'
+                        'text': 'Own All'
                     }).on('click', function() { promptOperationOnAllUnits
                         (false, current_rarity.list_id, current_class); } ),
                     $('<button>', {
@@ -405,9 +413,6 @@ function buildUnitDataInUI(units_data) {
             var wishlistLevel = !isNaN(current_user_data.wl)
                 && current_user_data.wl != null ?
                     current_user_data.wl : 0;
-            //if (current_servant.name.includes("Iskandar")) { debugger; }
-            // if (ownedLevel >= Config.copy_choice_allow.length)
-            // { wishlistLevel = ownedLevel - 5; ownedLevel = 0; }
             var unit_container = $('<div>', // Define the main unit container
                 { class: Config.member_grid_CSSclass }).append(
                 $('<div>', {
@@ -600,14 +605,22 @@ function finishLoading(servant_pass_data) {
         for (var ii = 0, li = array_input.length; ii < li; ii++) {
             var current_split = array_input[ii].split(">");
             if (current_split[0] != "" && current_split[1] != "") {
-                var servantId = current_split[0];
-                var storedValue = parseInt(current_split[1]);
-                if (!isNaN(storedValue))  // Check for legacy number & convert
-                { Config.user_data[servantId] = { np: storedValue, wl: 0 }; }
-                else { // For new format, parse value as { np, wl } object
-                    var [np, wl] = current_split[1].split(":").map(Number);
-                    Config.user_data[servantId] = { np: np || 0, wl: wl || 0 };
+                var servantId = current_split[0], np = 0, wl = 0;
+                var storedValue = current_split[1].split(":");
+                if (storedValue.length > 1) { // New format: "np:wl"
+                    np = parseInt(storedValue[0], 10) || 0;
+                    wl = parseInt(storedValue[1], 10) || 0;
+                    if (np < 0 || np > 5) { np = 0; }
+                    if (wl < 0 || wl > 9) { wl = 0; }
+                } else { // Legacy format: single value "storedValue"
+                    var legacyValue = parseInt(storedValue[0], 10);
+                    if (!isNaN(legacyValue)) {
+                        np = legacyValue <= 5 ? legacyValue : 0;
+                        wl = legacyValue > 5 && legacyValue <= 10 ?
+                            legacyValue - 5 : 0;
+                    }
                 }
+                Config.user_data[servantId] = { np, wl };
             }
         }
     }
@@ -648,6 +661,9 @@ function finishLoading(servant_pass_data) {
         }
     });
 }
+//#endregion
+
+//#region EVENT LISTENERS & INTERACTIVE LOGIC
 /*****************************************************************************/
 /*                    EVENT LISTENERS & INTERACTIVE LOGIC                    */
 /*****************************************************************************/
@@ -658,7 +674,7 @@ function finishLoading(servant_pass_data) {
  * (up or down).
  * @param {string} s_element The HTML element of the Selected unit.
  */
-function updateUnitDataInFastMode(id, val, s_element) {
+function __updateUnitDataInFastMode(id, val, s_element) {
     var current_user_data = getStoredUnitData(id); // Mark current_edit
     var current_edit_max = Math.min(Config.servants_data_list[id].maxcopy,
         Config.copy_choice_max);
@@ -686,32 +702,38 @@ function updateUnitDataInFastMode(id, val, s_element) {
 }
 
 /**
- * Updates the selected unit's ownership status/level.
+ * Handles quick updates of units when Fast Mode is activated.
+ * @param {string} id The ID of the selected unit.
+ * @param {number} val Determines which property to modify
+ *                     (1 for NP, -1 for WL).
+ * @param {HTMLElement} s_element The HTML element of the selected unit.
  */
-function old_updateUnitData() {
-    if (Config.current_edit == "" || Config.current_edit_ele == null)
-        { return; } // Prevent Blank Key
-    var current_user_data =
-        getStoredUnitData(Config.current_edit); // Get user data
-    // New Check or Update
-    if (current_user_data.np != null && !isNaN(current_user_data.np)) {
-        var new_val = parseInt($('#npUpdate').val()); // Get new value
-        Config.user_data[Config.current_edit].np = new_val; // Update user data
-        updateBadgeInUI
-            (Config.current_edit, new_val, Config.current_edit_ele);
-        $('#updateModal').modal('hide'); // Hide update check modal
-    } else {
-        var new_val = parseInt($('#npAdd').val()); // Get new value
-        Config.user_data[Config.current_edit].np = new_val; // Add user data
-        $('#' + Config.current_edit).addClass(Config.member_owned_CSSclass);
-        updateBadgeInUI
-            (Config.current_edit, new_val, Config.current_edit_ele);
-        $('#addModal').modal('hide'); // Hide new check modal
-    }
-    updateStatisticsHTML(); updateURL();
-    Config.current_edit = ""; // Clear current edit
+function updateUnitDataInFastMode(id, val, s_element) {
+    if (!id || !s_element) { return; }
+    const current_user_data = getStoredUnitData(id) || { np: 0, wl: 0 };
+    const isNPUpdate = val > 0; // Left/short tap for NP, right/long tap for WL
+    const maxValue = isNPUpdate
+        ? Config.copy_choice_allow.length - 1
+        : Config.wishlist_choice_allow.length - 1;
+    if (isNPUpdate)
+    { current_user_data.np = (current_user_data.np + 1) % (maxValue + 1); }
+    else
+    { current_user_data.wl = (current_user_data.wl + 1) % (maxValue + 1); }
+    Config.user_data[id] = current_user_data;
+    updateBadgeInUI(id, current_user_data.np, s_element); // Owned copies
+    updateBadgeInUI(id, current_user_data.wl, s_element, true); // WL copies
+    $(s_element).toggleClass( Config.member_owned_CSSclass, 
+        current_user_data.np > 0); // Toggle owned class if marking owned
+    $(s_element).toggleClass(Config.member_wishlist_CSSclass,
+        current_user_data.wl > 0); // Toggle WL class if marking wishlisted
+    updateStatisticsHTML();
+    updateURL();
 }
 
+
+/**
+ * Updates the selected unit's ownership status/level.
+ */
 function updateUnitData(isAdding) {
     if (Config.current_edit == "" || Config.current_edit_ele == null)
         { return; } // Prevent Blank Key
@@ -724,7 +746,7 @@ function updateUnitData(isAdding) {
     const newWLlevel = parseInt($(`#wl${action}`).val());
     if (newNPlevel == 0 && newWLlevel == 0)
     { $(`#${action}`).modal('hide'); return showAlert("No data to save."); }
-    Config.user_data[id] = { np: newNPlevel, wl: newWLlevel, };
+    Config.user_data[id] = { np: newNPlevel, wl: newWLlevel };
     updateBadgeInUI(id, newNPlevel, element); // Owned copies
     updateBadgeInUI(id, newWLlevel, element, true); // Wishlist copies
     if (newNPlevel != 0) { $(`#${id}`).addClass(owned); }
@@ -745,8 +767,8 @@ function updateUnitData(isAdding) {
 function elementLeftClick(s_element) {
     var id = $(s_element).attr("id");
     var name = $(s_element).data("original-title");
-    if (isFastMode()) {     // Fast Mode, Change Value Directly
-        updateUnitDataInFastMode(id, 1, s_element); // Change value
+    if (isFastMode()) { // Fast Mode, change values without modals
+        updateUnitDataInFastMode(id, 1, s_element); // Increase owned copies
         return; // Stop
     }
     // Set current edit markers
@@ -759,9 +781,9 @@ function elementLeftClick(s_element) {
         getNewCopySource(current_edit_max, Config.list_update,
             Config.wishlist_update, id);
         $('#nameUpdate').html(name);
-        $('#npUpdate').val(current_user_data.owned ||
+        $('#npUpdate').val(current_user_data.np ||
             Config.copy_choice_default).trigger('change'); 
-        $('#wlUpdate').val(current_user_data.wishlist ||
+        $('#wlUpdate').val(current_user_data.wl ||
             Config.wishlist_choice_default).trigger('change'); 
         $('#updateModal').modal('show');
     } else {
@@ -782,7 +804,6 @@ function elementLeftClick(s_element) {
 function elementRightClick(s_element) {
     if (!isFastMode()) { return; } // If not Fast Mode, don't do anything
     var id = $(s_element).attr("id");
-    var name = $(s_element).data("original-title");
     updateUnitDataInFastMode(id, -1, s_element); // Mark current_edit
 }
 
@@ -858,6 +879,9 @@ function copyToClipboard() {
         } catch (err) { console.error('Fallback copy failed', err); }
     }
 }
+//#endregion
+
+//#region MODALS AND DIALOGS
 /*****************************************************************************/
 /*                             MODALS AND DIALOGS                            */
 /*****************************************************************************/
@@ -976,6 +1000,9 @@ function promptSaveDataExport() {
     showConfirmationModal(Config.save_text, (function(result) { if (result)
         { exportCurrentDataToFile(Config.compress_input); } }));
 }
+//#endregion
+
+//#region MISCELLANEOUS GETTERS & STATE VERIFICATIONS
 /*****************************************************************************/
 /*                MISCELLANEOUS GETTERS & STATE VERIFICATIONS                */
 /*****************************************************************************/
@@ -1082,6 +1109,9 @@ function getImagePath(path, external_source = false, isPortrait = false) {
  * @returns {string} The full path to the desired class image.
  */
 function getClassImagePath(servantClass) { return getImagePath(servantClass); }
+//#endregion
+
+//#region UTILITY & HELPER FUNCTIONS
 /*****************************************************************************/
 /*                         UTILITY & HELPER FUNCTIONS                        */
 /*****************************************************************************/
@@ -1105,17 +1135,22 @@ function filterServants(servants_data, rarity, unitClass) {
  * @param {Array} servants The list of servants to operate on.
  * @param {boolean} markAsDeleted Whether to delete or add the units.
  */
-function applyOperationToServants(servants, markAsDeleted) {
+function applyOperationToServants(servants, markAsDeleted, markAsWL = false) {
     servants.forEach(servant => {
         if (markAsDeleted) {
             if (Config.user_data[servant.id] !== undefined)
             { executeUserDataRemoval(servant.id); }
         } else {
-            if (Config.user_data[servant.id] === undefined)
-            { Config.user_data[servant.id] = 1; }
+            if (Config.user_data[servant.id] === undefined) {
+                Config.user_data[servant.id] = {
+                    np: markAsWL ? 0 : 1,
+                    wl: markAsWL ? 1 : 0
+                };
+            }
         }
     });
 }
+
 
 /**
  * Builds a new Select2 combobox/dropdown for the desired unit for the detailed
@@ -1242,6 +1277,9 @@ function loadSprite(src) {
     sprite.src = src;
     return deferred.promise();
 }
+//#endregion
+
+//#region AJAX & API HANDLING
 /*****************************************************************************/
 /*                             AJAX & API HANDLING                           */
 /*****************************************************************************/
@@ -1366,3 +1404,4 @@ async function fetchGlobalThreshold() {
         showAlert(Config.threshold_error);
     }
 }
+//#endregion

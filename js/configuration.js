@@ -6,8 +6,8 @@ const Config = {
     icondefault_external_source: false,
     datapath: "data/servants.json",
     datapath_alternate: "data/servants.alternate.json",
-    //datapath: "data/servants.test.json",
-    //datapath_alternate: "data/servants.alternate.test.json",
+    // datapath: "data/servants.test.json",
+    // datapath_alternate: "data/servants.alternate.test.json",
     dataclasspath: "data/servantsclass.json",
     img_path: "img/servants/",
 
