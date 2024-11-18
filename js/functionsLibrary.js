@@ -9,7 +9,8 @@
  * @param {string} in_rarity The rarity of units to operate on.
  * @param {string} in_class The class within the rarity to operate on.
  */
-function executeOperationOnAllUnits(markAsDeleted, in_rarity, in_class) {
+function executeActionOnAllUnits
+    (markAsDeleted, in_rarity, in_class, is_wishlisting = false) {
     $('#loadingModal').modal('show');
     $.ajax({
         url: isMashSR() ? Config.datapath_alternate : Config.datapath,
@@ -27,11 +28,13 @@ function executeOperationOnAllUnits(markAsDeleted, in_rarity, in_class) {
                 Config.jump_to_target = `${in_rarity}_${in_class}`;
                 const filteredServants =
                     filterServants(servants_data, in_rarity, in_class);
-                applyOperationToServants(filteredServants, markAsDeleted);
+                applyOperationToServants
+                    (filteredServants, markAsDeleted, is_wishlisting);
             } else {
                 // Apply operation to all units in all rarities
                 servants_data.forEach(rarity => {
-                    applyOperationToServants(rarity.list, markAsDeleted);
+                    applyOperationToServants
+                        (rarity.list, markAsDeleted, is_wishlisting);
                 });
             }
             Config.encoded_user_input = null;
@@ -374,13 +377,13 @@ function buildUnitDataInUI(units_data) {
                         'type': 'button',
                         'class': 'btn btn-outline-primary btn-xs',
                         'text': 'Own All'
-                    }).on('click', function() { promptOperationOnAllUnits
+                    }).on('click', function() { promptActionOnAllUnits
                         (false, current_rarity.list_id, current_class); } ),
                     $('<button>', {
                         'type': 'button',
                         'class': 'btn btn-outline-danger btn-xs',
                         'text': 'None'
-                    }).on('click', function() { promptOperationOnAllUnits
+                    }).on('click', function() { promptActionOnAllUnits
                         (true, current_rarity.list_id, current_class); } )
                 );
                 class_container.append(class_icon_div);
@@ -589,7 +592,6 @@ function updateBadgeInUI(id, level, element, isWishlist = false) {
     $(element).find(`#${prefix}${id}`).html(content);
 }
 
-
 /**
  * Finishes the UI setup process once all data has been handled.
  * @param {object} servant_pass_data The data to display.
@@ -668,40 +670,6 @@ function finishLoading(servant_pass_data) {
 /*                    EVENT LISTENERS & INTERACTIVE LOGIC                    */
 /*****************************************************************************/
 /**
- * Handles quick update of units when Fast Mode is activated.
- * @param {string} id The ID of the selected unit.
- * @param {number} val The direction in which to increase the current value
- * (up or down).
- * @param {string} s_element The HTML element of the Selected unit.
- */
-function __updateUnitDataInFastMode(id, val, s_element) {
-    var current_user_data = getStoredUnitData(id); // Mark current_edit
-    var current_edit_max = Math.min(Config.servants_data_list[id].maxcopy,
-        Config.copy_choice_max);
-    // New Check or Update
-    var new_val = current_user_data + val; // Get new value
-    if (current_user_data.np != null) {
-        if (new_val <= 0 || new_val > current_edit_max) {
-            updateBadgeInUI(id, 0, s_element); // Remove Instead
-            executeUserDataRemoval(id); // Clear number
-        } else {
-            Config.user_data[id] = new_val; // Update user data
-            updateBadgeInUI(id, new_val, s_element);
-        }
-    } else {
-        if (val <= 0) {
-            Config.user_data[id].np = current_edit_max; // Add user data
-            updateBadgeInUI(id, Config.user_data[id], s_element);
-        } else { Config.user_data[id] = 1; } // Add user data
-    }
-    var maxcp = id === "3-0" ? current_edit_max : current_edit_max / 2;
-    $(s_element).toggleClass(Config.member_owned_CSSclass,
-        id === "3-0" && new_val === -1 || (new_val > 0 && new_val <= maxcp));
-    updateStatisticsHTML();
-    updateURL();
-}
-
-/**
  * Handles quick updates of units when Fast Mode is activated.
  * @param {string} id The ID of the selected unit.
  * @param {number} val Determines which property to modify
@@ -730,7 +698,6 @@ function updateUnitDataInFastMode(id, val, s_element) {
     updateURL();
 }
 
-
 /**
  * Updates the selected unit's ownership status/level.
  */
@@ -758,7 +725,6 @@ function updateUnitData(isAdding) {
     updateURL();                // Persist data in URL
     Config.current_edit = "";   // Housekeeping cleanup
 }
-
 
 /**
  * Left click on a given unit's portrait.
@@ -796,7 +762,6 @@ function elementLeftClick(s_element) {
     }
 }
 
-
 /**
  * Right click on a given unit's portrait.
  * @param {string} s_element The ID of the unit clicked on.
@@ -818,10 +783,11 @@ function elementRightClick(s_element) {
  * @param {string} input_class The desired class in the desired rarity in
  * which to operate on all units.
  */
-function promptOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
+function promptActionOnAllUnits
+    (markAsDeleted, input_rarity, input_class, is_wishlisting) {
     showConfirmationModal(Config.select_all_text, (result) => {
-        if (result) { executeOperationOnAllUnits
-            (markAsDeleted, input_rarity, input_class); }
+        if (result) { executeActionOnAllUnits
+            (markAsDeleted, input_rarity, input_class, is_wishlisting); }
     });
 }
 
@@ -1151,7 +1117,6 @@ function applyOperationToServants(servants, markAsDeleted, markAsWL = false) {
     });
 }
 
-
 /**
  * Builds a new Select2 combobox/dropdown for the desired unit for the detailed
  * popup.
@@ -1236,7 +1201,6 @@ function serializeCurrentDataForURLOutput(input_data) {
     }
     return serialized_input.slice(0, -1); // Remove trailing comma
 }
-
 
 /**
  * Jumps to a specific point in the viewport.
