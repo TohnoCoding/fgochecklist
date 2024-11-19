@@ -1,7 +1,9 @@
-# FGO Servant Checklist v4.0
+# FGO Servant Checklist v5.0
 Since Nechi stopped playing FGO around November/2021, [I've taken it upon myself to continue updating this amazing Servant checklist](https://github.com/Nechigawara/nechi-fgo-checklist/issues/7) with any new Servant releases for both NA and JP, as well as any usability or UX features I deem appropriate to enhance, simplify and increase its ease of use.
 
 In its current state and given its JSDoc documentation, it can be forked and used for any "character collector"/gacha game as desired, with a bit of tinkering and customization.
+
+The webapp has been improved so that you can select any given unit both as owned, and as "wishlisted", indicating further copies you want to roll for. The data processing mechanism is fully compatible with old data, either from Nechi's list or older versions of this same webapp, so as long as you have your data saved, it'll get updated and preserved in the new wishlist update.
 
 The original version of this checklist project can be found here: https://nechigawara.github.io/nechi-fgo-checklist/
 

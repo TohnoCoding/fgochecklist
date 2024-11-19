@@ -296,7 +296,8 @@ function rebuildUI() { updateURLOptionModeOnly(); finishLoading(); }
 
 /**
  * If the date is within the appropriate range (set to between November 28th
- * and January 3rd in the config file), inject the holiday Padoru CSS.
+ * and January 3rd by default in the config file), inject the holiday
+ * Padoru CSS.
  */
 function checkDateToInjectPadoru() {
     const today = new Date();
