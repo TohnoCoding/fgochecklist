@@ -6,8 +6,6 @@ const Config = {
     icondefault_external_source: false,
     datapath: "data/servants.json",
     datapath_alternate: "data/servants.alternate.json",
-    // datapath: "data/servants.test.json",
-    // datapath_alternate: "data/servants.alternate.test.json",
     dataclasspath: "data/servantsclass.json",
     img_path: "img/servants/",
 
@@ -175,6 +173,7 @@ const Config = {
     "will not be able to be hidden.",
     NAonly_parameter: "NA",
     NAonly_checkbox: "NAonly",
+    
     webAppVersion: "20241119",
 
     globalThreshold: 99999,
