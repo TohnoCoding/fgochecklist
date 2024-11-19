@@ -170,16 +170,14 @@ const Config = {
     list_update: null,
     wishlist_new: null,
     wishlist_update: null,
-    webAppVersion: "5.0",
-
+    
     threshold_error: "Unable to get the NA threshold, JP-only Servants " +
-        "will not be able to be hidden.",
+    "will not be able to be hidden.",
     NAonly_parameter: "NA",
     NAonly_checkbox: "NAonly",
-    initial_load: true,
+    webAppVersion: "20241119",
 
     globalThreshold: 99999,
-    cookieName: "20241118_notice",
 
     padorus: [
         "padoru-nero"
@@ -189,3 +187,5 @@ const Config = {
     padoruEndMonth: 0, padoruEndDay: 3,         //  After Jan 3
     // }
 };
+
+Config.cookieName = `${Config.webAppVersion}_notice`;
