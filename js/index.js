@@ -51,7 +51,7 @@ $(async function() {
     $('[data-toggle="tooltip"]').tooltip();
     var adpt = Config.custom_adapter;       // Select2
     Config.list_new = $("#npAdd").select2({ theme: "bootstrap",
-    dataAdapter: adpt, data: Config.copy_choice_allow });
+        dataAdapter: adpt, data: Config.copy_choice_allow });
     Config.list_update = $("#npUpdate").select2({ theme: "bootstrap",
         dataAdapter: adpt, data: Config.copy_choice_allow });
     Config.wishlist_new = $("#wlAdd").select2({ theme: "bootstrap",
@@ -63,24 +63,20 @@ $(async function() {
         classmode_input = urlParams.get(Config.classmode_parameter),
         NAonly_input = urlParams.get(Config.NAonly_parameter);
     Config.compress_input = urlParams.get(Config.compress_input_parameter);
-    // Mash is SR
-    if (MashSR_input != null) {
+    if (MashSR_input != null) {     // Mash is SR
         var Mash_is_SR = (parseInt(MashSR_input) > 0);
         $('#' + Config.mashSR_checkbox).prop('checked', Mash_is_SR);
-    } else {
-        // Mash is SR
+    } else {                        // Mash is SR
         if (localStorage[Config.mashSR_local]) {
             var Mash_is_SR =
                 (parseInt(localStorage[Config.mashSR_local]) > 0);
             $('#' + Config.mashSR_checkbox).prop('checked', Mash_is_SR);
         }
     }
-    // ClassMode
-    if (Config.classmode_input != null) {
+    if (Config.classmode_input != null) {   // ClassMode
         var classmode_enable = (parseInt(classmode_input) > 0);
         $('#' + Config.classmode_checkbox).prop('checked', classmode_enable);
-    } else {
-        // ClassMode
+    } else {                                // ClassMode
         if (localStorage[Config.class_mode_local]) {
             var classmode_enable =
                 (parseInt(localStorage[Config.class_mode_local]) > 0);
@@ -88,12 +84,10 @@ $(async function() {
                 .prop('checked', classmode_enable);
         }
     }
-    // FastMode
-    if (Config.fastmode_input != null) {
+    if (Config.fastmode_input != null) {        // FastMode
         var fastmode_enable = (parseInt(fastmode_input) > 0);
         $('#' + Config.fastmode_checkbox).prop('checked', fastmode_enable);
-    } else {
-        // FastMode
+    } else {                                    // FastMode
         if (localStorage[Config.fast_mode_local]) {
             var fastmode_enable =
                 (parseInt(localStorage[Config.fast_mode_local]) > 0);
@@ -101,22 +95,20 @@ $(async function() {
                 .prop('checked', fastmode_enable);
         }
     }
-    // NA only mode
-    if(Config.NAonly_input != null) {
+    if(Config.NAonly_input != null) {           // NA only mode
         var NAonly_enable = (parseInt(NAonly_input) > 0);
         $("#" + Config.NAonly_checkbox).prop('checked', Config.NAonly_enable);
-    } else {
+    } else {                                    // NA only mode
         if(localStorage[Config.NAonly_local]) {
             var NAonly_enable =
                 (parseInt(localStorage[Config.NAonly_local]) > 0);
             $("#" + Config.NAonly_checkbox).prop('checked', NAonly_enable);
         }
     }
-    // Load From URL
-    if (Config.compress_input != null) {
+    if (Config.compress_input != null) {        // Load From URL
         Config.encoded_user_input =
             LZString.decompressFromEncodedURIComponent
-            (Config.compress_input); // List Reader
+            (Config.compress_input);            // List Reader
         finishLoading();
     } else {
         Config.encoded_user_input =
@@ -124,14 +116,14 @@ $(async function() {
         if (Config.encoded_user_input != null) { finishLoading(); }
         else {
             if (localStorage[Config.list_local])
-                { loadLocalData(); } // List reader
+                { loadLocalData(); }            // List reader
             else {
                 Config.encoded_user_input = ""; // Blank raw
                 finishLoading();
             }
         }
     }
-    if (!localStorage[Config.list_local])      // Load button status
+    if (!localStorage[Config.list_local])       // Load button status
         { $('#' + Config.load_btn).removeAttr("href")
             .toggleClass("disabled-link"); }
     // Set Checkbox Events
@@ -172,8 +164,8 @@ $(async function() {
         $("#darkener").removeClass("visible-darkener");
         hideChangelogModal();
     });
-    if(localStorage[Config.list_local]) { $("#" + Config.load_btn).attr("href",
-        "javascript:loadLocalData()"); }
+    if (localStorage[Config.list_local]) { $("#" + Config.load_btn)
+        .attr("href", "javascript:loadLocalData()"); }
     checkDateToInjectPadoru();
     //alert(`${window.innerWidth}x${window.innerHeight}px, ${window.devicePixelRatio} DPR`);
 });

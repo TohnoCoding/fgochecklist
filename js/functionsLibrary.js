@@ -9,7 +9,8 @@
  * @param {string} in_rarity The rarity of units to operate on.
  * @param {string} in_class The class within the rarity to operate on.
  */
-function executeOperationOnAllUnits(markAsDeleted, in_rarity, in_class) {
+function executeActionOnAllUnits
+    (markAsDeleted, in_rarity, in_class, is_wishlisting = false) {
     $('#loadingModal').modal('show');
     $.ajax({
         url: isMashSR() ? Config.datapath_alternate : Config.datapath,
@@ -27,11 +28,13 @@ function executeOperationOnAllUnits(markAsDeleted, in_rarity, in_class) {
                 Config.jump_to_target = `${in_rarity}_${in_class}`;
                 const filteredServants =
                     filterServants(servants_data, in_rarity, in_class);
-                applyOperationToServants(filteredServants, markAsDeleted);
+                applyOperationToServants
+                    (filteredServants, markAsDeleted, is_wishlisting);
             } else {
                 // Apply operation to all units in all rarities
                 servants_data.forEach(rarity => {
-                    applyOperationToServants(rarity.list, markAsDeleted);
+                    applyOperationToServants
+                        (rarity.list, markAsDeleted, is_wishlisting);
                 });
             }
             Config.encoded_user_input = null;
@@ -334,22 +337,22 @@ function buildUnitDataInUI(units_data) {
     var img_default =
         getPortraitImagePath(Config.icondefault, Config.icondefault_external_source);
     list_img.push(loadSprite(img_default)); // Add default photo
-    units_data.forEach(function(current_rarity) {
-        if (current_rarity.disable) { return; } // Skip if disabled
-        var curr_element = `#${current_rarity.list_element}`;
+    units_data.forEach(function(cur_rarity) {
+        if (cur_rarity.disable) { return; } // Skip if disabled
+        var curr_element = `#${cur_rarity.list_element}`;
         list_box.push(curr_element);
         if (isClassMode()) {
             var class_html_wrapper = $("<div>");
-            current_rarity.class_available.forEach(function(current_class) {
+            cur_rarity.class_available.forEach(function(cur_class) {
                 // Create the class container
                 var class_container = $('<div>', { 
                     'class': 'row classBox', 
-                    'id': `${current_rarity.list_id}_${current_class}` 
+                    'id': `${cur_rarity.list_id}_${cur_class}` 
                 });
                 // Class Icon
-                var current_class_data = Config.class_data_list[current_class];
+                var current_class_data = Config.class_data_list[cur_class];
                 var current_class_data_icn = getClassImagePath
-                    (current_class_data.iconlist[current_rarity.list_id]);
+                    (current_class_data.iconlist[cur_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
                 var class_icon_div = $('<div>', {
                     'class': Config.class_div_icon_CSSclass,
@@ -363,44 +366,50 @@ function buildUnitDataInUI(units_data) {
                         'data-placement': 'bottom'
                     })
                 );
-                class_icon_div.append($("<div>").append(   // Count display
+                class_icon_div.append(   // Count display
                     `<span id="${Config.class_count_have}` +
-                    `${current_rarity.list_id}_${current_class}">0</span>/` +
+                    `${cur_rarity.list_id}_${cur_class}">0</span>/` +
                     `<span id="${Config.class_count_max}` +
-                    `${current_rarity.list_id}` +
-                    `_${current_class}">0</span>`
-                ));
-                class_icon_div.append(   // All + None Buttons
+                    `${cur_rarity.list_id}` +
+                    `_${cur_class}">0</span><br>`
+                );
+                class_icon_div.append(   // Own All + WL All + None Buttons
                     $('<button>', {
-                        'type': 'button',
-                        'class': 'btn btn-outline-primary btn-xs',
-                        'text': 'Own All'
-                    }).on('click', function() { promptOperationOnAllUnits
-                        (false, current_rarity.list_id, current_class); } ),
+                        type: 'button',
+                        class: 'btn btn-outline-primary btn-xs',
+                        text: 'Own All'
+                    }).on('click', function() { promptActionOnAllUnits
+                        (false, cur_rarity.list_id, cur_class); } ),
                     $('<button>', {
-                        'type': 'button',
-                        'class': 'btn btn-outline-danger btn-xs',
-                        'text': 'None'
-                    }).on('click', function() { promptOperationOnAllUnits
-                        (true, current_rarity.list_id, current_class); } )
+                        type: 'button',
+                        class: 'btn btn-outline-success btn-xs',
+                        text: 'WL All'
+                    }).on('click', function() { promptActionOnAllUnits
+                        (false, cur_rarity.list_id, cur_class, true); } ),
+                    $('<button>', {
+                        type: 'button',
+                        class: 'btn btn-outline-danger btn-xs',
+                        text: 'None'
+                    }).on('click', function() { promptActionOnAllUnits
+                        (true, cur_rarity.list_id, cur_class); } )
                 );
                 class_container.append(class_icon_div);
                 class_container.append($('<div>', {   // Add row for the class
                     'class': `row ${Config.class_div_list_CSSclass} classRow`,
-                    'id': `${current_rarity.list_element}_${current_class}`
+                    'id': `${cur_rarity.list_element}_${cur_class}`
                 }));
                 class_html_wrapper.append(class_container).append('<hr>');
             });
             $(`${curr_element}-${Config.class_divide_CSSclass}`)
                 .html(class_html_wrapper);
         }
-        current_rarity.list.forEach(function(current_servant) {
+        cur_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > Config.globalThreshold)
                 { return; }     // Exit if filtering to NA-only
             // Store unit data globally for other uses
             Config.servants_data_list[current_servant.id] = current_servant;
             Config.servants_data_list[current_servant.id].key =
-                current_rarity.list_id;
+                cur_rarity.list_id;
             Config.servants_data_list[current_servant.id].class =
                 current_servant.class;
             Config.servants_data_list[current_servant.id].eventonly =
@@ -432,7 +441,7 @@ function buildUnitDataInUI(units_data) {
             if (current_servant.img) {
                 current_servant_img = current_servant.imgpath
                     ? getPortraitImagePath(current_servant.imgpath, true)
-                    : getPortraitImagePath(`${current_rarity.list_iconpath}/` +
+                    : getPortraitImagePath(`${cur_rarity.list_iconpath}/` +
                         `${current_servant.id}${Config.icontype}`, false);
             }
             list_img.push(loadSprite(current_servant_img))
@@ -590,7 +599,6 @@ function updateBadgeInUI(id, level, element, isWishlist = false) {
     $(element).find(`#${prefix}${id}`).html(content);
 }
 
-
 /**
  * Finishes the UI setup process once all data has been handled.
  * @param {object} servant_pass_data The data to display.
@@ -669,40 +677,6 @@ function finishLoading(servant_pass_data) {
 /*                    EVENT LISTENERS & INTERACTIVE LOGIC                    */
 /*****************************************************************************/
 /**
- * Handles quick update of units when Fast Mode is activated.
- * @param {string} id The ID of the selected unit.
- * @param {number} val The direction in which to increase the current value
- * (up or down).
- * @param {string} s_element The HTML element of the Selected unit.
- */
-function __updateUnitDataInFastMode(id, val, s_element) {
-    var current_user_data = getStoredUnitData(id); // Mark current_edit
-    var current_edit_max = Math.min(Config.servants_data_list[id].maxcopy,
-        Config.copy_choice_max);
-    // New Check or Update
-    var new_val = current_user_data + val; // Get new value
-    if (current_user_data.np != null) {
-        if (new_val <= 0 || new_val > current_edit_max) {
-            updateBadgeInUI(id, 0, s_element); // Remove Instead
-            executeUserDataRemoval(id); // Clear number
-        } else {
-            Config.user_data[id] = new_val; // Update user data
-            updateBadgeInUI(id, new_val, s_element);
-        }
-    } else {
-        if (val <= 0) {
-            Config.user_data[id].np = current_edit_max; // Add user data
-            updateBadgeInUI(id, Config.user_data[id], s_element);
-        } else { Config.user_data[id] = 1; } // Add user data
-    }
-    var maxcp = id === "3-0" ? current_edit_max : current_edit_max / 2;
-    $(s_element).toggleClass(Config.member_owned_CSSclass,
-        id === "3-0" && new_val === -1 || (new_val > 0 && new_val <= maxcp));
-    updateStatisticsHTML();
-    updateURL();
-}
-
-/**
  * Handles quick updates of units when Fast Mode is activated.
  * @param {string} id The ID of the selected unit.
  * @param {number} val Determines which property to modify
@@ -731,7 +705,6 @@ function updateUnitDataInFastMode(id, val, s_element) {
     updateURL();
 }
 
-
 /**
  * Updates the selected unit's ownership status/level.
  */
@@ -759,7 +732,6 @@ function updateUnitData(isAdding) {
     updateURL();                // Persist data in URL
     Config.current_edit = "";   // Housekeeping cleanup
 }
-
 
 /**
  * Left click on a given unit's portrait.
@@ -797,7 +769,6 @@ function elementLeftClick(s_element) {
     }
 }
 
-
 /**
  * Right click on a given unit's portrait.
  * @param {string} s_element The ID of the unit clicked on.
@@ -819,10 +790,11 @@ function elementRightClick(s_element) {
  * @param {string} input_class The desired class in the desired rarity in
  * which to operate on all units.
  */
-function promptOperationOnAllUnits(markAsDeleted, input_rarity, input_class) {
+function promptActionOnAllUnits
+    (markAsDeleted, input_rarity, input_class, is_wishlisting) {
     showConfirmationModal(Config.select_all_text, (result) => {
-        if (result) { executeOperationOnAllUnits
-            (markAsDeleted, input_rarity, input_class); }
+        if (result) { executeActionOnAllUnits
+            (markAsDeleted, input_rarity, input_class, is_wishlisting); }
     });
 }
 
@@ -1132,9 +1104,10 @@ function filterServants(servants_data, rarity, unitClass) {
 
 /**
  * Applies the specified operation to a list of servants, either marking as
- * owned at first level or deleting them.
+ * owned at first level, wishlisting them at one copy, or deleting them.
  * @param {Array} servants The list of servants to operate on.
  * @param {boolean} markAsDeleted Whether to delete or add the units.
+ * @param {boolean} markAsWL Whether to mark units as wishlisted or owned.
  */
 function applyOperationToServants(servants, markAsDeleted, markAsWL = false) {
     servants.forEach(servant => {
@@ -1151,7 +1124,6 @@ function applyOperationToServants(servants, markAsDeleted, markAsWL = false) {
         }
     });
 }
-
 
 /**
  * Builds a new Select2 combobox/dropdown for the desired unit for the detailed
@@ -1237,7 +1209,6 @@ function serializeCurrentDataForURLOutput(input_data) {
     }
     return serialized_input.slice(0, -1); // Remove trailing comma
 }
-
 
 /**
  * Jumps to a specific point in the viewport.

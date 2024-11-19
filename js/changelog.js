@@ -14,13 +14,13 @@ function showChangelogModal() {
         })
         .then((data) => {
             $('#changelogContent').html(data);
-            $('#changelogModal').css('top', '3%');
+            $('#changelogModal').addClass('changelog-visible');
         })
         .catch((error) => {
             $('#changelogContent').html("Failed to load changelog.");
             console.error
                 ("There was a problem with the fetch operation:", error);
-            $('#changelogModal').css('top', '3%');
+            $('#changelogModal').addClass('changelog-visible');
         });
     $("#darkener").toggleClass("visible-darkener");
 }
@@ -30,7 +30,7 @@ function showChangelogModal() {
  */
 function hideChangelogModal() {
     setCookie(Config.cookieName, true);
-    $('#changelogModal').css('top', '-500%');
+    $('#changelogModal').removeClass('changelog-visible');
     if ($("#hamburger-button").hasClass("active")) { return; }
     $("#darkener").removeClass("visible-darkener");
 }
