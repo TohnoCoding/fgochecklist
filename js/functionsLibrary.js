@@ -336,22 +336,22 @@ function buildUnitDataInUI(units_data) {
     var img_default =
         getPortraitImagePath(Config.icondefault, Config.icondefault_external_source);
     list_img.push(loadSprite(img_default)); // Add default photo
-    units_data.forEach(function(current_rarity) {
-        if (current_rarity.disable) { return; } // Skip if disabled
-        var curr_element = `#${current_rarity.list_element}`;
+    units_data.forEach(function(cur_rarity) {
+        if (cur_rarity.disable) { return; } // Skip if disabled
+        var curr_element = `#${cur_rarity.list_element}`;
         list_box.push(curr_element);
         if (isClassMode()) {
             var class_html_wrapper = $("<div>");
-            current_rarity.class_available.forEach(function(current_class) {
+            cur_rarity.class_available.forEach(function(cur_class) {
                 // Create the class container
                 var class_container = $('<div>', { 
                     'class': 'row classBox', 
-                    'id': `${current_rarity.list_id}_${current_class}` 
+                    'id': `${cur_rarity.list_id}_${cur_class}` 
                 });
                 // Class Icon
-                var current_class_data = Config.class_data_list[current_class];
+                var current_class_data = Config.class_data_list[cur_class];
                 var current_class_data_icn = getClassImagePath
-                    (current_class_data.iconlist[current_rarity.list_id]);
+                    (current_class_data.iconlist[cur_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
                 var class_icon_div = $('<div>', {
                     'class': Config.class_div_icon_CSSclass,
@@ -365,44 +365,50 @@ function buildUnitDataInUI(units_data) {
                         'data-placement': 'bottom'
                     })
                 );
-                class_icon_div.append($("<div>").append(   // Count display
+                class_icon_div.append(   // Count display
                     `<span id="${Config.class_count_have}` +
-                    `${current_rarity.list_id}_${current_class}">0</span>/` +
+                    `${cur_rarity.list_id}_${cur_class}">0</span>/` +
                     `<span id="${Config.class_count_max}` +
-                    `${current_rarity.list_id}` +
-                    `_${current_class}">0</span>`
-                ));
-                class_icon_div.append(   // All + None Buttons
+                    `${cur_rarity.list_id}` +
+                    `_${cur_class}">0</span><br>`
+                );
+                class_icon_div.append(   // Own All + WL All + None Buttons
                     $('<button>', {
-                        'type': 'button',
-                        'class': 'btn btn-outline-primary btn-xs',
-                        'text': 'Own All'
+                        type: 'button',
+                        class: 'btn btn-outline-primary btn-xs',
+                        text: 'Own All'
                     }).on('click', function() { promptActionOnAllUnits
-                        (false, current_rarity.list_id, current_class); } ),
+                        (false, cur_rarity.list_id, cur_class); } ),
                     $('<button>', {
-                        'type': 'button',
-                        'class': 'btn btn-outline-danger btn-xs',
-                        'text': 'None'
+                        type: 'button',
+                        class: 'btn btn-outline-success btn-xs',
+                        text: 'WL All'
                     }).on('click', function() { promptActionOnAllUnits
-                        (true, current_rarity.list_id, current_class); } )
+                        (false, cur_rarity.list_id, cur_class, true); } ),
+                    $('<button>', {
+                        type: 'button',
+                        class: 'btn btn-outline-danger btn-xs',
+                        text: 'None'
+                    }).on('click', function() { promptActionOnAllUnits
+                        (true, cur_rarity.list_id, cur_class); } )
                 );
                 class_container.append(class_icon_div);
                 class_container.append($('<div>', {   // Add row for the class
                     'class': `row ${Config.class_div_list_CSSclass} classRow`,
-                    'id': `${current_rarity.list_element}_${current_class}`
+                    'id': `${cur_rarity.list_element}_${cur_class}`
                 }));
                 class_html_wrapper.append(class_container).append('<hr>');
             });
             $(`${curr_element}-${Config.class_divide_CSSclass}`)
                 .html(class_html_wrapper);
         }
-        current_rarity.list.forEach(function(current_servant) {
+        cur_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > Config.globalThreshold)
                 { return; }     // Exit if filtering to NA-only
             // Store unit data globally for other uses
             Config.servants_data_list[current_servant.id] = current_servant;
             Config.servants_data_list[current_servant.id].key =
-                current_rarity.list_id;
+                cur_rarity.list_id;
             Config.servants_data_list[current_servant.id].class =
                 current_servant.class;
             Config.servants_data_list[current_servant.id].eventonly =
@@ -434,7 +440,7 @@ function buildUnitDataInUI(units_data) {
             if (current_servant.img) {
                 current_servant_img = current_servant.imgpath
                     ? getPortraitImagePath(current_servant.imgpath, true)
-                    : getPortraitImagePath(`${current_rarity.list_iconpath}/` +
+                    : getPortraitImagePath(`${cur_rarity.list_iconpath}/` +
                         `${current_servant.id}${Config.icontype}`, false);
             }
             list_img.push(loadSprite(current_servant_img))
@@ -1097,9 +1103,10 @@ function filterServants(servants_data, rarity, unitClass) {
 
 /**
  * Applies the specified operation to a list of servants, either marking as
- * owned at first level or deleting them.
+ * owned at first level, wishlisting them at one copy, or deleting them.
  * @param {Array} servants The list of servants to operate on.
  * @param {boolean} markAsDeleted Whether to delete or add the units.
+ * @param {boolean} markAsWL Whether to mark units as wishlisted or owned.
  */
 function applyOperationToServants(servants, markAsDeleted, markAsWL = false) {
     servants.forEach(servant => {

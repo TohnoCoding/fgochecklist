@@ -216,6 +216,9 @@ div.member-eventonly {
 .col-1 { 
     flex: 0 0 82px;
     max-width: 88px;
+}
+
+.col-1.member-outer {
     max-height: 86px;
 }
 
@@ -596,3 +599,5 @@ td {
     content: "\f121";
     margin-left: 23px;
 }
+
+.changelog-visible { top: 3% !important; }
