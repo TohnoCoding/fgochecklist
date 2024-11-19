@@ -215,7 +215,8 @@ div.member-eventonly {
    so stuff is ACTUALLY visible on small screens */
 .col-1 { 
     flex: 0 0 82px;
-    max-width: 82px;
+    max-width: 88px;
+    max-height: 86px;
 }
 
 #statsContainer {
