@@ -12,7 +12,7 @@
                 "name": "Artoria Pendragon",
                 "class": "saber",
                 "game_id": "2",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/bdTYD2w.png"
@@ -22,7 +22,7 @@
                 "name": "Altera",
                 "class": "saber",
                 "game_id": "8",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/VDQCbs1.png"
@@ -32,7 +32,7 @@
                 "name": "Gilgamesh",
                 "class": "archer",
                 "game_id": "12",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/i7lN19t.png"
@@ -42,7 +42,7 @@
                 "name": "Zhuge Liang (Lord El-Melloi II)",
                 "class": "caster",
                 "game_id": "37",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/z27AaK9.png"
@@ -52,7 +52,7 @@
                 "name": "Sakata Kintoki",
                 "class": "berserker",
                 "game_id": "51",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/m0P6UXh.png"
@@ -62,7 +62,7 @@
                 "name": "Vlad III",
                 "class": "berserker",
                 "game_id": "52",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/jbzFWs9.png"
@@ -72,7 +72,7 @@
                 "name": "Jeanne d'Arc",
                 "class": "ruler",
                 "game_id": "59",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IZONsfN.png"
@@ -82,7 +82,7 @@
                 "name": "Orion",
                 "class": "archer",
                 "game_id": "60",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/o9U7kYZ.png"
@@ -92,7 +92,7 @@
                 "name": "Tamamo no Mae",
                 "class": "caster",
                 "game_id": "62",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/rN2vx2r.png"
@@ -102,7 +102,7 @@
                 "name": "Francis Drake",
                 "class": "rider",
                 "game_id": "65",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/nI8grLm.png"
@@ -112,7 +112,7 @@
                 "name": "Okita Sōji",
                 "class": "saber",
                 "game_id": "68",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/t6G3tae.png"
@@ -122,7 +122,7 @@
                 "name": "Scáthach",
                 "class": "lancer",
                 "game_id": "70",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/8qkG3wM.png"
@@ -132,7 +132,7 @@
                 "name": "Jack the Ripper",
                 "class": "assassin",
                 "game_id": "75",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/VeVjKaE.png"
@@ -142,7 +142,7 @@
                 "name": "Mordred",
                 "class": "saber",
                 "game_id": "76",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ShODTcZ.png"
@@ -152,7 +152,7 @@
                 "name": "Nikola Tesla",
                 "class": "archer",
                 "game_id": "77",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/rz9yJH9.png"
@@ -162,7 +162,7 @@
                 "name": "Arjuna",
                 "class": "archer",
                 "game_id": "84",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/7v2pihQ.png"
@@ -172,7 +172,7 @@
                 "name": "Karna",
                 "class": "lancer",
                 "game_id": "85",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/rdvdLXX.png"
@@ -182,7 +182,7 @@
                 "name": "Mysterious Heroine X",
                 "class": "assassin",
                 "game_id": "86",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZJSD2OV.png"
@@ -192,7 +192,7 @@
                 "name": "Brynhildr",
                 "class": "lancer",
                 "game_id": "88",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/xDT2YhG.png"
@@ -202,7 +202,7 @@
                 "name": "Nero Claudius (Bride)",
                 "class": "saber",
                 "game_id": "90",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/kKavYXL.png"
@@ -212,7 +212,7 @@
                 "name": "Ryōgi Shiki (Saber)",
                 "class": "saber",
                 "game_id": "91",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/5KYVUOi.png"
@@ -222,7 +222,7 @@
                 "name": "Amakusa Shirō",
                 "class": "ruler",
                 "game_id": "93",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/M4AOMP0.png"
@@ -232,7 +232,7 @@
                 "name": "Edmond Dantès",
                 "class": "avenger",
                 "game_id": "96",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/9svYzO5.png"
@@ -242,7 +242,7 @@
                 "name": "Nightingale",
                 "class": "berserker",
                 "game_id": "97",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/xhfqHZc.png"
@@ -252,7 +252,7 @@
                 "name": "Cú Chulainn (Alter)",
                 "class": "berserker",
                 "game_id": "98",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/GE0rz9Y.png"
@@ -262,7 +262,7 @@
                 "name": "Medb",
                 "class": "rider",
                 "game_id": "99",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ToShCmI.png"
@@ -272,7 +272,7 @@
                 "name": "Jeanne d'Arc (Alter)",
                 "class": "avenger",
                 "game_id": "106",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/BpD9TX5.png"
@@ -282,7 +282,7 @@
                 "name": "Iskandar",
                 "class": "rider",
                 "game_id": "108",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/DhUyHJ1.png"
@@ -292,7 +292,7 @@
                 "name": "Shuten Dōji",
                 "class": "assassin",
                 "game_id": "112",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/zp8U0ju.png"
@@ -302,7 +302,7 @@
                 "name": "Xuanzang Sanzang",
                 "class": "caster",
                 "game_id": "113",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/0XVgtO1.png"
@@ -312,7 +312,7 @@
                 "name": "Minamoto no Raikō",
                 "class": "berserker",
                 "game_id": "114",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/AydH6Cv.png"
@@ -322,7 +322,7 @@
                 "name": "Ozymandias",
                 "class": "rider",
                 "game_id": "118",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/VEG1b4Y.png"
@@ -332,7 +332,7 @@
                 "name": "Artoria Pendragon (Lancer)",
                 "class": "lancer",
                 "game_id": "119",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Ok95AKi.png"
@@ -342,7 +342,7 @@
                 "name": "Leonardo Da Vinci",
                 "class": "caster",
                 "game_id": "127",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/nKk0OLq.png"
@@ -352,7 +352,7 @@
                 "name": "Tamamo no Mae (Lancer)",
                 "class": "lancer",
                 "game_id": "128",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/R8tRpQT.png"
@@ -362,7 +362,7 @@
                 "name": "Artoria Pendragon (Archer)",
                 "class": "archer",
                 "game_id": "129",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/5dAsqfx.png"
@@ -372,7 +372,7 @@
                 "name": "Illyasviel von Einzbern",
                 "class": "caster",
                 "game_id": "136",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/4UKEZDj.png"
@@ -382,7 +382,7 @@
                 "name": "Cleopatra",
                 "class": "assassin",
                 "game_id": "139",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/dfa5LOV.png"
@@ -392,7 +392,7 @@
                 "name": "Ishtar",
                 "class": "archer",
                 "game_id": "142",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/e1misJz.png"
@@ -402,7 +402,7 @@
                 "name": "Enkidu",
                 "class": "lancer",
                 "game_id": "143",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/7uAVKnk.png"
@@ -412,7 +412,7 @@
                 "name": "Quetzalcoatl",
                 "class": "rider",
                 "game_id": "144",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IfUaKLN.png"
@@ -422,7 +422,7 @@
                 "name": "Merlin",
                 "class": "caster",
                 "game_id": "150",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/aLCrb5i.png"
@@ -432,7 +432,7 @@
                 "name": "Miyamoto Musashi",
                 "class": "saber",
                 "game_id": "153",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/1itUwoZ.png"
@@ -442,7 +442,7 @@
                 "name": "The Old Man of the Mountain",
                 "class": "assassin",
                 "game_id": "154",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/tYKdx8X.png"
@@ -452,7 +452,7 @@
                 "name": "Mysterious Heroine X (Alter)",
                 "class": "berserker",
                 "game_id": "155",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/hi1oBeP.png"
@@ -462,7 +462,7 @@
                 "name": "James Moriarty",
                 "class": "archer",
                 "game_id": "156",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/lkIns4W.png"
@@ -472,7 +472,7 @@
                 "name": "Arthur Pendragon (Prototype)",
                 "class": "saber",
                 "game_id": "160",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Kf4PehT.png"
@@ -482,7 +482,7 @@
                 "name": "Hijikata Toshizō",
                 "class": "berserker",
                 "game_id": "161",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/nEtYNSN.png"
@@ -492,7 +492,7 @@
                 "name": "Meltryllis",
                 "class": "alterego",
                 "game_id": "163",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/GjvESk5.png"
@@ -502,7 +502,7 @@
                 "name": "Sesshōin Kiara",
                 "class": "alterego",
                 "game_id": "167",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/nPEXEL1.png"
@@ -512,7 +512,7 @@
                 "name": "Scheherazade",
                 "class": "caster",
                 "game_id": "169",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/V87yvoL.png"
@@ -522,7 +522,7 @@
                 "name": "Sherlock Holmes",
                 "class": "ruler",
                 "game_id": "173",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/u8q3stJ.png"
@@ -532,7 +532,7 @@
                 "name": "Nero Claudius (Caster)",
                 "class": "caster",
                 "game_id": "175",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/oQ1V588.png"
@@ -542,7 +542,7 @@
                 "name": "Artoria Pendragon (Rider Alter)",
                 "class": "rider",
                 "game_id": "179",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/EHZ86HQ.png"
@@ -552,7 +552,7 @@
                 "name": "Osakabehime",
                 "class": "assassin",
                 "game_id": "189",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/GkbmeDY.png"
@@ -562,7 +562,7 @@
                 "name": "Abigail Williams",
                 "class": "foreigner",
                 "game_id": "195",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/hhYWOTZ.png"
@@ -572,7 +572,7 @@
                 "name": "Ereshkigal",
                 "class": "lancer",
                 "game_id": "196",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/axQkEyd.png"
@@ -582,7 +582,7 @@
                 "name": "Katsushika Hokusai",
                 "class": "foreigner",
                 "game_id": "198",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IQ1AgQM.png"
@@ -592,7 +592,7 @@
                 "name": "Semiramis",
                 "class": "assassin",
                 "game_id": "199",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/lbzXP2O.png"
@@ -602,7 +602,7 @@
                 "name": "Anastasia Nikolaevna Romanova",
                 "class": "caster",
                 "game_id": "201",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/GTV4UQ6.png"
@@ -612,7 +612,7 @@
                 "name": "Ivan the Terrible",
                 "class": "rider",
                 "game_id": "205",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/TbJOAK3.png"
@@ -622,7 +622,7 @@
                 "name": "Achilles",
                 "class": "rider",
                 "game_id": "206",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/3QUtElu.png"
@@ -632,7 +632,7 @@
                 "name": "Okita Sōji (Alter)",
                 "class": "alterego",
                 "game_id": "209",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/qwGKsvo.png"
@@ -642,7 +642,7 @@
                 "name": "Napoléon",
                 "class": "archer",
                 "game_id": "212",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/21LBma1.png"
@@ -652,7 +652,7 @@
                 "name": "Sigurd",
                 "class": "saber",
                 "game_id": "213",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/9u2BT52.png"
@@ -662,7 +662,7 @@
                 "name": "Scáthach-Skaði",
                 "class": "caster",
                 "game_id": "215",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/idcfGg9.png"
@@ -672,7 +672,7 @@
                 "name": "Jeanne d'Arc (Archer)",
                 "class": "archer",
                 "game_id": "216",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/gaoc3hK.png"
@@ -682,7 +682,7 @@
                 "name": "BB (Summer)",
                 "class": "mooncancer",
                 "game_id": "220",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Nj04aB1.png"
@@ -692,7 +692,7 @@
                 "name": "Sitonai",
                 "class": "alterego",
                 "game_id": "224",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/49EcdkF.png"
@@ -702,7 +702,7 @@
                 "name": "Xiang Yu",
                 "class": "berserker",
                 "game_id": "226",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/6pqLNNx.png"
@@ -712,7 +712,7 @@
                 "name": "Qin Shi Huang",
                 "class": "ruler",
                 "game_id": "229",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/iUcbXSO.png"
@@ -722,7 +722,7 @@
                 "name": "Bradamante",
                 "class": "lancer",
                 "game_id": "232",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/cAAdZHF.png"
@@ -732,7 +732,7 @@
                 "name": "Beni-enma",
                 "class": "saber",
                 "game_id": "234",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/veNIm1P.png"
@@ -742,7 +742,7 @@
                 "name": "Li Shuwen",
                 "class": "assassin",
                 "game_id": "235",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/PnhHqrW.png"
@@ -752,7 +752,7 @@
                 "name": "Murasaki Shikibu",
                 "class": "caster",
                 "game_id": "237",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/uaE8WFR.png"
@@ -762,7 +762,7 @@
                 "name": "Kingprotea",
                 "class": "alterego",
                 "game_id": "238",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Wujff9Y.png"
@@ -772,7 +772,7 @@
                 "name": "Kama",
                 "class": "assassin",
                 "game_id": "239",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/fBWCcJh.png"
@@ -782,7 +782,7 @@
                 "name": "Sima Yi (Reines)",
                 "class": "rider",
                 "game_id": "241",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HTFOVOe.png"
@@ -792,7 +792,7 @@
                 "name": "Great Statue God AKA Jinako Karigiri",
                 "class": "mooncancer",
                 "game_id": "244",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/6KAvals.png"
@@ -802,7 +802,7 @@
                 "name": "Arjuna (Alter)",
                 "class": "berserker",
                 "game_id": "247",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/zmW2wBT.png"
@@ -812,7 +812,7 @@
                 "name": "Demon King Nobunaga",
                 "class": "avenger",
                 "game_id": "250",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/0u1bVkJ.png"
@@ -822,7 +822,7 @@
                 "name": "Leonardo Da Vinci (Rider)",
                 "class": "rider",
                 "game_id": "253",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/AaVrEvE.png"
@@ -832,7 +832,7 @@
                 "name": "Miyamoto Musashi (Berserker)",
                 "class": "berserker",
                 "game_id": "261",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/TnI8OTo.png"
@@ -842,7 +842,7 @@
                 "name": "Artoria Pendragon (Ruler)",
                 "class": "ruler",
                 "game_id": "265",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/1b1DsD7.png"
@@ -852,7 +852,7 @@
                 "name": "Space Ishtar",
                 "class": "avenger",
                 "game_id": "268",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Th1W4Lo.png"
@@ -862,7 +862,7 @@
                 "name": "Astolfo (Saber)",
                 "class": "saber",
                 "game_id": "270",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Gk3cYv0.png"
@@ -872,7 +872,7 @@
                 "name": "Super Orion",
                 "class": "archer",
                 "game_id": "272",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/giAO0ab.png"
@@ -882,7 +882,7 @@
                 "name": "Europa",
                 "class": "rider",
                 "game_id": "274",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/STBS8DP.png"
@@ -892,7 +892,7 @@
                 "name": "Yang Guifei",
                 "class": "foreigner",
                 "game_id": "275",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/GMaVbRz.png"
@@ -902,7 +902,7 @@
                 "name": "Sei Shōnagon",
                 "class": "archer",
                 "game_id": "276",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/u8bajyx.png"
@@ -912,7 +912,7 @@
                 "name": "Odysseus",
                 "class": "rider",
                 "game_id": "277",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/DL75zxT.png"
@@ -922,7 +922,7 @@
                 "name": "Dioscuri",
                 "class": "saber",
                 "game_id": "278",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/k9v634N.png"
@@ -932,7 +932,7 @@
                 "name": "Romulus-Quirinus",
                 "class": "lancer",
                 "game_id": "280",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2htHbs9.png"
@@ -942,7 +942,7 @@
                 "name": "Voyager",
                 "class": "foreigner",
                 "game_id": "281",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Z4w9GOG.png"
@@ -952,7 +952,7 @@
                 "name": "Artoria Caster",
                 "class": "caster",
                 "game_id": "284",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/VBhKHsI.png"
@@ -962,7 +962,7 @@
                 "name": "Sesshōin Kiara (Moon Cancer)",
                 "class": "mooncancer",
                 "game_id": "285",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/9uwxBAS.png"
@@ -972,7 +972,7 @@
                 "name": "Abigail Williams (Summer)",
                 "class": "foreigner",
                 "game_id": "289",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/WMM1bCb.png"
@@ -982,7 +982,7 @@
                 "name": "Himiko",
                 "class": "ruler",
                 "game_id": "292",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/8ADA3N8.png"
@@ -992,7 +992,7 @@
                 "name": "Van Gogh",
                 "class": "foreigner",
                 "game_id": "295",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/RWYZypm.png"
@@ -1002,7 +1002,7 @@
                 "name": "Nemo",
                 "class": "rider",
                 "game_id": "296",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/f2V5sHh.png"
@@ -1012,7 +1012,7 @@
                 "name": "Ashiya Dōman",
                 "class": "alterego",
                 "game_id": "297",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JzZrJSS.png"
@@ -1022,7 +1022,7 @@
                 "name": "Ibuki Dōji",
                 "class": "saber",
                 "game_id": "299",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/WRSI3Oy.png"
@@ -1032,7 +1032,7 @@
                 "name": "Vritra",
                 "class": "lancer",
                 "game_id": "300",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/VXPYla8.png"
@@ -1042,7 +1042,7 @@
                 "name": "Senji Muramasa",
                 "class": "saber",
                 "game_id": "302",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CZdLmQa.png"
@@ -1052,7 +1052,7 @@
                 "name": "Taira no Kagekiyo",
                 "class": "avenger",
                 "game_id": "303",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/zcp0oub.png"
@@ -1062,7 +1062,7 @@
                 "name": "Caren C Hortensia (Amor Caren)",
                 "class": "ruler",
                 "game_id": "305",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/npPDiq5.png"
@@ -1072,7 +1072,7 @@
                 "name": "Galatea",
                 "class": "berserker",
                 "game_id": "306",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/kXLiQjP.png"
@@ -1082,7 +1082,7 @@
                 "name": "Miss Crane",
                 "class": "caster",
                 "game_id": "306",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/WLFAuOw.png"
@@ -1092,7 +1092,7 @@
                 "name": "Morgan",
                 "class": "berserker",
                 "game_id": "309",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/OfAkmex.png"
@@ -1102,7 +1102,7 @@
                 "name": "Fairy Knight Lancelot (Mélusine)",
                 "class": "lancer",
                 "game_id": "312",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/EdZ8Mbu.png"
@@ -1112,7 +1112,7 @@
                 "name": "Koyanskaya of Light",
                 "class": "assassin",
                 "game_id": "314",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IgDFhAn.png"
@@ -1122,7 +1122,7 @@
                 "name": "Oberon",
                 "class": "pretender",
                 "game_id": "316",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/F0hmREg.png"
@@ -1132,7 +1132,7 @@
                 "name": "Okita Sōji (Saber Alter) ",
                 "class": "saber",
                 "game_id": "317",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Ogs77uz.png"
@@ -1142,7 +1142,7 @@
                 "name": "Kama (Avenger)",
                 "class": "avenger",
                 "game_id": "321",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/yDNW98y.png"
@@ -1152,7 +1152,7 @@
                 "name": "Jacques de Molay",
                 "class": "foreigner",
                 "game_id": "324",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/F0t0n1a.png"
@@ -1162,7 +1162,7 @@
                 "name": "Izumo no Okuni",
                 "class": "caster",
                 "game_id": "327",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/e3XLbRm.png"
@@ -1172,7 +1172,7 @@
                 "name": "Sakamoto Ryōma (Lancer)",
                 "class": "lancer",
                 "game_id": "329",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/PVRgkGA.png"
@@ -1182,7 +1182,7 @@
                 "name": "Tai Gong Wang",
                 "class": "rider",
                 "game_id": "331",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2wrvEZZ.png"
@@ -1192,7 +1192,7 @@
                 "name": "Koyanskaya of Darkness",
                 "class": "foreigner",
                 "game_id": "334",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/WLAqgdO.png"
@@ -1202,7 +1202,7 @@
                 "name": "Manannán mac Lir (Bazett)",
                 "class": "alterego",
                 "game_id": "336",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/jCEDQC7.png"
@@ -1212,7 +1212,7 @@
                 "name": "Hai Bà Trưng",
                 "class": "saber",
                 "game_id": "337",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/uh2yR43.png"
@@ -1222,7 +1222,7 @@
                 "name": "Super Bunyan",
                 "class": "alterego",
                 "game_id": "339",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2Vqrpee.png"
@@ -1232,7 +1232,7 @@
                 "name": "Kōnstantînos XI",
                 "class": "rider",
                 "game_id": "342",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UembZLC.png"
@@ -1242,7 +1242,7 @@
                 "name": "Charlemagne",
                 "class": "saber",
                 "game_id": "343",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/OUdrlFJ.png"
@@ -1252,7 +1252,7 @@
                 "name": "James Moriarty (Ruler)",
                 "class": "ruler",
                 "game_id": "346",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/j5QTlaD.png"
@@ -1262,7 +1262,7 @@
                 "name": "Kyokutei Bakin",
                 "class": "rider",
                 "game_id": "349",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/EwcTeYn.png"
@@ -1272,7 +1272,7 @@
                 "name": "Minamoto no Tametomo",
                 "class": "archer",
                 "game_id": "350",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/K0u9wfo.png"
@@ -1282,7 +1282,7 @@
                 "name": "Archetype: Earth",
                 "class": "mooncancer",
                 "game_id": "351",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/jk0xQb8.png"
@@ -1292,7 +1292,7 @@
                 "name": "Lady Avalon",
                 "class": "pretender",
                 "game_id": "353",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CeWdiiy.png"
@@ -1302,7 +1302,7 @@
                 "name": "Ibuki Dōji (Berserker)",
                 "class": "berserker",
                 "game_id": "355",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/4SG74o2.png"
@@ -1312,7 +1312,7 @@
                 "name": "Scáthach-Skaði (Ruler)",
                 "class": "ruler",
                 "game_id": "357",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/4DOo1ud.png"
@@ -1322,7 +1322,7 @@
                 "name": "Sen no Rikyū",
                 "class": "berserker",
                 "game_id": "362",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/B5I0A46.png"
@@ -1332,7 +1332,7 @@
                 "name": "Huyan Zhuo",
                 "class": "assassin",
                 "game_id": "365",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JJUf5mL.png"
@@ -1342,7 +1342,7 @@
                 "name": "Britomart",
                 "class": "lancer",
                 "game_id": "368",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/n6Dy5K7.png"
@@ -1352,7 +1352,7 @@
                 "name": "Grigori Rasputin",
                 "class": "alterego",
                 "game_id": "369",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/noIMgHT.png"
@@ -1362,7 +1362,7 @@
                 "name": "Nitocris (Alter)",
                 "class": "avenger",
                 "game_id": "370",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/4UpuHKx.png"
@@ -1372,7 +1372,7 @@
                 "name": "Tezcatlipoca",
                 "class": "assassin",
                 "game_id": "371",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/lj22eqO.png"
@@ -1382,7 +1382,7 @@
                 "name": "Kukulkan",
                 "class": "foreigner",
                 "game_id": "373",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/5mVfOoZ.png"
@@ -1392,7 +1392,7 @@
                 "name": "Popess Johanna",
                 "class": "ruler",
                 "game_id": "374",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/uaatRw6.png"
@@ -1402,7 +1402,7 @@
                 "name": "Takasugi Shinsaku",
                 "class": "archer",
                 "game_id": "375",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/w5SfZaW.png"
@@ -1412,7 +1412,7 @@
                 "name": "Larva/Tiamat",
                 "class": "alterego",
                 "game_id": "376",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/DXuIfVk.png"
@@ -1422,7 +1422,7 @@
                 "name": "Sodom's Beast/Draco",
                 "class": "beast",
                 "game_id": "377",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/QdUC7cB.png"
@@ -1432,7 +1432,7 @@
                 "name": "Kashin Koji",
                 "class": "assassin",
                 "game_id": "380",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/OEvpVf2.png"
@@ -1442,7 +1442,7 @@
                 "name": "Bhima",
                 "class": "lancer",
                 "game_id": "381",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/sSWI9ek.png"
@@ -1452,7 +1452,7 @@
                 "name": "Durga",
                 "class": "archer",
                 "game_id": "383",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/x0xKDOK.png"
@@ -1462,7 +1462,7 @@
                 "name": "Medusa (Saber)",
                 "class": "saber",
                 "game_id": "384",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UB3VWgg.png"
@@ -1472,7 +1472,7 @@
                 "name": "Aesc the Savior",
                 "class": "caster",
                 "game_id": "385",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/D1DaD7e.png"
@@ -1482,7 +1482,7 @@
                 "name": "Artoria Caster (Berserker)",
                 "class": "berserker",
                 "game_id": "386",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/SjZtqMb.png"
@@ -1492,7 +1492,7 @@
                 "name": "Mélusine (Ruler)",
                 "class": "ruler",
                 "game_id": "390",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/cPw7wmR.png"
@@ -1502,7 +1502,7 @@
                 "name": "Wandjina",
                 "class": "foreigner",
                 "game_id": "393",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/W1BrJPI.png"
@@ -1512,7 +1512,7 @@
                 "name": "Ptolemaios",
                 "class": "archer",
                 "game_id": "394",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/iegnu4j.png"
@@ -1522,7 +1522,7 @@
                 "name": "Takeda Shingen",
                 "class": "rider",
                 "game_id": "397",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/G7lqvy6.png"
@@ -1532,7 +1532,7 @@
                 "name": "Uesugi Kenshin",
                 "class": "ruler",
                 "game_id": "400",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ERGHVPO.png"
@@ -1542,7 +1542,7 @@
                 "name": "Yamato Takeru",
                 "class": "saber",
                 "game_id": "402",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/SBmJLtB.png"
@@ -1552,7 +1552,7 @@
                 "name": "Ushi Gozen",
                 "class": "avenger",
                 "game_id": "403",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/khUhsGb.png"
@@ -1562,7 +1562,7 @@
                 "name": "Andromeda",
                 "class": "rider",
                 "game_id": "406",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Y88ikbq.png"
@@ -1572,7 +1572,7 @@
                 "name": "Marie Antoinette (Alter)",
                 "class": "avenger",
                 "game_id": "407",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/8GkK7CI.png"
@@ -1582,7 +1582,7 @@
                 "name": "King of the Cavern, Monte Cristo",
                 "class": "avenger",
                 "game_id": "409",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2hAZV2v.png"
@@ -1592,7 +1592,7 @@
                 "name": "Aozaki Aoko",
                 "class": "foreigner",
                 "game_id": "413",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/AAQNnPt.png"
@@ -1602,7 +1602,7 @@
                 "name": "Kuonji Alice",
                 "class": "caster",
                 "game_id": "415",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/zpcaFjb.png"
@@ -1612,7 +1612,7 @@
                 "name": "Azumi no Isora (Hibiki & Chikagi)",
                 "class": "alterego",
                 "game_id": "416",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/vKU3Huu.png"
@@ -1622,7 +1622,7 @@
                 "name": "Space Ereshkigal",
                 "class": "beast",
                 "game_id": "417",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HwReCUG.png"
@@ -1632,7 +1632,7 @@
                 "name": "Mysterious Executor C.I.E.L.",
                 "class": "mooncancer",
                 "game_id": "418",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/b2GWUcq.png"
@@ -1642,7 +1642,7 @@
                 "name": "BB Dubai",
                 "class": "mooncancer",
                 "game_id": "421",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ERmZDAe.png"
@@ -1652,7 +1652,7 @@
                 "name": "Kazuradrop",
                 "class": "alterego",
                 "game_id": "426",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/6JmPBFk.png"
@@ -1662,7 +1662,7 @@
                 "name": "Tutankhamun",
                 "class": "archer",
                 "game_id": "427",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JmOrqzt.png"
@@ -1682,7 +1682,7 @@
                 "name": "Artoria Pendragon (Alter)",
                 "class": "saber",
                 "game_id": "3",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pNYZgBz.png"
@@ -1692,7 +1692,7 @@
                 "name": "Artoria Pendragon (Lily)",
                 "class": "saber",
                 "game_id": "4",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/owPXnSd.png"
@@ -1702,7 +1702,7 @@
                 "name": "Nero Claudius",
                 "class": "saber",
                 "game_id": "5",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ycUdS92.png"
@@ -1712,7 +1712,7 @@
                 "name": "Siegfried",
                 "class": "saber",
                 "game_id": "6",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/jlcmIp5.png"
@@ -1722,7 +1722,7 @@
                 "name": "Chevalier d'Eon",
                 "class": "saber",
                 "game_id": "10",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/bJFGMsX.png"
@@ -1732,7 +1732,7 @@
                 "name": "EMIYA",
                 "class": "archer",
                 "game_id": "11",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/oH2Lghq.png"
@@ -1742,7 +1742,7 @@
                 "name": "Atalante",
                 "class": "archer",
                 "game_id": "14",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/KLcemvi.png"
@@ -1752,7 +1752,7 @@
                 "name": "Elizabeth Báthory",
                 "class": "lancer",
                 "game_id": "18",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/sa7PKip.png"
@@ -1762,7 +1762,7 @@
                 "name": "Marie Antoinette",
                 "class": "rider",
                 "game_id": "29",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/rXkF34k.png"
@@ -1772,7 +1772,7 @@
                 "name": "Martha",
                 "class": "rider",
                 "game_id": "30",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/XMeuYPd.png"
@@ -1782,7 +1782,7 @@
                 "name": "Stheno",
                 "class": "assassin",
                 "game_id": "41",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/uaPdq4A.png"
@@ -1792,7 +1792,7 @@
                 "name": "Carmilla",
                 "class": "assassin",
                 "game_id": "46",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/wX1H9ce.png"
@@ -1802,7 +1802,7 @@
                 "name": "Heracles",
                 "class": "berserker",
                 "game_id": "47",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/BWH6f8C.png"
@@ -1812,7 +1812,7 @@
                 "name": "Lancelot",
                 "class": "berserker",
                 "game_id": "48",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/P9q9SPF.png"
@@ -1822,7 +1822,7 @@
                 "name": "Tamamo Cat",
                 "class": "berserker",
                 "game_id": "58",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/tA1fFBa.png"
@@ -1832,7 +1832,7 @@
                 "name": "Elizabeth Báthory (Halloween)",
                 "class": "caster",
                 "game_id": "61",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/YVeutxw.png"
@@ -1842,7 +1842,7 @@
                 "name": "Anne Bonny & Mary Read",
                 "class": "rider",
                 "game_id": "66",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/X75pQ4A.png"
@@ -1852,7 +1852,7 @@
                 "name": "Medea (Lily)",
                 "class": "caster",
                 "game_id": "67",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/x8VK5iK.png"
@@ -1862,7 +1862,7 @@
                 "name": "Oda Nobunaga",
                 "class": "archer",
                 "game_id": "69",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/mTerhYA.png"
@@ -1872,7 +1872,7 @@
                 "name": "Artoria Pendragon (Santa Alter)",
                 "class": "rider",
                 "game_id": "73",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/f5rRAmE.png"
@@ -1882,7 +1882,7 @@
                 "name": "Nursery Rhyme",
                 "class": "caster",
                 "game_id": "74",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/x8R9XYm.png"
@@ -1892,7 +1892,7 @@
                 "name": "Artoria Pendragon (Lancer Alter)",
                 "class": "lancer",
                 "game_id": "78",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/rJWJQoE.png"
@@ -1902,7 +1902,7 @@
                 "name": "Frankenstein",
                 "class": "berserker",
                 "game_id": "82",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/O9pAhC4.png"
@@ -1912,7 +1912,7 @@
                 "name": "Fionn mac Cumhaill",
                 "class": "lancer",
                 "game_id": "87",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HlK6IQq.png"
@@ -1922,7 +1922,7 @@
                 "name": "Beowulf",
                 "class": "berserker",
                 "game_id": "89",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/oRk1eoL.png"
@@ -1932,7 +1932,7 @@
                 "name": "Ryōgi Shiki (Assassin)",
                 "class": "assassin",
                 "game_id": "92",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/cADN3Jt.png"
@@ -1942,7 +1942,7 @@
                 "name": "Astolfo",
                 "class": "rider",
                 "game_id": "94",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/lf0ztRB.png"
@@ -1952,7 +1952,7 @@
                 "name": "Helena Blavatsky",
                 "class": "caster",
                 "game_id": "100",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ko8wDhu.png"
@@ -1962,7 +1962,7 @@
                 "name": "Rama",
                 "class": "saber",
                 "game_id": "101",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Hn6yrJm.png"
@@ -1972,7 +1972,7 @@
                 "name": "Li Shuwen (Lancer)",
                 "class": "lancer",
                 "game_id": "102",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/7pjUy3s.png"
@@ -1982,7 +1982,7 @@
                 "name": "Thomas Edison",
                 "class": "caster",
                 "game_id": "103",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/93i37QE.png"
@@ -1992,7 +1992,7 @@
                 "name": "EMIYA (Assassin)",
                 "class": "assassin",
                 "game_id": "109",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JhhVx9f.png"
@@ -2002,7 +2002,7 @@
                 "name": "Irisviel (Dress of Heaven)",
                 "class": "caster",
                 "game_id": "111",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/5JQwcU4.png"
@@ -2012,7 +2012,7 @@
                 "name": "Sakata Kintoki (Rider)",
                 "class": "rider",
                 "game_id": "115",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/POc8Lya.png"
@@ -2022,7 +2022,7 @@
                 "name": "Ibaraki Dōji",
                 "class": "berserker",
                 "game_id": "116",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UfkJpPX.png"
@@ -2032,7 +2032,7 @@
                 "name": "Nitocris",
                 "class": "caster",
                 "game_id": "120",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/arSlB1n.png"
@@ -2042,7 +2042,7 @@
                 "name": "Lancelot (Saber)",
                 "class": "saber",
                 "game_id": "121",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/X2SztKm.png"
@@ -2052,7 +2052,7 @@
                 "name": "Tristan",
                 "class": "archer",
                 "game_id": "122",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/i4vX0yK.png"
@@ -2062,7 +2062,7 @@
                 "name": "Gawain",
                 "class": "saber",
                 "game_id": "123",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/j6pPjfm.png"
@@ -2072,7 +2072,7 @@
                 "name": "Marie Antoinette (Caster)",
                 "class": "caster",
                 "game_id": "130",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JBMiHGg.png"
@@ -2082,7 +2082,7 @@
                 "name": "Anne Bonny & Mary Read (Archer)",
                 "class": "archer",
                 "game_id": "131",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/vC3Wv9d.png"
@@ -2092,7 +2092,7 @@
                 "name": "Mordred (Rider)",
                 "class": "rider",
                 "game_id": "132",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/xfScowO.png"
@@ -2102,7 +2102,7 @@
                 "name": "Scáthach (Assassin)",
                 "class": "assassin",
                 "game_id": "133",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/FrYitjn.png"
@@ -2112,7 +2112,7 @@
                 "name": "Kiyohime (Lancer)",
                 "class": "lancer",
                 "game_id": "134",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/qQsMU0w.png"
@@ -2122,7 +2122,7 @@
                 "name": "Martha (Ruler)",
                 "class": "ruler",
                 "game_id": "135",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/V2iZpW7.png"
@@ -2132,7 +2132,7 @@
                 "name": "Chloe von Einzbern",
                 "class": "archer",
                 "game_id": "137",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/dVwx4iT.png"
@@ -2142,7 +2142,7 @@
                 "name": "Elizabeth Báthory (Brave)",
                 "class": "saber",
                 "game_id": "138",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/cYj5JZG.png"
@@ -2152,7 +2152,7 @@
                 "name": "Vlad III (EXTRA)",
                 "class": "lancer",
                 "game_id": "140",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/hex4iVa.png"
@@ -2162,7 +2162,7 @@
                 "name": "Jeanne d'Arc (Alter) (Santa Lily)",
                 "class": "lancer",
                 "game_id": "141",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/1mXrBw5.png"
@@ -2172,7 +2172,7 @@
                 "name": "Gilgamesh (Caster)",
                 "class": "caster",
                 "game_id": "145",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/YsVHRjC.png"
@@ -2182,7 +2182,7 @@
                 "name": "Medusa (Lancer)",
                 "class": "lancer",
                 "game_id": "146",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/LmdOc4L.png"
@@ -2192,7 +2192,7 @@
                 "name": "Gorgon",
                 "class": "avenger",
                 "game_id": "147",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/VZfZJcJ.png"
@@ -2202,7 +2202,7 @@
                 "name": "EMIYA (Alter)",
                 "class": "archer",
                 "game_id": "157",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/qBjrk4k.png"
@@ -2212,7 +2212,7 @@
                 "name": "Hessian Lobo",
                 "class": "avenger",
                 "game_id": "158",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Z14fJdi.png"
@@ -2222,7 +2222,7 @@
                 "name": "Yan Qing",
                 "class": "assassin",
                 "game_id": "159",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/0Zfp3Ym.png"
@@ -2232,7 +2232,7 @@
                 "name": "Chacha",
                 "class": "berserker",
                 "game_id": "162",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/zur21da.png"
@@ -2242,7 +2242,7 @@
                 "name": "Passionlip",
                 "class": "alterego",
                 "game_id": "164",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/k2FBAGi.png"
@@ -2252,7 +2252,7 @@
                 "name": "Suzuka Gozen",
                 "class": "saber",
                 "game_id": "165",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/RRv4XL5.png"
@@ -2262,7 +2262,7 @@
                 "name": "BB",
                 "class": "mooncancer",
                 "game_id": "166",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/KHoO7Sl.png"
@@ -2272,7 +2272,7 @@
                 "name": "Wu Zetian",
                 "class": "assassin",
                 "game_id": "170",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/SPMGMF8.png"
@@ -2282,7 +2282,7 @@
                 "name": "Penthesilea",
                 "class": "berserker",
                 "game_id": "171",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/RJhCpz3.png"
@@ -2292,7 +2292,7 @@
                 "name": "Frankenstein (Saber)",
                 "class": "saber",
                 "game_id": "176",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/39wRmTP.png"
@@ -2302,7 +2302,7 @@
                 "name": "Nitocris (Assassin)",
                 "class": "assassin",
                 "game_id": "177",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CR1MZTJ.png"
@@ -2312,7 +2312,7 @@
                 "name": "Oda Nobunaga (Berserker)",
                 "class": "berserker",
                 "game_id": "178",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/M8JssGy.png"
@@ -2322,7 +2322,7 @@
                 "name": "Helena Blavatsky (Archer)",
                 "class": "archer",
                 "game_id": "180",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/oH614nX.png"
@@ -2332,7 +2332,7 @@
                 "name": "Minamoto no Raikō (Lancer)",
                 "class": "lancer",
                 "game_id": "181",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/OydihdE.png"
@@ -2342,7 +2342,7 @@
                 "name": "Ishtar (Rider)",
                 "class": "rider",
                 "game_id": "182",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/I4TMbgM.png"
@@ -2352,7 +2352,7 @@
                 "name": "Parvati",
                 "class": "lancer",
                 "game_id": "183",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/MOyQHaX.png"
@@ -2362,7 +2362,7 @@
                 "name": "Tomoe Gozen",
                 "class": "archer",
                 "game_id": "184",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pbwtVrc.png"
@@ -2372,7 +2372,7 @@
                 "name": "Mochizuki Chiyome",
                 "class": "assassin",
                 "game_id": "185",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZcWKbOu.png"
@@ -2382,7 +2382,7 @@
                 "name": "Yagyū Munenori",
                 "class": "saber",
                 "game_id": "187",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/KSIIKiW.png"
@@ -2392,7 +2392,7 @@
                 "name": "Katō Danzō",
                 "class": "assassin",
                 "game_id": "188",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/TohyCJ6.png"
@@ -2402,7 +2402,7 @@
                 "name": "Mecha Eli-chan",
                 "class": "alterego",
                 "game_id": "190",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/7pxfN2Q.png"
@@ -2412,7 +2412,7 @@
                 "name": "Mecha Eli-chan Mk.II",
                 "class": "alterego",
                 "game_id": "191",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZrYD1ub.png"
@@ -2422,7 +2422,7 @@
                 "name": "Circe",
                 "class": "caster",
                 "game_id": "192",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JGKBpOq.png"
@@ -2432,7 +2432,7 @@
                 "name": "Nezha",
                 "class": "lancer",
                 "game_id": "193",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/BfMlApS.png"
@@ -2442,7 +2442,7 @@
                 "name": "Queen of Sheba",
                 "class": "caster",
                 "game_id": "194",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/FXchwcz.png"
@@ -2452,7 +2452,7 @@
                 "name": "Altera the San(ta)",
                 "class": "archer",
                 "game_id": "197",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HYegZwx.png"
@@ -2462,7 +2462,7 @@
                 "name": "Asagami Fujino",
                 "class": "archer",
                 "game_id": "200",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/FbAEinn.png"
@@ -2472,7 +2472,7 @@
                 "name": "Atalante (Alter)",
                 "class": "berserker",
                 "game_id": "202",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/KXCpFXV.png"
@@ -2482,7 +2482,7 @@
                 "name": "Chiron",
                 "class": "archer",
                 "game_id": "207",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/c7AX4an.png"
@@ -2492,7 +2492,7 @@
                 "name": "Sieg",
                 "class": "caster",
                 "game_id": "208",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/r1ztH0F.png"
@@ -2502,7 +2502,7 @@
                 "name": "Sakamoto Ryōma",
                 "class": "rider",
                 "game_id": "211",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/gffxNZA.png"
@@ -2512,7 +2512,7 @@
                 "name": "Valkyrie",
                 "class": "lancer",
                 "game_id": "214",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZYxBrE9.png"
@@ -2522,7 +2522,7 @@
                 "name": "Ibaraki Dōji (Lancer)",
                 "class": "lancer",
                 "game_id": "217",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HWN4xRV.png"
@@ -2532,7 +2532,7 @@
                 "name": "Ushiwakamaru (Assassin)",
                 "class": "assassin",
                 "game_id": "218",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HhrEKCf.png"
@@ -2542,7 +2542,7 @@
                 "name": "Jeanne d'Arc (Berserker Alter)",
                 "class": "berserker",
                 "game_id": "219",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/WWyi70Q.png"
@@ -2552,7 +2552,7 @@
                 "name": "Medb (Saber)",
                 "class": "saber",
                 "game_id": "221",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/MGB3fB9.png"
@@ -2562,7 +2562,7 @@
                 "name": "Mysterious Heroine XX",
                 "class": "foreigner",
                 "game_id": "222",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/qECPI0s.png"
@@ -2572,7 +2572,7 @@
                 "name": "Diarmuid Ua Duibhne (Saber)",
                 "class": "saber",
                 "game_id": "223",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/kexSlFh.png"
@@ -2582,7 +2582,7 @@
                 "name": "Shuten Dōji (Caster)",
                 "class": "caster",
                 "game_id": "225",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/RbSai5b.png"
@@ -2592,7 +2592,7 @@
                 "name": "Lanling Wang",
                 "class": "saber",
                 "game_id": "227",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/nA2YHAY.png"
@@ -2602,7 +2602,7 @@
                 "name": "Qin Liangyu",
                 "class": "lancer",
                 "game_id": "228",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/gxqYILw.png"
@@ -2612,7 +2612,7 @@
                 "name": "Yu Mei-ren",
                 "class": "assassin",
                 "game_id": "230",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UkpWtYo.png"
@@ -2622,7 +2622,7 @@
                 "name": "Quetzalcoatl (Samba/Santa)",
                 "class": "ruler",
                 "game_id": "233",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/VQrNQwe.png"
@@ -2632,7 +2632,7 @@
                 "name": "Miyu Edelfelt",
                 "class": "caster",
                 "game_id": "236",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/AWwJB8j.png"
@@ -2642,7 +2642,7 @@
                 "name": "Astraea",
                 "class": "ruler",
                 "game_id": "242",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/1lMj1p5.png"
@@ -2652,7 +2652,7 @@
                 "name": "Gray",
                 "class": "assassin",
                 "game_id": "243",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HGxUIN0.png"
@@ -2662,7 +2662,7 @@
                 "name": "Lakshmibai",
                 "class": "saber",
                 "game_id": "245",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Y0OynEU.png"
@@ -2672,7 +2672,7 @@
                 "name": "Aśvatthāman",
                 "class": "archer",
                 "game_id": "248",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/cMR7gNR.png"
@@ -2682,7 +2682,7 @@
                 "name": "Nagao Kagetora",
                 "class": "lancer",
                 "game_id": "252",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/qeptThQ.png"
@@ -2692,7 +2692,7 @@
                 "name": "Osakabehime (Archer)",
                 "class": "archer",
                 "game_id": "262",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/DzXTQrn.png"
@@ -2702,7 +2702,7 @@
                 "name": "Carmilla (Rider)",
                 "class": "rider",
                 "game_id": "263",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/M3DesaG.png"
@@ -2712,7 +2712,7 @@
                 "name": "Katsushika Hokusai (Saber)",
                 "class": "saber",
                 "game_id": "264",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/o0fNTHH.png"
@@ -2722,7 +2722,7 @@
                 "name": "Mysterious Alter Ego λ",
                 "class": "lancer",
                 "game_id": "266",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ha9fB6a.png"
@@ -2732,7 +2732,7 @@
                 "name": "Okita J Sōji",
                 "class": "assassin",
                 "game_id": "267",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CzWEU7w.png"
@@ -2742,7 +2742,7 @@
                 "name": "Calamity Jane",
                 "class": "archer",
                 "game_id": "269",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/klbjNgV.png"
@@ -2752,7 +2752,7 @@
                 "name": "Nightingale (Santa)",
                 "class": "archer",
                 "game_id": "271",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/PnYqRMR.png"
@@ -2762,7 +2762,7 @@
                 "name": "Caenis",
                 "class": "lancer",
                 "game_id": "279",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/AClFtK4.png"
@@ -2772,7 +2772,7 @@
                 "name": "Kijyo Kōyō",
                 "class": "berserker",
                 "game_id": "282",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/PWTdU9H.png"
@@ -2782,7 +2782,7 @@
                 "name": "Utsumi Erice",
                 "class": "lancer",
                 "game_id": "283",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/jbts1Lm.png"
@@ -2792,7 +2792,7 @@
                 "name": "Illyasviel von Einzbern (Archer)",
                 "class": "archer",
                 "game_id": "286",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Pt4bGfD.png"
@@ -2802,7 +2802,7 @@
                 "name": "Brynhildr (Berserker)",
                 "class": "berserker",
                 "game_id": "287",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/stkGtHP.png"
@@ -2812,7 +2812,7 @@
                 "name": "Yu Mei-ren (Lancer)",
                 "class": "lancer",
                 "game_id": "288",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/iFEeaSa.png"
@@ -2822,7 +2822,7 @@
                 "name": "Tomoe Gozen (Saber)",
                 "class": "saber",
                 "game_id": "290",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/bHZcJi6.png"
@@ -2832,7 +2832,7 @@
                 "name": "Murasaki Shikibu (Rider)",
                 "class": "rider",
                 "game_id": "291",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/3G2LxLb.png"
@@ -2842,7 +2842,7 @@
                 "name": "Saitō Hajime",
                 "class": "saber",
                 "game_id": "293",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/uvO1amY.png"
@@ -2852,7 +2852,7 @@
                 "name": "Watanabe no Tsuna",
                 "class": "saber",
                 "game_id": "298",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Pf8lkp7.png"
@@ -2862,7 +2862,7 @@
                 "name": "Karna (Santa)",
                 "class": "saber",
                 "game_id": "301",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2xGPm4D.png"
@@ -2872,7 +2872,7 @@
                 "name": "Kiichi Hōgen",
                 "class": "assassin",
                 "game_id": "304",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/sKIKJYC.png"
@@ -2882,7 +2882,7 @@
                 "name": "Mysterious Idol X (Alter)",
                 "class": "foreigner",
                 "game_id": "308",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/TmyLZQF.png"
@@ -2892,7 +2892,7 @@
                 "name": "Tam Lin Gawain (Barghest)",
                 "class": "saber",
                 "game_id": "310",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/1LICEHv.png"
@@ -2902,7 +2902,7 @@
                 "name": "Tam Lin Tristan (Baobhan Sith)",
                 "class": "archer",
                 "game_id": "311",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/qXcAIv6.png"
@@ -2912,7 +2912,7 @@
                 "name": "Percival",
                 "class": "lancer",
                 "game_id": "313",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/43FbLDu.png"
@@ -2922,7 +2922,7 @@
                 "name": "Habetrot",
                 "class": "rider",
                 "game_id": "315",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/osStLLM.png"
@@ -2932,7 +2932,7 @@
                 "name": "Anastasia & Viy",
                 "class": "archer",
                 "game_id": "318",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/bLLACUJ.png"
@@ -2942,7 +2942,7 @@
                 "name": "Charlotte Corday (Caster)",
                 "class": "caster",
                 "game_id": "319",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/c2qP00k.png"
@@ -2952,7 +2952,7 @@
                 "name": "Leonardo Da Vinci (Ruler)",
                 "class": "ruler",
                 "game_id": "320",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/l9q7EX6.png"
@@ -2962,7 +2962,7 @@
                 "name": "Caenis (Rider)",
                 "class": "rider",
                 "game_id": "322",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2j3AtdF.png"
@@ -2972,7 +2972,7 @@
                 "name": "Sei Shōnagon (Berserker)",
                 "class": "berserker",
                 "game_id": "323",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/AvL1eVU.png"
@@ -2982,7 +2982,7 @@
                 "name": "Zenobia",
                 "class": "archer",
                 "game_id": "325",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/hahvExA.png"
@@ -2992,7 +2992,7 @@
                 "name": "Elizabeth Báthory (Cinderella)",
                 "class": "rider",
                 "game_id": "326",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/h2VOVIg.png"
@@ -3002,7 +3002,7 @@
                 "name": "Mysterious Ranmaru X",
                 "class": "avenger",
                 "game_id": "328",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/DQfYfFX.png"
@@ -3012,7 +3012,7 @@
                 "name": "Martha (Santa)",
                 "class": "caster",
                 "game_id": "330",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/gpLrRC5.png"
@@ -3022,7 +3022,7 @@
                 "name": "Dobrynya Nikitich",
                 "class": "rider",
                 "game_id": "332",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/PBxja3r.png"
@@ -3032,7 +3032,7 @@
                 "name": "Hephaestion",
                 "class": "pretender",
                 "game_id": "335",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/SHQLj5l.png"
@@ -3042,7 +3042,7 @@
                 "name": "Taisui Xingjun",
                 "class": "alterego",
                 "game_id": "338",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/r529xoI.png"
@@ -3052,7 +3052,7 @@
                 "name": "Daikokuten",
                 "class": "caster",
                 "game_id": "340",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IWY2LjM.png"
@@ -3062,7 +3062,7 @@
                 "name": "Roland",
                 "class": "saber",
                 "game_id": "344",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/RacZb9v.png"
@@ -3072,7 +3072,7 @@
                 "name": "Kriemhild",
                 "class": "berserker",
                 "game_id": "345",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ibrygWd.png"
@@ -3082,7 +3082,7 @@
                 "name": "Don Quixote",
                 "class": "lancer",
                 "game_id": "347",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/7Rs3Rpq.png"
@@ -3092,7 +3092,7 @@
                 "name": "Gareth (Saber)",
                 "class": "saber",
                 "game_id": "354",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ub2gQ6P.png"
@@ -3102,7 +3102,7 @@
                 "name": "Utsumi Erice (Avenger)",
                 "class": "avenger",
                 "game_id": "356",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/0LgW1uK.png"
@@ -3112,7 +3112,7 @@
                 "name": "Wu Zetian (Caster)",
                 "class": "caster",
                 "game_id": "358",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZneeQmM.png"
@@ -3122,7 +3122,7 @@
                 "name": "Thrúd (Assassin)",
                 "class": "assassin",
                 "game_id": "359",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/BtxWwUg.png"
@@ -3132,7 +3132,7 @@
                 "name": "Hildr (Assassin)",
                 "class": "assassin",
                 "game_id": "360",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/a2WhWDV.png"
@@ -3142,7 +3142,7 @@
                 "name": "Ortlinde (Assassin)",
                 "class": "assassin",
                 "game_id": "361",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UyCIHL3.png"
@@ -3152,7 +3152,7 @@
                 "name": "Yamanami Keisuke",
                 "class": "saber",
                 "game_id": "363",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/WTk3z6C.png"
@@ -3162,7 +3162,7 @@
                 "name": "Iyo",
                 "class": "ruler",
                 "game_id": "364",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/3Q2dHnB.png"
@@ -3172,7 +3172,7 @@
                 "name": "Huang Feihu",
                 "class": "rider",
                 "game_id": "366",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ORCqLoo.png"
@@ -3182,7 +3182,7 @@
                 "name": "Nine-Tattoo Dragon Eliza",
                 "class": "pretender",
                 "game_id": "367",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/9RMYzgZ.png"
@@ -3192,7 +3192,7 @@
                 "name": "Tlaloc",
                 "class": "pretender",
                 "game_id": "372",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/shpOQ6c.png"
@@ -3202,7 +3202,7 @@
                 "name": "Locusta",
                 "class": "assassin",
                 "game_id": "378",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/DoZr4zO.png"
@@ -3212,7 +3212,7 @@
                 "name": "Sétanta",
                 "class": "saber",
                 "game_id": "379",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/gFaTFSV.png"
@@ -3222,7 +3222,7 @@
                 "name": "Duryodhana",
                 "class": "berserker",
                 "game_id": "382",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CSFUzUU.png"
@@ -3232,7 +3232,7 @@
                 "name": "Suzuka Gozen (Summer Vacation)",
                 "class": "rider",
                 "game_id": "387",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/lP74dkz.png"
@@ -3242,7 +3242,7 @@
                 "name": "Chloe von Einzbern (Avenger)",
                 "class": "avenger",
                 "game_id": "388",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/tKsosQ5.png"
@@ -3252,7 +3252,7 @@
                 "name": "Cnoc na Riabh Yaraandoo",
                 "class": "foreigner",
                 "game_id": "389",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IhICg6P.png"
@@ -3262,7 +3262,7 @@
                 "name": "UDK-Barghest",
                 "class": "archer",
                 "game_id": "391",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/8JrB5dt.png"
@@ -3272,7 +3272,7 @@
                 "name": "Cait Cú Cerpriestess",
                 "class": "pretender",
                 "game_id": "392",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/xp1Ykff.png"
@@ -3282,7 +3282,7 @@
                 "name": "Nagakura Shinpachi",
                 "class": "berserker",
                 "game_id": "398",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/BiXkXkh.png"
@@ -3292,7 +3292,7 @@
                 "name": "Saika Magoichi",
                 "class": "archer",
                 "game_id": "399",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/TE9T44b.png"
@@ -3302,7 +3302,7 @@
                 "name": "Nemo (Santa)",
                 "class": "rider",
                 "game_id": "401",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/og9v1St.png"
@@ -3312,7 +3312,7 @@
                 "name": "Yui Shōsetsu",
                 "class": "caster",
                 "game_id": "404",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2PEPJft.png"
@@ -3322,7 +3322,7 @@
                 "name": "Miyamoto Iori",
                 "class": "saber",
                 "game_id": "405",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/6Xmur3V.png"
@@ -3332,7 +3332,7 @@
                 "name": "Hassan of the Shining Star",
                 "class": "assassin",
                 "game_id": "408",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/LRwRse6.png"
@@ -3342,7 +3342,7 @@
                 "name": "Alessandro di Cagliostro",
                 "class": "pretender",
                 "game_id": "410",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/zSX7HuF.png"
@@ -3352,7 +3352,7 @@
                 "name": "Shizuki Sōjūrō",
                 "class": "berserker",
                 "game_id": "414",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/LD0SmQf.png"
@@ -3362,7 +3362,7 @@
                 "name": "Dobrynya Nikitich (Summer)",
                 "class": "lancer",
                 "game_id": "419",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pxgmaKg.png"
@@ -3372,7 +3372,7 @@
                 "name": "Xu Fu (Summer)",
                 "class": "avenger",
                 "game_id": "420",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/hZnprZT.png"
@@ -3382,7 +3382,7 @@
                 "name": "Tenochtitlan",
                 "class": "mooncancer",
                 "game_id": "422",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2ch1EIj.png"
@@ -3392,7 +3392,7 @@
                 "name": "Mysterious Heroine XX (Alter)",
                 "class": "foreigner",
                 "game_id": "423",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pvW15Om.png"
@@ -3402,7 +3402,7 @@
                 "name": "Hakuno Kishinami (male)",
                 "class": "mooncancer",
                 "game_id": "424",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/mumg0Fd.png"
@@ -3412,7 +3412,7 @@
                 "name": "Hakuno Kishinami (female)",
                 "class": "mooncancer",
                 "game_id": "425",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/5tsKT8l.png"
@@ -3422,7 +3422,7 @@
                 "name": "Van Gogh (Miner)",
                 "class": "lancer",
                 "game_id": "428",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/X1pK7vE.png"
@@ -3452,7 +3452,7 @@
                 "name": "Gaius Julius Caesar",
                 "class": "saber",
                 "game_id": "7",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/DapVmOB.png"
@@ -3462,7 +3462,7 @@
                 "name": "Gilles de Rais (Saber)",
                 "class": "saber",
                 "game_id": "9",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/4rTvs50.png"
@@ -3472,7 +3472,7 @@
                 "name": "Robin Hood",
                 "class": "archer",
                 "game_id": "13",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZiJ1dtC.png"
@@ -3482,7 +3482,7 @@
                 "name": "Euryale",
                 "class": "archer",
                 "game_id": "15",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/7BJp1HT.png"
@@ -3492,7 +3492,7 @@
                 "name": "Cú Chulainn",
                 "class": "lancer",
                 "game_id": "17",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Uy3iwcA.png"
@@ -3502,7 +3502,7 @@
                 "name": "Cú Chulainn (Prototype)",
                 "class": "lancer",
                 "game_id": "20",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/lf4lRH2.png"
@@ -3512,7 +3512,7 @@
                 "name": "Romulus",
                 "class": "lancer",
                 "game_id": "22",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/vkvBvDD.png"
@@ -3522,7 +3522,7 @@
                 "name": "Medusa",
                 "class": "rider",
                 "game_id": "23",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/BzNaaW6.png"
@@ -3532,7 +3532,7 @@
                 "name": "Boudica",
                 "class": "rider",
                 "game_id": "26",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/By8vxkg.png"
@@ -3542,7 +3542,7 @@
                 "name": "Ushiwakamaru",
                 "class": "rider",
                 "game_id": "27",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/VhHPySK.png"
@@ -3552,7 +3552,7 @@
                 "name": "Alexander",
                 "class": "rider",
                 "game_id": "28",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Zesz9YG.png"
@@ -3562,7 +3562,7 @@
                 "name": "Medea",
                 "class": "caster",
                 "game_id": "31",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Clfvmiu.png"
@@ -3572,7 +3572,7 @@
                 "name": "Gilles de Rais",
                 "class": "caster",
                 "game_id": "32",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/KJt5dSc.png"
@@ -3582,7 +3582,7 @@
                 "name": "Mephistopheles",
                 "class": "caster",
                 "game_id": "35",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JrgF3Oy.png"
@@ -3592,7 +3592,7 @@
                 "name": "Cú Chulainn (Caster)",
                 "class": "caster",
                 "game_id": "38",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UYIpYrd.png"
@@ -3602,7 +3602,7 @@
                 "name": "Jing Ke",
                 "class": "assassin",
                 "game_id": "42",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/2QrhC3p.png"
@@ -3612,7 +3612,7 @@
                 "name": "Lu Bu Fengxian",
                 "class": "berserker",
                 "game_id": "49",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/36xJ2d8.png"
@@ -3622,7 +3622,7 @@
                 "name": "Darius III",
                 "class": "berserker",
                 "game_id": "55",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/PjIEY8G.png"
@@ -3632,7 +3632,7 @@
                 "name": "Kiyohime",
                 "class": "berserker",
                 "game_id": "56",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/XLLXccS.png"
@@ -3642,7 +3642,7 @@
                 "name": "David",
                 "class": "archer",
                 "game_id": "63",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/4tdfNGI.png"
@@ -3652,7 +3652,7 @@
                 "name": "Hector",
                 "class": "lancer",
                 "game_id": "64",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/6w8wWDT.png"
@@ -3662,7 +3662,7 @@
                 "name": "Diarmuid Ua Duibhne",
                 "class": "lancer",
                 "game_id": "71",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/cwNs0p2.png"
@@ -3672,7 +3672,7 @@
                 "name": "Fergus mac Róich",
                 "class": "saber",
                 "game_id": "72",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JOazosj.png"
@@ -3682,7 +3682,7 @@
                 "name": "Paracelsus von Hohenheim",
                 "class": "caster",
                 "game_id": "79",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/d6t9BPG.png"
@@ -3692,7 +3692,7 @@
                 "name": "Charles Babbage",
                 "class": "caster",
                 "game_id": "80",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/BrEm1kv.png"
@@ -3702,7 +3702,7 @@
                 "name": "Henry Jekyll & Hyde",
                 "class": "assassin",
                 "game_id": "81",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/NodWxv0.png"
@@ -3712,7 +3712,7 @@
                 "name": "Gilgamesh (Child)",
                 "class": "archer",
                 "game_id": "95",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/0a8gMKc.png"
@@ -3722,7 +3722,7 @@
                 "name": "Geronimo",
                 "class": "caster",
                 "game_id": "104",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/43AC33N.png"
@@ -3732,7 +3732,7 @@
                 "name": "Billy the Kid",
                 "class": "archer",
                 "game_id": "105",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pHEBThV.png"
@@ -3742,7 +3742,7 @@
                 "name": "Hundred-Faced Hassan",
                 "class": "assassin",
                 "game_id": "110",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/n7XDDjX.png"
@@ -3752,7 +3752,7 @@
                 "name": "Fūma Kotarō",
                 "class": "assassin",
                 "game_id": "117",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/HGnFSLP.png"
@@ -3762,7 +3762,7 @@
                 "name": "Hassan of Serenity",
                 "class": "assassin",
                 "game_id": "124",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/WraaofQ.png"
@@ -3772,7 +3772,7 @@
                 "name": "Tawara Tōta",
                 "class": "archer",
                 "game_id": "125",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZmIjly9.png"
@@ -3782,7 +3782,7 @@
                 "name": "Bedivere",
                 "class": "saber",
                 "game_id": "126",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/XmjEtuv.png"
@@ -3792,7 +3792,7 @@
                 "name": "Jaguar Man",
                 "class": "lancer",
                 "game_id": "148",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/wtwYgU8.png"
@@ -3802,7 +3802,7 @@
                 "name": "Christopher Columbus",
                 "class": "rider",
                 "game_id": "172",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/yIG1Eoh.png"
@@ -3812,7 +3812,7 @@
                 "name": "Hōzōin Inshun",
                 "class": "lancer",
                 "game_id": "186",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/C1KS9kP.png"
@@ -3822,7 +3822,7 @@
                 "name": "Avicebron",
                 "class": "caster",
                 "game_id": "203",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/KqPHkGq.png"
@@ -3832,7 +3832,7 @@
                 "name": "Antonio Salieri",
                 "class": "avenger",
                 "game_id": "204",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/LJIE2Eg.png"
@@ -3842,7 +3842,7 @@
                 "name": "Okada Izō",
                 "class": "assassin",
                 "game_id": "230",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/SzhIfdS.png"
@@ -3852,7 +3852,7 @@
                 "name": "Red Hare",
                 "class": "rider",
                 "game_id": "231",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/QKBUrlz.png"
@@ -3862,7 +3862,7 @@
                 "name": "William Tell",
                 "class": "archer",
                 "game_id": "246",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/wFWgkLf.png"
@@ -3872,7 +3872,7 @@
                 "name": "Asclepius",
                 "class": "caster",
                 "game_id": "249",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/fvpJMOJ.png"
@@ -3882,7 +3882,7 @@
                 "name": "Mori Nagayoshi",
                 "class": "berserker",
                 "game_id": "251",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/A38JJ67.png"
@@ -3892,7 +3892,7 @@
                 "name": "Mandricardo",
                 "class": "rider",
                 "game_id": "273",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pZI7ux8.png"
@@ -3902,7 +3902,7 @@
                 "name": "Zhang Jue",
                 "class": "caster",
                 "game_id": "348",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/stTkPNe.png"
@@ -3912,7 +3912,7 @@
                 "name": "Xu Fu",
                 "class": "alterego",
                 "game_id": "352",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/46ZDZlZ.png"
@@ -3922,7 +3922,7 @@
                 "name": "Sugitani Zenjūbō",
                 "class": "archer",
                 "game_id": "395",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/D4ADvA0.png"
@@ -3932,7 +3932,7 @@
                 "name": "Theseus",
                 "class": "saber",
                 "game_id": "396",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/7gpmAuc.png"
@@ -3952,7 +3952,7 @@
                 "name": "Musashibō Benkei",
                 "class": "lancer",
                 "game_id": "19",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Hsn5gOd.png"
@@ -3962,7 +3962,7 @@
                 "name": "Leonidas I",
                 "class": "lancer",
                 "game_id": "21",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/CwFAXFT.png"
@@ -3972,7 +3972,7 @@
                 "name": "Georgios",
                 "class": "rider",
                 "game_id": "24",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/hIkIe79.png"
@@ -3982,7 +3982,7 @@
                 "name": "Edward Teach",
                 "class": "rider",
                 "game_id": "25",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/a3TKdca.png"
@@ -3992,7 +3992,7 @@
                 "name": "Hans Christian Andersen",
                 "class": "caster",
                 "game_id": "33",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JfTWhfN.png"
@@ -4002,7 +4002,7 @@
                 "name": "William Shakespeare",
                 "class": "caster",
                 "game_id": "34",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/w2004wy.png"
@@ -4012,7 +4012,7 @@
                 "name": "Cursed Arm Hassan",
                 "class": "assassin",
                 "game_id": "40",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/cRTqKpW.png"
@@ -4022,7 +4022,7 @@
                 "name": "Charles-Henri Sanson",
                 "class": "assassin",
                 "game_id": "43",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/IH8zT6Z.png"
@@ -4032,7 +4032,7 @@
                 "name": "Phantom of the Opera",
                 "class": "assassin",
                 "game_id": "44",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/BRTLSxm.png"
@@ -4042,7 +4042,7 @@
                 "name": "Caligula",
                 "class": "berserker",
                 "game_id": "54",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/FwTzIzP.png"
@@ -4052,7 +4052,7 @@
                 "name": "Eric Bloodaxe",
                 "class": "berserker",
                 "game_id": "57",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/e2kKgVB.png"
@@ -4062,7 +4062,7 @@
                 "name": "Paris",
                 "class": "archer",
                 "game_id": "255",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZH7v7W2.png"
@@ -4072,7 +4072,7 @@
                 "name": "Gareth",
                 "class": "lancer",
                 "game_id": "256",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/sWyAivK.png"
@@ -4082,7 +4082,7 @@
                 "name": "Chen Gong",
                 "class": "caster",
                 "game_id": "258",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/u1EXNsx.png"
@@ -4092,7 +4092,7 @@
                 "name": "Salome",
                 "class": "berserker",
                 "game_id": "260",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/9JsVxzr.png"
@@ -4112,7 +4112,7 @@
                 "name": "Arash",
                 "class": "archer",
                 "game_id": "16",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Ft2tyhW.png"
@@ -4122,7 +4122,7 @@
                 "name": "Wolfgang Amadeus Mozart",
                 "class": "caster",
                 "game_id": "36",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/OMtT4g7.png"
@@ -4132,7 +4132,7 @@
                 "name": "Sasaki Kojirō",
                 "class": "assassin",
                 "game_id": "39",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/c0qHuE6.png"
@@ -4142,7 +4142,7 @@
                 "name": "Mata Hari",
                 "class": "assassin",
                 "game_id": "45",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/pMtjthO.png"
@@ -4152,7 +4152,7 @@
                 "name": "Spartacus",
                 "class": "berserker",
                 "game_id": "50",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/5cAFgvT.png"
@@ -4162,7 +4162,7 @@
                 "name": "Asterios",
                 "class": "berserker",
                 "game_id": "53",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/rGgVyVh.png"
@@ -4172,7 +4172,7 @@
                 "name": "Paul Bunyan",
                 "class": "berserker",
                 "game_id": "174",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/tKM9teU.png"
@@ -4182,7 +4182,7 @@
                 "name": "Jason",
                 "class": "saber",
                 "game_id": "254",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ynppaIO.png"
@@ -4192,7 +4192,7 @@
                 "name": "Bartholomew Roberts",
                 "class": "rider",
                 "game_id": "257",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/KiJ55kZ.png"
@@ -4202,7 +4202,7 @@
                 "name": "Charlotte Corday",
                 "class": "assassin",
                 "game_id": "259",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/AjouoOf.png"
@@ -4212,7 +4212,7 @@
                 "name": "Oda Nobukatsu",
                 "class": "archer",
                 "game_id": "294",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/aZb2D0u.png"
@@ -4222,7 +4222,7 @@
                 "name": "Mary Anning",
                 "class": "lancer",
                 "game_id": "341",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ii4yFGR.png"
@@ -4242,7 +4242,7 @@
                 "name": "Angra Mainyu",
                 "class": "avenger",
                 "game_id": "107",
-                "maxcopy": 10,
+                "maxcopy": 5,
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/UkyfnFa.png"
