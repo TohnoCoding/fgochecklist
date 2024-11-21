@@ -174,7 +174,7 @@ const Config = {
     NAonly_parameter: "NA",
     NAonly_checkbox: "NAonly",
     
-    webAppVersion: "20241119",
+    webAppVersion: "20241121",
 
     globalThreshold: 99999,
 
