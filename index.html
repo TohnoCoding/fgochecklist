@@ -60,14 +60,7 @@
             <p id="page_whatami">Please note that the site may take a while loading on first visit from caching all
             images.<br>This list gets updated as soon as my schedule allows me, which should be at most during the first
             few days after a new Servant is released.<br>~Tohno Shiki</p>
-            <h5 class="newFeature">
-                &nbsp;IMPORTANT: Fast Mode functionality has changed. With the implementation of the true wishlisting feature,
-                left-clicking/short tapping will increase NP copies, and right-clicking/long tapping will increase wishlisted
-                copies. If you hit the maximum amount of copies for either value, altering them again will wrap them around
-                back to zero.&nbsp;
-            </h5>
-            </div>
-        <br>
+        </div>
         <button type="button" id="toggleUnitTypesButton" class="btn btn-options btn-secondary menu-btn"
         onclick="toggleUnitTypeIcon()">Toggle Availability Icons On/Off</button>
         <table id="optionsAndButtons">
@@ -81,7 +74,8 @@
             </tr>
             <tr class="form-group form-check form-check-options">
                 <td><input type="checkbox" class="form-check-input" id="fastmode"></td>
-                <td><label class="form-check-label" for="fastmode">Fast Mode (Left/Right Click)</label></td>
+                <td><label class="form-check-label newFeature" for="fastmode">Fast Mode
+                    (left click/short tap for owned; right click/long tap for wishlist)&nbsp;&nbsp;</label></td>
             </tr>
             <tr class="form-group form-check form-check-options">
                 <td><input type="checkbox" class="form-check-input" id="NAonly"></td>

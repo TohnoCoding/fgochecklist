@@ -342,19 +342,6 @@ div.member-eventonly {
 td {
     line-height: normal;
     white-space: nowrap;
-}
-
-.newFeature::before {
-    content: 'NEW!';
-    background-color: red;
-    color: white;
-    padding: 5px;
-    animation: blink 0.5s step-start infinite;
-    font-variant-caps: all-small-caps;
-    padding-top: 0;
-    padding-bottom: 3px;
-    display: inline !important;
-    white-space: nowrap; 
 }    
 
 .newFeature::after {
