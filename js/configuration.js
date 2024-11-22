@@ -173,10 +173,9 @@ const Config = {
     "will not be able to be hidden.",
     NAonly_parameter: "NA",
     NAonly_checkbox: "NAonly",
+    globalThreshold: 99999,
     
     webAppVersion: "20241121",
-
-    globalThreshold: 99999,
 
     padorus: [
         "padoru-nero"
