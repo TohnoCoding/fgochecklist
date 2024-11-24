@@ -175,7 +175,7 @@ const Config = {
     NAonly_checkbox: "NAonly",
     globalThreshold: 99999,
     
-    webAppVersion: "20241121",
+    webAppVersion: "20241124",
 
     padorus: [
         "padoru-nero"

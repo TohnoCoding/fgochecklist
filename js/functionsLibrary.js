@@ -687,8 +687,10 @@ function updateUnitDataInFastMode(id, val, s_element) {
     if (!id || !s_element) { return; }
     const current_user_data = getStoredUnitData(id) || { np: 0, wl: 0 };
     const isNPUpdate = val > 0; // Left/short tap for NP, right/long tap for WL
+    if (id == "3-0" && !isNPUpdate) { return showAlert("Mash cannot be " +
+        "wishlisted, as she is your default Servant."); }
     const maxValue = isNPUpdate
-        ? Config.copy_choice_allow.length - 1
+        ? Config.servants_data_list[id].maxcopy
         : Config.wishlist_choice_allow.length - 1;
     if (isNPUpdate)
     { current_user_data.np = (current_user_data.np + 1) % (maxValue + 1); }
