@@ -299,6 +299,7 @@ div.member-eventonly {
 #optionsAndButtons td {
     word-break: break-word;
     white-space: normal;
+    vertical-align: top;
 }
 
 #optionsAndButtons label {
