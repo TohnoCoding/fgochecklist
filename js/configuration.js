@@ -1,5 +1,5 @@
 const Config = {
-    // GENERAL/GLOBAL CONFIG VALUES/PARAMETERS {
+    //#region GENERAL/GLOBAL CONFIG VALUES/PARAMETERS
     // File-related configs and specs
     icontype: ".png",
     icondefault: "default.png",
@@ -183,7 +183,7 @@ const Config = {
     ],
     padoruStartMonth: 10, padoruStartDay: 28,   //  Before Nov 28
     padoruEndMonth: 0, padoruEndDay: 3,         //  After Jan 3
-    // }
+    //#endregion
 };
 
 Config.cookieName = `${Config.webAppVersion}_notice`;
