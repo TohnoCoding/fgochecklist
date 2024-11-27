@@ -198,7 +198,7 @@ const Config = {
         ,"woahdoru.gif"
         //,""
     ],
-    padoruStartMonth: 6, padoruStartDay: 28,   //  Between Nov 28...
+    padoruStartMonth: 10, padoruStartDay: 28,   //  Between Nov 28...
     padoruEndMonth: 0, padoruEndDay: 3,         //  ...and Jan 3
     //#endregion
 };
