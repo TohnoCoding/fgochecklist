@@ -178,7 +178,7 @@ const Config = {
     webAppVersion: "20241124",
 
     padorus: [
-        "padoru-nero"
+        "padoru-nero.png"
         //,""
     ],
     padoruStartMonth: 10, padoruStartDay: 28,   //  Between Nov 28...

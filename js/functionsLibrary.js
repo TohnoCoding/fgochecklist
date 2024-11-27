@@ -319,7 +319,7 @@ function checkDateToInjectPadoru() {
         'id': "padoru-walker"
     }));
     const randomPadoru = "./img/padoru/" + Config.padorus
-        [Math.floor(Math.random() * Config.padorus.length)] + ".png";
+        [Math.floor(Math.random() * Config.padorus.length)];
     $("#padoru-walker").attr('src', randomPadoru);
     var $snowfall = $('<div>', { 'class': 'snowfall', 'id': 'snowfall' });
     var $pageBody = $('body').contents().detach();
