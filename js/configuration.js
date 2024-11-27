@@ -178,10 +178,27 @@ const Config = {
     webAppVersion: "20241124",
 
     padorus: [
-        "padoru-nero.png"
+         "umudoru.png"
+        ,"astolforu.png"
+        ,"ereshdoru.png"
+        ,"ereshspindoru.gif"
+        ,"essbeebeedoru.png"
+        ,"jalterdoru.png"
+        ,"lambdadoru.gif"
+        ,"lightvitchdoru.png"
+        ,"maoudoru.png"
+        ,"meltdoru.png"
+        ,"memelindoru.png"
+        ,"muramadoru.png"
+        ,"ozymandoru.png"
+        ,"paisendoru.png"
+        ,"paisenspindoru.gif"
+        ,"saderu.gif"
+        ,"serenidoru.gif"
+        ,"woahdoru.gif"
         //,""
     ],
-    padoruStartMonth: 10, padoruStartDay: 28,   //  Between Nov 28...
+    padoruStartMonth: 6, padoruStartDay: 28,   //  Between Nov 28...
     padoruEndMonth: 0, padoruEndDay: 3,         //  ...and Jan 3
     //#endregion
 };
