@@ -47,9 +47,9 @@ body {
 	background-color: #342045;
 }
 
-#headerCard {
-	border: 5px solid;
-	padding: 1em;
+.clearCard {
+	border: 5px solid !important;
+	padding: 1em !important;
 }
 
 div.snowfall {
@@ -65,9 +65,8 @@ div.snowfall {
 	float: left;
 }
 
-#statisticBox, #footer, #note
-{
-	color: #FFF;
+#statisticBox, #footer, #note, #statsTitle {
+	color: #FFF !important;
 	text-shadow: 
      1px   0  0   #000, 
     -1px   0  0   #000, 
@@ -78,7 +77,7 @@ div.snowfall {
      1px -1px 0   #000, 
     -1px  1px 0   #000,
 	1px 1px 10px #000,
-	1px 1px 10px #ccc;
+	1px 1px 10px #ccc !important;
 }
 
 /* Walk */
