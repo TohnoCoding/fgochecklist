@@ -309,19 +309,19 @@ function checkDateToInjectPadoru() {
             currDay > Config.padoruEndDay))
         { return; } // Do nothing if outside the above date range
     $('head').append($('<link>', {
-        'rel': "stylesheet",
-        'type': "text/css",
-        'href': "./css/padoruSite.css",
-        'crossorigin': "anonymous"
+        rel: "stylesheet",
+        type: "text/css",
+        href: "./css/padoruSite.css",
+        crossorigin: "anonymous"
     }));
     $("#walk-container").append($('<img>', {
-        'class': "d-inline-block align-top",
-        'id': "padoru-walker"
+        class: "d-inline-block align-top",
+        id: "padoru-walker"
     }));
     const randomPadoru = "./img/padoru/" + Config.padorus
         [Math.floor(Math.random() * Config.padorus.length)];
     $("#padoru-walker").attr('src', randomPadoru);
-    var $snowfall = $('<div>', { 'class': 'snowfall', 'id': 'snowfall' });
+    var $snowfall = $('<div>', { class: 'snowfall', id: 'snowfall' });
     var $pageBody = $('body').contents().detach();
     $('body').empty().append($snowfall.append($pageBody));
 }
@@ -346,8 +346,8 @@ function buildUnitDataInUI(units_data) {
             cur_rarity.class_available.forEach(function(cur_class) {
                 // Create the class container
                 var class_container = $('<div>', { 
-                    'class': 'row classBox', 
-                    'id': `${cur_rarity.list_id}_${cur_class}` 
+                    class: 'row classBox', 
+                    id: `${cur_rarity.list_id}_${cur_class}` 
                 });
                 // Class Icon
                 var current_class_data = Config.class_data_list[cur_class];
@@ -355,13 +355,13 @@ function buildUnitDataInUI(units_data) {
                     (current_class_data.iconlist[cur_rarity.list_id]);
                 list_img.push(loadSprite(current_class_data_icn));
                 var class_icon_div = $('<div>', {
-                    'class': Config.class_div_icon_CSSclass,
-                    'style': 'text-align: center'
+                    class: Config.class_div_icon_CSSclass,
+                    style: 'text-align: center'
                 }).append(
                     $('<img>', {
-                        'src': current_class_data_icn,
-                        'class': Config.img_CSSclass,
-                        'title': current_class_data.name,
+                        src: current_class_data_icn,
+                        class: Config.img_CSSclass,
+                        title: current_class_data.name,
                         'data-toggle': 'tooltip-member',
                         'data-placement': 'bottom'
                     })
@@ -395,8 +395,8 @@ function buildUnitDataInUI(units_data) {
                 );
                 class_container.append(class_icon_div);
                 class_container.append($('<div>', {   // Add row for the class
-                    'class': `row ${Config.class_div_list_CSSclass} classRow`,
-                    'id': `${cur_rarity.list_element}_${cur_class}`
+                    class: `row ${Config.class_div_list_CSSclass} classRow`,
+                    id: `${cur_rarity.list_element}_${cur_class}`
                 }));
                 class_html_wrapper.append(class_container).append('<hr>');
             });
