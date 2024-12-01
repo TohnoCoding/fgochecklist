@@ -168,6 +168,9 @@ div.member-eventonly {
     text-shadow: 1px 1px 10px #000, 1px 1px 10px #ccc;
 }
 
+#footer div {
+	margin-left: auto !important;
+}
 
 /* Navbar Styling */
 .navbar a {
@@ -176,10 +179,6 @@ div.member-eventonly {
 
 /* Media Queries for Mobile */
 @media (max-width: 380px) {
-    #noticeBoard {
-        width: 90% !important;
-    }
-
     .card {
         margin-left: -2.7em !important;
         width: 133% !important;
@@ -328,29 +327,6 @@ div.member-eventonly {
 
 #statsTitle {
     margin-top: 2%;
-}
-
-/* Notice Board */
-#noticeBoard {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 70%;
-    border: 2px solid;
-    border-radius: 10%;
-    padding: 2%;
-    margin: 0 auto;
-    margin-bottom: 2%;
-    background-color: white;
-    text-align: justify;
-    text-justify: inter-word;
-}
-
-#rmvNotice {
-    text-align: center;
-    cursor: grab;
-    font-weight: bold;
 }
 
 /* New Feature Styling */

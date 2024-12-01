@@ -81,25 +81,24 @@ div.snowfall {
 }
 
 /* Walk */
-
 @keyframes stroll {
-  from { transform: translateX(-10%); }
-  to { transform: translateX(100%); }
+  from { transform: translateX(-20%); }
+  to { transform: translateX(110%); }
 }
 
 @-moz-keyframes stroll {
-  from { transform: translateX(-10%); }
-  to { transform: translateX(100%); }
+  from { transform: translateX(-20%); }
+  to { transform: translateX(110%); }
 }
 
 @-webkit-keyframes stroll {
-  from { transform: translateX(-100); }
-  to { transform: translateX(100%); }
+  from { transform: translateX(-110); }
+  to { transform: translateX(110%); }
 }
 
 @-ms-keyframes stroll {
-  from { transform: translateX(-100); }
-  to { transform: translateX(100%); }
+  from { transform: translateX(-110); }
+  to { transform: translateX(110%); }
 }
 
 #walk-container {
@@ -117,4 +116,43 @@ div.snowfall {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+}
+
+@media (max-width: 650px) {
+    @keyframes stroll {
+		from { transform: translateX(-40%); }
+		to { transform: translateX(140%); }
+	  }
+	  
+	  @-moz-keyframes stroll {
+		from { transform: translateX(-40%); }
+		to { transform: translateX(140%); }
+	  }
+	  
+	  @-webkit-keyframes stroll {
+		from { transform: translateX(-140); }
+		to { transform: translateX(140%); }
+	  }
+	  
+	  @-ms-keyframes stroll {
+		from { transform: translateX(-140); }
+		to { transform: translateX(140%); }
+	  }
+	  
+	  #walk-container {
+		  width: 100%;
+		  position: fixed;
+		  bottom: 0;
+		  -webkit-animation: stroll 15s linear infinite;
+		  -moz-animation: stroll 15s linear infinite;
+		  -ms-animation: stroll 15s linear infinite;
+		  animation: stroll 15s linear infinite;
+		  -webkit-touch-callout: none; /* iOS Safari */
+		  -webkit-user-select: none; /* Safari */
+		   -khtml-user-select: none; /* Konqueror HTML */
+			 -moz-user-select: none; /* Firefox */
+			  -ms-user-select: none; /* Internet Explorer/Edge */
+				  user-select: none; /* Non-prefixed version, currently
+										supported by Chrome and Opera */
+	  }
 }
