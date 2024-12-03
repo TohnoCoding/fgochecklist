@@ -65,20 +65,20 @@ const Config = {
     // Servant Types config
     servant_type_box_class: "member-type",
     servant_typelist: [
-        { id: 0, "show": false, "eventonly": false, "ctext": null,
-            "class": null }, // Default
-        { id: 1, "show": true, "eventonly": false,
-            "ctext": '<i class="fas fa-shield-alt"></i>',
-            "class": "member-mash" }, // Mash
-        { id: 2, "show": true, "eventonly": false,
-            "ctext": '<i class="fas fa-lock"></i>',
-            "class": "member-locked" }, // Storylocked
-        { id: 3, "show": true, "eventonly": false,
-            "ctext": '<i class="fas fa-star"></i>',
-            "class": "member-limited" }, // Limited
-        { id: 4, "show": true, "eventonly": true,
-            "ctext": '<i class="fas fa-gift"></i>',
-            "class": "member-eventonly" } // Welfare
+        { id: 0, show: false, eventonly: false, typeicon: null,
+            class: null }, // Default
+        { id: 1, show: true, eventonly: false,
+            typeicon: '<i class="fas fa-shield-alt"></i>',
+            class: "member-mash" }, // Mash
+        { id: 2, show: true, eventonly: false,
+            typeicon: '<i class="fas fa-lock"></i>',
+            class: "member-locked" }, // Storylocked
+        { id: 3, show: true, eventonly: false,
+            typeicon: '<i class="fas fa-star"></i>',
+            class: "member-limited" }, // Limited
+        { id: 4, show: true, eventonly: true,
+            typeicon: '<i class="fas fa-gift"></i>',
+            class: "member-eventonly" } // Welfare
     ],
 
     // Confirm strings
@@ -175,7 +175,7 @@ const Config = {
     NAonly_checkbox: "NAonly",
     globalThreshold: 99999,
     
-    webAppVersion: "20241124",
+    webAppVersion: "20241201",
 
     padorus: [
          "umudoru.png"

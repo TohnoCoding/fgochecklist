@@ -52,7 +52,7 @@ function executeActionOnAllUnits
  * null.
  * @param {string} id The ID of the currently selected unit.
  * @returns {object} Undefined if there's no stored data; the saved data of the
- * selected unit if there is.
+ *                   selected unit if there is.
  */
 function getStoredUnitData(id) {
     if (typeof Config.user_data[id] === "undefined") { return null; }
@@ -335,7 +335,8 @@ function buildUnitDataInUI(units_data) {
     $(".listbox, .listbox_class").empty(); // Clear contents
     var list_box = [], list_img = [];
     var img_default =
-        getPortraitImagePath(Config.icondefault, Config.icondefault_external_source);
+        getPortraitImagePath(Config.icondefault,
+            Config.icondefault_external_source);
     list_img.push(loadSprite(img_default)); // Add default photo
     units_data.forEach(function(cur_rarity) {
         if (cur_rarity.disable) { return; } // Skip if disabled
@@ -454,24 +455,26 @@ function buildUnitDataInUI(units_data) {
                     { src: current_servant_img, class: Config.img_CSSclass }
                 ),
                 $('<div>', {    // NP copies
-                    id: 
-                        `${Config.additional_copies_prefix}${current_servant.id}`,
+                    id: `${Config.additional_copies_prefix}` +
+                        `${current_servant.id}`,
                     class: Config.additional_copies_CSSclass,
                     text: npBadge
                 }),
                 $('<div>', {    // Wishlist copies
-                    id: `${Config.wishlist_copies_prefix}${current_servant.id}`,
+                    id: `${Config.wishlist_copies_prefix}` +
+                        `${current_servant.id}`,
                     class: `${Config.additional_copies_CSSclass} wl-level`,
                     text: wlBadge
                 })
             );
-            // Availability icon (e.g., limited, story-locked) based on servant type
+            // Type icon (e.g., limited, story-locked) based on servant type
             var current_type = Config.servant_typelist[current_servant.stype];
             if (current_type.show) {
                 unit_container.find('div').first().append(
                     $('<div>', {
-                        class: `${Config.servant_type_box_class} ${current_type.class}`,
-                        html: current_type.ctext // Icon content
+                        class: `${Config.servant_type_box_class}` +
+                            ` ${current_type.class}`,
+                        html: current_type.typeicon // Icon content
                     })
                 );
             }
@@ -521,9 +524,9 @@ function buildUnitDataInUI(units_data) {
 
 /**
  * Updates the statistics section of the displayed page based on displayed
- * selected data. Calculations now work based on rendered page elements instead
- * of locally saved data in order to be able to recalculate whenever units
- * unreleased in NA are hidden.
+ * selected data. Calculations now work based on rendered page elements
+ * instead of locally saved data in order to be able to recalculate whenever
+ * units unreleased in NA are hidden.
  */
 function updateStatisticsHTML() {
     const classMap = new Map([
@@ -786,11 +789,11 @@ function elementRightClick(s_element) {
  * of a given group. If adding, marks all units of a given group at the first
  * level of NP copies.
  * @param {boolean} markAsDeleted Determines whether the operation deletes or
- * adds all units.
+ *                                adds all units.
  * @param {string} input_rarity The desired rarity in which to operate on all
- * units.
+ *                              units.
  * @param {string} input_class The desired class in the desired rarity in
- * which to operate on all units.
+ *                             which to operate on all units.
  */
 function promptActionOnAllUnits
     (markAsDeleted, input_rarity, input_class, is_wishlisting) {
@@ -818,8 +821,8 @@ function toggleUnitTypeIcon()
  * additionally open share windows for Xwitter and Facebook if desired. If the
  * URL can't be shortened, shows an error modal notifying the user.
  * @param {string} site "Facebook", "Twitter" (opens new windows for direct
- * sharing), or any other string (including an empty string) to just get the
- * shortened URL.
+ *                      sharing), or any other string (including an empty
+ *                      string) to just get the shortened URL.
  */
 function shareURL(site) {
     shortenURL().then((short_url) => {
@@ -1012,7 +1015,7 @@ function isMashSR()
 /**
  * Returns a string indicating the state of Fast Mode for URL injection.
  * @returns {string} An empty string if Fast Mode is off;
- * `{$fastmode_parameter}=1` if it's on.
+ *                   `{$fastmode_parameter}=1` if it's on.
  */
 function getFastModeURLstring()
 { return isFastMode() ? Config.fastmode_parameter + "=1" : ""; }
@@ -1020,7 +1023,7 @@ function getFastModeURLstring()
 /**
  * Returns a string indicating the state of Class Mode for URL injection.
  * @returns {string} An empty string if Class Mode is off,
- * `{$classmode_parameter}=1` if it's on.
+ *                   `{$classmode_parameter}=1` if it's on.
  */
 function getClassModeURLstring()
 { return isClassMode() ? Config.classmode_parameter + "=1" : ""; }
@@ -1028,7 +1031,7 @@ function getClassModeURLstring()
 /**
  * Returns a string indicating whether JP-only units should be hidden.
  * @returns {string} An empty string if "hide JP units" is off;
- * `{$NAonly_parameter}=1` if it's on.
+ *                   `{$NAonly_parameter}=1` if it's on.
  */
 function getNAonlyURLstring()
 { return isNAonly() ? Config.NAonly_parameter + "=1" : ""; }
@@ -1037,10 +1040,11 @@ function getNAonlyURLstring()
  * Returns an URL component that determines if Mash should be treated as of SR
  * rarity.
  * @param {boolean} allowZero If false, returns "mash=1" if Mash is SR, and an
- * empty string if she's not; true returns "mash=0" for URL shortening if she's
- * not marked as SR.
+ *                            empty string if she's not; true returns "mash=0"
+ *                            for URL shortening if she's not marked as SR.
  * @returns {string} Empty string for general use if Mash isn't marked as SR,
- * or "mash=0" for URL shortening; "mash=1" if she's marked as SR.
+ *                   or "mash=0" for URL shortening; "mash=1" if she's marked
+ *                   as SR.
  */
 function getMashSRURLstring(allowZero) {
     return isMashSR() ? `${Config.mashSR_parameter}=1` :
@@ -1053,7 +1057,7 @@ function getMashSRURLstring(allowZero) {
  * property of the current unit is set to false.
  * @param {string} path The path to the image local to the codebase.
  * @param {boolean} external_source Whether the image is from an external
- * source.
+ *                                  source.
  * @returns {string} The full path to the desired image.
  */
 function getPortraitImagePath(path, external_source)
@@ -1064,11 +1068,12 @@ function getPortraitImagePath(path, external_source)
  * portraits, a generic unit portrait, or class images based on invoking
  * parameters.
  * @param {string} path The path to the image, either an absolute URL
- * (depending on external_source) or local to the current codebase.
+ *                      (depending on external_source) or local to the
+ *                      current codebase.
  * @param {boolean} [external_source = false] Specifies whether the image is
- * external to the codebase or not.
+ *                  external to the codebase or not.
  * @param {boolean} [isPortrait = false] Specifies whether the image being
- * loaded is an unit portrait or not.
+ *                  loaded is an unit portrait or not.
  * @returns {string} The fully formed path to the desired image.
  */
 function getImagePath(path, external_source = false, isPortrait = false) {
@@ -1096,7 +1101,7 @@ function getClassImagePath(servantClass) { return getImagePath(servantClass); }
  * @param {string} rarity The rarity to filter by.
  * @param {string} unitClass The class within the specified rarity.
  * @returns {Array} Filtered array of servants in the specified rarity
- * and class.
+ *                  and class.
  */
 function filterServants(servants_data, rarity, unitClass) {
     return servants_data
@@ -1131,7 +1136,7 @@ function applyOperationToServants(servants, markAsDeleted, markAsWL = false) {
  * Builds a new Select2 combobox/dropdown for the desired unit for the detailed
  * popup.
  * @param {number} current_max The max amount of copies of the currently
- * selected element.
+ *                             selected element.
  * @param {object} nplist The list of elements to display in the box.
  */
 function getNewCopySource(current_max, nplist, wishlist, unitID) {
@@ -1227,7 +1232,7 @@ function jumpTo(){
  * sorted collection.
  * @param {object} not_sorted Unsorted collection of key-value pairs.
  * @returns {object} A new collection of key-value pairs sorted alphabetically
- * by the keys.
+ *                   by the keys.
  */
 function orderKeys(not_sorted) {
     var sorted = Object.keys(not_sorted).sort()
@@ -1242,7 +1247,7 @@ function orderKeys(not_sorted) {
  * Preloads images asynchronously.
  * @param {string} src The address/URL of the image to load.
  * @returns {Promise<void>} A promise that resolves when the image finishes
- * loading.
+ *                          loading.
  */
 function loadSprite(src) {
     var deferred = $.Deferred();
@@ -1277,7 +1282,7 @@ async function shortenURL() {
     /**
      * Shortens the current data URL with waa.ai/Akari-chan shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
-     * shortening the current URL.
+     *                          shortening the current URL.
      */
     function waaai() {
         return new Promise((resolve, reject) => {
@@ -1302,7 +1307,7 @@ async function shortenURL() {
     /**
      * Shortens the current data URL with is.gd shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
-     * shortening the current URL.
+     *                          shortening the current URL.
      */
     function isgd() {
         return new Promise((resolve, reject) => {
@@ -1320,7 +1325,7 @@ async function shortenURL() {
     /**
      * Shortens the current data URL with owo.vc shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
-     * shortening the current URL.
+     *                          shortening the current URL.
      */
     function owo() {
         return new Promise((resolve, reject) => {
