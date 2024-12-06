@@ -172,6 +172,8 @@ div.member-eventonly {
 	margin-left: auto !important;
 }
 
+#footer p { margin-bottom: 0; }
+
 /* Navbar Styling */
 .navbar a {
     color: #BBBBFF;
