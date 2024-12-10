@@ -93,6 +93,7 @@ div.member-wishlist {
     height: 88px;
     padding-right: 2px;
     border-left: 3px solid red !important;
+    border-right: 1px solid red !important;
 }
 
 div.member-wishlist > img {
