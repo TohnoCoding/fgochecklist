@@ -484,7 +484,7 @@ function buildUnitDataInUI(units_data) {
                     .append(unit_container);
             } else { $(curr_element).append(unit_container); }
             // Event handler unbinding and rebinding
-            unit_container.off('click contextmenu');
+            unit_container.off('click contextmenu'); // Unbind event handlers
             const event_listener_element = unit_container
                 .find(`.${Config.member_container_CSSclass}`).first();
             unit_container.on('click', function() {
