@@ -1666,6 +1666,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JmOrqzt.png"
+            },
+            {
+                "id": "5-53",
+                "name": "Louhi",
+                "class": "berserker",
+                "game_id": "429",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/G4qka79.png"
             }
         ]
     },
@@ -3426,6 +3436,16 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/X1pK7vE.png"
+            },
+            {
+                "id": "4-41",
+                "name": "Abigail Williams (Santa)",
+                "class": "pretender",
+                "game_id": "430",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/lQdJZfm.png"
             }
         ]
     },
