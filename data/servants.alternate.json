@@ -1676,6 +1676,16 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/G4qka79.png"
+            },
+            {
+                "id": "5-54",
+                "name": "Phantas-Moon",
+                "class": "pretender",
+                "game_id": "431",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Y7SLCjh.png"
             }
         ]
     },
