@@ -31,6 +31,6 @@ function showChangelogModal() {
 function hideChangelogModal() {
     setCookie(Config.cookieName, true);
     $('#changelogModal').removeClass('changelog-visible');
-    if ($("#hamburger-button").hasClass("active")) { return; }
-    $("#darkener").removeClass("visible-darkener");
+    $('#darkener').removeClass("visible-darkener");
+    if ($('#hamburger-button').hasClass("active")) { return; }
 }
