@@ -1686,6 +1686,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Y7SLCjh.png"
+            },
+            {
+                "id": "5-55",
+                "name": "Richard I",
+                "class": "saber",
+                "game_id": "432",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/yNhxr4m.png"
             }
         ]
     },
