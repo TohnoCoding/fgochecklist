@@ -1706,6 +1706,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/GivsytL.png"
+            },
+            {
+                "id": "5-57",
+                "name": "Ono no Komachi",
+                "class": "caster",
+                "game_id": "435",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/NSl2n6q.png"
             }
         ]
     },
