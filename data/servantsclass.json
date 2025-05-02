@@ -1,11 +1,4 @@
 {
-	"shielder" : {
-		"name": "Shielder",
-		"iconlist" : {
-			"sr" : "shielder/icon-gold.png",
-			"rare" : "shielder/icon-silver.png"
-		}
-	},
 	"saber" : {
 		"name": "Saber",
 		"iconlist" : {

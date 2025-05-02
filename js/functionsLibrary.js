@@ -13,7 +13,7 @@ function executeActionOnAllUnits
     (markAsDeleted, in_rarity, in_class, is_wishlisting = false) {
     $('#loadingModal').modal('show');
     $.ajax({
-        url: isMashSR() ? Config.datapath_alternate : Config.datapath,
+        url: Config.datapath,
         contentType: "application/json",
         dataType: "json",
         cache: false,
@@ -210,6 +210,7 @@ function decodeAndProcessData(getresult) {
             Config.user_data[id] = { np: np || 0, wl: wl || 0 };
         }
     });
+    sanitizeStaleMashData(); // Remove previously existing Mash entry
     finishLoading(); // Update HTML
     showAlert(Config.load_fin_text); // Alert
 }
@@ -243,8 +244,8 @@ function updateURL() {
         $('#' + Config.save_file_btn).prop('disabled', true);
     }
     // Add additional parameters
-    [getMashSRURLstring(false), getClassModeURLstring(),
-        getFastModeURLstring(), getNAonlyURLstring()].forEach((param) => {
+    [getClassModeURLstring(), getFastModeURLstring(),
+        getNAonlyURLstring()].forEach((param) => {
         if (param)
         { new_parameter += (new_parameter.includes("?") ? "&" : "?") + param; }
     });
@@ -255,14 +256,12 @@ function updateURL() {
 }
 
 /**
- * Updates the URL to include the various URL options (Mash being SR,
+ * Updates the URL to include the various URL options (namely,
  * Class/Fast Modes being toggled).
  */
 function updateURLOptionModeOnly() {
     const urlParams = new URLSearchParams(window.location.search);
     const options = [
-        { key: Config.mashSR_parameter, value:
-            getMashSRURLstring(false), storageKey: Config.mashSR_local },
         { key: Config.classmode_parameter, value:
             getClassModeURLstring(), storageKey: Config.class_mode_local },
         { key: Config.fastmode_parameter, value:
@@ -636,6 +635,7 @@ function finishLoading(servant_pass_data) {
             }
         }
     }
+    sanitizeStaleMashData(); // Remove previously existing Mash entry
     updateURL(); // Update URL
     $.ajax({    // Ajax; Class data
         url: Config.dataclasspath,
@@ -651,7 +651,7 @@ function finishLoading(servant_pass_data) {
             { buildUnitDataInUI(servant_pass_data); return; } // Construct UI
             // Ajax; Unit data
             $.ajax({
-                url: isMashSR() ? Config.datapath_alternate : Config.datapath,
+                url: Config.datapath,
                 contentType: "application/json",
                 dataType: "json",
                 cache: false,
@@ -690,8 +690,6 @@ function updateUnitDataInFastMode(id, val, s_element) {
     if (!id || !s_element) { return; }
     const current_user_data = getStoredUnitData(id) || { np: 0, wl: 0 };
     const isNPUpdate = val > 0; // Left/short tap for NP, right/long tap for WL
-    if (id == "3-0" && !isNPUpdate) { return showAlert("Mash cannot be " +
-        "wishlisted, as she is your default Servant."); }
     const maxValue = isNPUpdate
         ? Config.servants_data_list[id].maxcopy
         : Config.wishlist_choice_allow.length - 1;
@@ -1006,13 +1004,6 @@ function isNAonly()
 { return $('#' + Config.NAonly_checkbox).is(':checked'); }
 
 /**
- * Returns whether Mash is marked as SR.
- * @returns {boolean} True if Mash is marked as SR, False otherwise.
- */
-function isMashSR()
-{ return $('#' + Config.mashSR_checkbox).is(':checked'); }
-
-/**
  * Returns a string indicating the state of Fast Mode for URL injection.
  * @returns {string} An empty string if Fast Mode is off;
  *                   `{$fastmode_parameter}=1` if it's on.
@@ -1035,21 +1026,6 @@ function getClassModeURLstring()
  */
 function getNAonlyURLstring()
 { return isNAonly() ? Config.NAonly_parameter + "=1" : ""; }
-
-/**
- * Returns an URL component that determines if Mash should be treated as of SR
- * rarity.
- * @param {boolean} allowZero If false, returns "mash=1" if Mash is SR, and an
- *                            empty string if she's not; true returns "mash=0"
- *                            for URL shortening if she's not marked as SR.
- * @returns {string} Empty string for general use if Mash isn't marked as SR,
- *                   or "mash=0" for URL shortening; "mash=1" if she's marked
- *                   as SR.
- */
-function getMashSRURLstring(allowZero) {
-    return isMashSR() ? `${Config.mashSR_parameter}=1` :
-        (allowZero ? `${Config.mashSR_parameter}=0` : "");
-}
 
 /**
  * Gets the path to an unit portrait image. Loads a default "unknown" image
@@ -1139,30 +1115,18 @@ function applyOperationToServants(servants, markAsDeleted, markAsWL = false) {
  *                             selected element.
  * @param {object} nplist The list of elements to display in the box.
  */
-function getNewCopySource(current_max, nplist, wishlist, unitID) {
-    const isMash = unitID === "3-0";
+function getNewCopySource(current_max, nplist, wishlist) {
     var npChoices =
         Config.copy_choice_allow.filter(choice => choice.id <= current_max);
     nplist.data('select2').dataAdapter.updateOptions(npChoices);
-    wishlist.data('select2').dataAdapter
-        .updateOptions(Config.wishlist_choice_allow);
-    if (isMash) {
-        wishlist.empty().prop('disabled', true).data('select2').dataAdapter.
-            updateOptions([]);
-        $("#wlAddHelp").text("Mash cannot be wishlisted, as she is your " +
-            "default Servant.");
-        $("#wlUpdateHelp").text("Mash cannot be wishlisted, as she is your " +
-            "default Servant.");
-    } else {
-        wishlist.prop('disabled', false).data('select2').dataAdapter
-            .updateOptions(Config.wishlist_choice_allow.map(option => {
-                return { id: option.id, text: option.text };
-            }));
-        $("#wlAddHelp").text("At what NP level do you wish to have this " +
-            "Servant?");
-        $("#wlUpdateHelp").text("At what NP level do you wish to have this " +
-            "Servant?");
-    }
+    wishlist.prop('disabled', false).data('select2').dataAdapter
+        .updateOptions(Config.wishlist_choice_allow.map(option => {
+            return { id: option.id, text: option.text };
+        }));
+    $("#wlAddHelp").text("At what NP level do you wish to have this " +
+        "Servant?");
+    $("#wlUpdateHelp").text("At what NP level do you wish to have this " +
+        "Servant?");
 }
 
 /**
@@ -1256,6 +1220,20 @@ function loadSprite(src) {
     sprite.src = src;
     return deferred.promise();
 }
+
+/**
+ * Checks any saved data for stale references to Mash previously existing in
+ * the data source and cleans up the garbage before proceeding. Mash is an
+ * immutable unit in all accounts, and with her recent (as of 2025/05/01)
+ * shenanigans in JP with her upgrade to a Shielder Paladin and additional
+ * change in rarity to SSR, it's easier to just stop tracking her altogether.
+ */
+function sanitizeStaleMashData() {
+    if (Config.user_data.hasOwnProperty("3-0")) {
+        delete Config.user_data["3-0"];
+        console.log("Mash cleanup executed");
+    }
+}
 //#endregion
 
 //#region AJAX & API HANDLING
@@ -1271,10 +1249,9 @@ async function shortenURL() {
     if (Config.compress_input === "")
     { showAlert(Config.share_none_text); return; } // Warn user if no data
     // Gather the full URL for shortening
-    var mashSR_str = getMashSRURLstring(true);
     var full_url = window.location.protocol + "//" + window.location.host +
         window.location.pathname + "?" + Config.compress_input_parameter + "="
-        + Config.compress_input + (mashSR_str !== "" ? "&" + mashSR_str : "");
+        + Config.compress_input;
     full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
     /*******************************/
     /*     Shortening services     */

@@ -58,21 +58,10 @@ $(async function() {
         dataAdapter: adpt, data: Config.wishlist_choice_allow });
     Config.wishlist_update = $("#wlUpdate").select2({ theme: "bootstrap",
         dataAdapter: adpt, data: Config.wishlist_choice_allow });
-    var MashSR_input = urlParams.get(Config.mashSR_parameter),
-        fastmode_input = urlParams.get(Config.fastmode_parameter),
+    var fastmode_input = urlParams.get(Config.fastmode_parameter),
         classmode_input = urlParams.get(Config.classmode_parameter),
         NAonly_input = urlParams.get(Config.NAonly_parameter);
     Config.compress_input = urlParams.get(Config.compress_input_parameter);
-    if (MashSR_input != null) {     // Mash is SR
-        var Mash_is_SR = (parseInt(MashSR_input) > 0);
-        $('#' + Config.mashSR_checkbox).prop('checked', Mash_is_SR);
-    } else {                        // Mash is SR
-        if (localStorage[Config.mashSR_local]) {
-            var Mash_is_SR =
-                (parseInt(localStorage[Config.mashSR_local]) > 0);
-            $('#' + Config.mashSR_checkbox).prop('checked', Mash_is_SR);
-        }
-    }
     if (Config.classmode_input != null) {   // ClassMode
         var classmode_enable = (parseInt(classmode_input) > 0);
         $('#' + Config.classmode_checkbox).prop('checked', classmode_enable);
@@ -130,8 +119,6 @@ $(async function() {
     $('#' + Config.fastmode_checkbox).on("change",
         function () { updateURLOptionModeOnly(); });
     $('#' + Config.classmode_checkbox).on("change",
-        function () { rebuildUI(); });
-    $('#' + Config.mashSR_checkbox).on("change",
         function () { rebuildUI(); });
     $('#' + Config.NAonly_checkbox).on("change",
         function () { rebuildUI(); });

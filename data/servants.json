@@ -3514,19 +3514,9 @@
         "list_name": "3★",
         "list_element": "rareBox",
         "list_iconpath": "",
-        "class_available": ["shielder","saber","archer","lancer","rider","caster","assassin","berserker","avenger","alterego"],
+        "class_available": ["saber","archer","lancer","rider","caster","assassin","berserker","avenger","alterego"],
         "disable": false,
         "list": [
-            {
-                "id": "3-0",
-                "name": "Mash Kyrielight",
-                "class": "shielder",
-                "game_id": "1",
-                "maxcopy": 3,
-                "stype": 1,
-                "img": true,
-                "imgpath": "https://i.imgur.com/mxdbHP6.png"
-            },
             {
                 "id": "3-1",
                 "name": "Gaius Julius Caesar",
