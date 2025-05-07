@@ -1726,6 +1726,16 @@
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/eKUWpip.png"
+            },
+            {
+                "id": "5-59",
+                "name": "Metatron Jeanne",
+                "class": "ruler",
+                "game_id": "438",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/tW74pzL.png"
             }
         ]
     },
@@ -3506,6 +3516,16 @@
                 "stype": 0,
                 "img": true,
                 "imgpath": "https://i.imgur.com/JP1QccX.png"
+            },
+            {
+                "id": "4-43",
+                "name": "King Ashoka",
+                "class": "lancer",
+                "game_id": "439",
+                "maxcopy": 5,
+                "stype": 2,
+                "img": true,
+                "imgpath": "https://i.imgur.com/bIqL6yi.png"
             }
         ]
     },
