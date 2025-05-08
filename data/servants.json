@@ -1736,6 +1736,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/tW74pzL.png"
+            },
+            {
+                "id": "5-60",
+                "name": "Lilith",
+                "class": "berserker",
+                "game_id": "440",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Any1FjL.png"
             }
         ]
     },
