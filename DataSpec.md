@@ -26,7 +26,7 @@ SERVANT DATA SPEC:
             
             "maxcopy": 5. (Constant value).
             
-            "stype": Integer. Values are: 0 = Normal, 1 = Mash, 2 = Storylocked, 3 = Limited, 4 = Welfare
+            "stype": Integer. Values are: 0 = Normal, 2 = Storylocked, 3 = Limited, 4 = Welfare
             
             "img": true. (Constant value.)
             

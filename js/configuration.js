@@ -66,9 +66,6 @@ const Config = {
     servant_typelist: [
         { id: 0, show: false, eventonly: false, typeicon: null,
             class: null }, // Default
-        { id: 1, show: true, eventonly: false,
-            typeicon: '<i class="fas fa-shield-alt"></i>',
-            class: "member-mash" }, // Mash
         { id: 2, show: true, eventonly: false,
             typeicon: '<i class="fas fa-lock"></i>',
             class: "member-locked" }, // Storylocked
@@ -99,18 +96,15 @@ const Config = {
     // Parameters
     raw_input_parameter: "raw",
     compress_input_parameter: "pak",
+
     fastmode_checkbox: "fastmode",
     fastmode_parameter: "fast",
 
     classmode_checkbox: "classmode",
     classmode_parameter: "classlist",
 
-    mashSR_checkbox: "mashSR",
-    mashSR_parameter: "mash",
-
     fast_mode_local: "fgo_fastmode",
     class_mode_local: "fgo_classmode",
-    mashSR_local: "fgo_mash",
     NAonly_local: "fgo_naonly",
     
     // Data, Save & Load
@@ -174,7 +168,7 @@ const Config = {
     NAonly_checkbox: "NAonly",
     globalThreshold: 99999,
     
-    webAppVersion: "20240502",
+    webAppVersion: "20250501",
 
     padorus: [
          "umudoru.png"
