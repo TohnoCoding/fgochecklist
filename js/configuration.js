@@ -168,7 +168,7 @@ const Config = {
     NAonly_checkbox: "NAonly",
     globalThreshold: 99999,
     
-    webAppVersion: "20250519",
+    webAppVersion: "20250519v2",
 
     padorus: [
          "umudoru.png"
