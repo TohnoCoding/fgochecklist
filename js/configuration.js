@@ -63,19 +63,19 @@ const Config = {
 
     // Servant Types config
     servant_type_box_class: "member-type",
-    servant_typelist: [
-        { id: 0, show: false, eventonly: false, typeicon: null,
+    servant_typelist: {
+        0: { show: false, eventonly: false, typeicon: null,
             class: null }, // Default
-        { id: 2, show: true, eventonly: false,
+        2: { show: true, eventonly: false,
             typeicon: '<i class="fas fa-lock"></i>',
             class: "member-locked" }, // Storylocked
-        { id: 3, show: true, eventonly: false,
+        3: { show: true, eventonly: false,
             typeicon: '<i class="fas fa-star"></i>',
             class: "member-limited" }, // Limited
-        { id: 4, show: true, eventonly: true,
+        4: { show: true, eventonly: true,
             typeicon: '<i class="fas fa-gift"></i>',
             class: "member-eventonly" } // Welfare
-    ],
+    },
 
     // Confirm strings
     member_uncheck_conf: "Are you sure you want to uncheck this Servant?",
