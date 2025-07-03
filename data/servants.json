@@ -1756,6 +1756,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/LEqnOUd.png"
+            },
+            {
+                "id": "5-62",
+                "name": "Indra",
+                "class": "lancer",
+                "game_id": "442",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/eNtZ5NC.png"
             }
         ]
     },
