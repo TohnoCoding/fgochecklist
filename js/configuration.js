@@ -168,7 +168,7 @@ const Config = {
     NAonly_checkbox: "NAonly",
     globalThreshold: 99999,
     
-    webAppVersion: "20250519v2",
+    webAppVersion: "20250703",
 
     padorus: [
          "umudoru.png"
@@ -223,4 +223,4 @@ const Config = {
     //#endregion
 };
 
-Config.cookieName = `${Config.webAppVersion}_notice`;
+Config.cookieName = `${Config.webAppVersion}_update`;
