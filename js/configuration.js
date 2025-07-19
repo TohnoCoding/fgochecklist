@@ -167,8 +167,6 @@ const Config = {
     NAonly_parameter: "NA",
     NAonly_checkbox: "NAonly",
     globalThreshold: 99999,
-    
-    webAppVersion: "20250703",
 
     padorus: [
          "umudoru.png"
@@ -221,6 +219,8 @@ const Config = {
     padoruStartMonth: 10, padoruStartDay: 28,   //  Between Nov 28...
     padoruEndMonth: 0, padoruEndDay: 3,         //  ...and Jan 3
     //#endregion
+    
+    webAppVersion: "20250719"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;
