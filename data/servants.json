@@ -1766,6 +1766,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/eNtZ5NC.png"
+            },
+            {
+                "id": "5-63",
+                "name": "U-Olga Marie",
+                "class": "beast",
+                "game_id": "444",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Fb3k4GY.png"
             }
         ]
     },
