@@ -1776,6 +1776,36 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Fb3k4GY.png"
+            },
+            {
+                "id": "5-64",
+                "name": "Passionlip",
+                "class": "saber",
+                "game_id": "445",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/aykwbSw.png"
+            },
+            {
+                "id": "5-65",
+                "name": "Ryōgi Shiki",
+                "class": "mooncancer",
+                "game_id": "448",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/sWdQrJT.png"
+            },
+            {
+                "id": "5-66",
+                "name": "Larva/Tiamat",
+                "class": "archer",
+                "game_id": "450",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Usp77y6.png"
             }
         ]
     },
@@ -3566,6 +3596,46 @@
                 "stype": 2,
                 "img": true,
                 "imgpath": "https://i.imgur.com/bIqL6yi.png"
+            },
+            {
+                "id": "4-44",
+                "name": "Kriemhild",
+                "class": "rider",
+                "game_id": "446",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/RtxuK3G.png"
+            },
+            {
+                "id": "4-45",
+                "name": "Huyan Zhuo",
+                "class": "berserker",
+                "game_id": "447",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/zuShflu.png"
+            },
+            {
+                "id": "4-46",
+                "name": "Miyu Edelfelt",
+                "class": "lancer",
+                "game_id": "449",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/cyY5u71.png"
+            },
+            {
+                "id": "4-47",
+                "name": "Jeunesse Crane",
+                "class": "alterego",
+                "game_id": "451",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Jy42eU8.png"
             }
         ]
     },
