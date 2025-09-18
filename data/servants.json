@@ -1806,6 +1806,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Usp77y6.png"
+            },
+            {
+                "id": "5-67",
+                "name": "Nemo/Noah",
+                "class": "archer",
+                "game_id": "452",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/bMQWMaQ.png"
             }
         ]
     },
