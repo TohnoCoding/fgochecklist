@@ -1816,6 +1816,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/bMQWMaQ.png"
+            },
+            {
+                "id": "5-68",
+                "name": "Kawakami Gensai",
+                "class": "assassin",
+                "game_id": "453",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/sviiOZ1.png"
             }
         ]
     },
@@ -3646,6 +3656,26 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Jy42eU8.png"
+            },
+            {
+                "id": "4-48",
+                "name": "Tōdō Heisuke",
+                "class": "avenger",
+                "game_id": "454",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/E4SlEH7.png"
+            },
+            {
+                "id": "4-49",
+                "name": "Harada Sanosuke",
+                "class": "lancer",
+                "game_id": "455",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/A30ydMu.png"
             }
         ]
     },
