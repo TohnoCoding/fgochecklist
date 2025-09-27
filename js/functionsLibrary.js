@@ -667,6 +667,17 @@ function finishLoading(servant_pass_data) {
             $('#loadingModal').modal('hide'); // Close loading modal
         }
     });
+    if(isNAonly()) {
+        $("#hakunoSpoiler0").css("display", "none");
+        $("#hakunoSpoiler1").css("display", "none");
+        $("#hakunoSpoiler2").css("display", "none");
+        $("#habenyanSpoiler").css("display", "inline");
+    } else {
+        $("#hakunoSpoiler0").css("display", "inline");
+        $("#hakunoSpoiler1").css("display", "inline");
+        $("#hakunoSpoiler2").css("display", "inline");
+        $("#habenyanSpoiler").css("display", "none");
+    }
 }
 //#endregion
 
