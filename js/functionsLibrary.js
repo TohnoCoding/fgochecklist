@@ -270,13 +270,8 @@ function updateURLOptionModeOnly() {
             getNAonlyURLstring(), storageKey: Config.NAonly_local }
     ];
     options.forEach(({ key, value, storageKey }) => {
-        if (value) {
-            urlParams.set(key, value.slice(-1));  // Remove '=' from value
-            localStorage[storageKey] = 1;
-        } else {
-            urlParams.delete(key);
-            localStorage[storageKey] = 0;
-        }
+        if (value) { urlParams.set(key, 1); localStorage[storageKey] = 1; }
+        else { urlParams.delete(key); localStorage[storageKey] = 0; }
     });
     const newUrl = `${window.location.protocol}//${window.location.host}` +
         `${window.location.pathname}?${urlParams.toString()}`;
@@ -1025,7 +1020,7 @@ function getClassModeURLstring()
  *                   `{$NAonly_parameter}=1` if it's on.
  */
 function getNAonlyURLstring()
-{ return isNAonly() ? Config.NAonly_parameter + "=1" : ""; }
+{ return isNAonly() ? `${Config.NAonly_parameter}=1` : ""; }
 
 /**
  * Gets the path to an unit portrait image. Loads a default "unknown" image
@@ -1249,9 +1244,11 @@ async function shortenURL() {
     if (Config.compress_input === "")
     { showAlert(Config.share_none_text); return; } // Warn user if no data
     // Gather the full URL for shortening
-    var full_url = window.location.protocol + "//" + window.location.host +
-        window.location.pathname + "?" + Config.compress_input_parameter + "="
-        + Config.compress_input;
+    updateURLOptionModeOnly();
+    const currentParams = new URLSearchParams(location.search);
+    if (!currentParams.has(Config.compress_input_parameter))
+    { updateURL(); }
+    var full_url = `${location.origin}${location.pathname}${location.search}`;
     full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
     /*******************************/
     /*     Shortening services     */

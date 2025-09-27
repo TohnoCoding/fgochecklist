@@ -58,42 +58,34 @@ $(async function() {
         dataAdapter: adpt, data: Config.wishlist_choice_allow });
     Config.wishlist_update = $("#wlUpdate").select2({ theme: "bootstrap",
         dataAdapter: adpt, data: Config.wishlist_choice_allow });
-    var fastmode_input = urlParams.get(Config.fastmode_parameter),
-        classmode_input = urlParams.get(Config.classmode_parameter),
-        NAonly_input = urlParams.get(Config.NAonly_parameter);
+    const fastmode_input  = urlParams.get(Config.fastmode_parameter);
+    const classmode_input = urlParams.get(Config.classmode_parameter);
+    const NAonly_input    = urlParams.get(Config.NAonly_parameter);
     Config.compress_input = urlParams.get(Config.compress_input_parameter);
-    if (Config.classmode_input != null) {   // ClassMode
-        var classmode_enable = (parseInt(classmode_input) > 0);
+    if (classmode_input !== null) {                     // Class Mode
+        const classmode_enable = parseInt(classmode_input, 10) > 0;
         $('#' + Config.classmode_checkbox).prop('checked', classmode_enable);
-    } else {                                // ClassMode
-        if (localStorage[Config.class_mode_local]) {
-            var classmode_enable =
-                (parseInt(localStorage[Config.class_mode_local]) > 0);
-            $('#' + Config.classmode_checkbox)
-                .prop('checked', classmode_enable);
-        }
+    } else if (localStorage[Config.class_mode_local] != null) {
+        const classmode_enable =
+            parseInt(localStorage[Config.class_mode_local], 10) > 0;
+        $('#' + Config.classmode_checkbox).prop('checked', classmode_enable);
     }
-    if (Config.fastmode_input != null) {        // FastMode
-        var fastmode_enable = (parseInt(fastmode_input) > 0);
+    if (fastmode_input != null) {                       // Fast Mode
+        const fastmode_enable = parseInt(fastmode_input, 10) > 0;
         $('#' + Config.fastmode_checkbox).prop('checked', fastmode_enable);
-    } else {                                    // FastMode
-        if (localStorage[Config.fast_mode_local]) {
-            var fastmode_enable =
-                (parseInt(localStorage[Config.fast_mode_local]) > 0);
-            $('#' + Config.fastmode_checkbox)
-                .prop('checked', fastmode_enable);
-        }
+    } else if (localStorage[ Config.fast_mode_local ] != null) {
+        const fastmode_enable =
+            parseInt(localStorage[ Config.fast_mode_local ], 10) > 0;
+        $('#' + Config.fastmode_checkbox).prop('checked', fastmode_enable);
     }
-    if(Config.NAonly_input != null) {           // NA only mode
-        var NAonly_enable = (parseInt(NAonly_input) > 0);
-        $("#" + Config.NAonly_checkbox).prop('checked', Config.NAonly_enable);
-    } else {                                    // NA only mode
-        if(localStorage[Config.NAonly_local]) {
-            var NAonly_enable =
-                (parseInt(localStorage[Config.NAonly_local]) > 0);
-            $("#" + Config.NAonly_checkbox).prop('checked', NAonly_enable);
-        }
+    if (NAonly_input != null) {                         // NA-only
+        const NAonly_enable = parseInt(NAonly_input, 10) > 0;
+        $('#' + Config.NAonly_checkbox).prop('checked', NAonly_enable);
+    } else if (localStorage[ Config.NAonly_local ] != null) {
+        const NAonly_enable = parseInt(localStorage[ Config.NAonly_local ], 10) > 0;
+        $('#' + Config.NAonly_checkbox).prop('checked', NAonly_enable);
     }
+    updateURLOptionModeOnly();
     if (Config.compress_input != null) {        // Load From URL
         Config.encoded_user_input =
             LZString.decompressFromEncodedURIComponent
