@@ -1826,6 +1826,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/sviiOZ1.png"
+            },
+            {
+                "id": "5-66",
+                "name": "Kondō Isami",
+                "class": "saber",
+                "game_id": "456",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Fk54ld6.png"
             }
         ]
     },
