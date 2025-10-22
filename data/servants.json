@@ -1836,6 +1836,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/Fk54ld6.png"
+            },
+            {
+                "id": "5-70",
+                "name": "Elizabeth Báthory",
+                "class": "lancer",
+                "game_id": "457",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/fYdhK2k.png"
             }
         ]
     },
