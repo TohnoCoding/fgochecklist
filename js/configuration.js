@@ -220,7 +220,7 @@ const Config = {
     padoruEndMonth: 0, padoruEndDay: 3,         //  ...and Jan 3
     //#endregion
     
-    webAppVersion: "20251022"
+    webAppVersion: "20251031"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;

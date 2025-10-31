@@ -3696,6 +3696,16 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/A30ydMu.png"
+            },
+            {
+                "id": "4-50",
+                "name": "Elizabeth of the End",
+                "class": "avenger",
+                "game_id": "458",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/j5eugrb.png"
             }
         ]
     },
