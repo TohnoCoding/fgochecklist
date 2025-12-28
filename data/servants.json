@@ -1846,6 +1846,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/fYdhK2k.png"
+            },
+            {
+                "id": "5-71",
+                "name": "Solomon",
+                "class": "lancer",
+                "game_id": "459",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/GIzaxyG.png"
             }
         ]
     },
