@@ -1810,7 +1810,7 @@
             {
                 "id": "5-67",
                 "name": "Nemo/Noah",
-                "class": "archer",
+                "class": "rider",
                 "game_id": "452",
                 "maxcopy": 5,
                 "stype": 3,
@@ -1850,7 +1850,7 @@
             {
                 "id": "5-71",
                 "name": "Solomon",
-                "class": "lancer",
+                "class": "caster",
                 "game_id": "459",
                 "maxcopy": 5,
                 "stype": 4,
