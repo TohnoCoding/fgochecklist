@@ -220,7 +220,10 @@ const Config = {
     padoruEndMonth: 0, padoruEndDay: 3,         //  ...and Jan 3
     //#endregion
     
-    lasagnablacklist: ["5-54", "5-53", "5-52", "5-51", "5-50", "5-49", "5-48", "5-47", "5-46", "5-45", "5-44", "5-43"],
+    lasagnablacklist:   // HACK: For whatever reason Lasengle decided to release
+        ["5-54", "5-53", "5-52", "5-51", // Richard the Lionheart too early, so
+        "5-50", "5-49", "5-48", "5-47",  // when filtering for NA-only, unintended
+        "5-46", "5-45", "5-44", "5-43"], // units were showing up.
 
     webAppVersion: "20251231a"
 };

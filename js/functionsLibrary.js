@@ -401,7 +401,7 @@ function buildUnitDataInUI(units_data) {
         cur_rarity.list.forEach(function(current_servant) {
             if (isNAonly() && current_servant.game_id > Config.globalThreshold)
                 { return; }     // Exit if filtering to NA-only
-            if (Config.lasagnablacklist.includes(current_servant.id)) // HACK
+            if (isNAonly() && Config.lasagnablacklist.includes(current_servant.id)) // HACK
                 { return; }     // Exit if in unreleased blacklist
             // Store unit data globally for other uses
             Config.servants_data_list[current_servant.id] = current_servant;
