@@ -220,7 +220,10 @@ const Config = {
     padoruEndMonth: 0, padoruEndDay: 3,         //  ...and Jan 3
     //#endregion
     
+    lasagnablacklist: ["5-54", "5-53", "5-52", "5-51", "5-50", "5-49", "5-48", "5-47", "5-46", "5-45", "5-44", "5-43"],
+
     webAppVersion: "20251231a"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;
+
