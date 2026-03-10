@@ -225,7 +225,7 @@ const Config = {
         "5-50", "5-49", "5-48", "5-47",  // when filtering for NA-only, unintended
         "5-46", "5-45", "5-44", "5-43"], // units were showing up.
 
-    webAppVersion: "20251231a"
+    webAppVersion: "20260310"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;
