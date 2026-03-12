@@ -1,6 +1,6 @@
 # FGO Servant Checklist v6.0
 
-## https://tohnocoding.github.io/fgochecklist/
+### https://tohnocoding.github.io/fgochecklist/
 
 Since Nechi stopped playing FGO around November/2021, [I've taken it upon myself to continue updating this amazing Servant checklist](https://github.com/Nechigawara/nechi-fgo-checklist/issues/7) with any new Servant releases for both NA and JP, as well as any usability or UX features I deem appropriate to enhance, simplify and increase its ease of use.
 
