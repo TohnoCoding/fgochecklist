@@ -1856,6 +1856,46 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/GIzaxyG.png"
+            },
+            {
+                "id": "5-72",
+                "name": "Lord Logres",
+                "class": "saber",
+                "game_id": "461",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/cNgNxfn.png"
+            },
+            {
+                "id": "5-73",
+                "name": "Hanasaka no Okina",
+                "class": "caster",
+                "game_id": "462",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/dLsyS5M.png"
+            },
+            {
+                "id": "5-74",
+                "name": "Demeter",
+                "class": "Lancer",
+                "game_id": "465",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/2fDepvR.png"
+            },
+            {
+                "id": "5-75",
+                "name": "Jacques de Molay",
+                "class": "saber",
+                "game_id": "466",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/lxrpBLG.png"
             }
         ]
     },
@@ -3716,6 +3756,26 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/j5eugrb.png"
+            },
+            {
+                "id": "4-51",
+                "name": "Hebi Nyōbō",
+                "class": "assassin",
+                "game_id": "463",
+                "maxcopy": 5,
+                "stype": 0,
+                "img": true,
+                "imgpath": "https://i.imgur.com/AkaK5Zh.png"
+            },
+            {
+                "id": "4-52",
+                "name": "Flora",
+                "class": "alterego",
+                "game_id": "464",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Lnz8TK0.png"
             }
         ]
     },
