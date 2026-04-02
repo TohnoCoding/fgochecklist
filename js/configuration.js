@@ -226,7 +226,7 @@ const Config = {
         "4-34", "4-35", "4-36", "4-37", "4-38", "4-39", // units were showing up.
         "4-40", "4-41"],
 
-    webAppVersion: "20260310a"
+    webAppVersion: "20260401"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;
