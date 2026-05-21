@@ -928,7 +928,7 @@ function showConfirmationModal(msg, onConfirm) {
  */
 function showURLShorteningError() {
     var msg = "There has been an error with the URL shortening functionality" +
-        ". Your current data URL couldn'n be shortened.<br><br>More details" +
+        ". Your current data URL couldn't be shortened.<br><br>More details" +
         " can be found in your browser console.";
     var error_dialog = bootbox.dialog({
         message: msg,
