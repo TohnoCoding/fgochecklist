@@ -1896,6 +1896,26 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/lxrpBLG.png"
+            },
+            {
+                "id": "5-76",
+                "name": "Prelati",
+                "class": "caster",
+                "game_id": "467",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/nQs1TkI.png"
+            },
+            {
+                "id": "5-77",
+                "name": "John Lackland",
+                "class": "avenger",
+                "game_id": "469",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/4dmCcS7.png"
             }
         ]
     },
@@ -3772,6 +3792,16 @@
                 "name": "Flora",
                 "class": "alterego",
                 "game_id": "464",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/Lnz8TK0.png"
+            },
+            {
+                "id": "4-56",
+                "name": "Hippolyta",
+                "class": "rider",
+                "game_id": "468",
                 "maxcopy": 5,
                 "stype": 4,
                 "img": true,
