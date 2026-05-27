@@ -1287,8 +1287,48 @@ async function shortenURL() {
                 data: ajaxdata,
                 success: (result) => resolve({ serviceProvider: "Akari-chan",
                     value: result.data.link }),
-                error: (xhr, status, error) => 
+                error: (xhr, status, error) => {
+                    console.error("waa.ai xhr:", xhr);
+                    console.error("waa.ai response:", xhr.responseText);
                     reject(new Error(`Akari-chan error: ${status} - ${error}`))
+                }
+            });
+        });
+    }
+    /**
+     * Shortens the current data URL with lnk.ua shortener.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     *                          shortening the current URL.
+     */
+    function lnkua() {
+        return new Promise((resolve, reject) => {
+            const formData = new FormData();
+            formData.append("link", full_url);
+            $.ajax({
+                url: "https://lnk.ua/api/v1/link/create",
+                method: "POST",
+                dataType: "json",
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer public"
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: (result) => {
+                    if (result && result.result && result.result.lnk) {
+                        resolve({ serviceProvider: "lnk.ua",
+                            value: result.result.lnk });
+                    } else {
+                        reject( new Error("lnk.ua returned an " +
+                            "invalid response structure."));
+                    }
+                },
+                error: (xhr, status, error) => {
+                    console.error("lnk.ua xhr:", xhr);
+                    console.error("lnk.ua response:", xhr.responseText);
+                    reject(new Error(`lnk.ua error: ${status} - ${error}`));
+                }
             });
         });
     }
@@ -1305,8 +1345,11 @@ async function shortenURL() {
                 data: { format: "json", url: full_url },
                 success: (result) => resolve({ serviceProvider: "is.gd",
                     value: result.shorturl }),
-                error: (xhr, status, error) =>
+                error: (xhr, status, error) => {
+                    console.error("is.gd xhr:", xhr);
+                    console.error("is.gd response:", xhr.responseText);
                     reject(new Error(`is.gd error: ${status} - ${error}`))
+                }
             });
         });
     }
@@ -1318,16 +1361,19 @@ async function shortenURL() {
                 data: { format: "json", url: full_url },
                 success: (result) => resolve({ serviceProvider: "v.gd",
                     value: result.shorturl }),
-                error: (xhr, status, error) =>
+                error: (xhr, status, error) => {
+                    console.error("v.gd xhr:", xhr);
+                    console.error("v.gd response:", xhr.responseText);
                     reject(new Error(`v.gd error: ${status} - ${error}`))
+                }
             });
         });
     }
-    const shortProviders = [isgd(), waaai(), vgd()];
-    //const shortProviders = [()];      // used for testing new providers
+    const shortProviders = [isgd(), waaai(), vgd(), lnkua()];
+    //const shortProviders = [(lnkua())];      // used for testing new providers
     try {
         const result = await Promise.any(shortProviders);
-        alert(result);
+        console.log(result);
         if (!result || !result.value) { throw new
             Error("All shortening services failed."); }
         return result.value;
