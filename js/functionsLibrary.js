@@ -1262,7 +1262,8 @@ async function shortenURL() {
     if (!currentParams.has(Config.compress_input_parameter))
     { updateURL(); }
     var full_url = `${location.origin}${location.pathname}${location.search}`;
-    full_url = full_url.replace(/localhost|127\.0\.0\.1/g, "fgotest.tld");
+    full_url = full_url.replace(/(localhost|127\.0\.0\.1):[0-9]+/g, "fgotest.tld");
+    console.log(full_url);
     /*******************************/
     /*     Shortening services     */
     /*******************************/
@@ -1277,7 +1278,7 @@ async function shortenURL() {
             $.ajax({
                 headers: {
                     Authorization:
-                        "API-Key 394562B4722f313b7392d97f7ea68f1cf9Df958b"
+                        "API-Key czGSk9v0J7hw6PpdhTxgN9Tp"
                 },
                 url: "https://api.waa.ai/v2/links",
                 dataType: "json",
@@ -1309,37 +1310,34 @@ async function shortenURL() {
             });
         });
     }
-    /**
-     * Shortens the current data URL with owo.vc shortener.
-     * @returns {Promise<void>} A promise that resolves upon successfully
-     *                          shortening the current URL.
-     */
-    function owo() {
+    function vgd() {
         return new Promise((resolve, reject) => {
-            const ajaxdata = JSON.stringify({ link: full_url,
-                generator: "owo", metadata: "IGNORE" });
             $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                url: "https://owo.vc/api/v2/link",
-                method: "POST",
+                url: "https://v.gd/create.php",
                 dataType: "json",
-                data: ajaxdata,
-                success: (result) =>
-                    resolve({ serviceProvider: "owo", value: result.id }),
+                data: { format: "json", url: full_url },
+                success: (result) => resolve({ serviceProvider: "v.gd",
+                    value: result.shorturl }),
                 error: (xhr, status, error) =>
-                    reject(new Error(`owo error: ${status} - ${error}`))
+                    reject(new Error(`v.gd error: ${status} - ${error}`))
             });
         });
     }
-    const shortProviders = [isgd(), waaai(), owo()];
+    const shortProviders = [isgd(), waaai(), vgd()];
     //const shortProviders = [()];      // used for testing new providers
     try {
         const result = await Promise.any(shortProviders);
+        alert(result);
         if (!result || !result.value) { throw new
             Error("All shortening services failed."); }
         return result.value;
     } catch (err) {
-        console.error('Shortening failed:', err);
+        if (err instanceof AggregateError) {
+            console.error('All shortening services failed:');
+            console.error(err.message);
+            console.error(err.errors);
+        }
+        //console.error('Shortening failed:', err);
         return undefined;
     }
 }
