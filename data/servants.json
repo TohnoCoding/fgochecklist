@@ -1916,6 +1916,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/4dmCcS7.png"
+            },
+            {
+                "id": "5-77",
+                "name": "Urðr",
+                "class": "archer",
+                "game_id": "470",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ZhfkToE.png"
             }
         ]
     },
