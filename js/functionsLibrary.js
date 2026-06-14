@@ -1369,7 +1369,41 @@ async function shortenURL() {
             });
         });
     }
-    const shortProviders = [isgd(), waaai(), vgd(), lnkua()];
+    /**
+     * Shortens the current data URL with CleanURI.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     *                          shortening the current URL.
+     */
+    function cleanuri() {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://cleanuri.com/api/v1/shorten",
+                method: "POST",
+                dataType: "json",
+                data: { url: full_url },
+                success: (result) => {
+                    if (result && result.result_url) {
+                        resolve({
+                            serviceProvider: "CleanURI",
+                            value: result.result_url
+                        });
+                    } else {
+                        reject(new Error(
+                            "CleanURI returned an invalid response structure."
+                        ));
+                    }
+                },
+                error: (xhr, status, error) => {
+                    console.error("CleanURI xhr:", xhr);
+                    console.error("CleanURI response:", xhr.responseText);
+                    reject(
+                        new Error(`CleanURI error: ${status} - ${error}`)
+                    );
+                }
+            });
+        });
+    }
+    const shortProviders = [isgd(), waaai(), vgd(), lnkua(), cleanuri()];
     //const shortProviders = [(lnkua())];      // used for testing new providers
     try {
         const result = await Promise.any(shortProviders);
