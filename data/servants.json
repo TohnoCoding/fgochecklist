@@ -1926,6 +1926,16 @@
                 "stype": 3,
                 "img": true,
                 "imgpath": "https://i.imgur.com/ZhfkToE.png"
+            },
+            {
+                "id": "5-78",
+                "name": "Ascalaphus",
+                "class": "alterego",
+                "game_id": "471",
+                "maxcopy": 5,
+                "stype": 3,
+                "img": true,
+                "imgpath": "https://i.imgur.com/hzYEnts.png"
             }
         ]
     },
@@ -3816,6 +3826,26 @@
                 "stype": 4,
                 "img": true,
                 "imgpath": "https://i.imgur.com/rGcHcnh.png"
+            },
+            {
+                "id": "4-57",
+                "name": "Gray Lily",
+                "class": "saber",
+                "game_id": "472",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/ppLmJQC.png"
+            },
+            {
+                "id": "4-58",
+                "name": "Gray Lily",
+                "class": "lancer",
+                "game_id": "473",
+                "maxcopy": 5,
+                "stype": 4,
+                "img": true,
+                "imgpath": "https://i.imgur.com/iddETOe.png"
             }
         ]
     },
