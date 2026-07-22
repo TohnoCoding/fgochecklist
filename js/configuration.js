@@ -217,7 +217,7 @@ const Config = {
         //,""
     ],
     padoruStartMonth: 10, padoruStartDay: 28,   //  Between Nov 28...
-    padoruEndMonth: 0, padoruEndDay: 3,         //  ...and Jan 3
+    padoruEndMonth: 0, padoruEndDay: 3,        //   ...and Jan 3
     //#endregion
     
     lasagnablacklist:   // HACK: For whatever reason Lasengle decided to release
@@ -226,7 +226,7 @@ const Config = {
         "4-37", "4-38", "4-39",        // units were showing up.
         "4-40", "4-41"],
 
-    webAppVersion: "20260718b"
+    webAppVersion: "20260722"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;

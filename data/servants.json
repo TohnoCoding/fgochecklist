@@ -1880,7 +1880,7 @@
             {
                 "id": "5-74",
                 "name": "Demeter",
-                "class": "Lancer",
+                "class": "lancer",
                 "game_id": "465",
                 "maxcopy": 5,
                 "stype": 3,
