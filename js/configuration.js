@@ -222,8 +222,8 @@ const Config = {
     
     lasagnablacklist:   // HACK: For whatever reason Lasengle decided to release
         ["5-54", "5-53", "5-52", "5-51", // Richard the Lionheart too early, so
-        "5-50",                         // when filtering for NA-only, unintended
-        "4-37", "4-38", "4-39",        // units were showing up.
+                                 // when filtering for NA-only, unintended
+        "4-39", "4-38",       // units were showing up.
         "4-40", "4-41"],
 
     webAppVersion: "20260722"
