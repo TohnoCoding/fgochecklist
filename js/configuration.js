@@ -221,11 +221,10 @@ const Config = {
     //#endregion
     
     lasagnablacklist:   // HACK: For whatever reason Lasengle decided to release
-        ["5-54", "5-53", "5-52", // Richard the Lionheart too early, so
-                         // when filtering for NA-only, unintended
-        "4-40", "4-41"],               // units were showing up.
+        ["5-54", "5-53", "5-52", // Richard the Lionheart too early, so when
+        "4-40", "4-41"], // filtering for NA-only, unintended units were showing up.
 
-    webAppVersion: "20260731"
+    webAppVersion: "20260927"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;
