@@ -1403,8 +1403,42 @@ async function shortenURL() {
             });
         });
     }
-    const shortProviders = [isgd(), waaai(), vgd(), lnkua(), cleanuri()];
-    //const shortProviders = [(lnkua())];      // used for testing new providers
+    /**
+     * Shortens the current data URL with 1pt.co.
+     * @returns {Promise<void>} A promise that resolves upon successfully
+     *                          shortening the current URL.
+     */
+    function onept() {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://csclub.uwaterloo.ca/~phthakka/1pt-express/addURL",
+                method: "POST",
+                dataType: "json",
+                data: { long: full_url },
+                success: (result) => {
+                    if (result && result.short) {
+                        resolve({
+                            serviceProvider: "1pt.co",
+                            value: `https://1pt.co/${result.short}`
+                        });
+                    } else {
+                        reject(new Error(
+                            "1pt.co returned an invalid response structure."
+                        ));
+                    }
+                },
+                error: (xhr, status, error) => {
+                    console.error("1pt.co xhr:", xhr);
+                    console.error("1pt.co response:", xhr.responseText);
+                    reject(
+                        new Error(`1pt.co error: ${status} - ${error}`)
+                    );
+                }
+            });
+        });
+    }
+    const shortProviders = [isgd(), waaai(), vgd(), lnkua(), cleanuri(), onept()];
+    //const shortProviders = [onept()];      // used for testing new providers
     try {
         const result = await Promise.any(shortProviders);
         console.log(result);
