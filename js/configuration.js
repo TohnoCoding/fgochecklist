@@ -224,7 +224,7 @@ const Config = {
         ["5-54", "5-53", "5-52", // Richard the Lionheart too early, so when
         "4-40", "4-41"], // filtering for NA-only, unintended units were showing up.
 
-    webAppVersion: "20261008"
+    webAppVersion: "20261010"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;
