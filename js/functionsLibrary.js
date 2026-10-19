@@ -1295,7 +1295,6 @@ async function shortenURL() {
             });
         });
     }
-    
     /**
      * Shortens the current data URL with the FGO Shortlist API.
      * @returns {Promise<object>} The provider name and shortened URL.
@@ -1304,7 +1303,6 @@ async function shortenURL() {
         return new Promise((resolve, reject) => {
             const workerUrl =
                 "https://fgolist.fgolist.workers.dev";
-            
             $.ajax({
                 url: `${workerUrl}/api/shorten`,
                 method: "POST",
@@ -1337,7 +1335,6 @@ async function shortenURL() {
             });
         });
     }
-
     /**
      * Shortens the current data URL with lnk.ua shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
