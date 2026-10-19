@@ -1295,6 +1295,49 @@ async function shortenURL() {
             });
         });
     }
+    
+    /**
+     * Shortens the current data URL with the FGO Shortlist API.
+     * @returns {Promise<object>} The provider name and shortened URL.
+     */
+    function fgoshortlist() {
+        return new Promise((resolve, reject) => {
+            const workerUrl =
+                "https://fgolist-production.fgolist.workers.dev";
+            
+            $.ajax({
+                url: `${workerUrl}/api/shorten`,
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                origin: "https://tohnocoding.github.io",
+                data: JSON.stringify({ long: full_url }),
+                success: (result) => {
+                    if (result && result.short) {
+                        resolve({
+                            serviceProvider: "FGO Shortlist",
+                            value: `${workerUrl}/${result.short}`
+                        });
+                    } else {
+                        reject(new Error(
+                            "FGO Shortlist returned an invalid response."
+                        ));
+                    }
+                },
+                error: (xhr, status, error) => {
+                    console.error("FGO Shortlist xhr:", xhr);
+                    console.error(
+                        "FGO Shortlist response:",
+                        xhr.responseText
+                    );
+                    reject(new Error(
+                        `FGO Shortlist error: ${status} - ${error}`
+                    ));
+                }
+            });
+        });
+    }
+
     /**
      * Shortens the current data URL with lnk.ua shortener.
      * @returns {Promise<void>} A promise that resolves upon successfully
@@ -1437,8 +1480,8 @@ async function shortenURL() {
             });
         });
     }
-    const shortProviders = [isgd(), waaai(), vgd(), lnkua(), cleanuri(), onept()];
-    //const shortProviders = [onept()];      // used for testing new providers
+    //const shortProviders = [isgd(), waaai(), vgd(), lnkua(), cleanuri(), onept(), fgoshortlist()];
+    const shortProviders = [fgoshortlist()];      // used for testing new providers
     try {
         const result = await Promise.any(shortProviders);
         console.log(result);
