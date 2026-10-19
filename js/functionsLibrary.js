@@ -1303,7 +1303,7 @@ async function shortenURL() {
     function fgoshortlist() {
         return new Promise((resolve, reject) => {
             const workerUrl =
-                "https://fgolist-production.fgolist.workers.dev";
+                "https://fgolist.fgolist.workers.dev";
             
             $.ajax({
                 url: `${workerUrl}/api/shorten`,
