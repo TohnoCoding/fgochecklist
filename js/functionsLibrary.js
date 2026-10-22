@@ -1477,8 +1477,8 @@ async function shortenURL() {
             });
         });
     }
-    const shortProviders = [isgd(), waaai(), vgd(), lnkua(), cleanuri(), onept(), fgoshortlist()];
-    //const shortProviders = [fgoshortlist()];      // used for testing new providers
+    //const shortProviders = [isgd(), waaai(), vgd(), lnkua(), cleanuri(), onept(), fgoshortlist()];
+    const shortProviders = [fgoshortlist()];      // used for testing new providers
     try {
         const result = await Promise.any(shortProviders);
         console.log(result);
