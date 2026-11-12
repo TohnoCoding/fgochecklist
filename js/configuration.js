@@ -222,7 +222,9 @@ const Config = {
     
     // HACK: For whatever reason Lasengle decided to release
     // Richard the Lionheart too early, so when filtering for NA-only,
-    // unintended units were showing up.
+    // unintended units were showing up. This blacklist hack should also
+    // work if any new units are released outside of their original
+    // release schedule in Japan.
     lasagnablacklist: [ 
          "5-54"     // Space Phantasmoon V
         ,"5-53"     // Louhi
