@@ -220,9 +220,16 @@ const Config = {
     padoruEndMonth: 0, padoruEndDay: 3,        //   ...and Jan 3
     //#endregion
     
-    lasagnablacklist:   // HACK: For whatever reason Lasengle decided to release
-        ["5-54", "5-53", "5-52", // Richard the Lionheart too early, so when
-        "4-40", "4-41"], // filtering for NA-only, unintended units were showing up.
+    // HACK: For whatever reason Lasengle decided to release
+    // Richard the Lionheart too early, so when filtering for NA-only,
+    // unintended units were showing up.
+    lasagnablacklist: [ 
+         "5-54"     // Space Phantasmoon V
+        ,"5-53"     // Louhi
+        ,"5-52"     // Tutankhamun
+        ,"4-40"     // Van Gogh (Miner)
+        ,"4-41"     // Abigail Williams (Santa)
+    ], 
 
     webAppVersion: "20261101.1"
 };

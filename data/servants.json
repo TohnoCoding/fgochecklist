@@ -744,7 +744,7 @@
       },
       {
         "id": "5-0B",
-        "name": "Beni-enma",
+        "name": "Beni-Enma",
         "class": "saber",
         "game_id": "234",
         "maxcopy": 5,
@@ -1951,6 +1951,76 @@
         "stype": 3,
         "img": true,
         "imgpath": "./img/servants/471.png"
+      },
+      {
+        "id": "5-7A",
+        "name": "Hassan-i-Sabbah (Azrael)",
+        "class": "assassin",
+        "game_id": "474",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/474.png"
+      },
+      {
+        "id": "5-7B",
+        "name": "Beni-Enma",
+        "class": "berserker",
+        "game_id": "475",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/475.png"
+      },
+      {
+        "id": "5-7C",
+        "name": "Kingprotea",
+        "class": "mooncancer",
+        "game_id": "476",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/476.png"
+      },
+      {
+        "id": "5-7D",
+        "name": "Lilith",
+        "class": "rider",
+        "game_id": "478",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/478.png"
+      },
+      {
+        "id": "5-7E",
+        "name": "Kingprotea Alter",
+        "class": "avenger",
+        "game_id": "479",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/479.png"
+      },
+      {
+        "id": "5-7F",
+        "name": "Daedalus",
+        "class": "berserker",
+        "game_id": "482",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/482.png"
+      },
+      {
+        "id": "5-7G",
+        "name": "Tamamo Aria",
+        "class": "rider",
+        "game_id": "483",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/483.png"
       }
     ]
   },
@@ -3875,6 +3945,56 @@
         "stype": 4,
         "img": true,
         "imgpath": "./img/servants/473.png"
+      },
+      {
+        "id": "4-59",
+        "name": "Biscione",
+        "class": "caster",
+        "game_id": "477",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/477.png"
+      },
+      {
+        "id": "4-5A",
+        "name": "Ono no Komachi",
+        "class": "archer",
+        "game_id": "480",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/480.png"
+      },
+      {
+        "id": "4-5B",
+        "name": "Habetrot",
+        "class": "pretender",
+        "game_id": "481",
+        "maxcopy": 5,
+        "stype": 4,
+        "img": true,
+        "imgpath": "./img/servants/481.png"
+      },
+      {
+        "id": "4-5C",
+        "name": "Saika Magoichi",
+        "class": "rider",
+        "game_id": "485",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/485.png"
+      },
+      {
+        "id": "4-5D",
+        "name": "Matsunaga Hisahide",
+        "class": "berserker",
+        "game_id": "486",
+        "maxcopy": 5,
+        "stype": 4,
+        "img": true,
+        "imgpath": "./img/servants/486.png"
       }
     ]
   },
