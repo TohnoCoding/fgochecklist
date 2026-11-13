@@ -697,7 +697,7 @@ function updateUnitDataInFastMode(id, val, s_element) {
     Config.user_data[id] = current_user_data;
     updateBadgeInUI(id, current_user_data.np, s_element); // Owned copies
     updateBadgeInUI(id, current_user_data.wl, s_element, true); // WL copies
-    $(s_element).toggleClass( Config.member_owned_CSSclass, 
+    $(s_element).toggleClass(Config.member_owned_CSSclass, 
         current_user_data.np > 0); // Toggle owned class if marking owned
     $(s_element).toggleClass(Config.member_wishlist_CSSclass,
         current_user_data.wl > 0); // Toggle WL class if marking wishlisted
