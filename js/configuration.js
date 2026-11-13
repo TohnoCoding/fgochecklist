@@ -228,12 +228,10 @@ const Config = {
     lasagnablacklist: [ 
          "5-54"     // Space Phantasmoon V
         ,"5-53"     // Louhi
-        ,"5-52"     // Tutankhamun
-        ,"4-40"     // Van Gogh (Miner)
         ,"4-41"     // Abigail Williams (Santa)
     ], 
 
-    webAppVersion: "20261112"
+    webAppVersion: "20261113"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;
