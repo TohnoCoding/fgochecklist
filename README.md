@@ -1,4 +1,4 @@
-# FGO Servant Checklist v6.0
+# FGO Servant Checklist v6.1
 
 ### https://tohnocoding.github.io/fgochecklist/
 
