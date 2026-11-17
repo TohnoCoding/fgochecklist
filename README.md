@@ -1,4 +1,4 @@
-# FGO Servant Checklist v6.0
+# FGO Servant Checklist v6.1
 
 ### https://tohnocoding.github.io/fgochecklist/
 
@@ -20,10 +20,7 @@ Libraries used:
 * lz-string
 
 External sevices used:
-* imgur (image hosting)
-* is.gd (URL shortening)
-* waa.ai (URL shortening)
-* owo.vc (URL shortening)
+* Cloudflare Workers infrastructure (URL shortening)
 * FileSaver.js (file generation, saving and loading)
 
 What to do:
