@@ -231,7 +231,7 @@ const Config = {
         ,"4-41"     // Abigail Williams (Santa)
     ], 
 
-    webAppVersion: "20261117"
+    webAppVersion: "20261119"
 };
 
 Config.cookieName = `${Config.webAppVersion}_update`;

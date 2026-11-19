@@ -2024,6 +2024,16 @@
       },
       {
         "id": "5-7H",
+        "name": "Himiko & Iyo",
+        "class": "pretender",
+        "game_id": "484",
+        "maxcopy": 5,
+        "stype": 3,
+        "img": true,
+        "imgpath": "./img/servants/484.png"
+      },
+      {
+        "id": "5-7H",
         "name": "Dynamite Rikyū",
         "class": "foreigner",
         "game_id": "487",
